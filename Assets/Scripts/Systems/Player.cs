@@ -2,21 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player
+public class Player : MonoBehaviour
 {
     #region Private Properties
     /// <summary>
-    /// Private version of <see cref="Influence"/>
+    /// Private counterpart to <see cref="Influence"/>
     /// </summary>
     int influence = 0;
 
     /// <summary>
-    /// Private version of <see cref="Abilities"/>
-    /// </summary>
-    List<RoleAbility> abilities;
-
-    /// <summary>
-    /// Private version of <see cref="Team"/>
+    /// Private counterpart to <see cref="Team"/>
     /// </summary>
     Team team = Team.Innocent;
     #endregion
@@ -38,21 +33,6 @@ public class Player
     }
 
     /// <summary>
-    /// The role abilities the player has
-    /// </summary>
-    public List<RoleAbility> Abilities
-    {
-        get
-        {
-            return abilities;
-        }
-        set
-        {
-            abilities = Abilities;
-        }
-    }
-
-    /// <summary>
     /// The influence the player has
     /// </summary>
     public int Influence
@@ -68,11 +48,6 @@ public class Player
     }
 
     #endregion
-
-    public Player()
-    {
-        abilities = new List<RoleAbility>();
-    }
 }
 
 /// <summary>

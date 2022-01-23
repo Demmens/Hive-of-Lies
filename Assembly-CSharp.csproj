@@ -55,8 +55,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Systems\Role\RoleAbility.cs" />
     <Compile Include="Assets\Scripts\Systems\Role\RoleData.cs" />
-    <Compile Include="Assets\Scripts\Systems\Player.cs" />
+    <Compile Include="Assets\Scripts\Systems\GameStructure\Setup.cs" />
     <Compile Include="Assets\Scripts\Systems\Role\RoleAbilityData.cs" />
+    <Compile Include="Assets\Scripts\Resources\Abilities\Dictator\DictatorAbility.cs" />
+    <Compile Include="Assets\Scripts\Systems\Player.cs" />
+    <Compile Include="Assets\Scripts\Systems\GameEvents\EventSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

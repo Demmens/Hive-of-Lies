@@ -18,4 +18,4 @@ MonoBehaviour:
   startingInfluence: 10
   team: 1
   playersRequired: 5
-  ability: {fileID: 11400000, guid: f4b9a521c49b7b34183fd02cef378478, type: 2}
+  ability: {fileID: 899694251160386601, guid: 15aa3f0230c2b3242b8d28e4d47bd514, type: 3}

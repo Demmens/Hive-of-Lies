@@ -2,30 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Ability", menuName = "Roles/Create new ability")]
-public class RoleAbilityData<T> : ScriptableObject where T : RoleAbility
+public class RoleAbilityData : MonoBehaviour
 {
     #region Private Properties
     /// <summary>
-    /// Private version of <see cref="Name"/>
+    /// Private counterpart to cref="Name"/>
     /// </summary>
     [SerializeField] new string name;
 
     /// <summary>
-    /// Private version of <see cref="Description"/>
+    /// Private counterpart to <see cref="Description"/>
     /// </summary>
     [TextArea]
     [SerializeField] string description;
 
     /// <summary>
-    /// Private version of <see cref="CanGiveTwoBees"/>
+    /// Private counterpart to <see cref="CanGiveTwoBees"/>
     /// </summary>
-    [SerializeField] bool canGiveTwoBees;
+    [SerializeField] bool canGiveTwoBees = true;
 
-    /// <summary>
-    /// Private version of <see cref="Ability"/>
-    /// </summary>
-    [SerializeReference] T ability;
     #endregion
 
     #region Public Properties
@@ -59,21 +54,6 @@ public class RoleAbilityData<T> : ScriptableObject where T : RoleAbility
         get
         {
             return canGiveTwoBees;
-        }
-    }
-
-    /// <summary>
-    /// The script controlling the effect of the ability
-    /// </summary>
-    public RoleAbility Ability
-    {
-        get
-        {
-            return ability;
-        }
-        set
-        {
-            ability = Ability;
         }
     }
     #endregion

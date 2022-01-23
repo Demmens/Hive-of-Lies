@@ -5,35 +5,60 @@ using UnityEngine;
 /// <summary>
 /// A powerful ability given to players, typically based on their role
 /// </summary>
-public abstract class RoleAbility
+public class RoleAbility : MonoBehaviour
 {
 
     #region Private Properties
+    /// <summary>
+    /// Private counterpart to <see cref="Enabled"/>
+    /// </summary>
+    bool active = true;
 
     /// <summary>
-    /// Private version of <see cref="Enabled"/>
+    /// Private counterpart to <see cref="Owner"/>
     /// </summary>
-    bool enabled = true;
+    Player owner;
 
+    /// <summary>
+    /// Reference to the event system
+    /// </summary>
+    protected EventSystem events;
     #endregion
 
     #region Public Properties
-
     /// <summary>
     /// Whether this ability should have an effect
     /// </summary>
-    public bool Enabled
+    public bool Active
     {
         get
         {
-            return enabled;
+            return active;
         }
         set
         {
-            enabled = Enabled;
+            active = Active;
         }
     }
 
+    /// <summary>
+    /// The player that owns this ability
+    /// </summary>
+    public Player Owner
+    {
+        get
+        {
+            return owner;
+        }
+        set
+        {
+            owner = Owner;
+        }
+    }
     #endregion
 
+    private void Start()
+    {
+        events = FindObjectOfType<EventSystem>();
+    }
 }

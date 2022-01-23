@@ -10,40 +10,40 @@ public class RoleData : ScriptableObject
 {
     #region Private Properties
     /// <summary>
-    /// Private version of <see cref="Name"/>
+    /// Private counterpart to <see cref="Name"/>
     /// </summary>
     [SerializeField] new string name;
 
     /// <summary>
-    /// Private version of <see cref="Description"/>
+    /// Private counterpart to <see cref="Description"/>
     /// </summary>
     [TextArea]
     [SerializeField] string description;
 
     /// <summary>
-    /// Private version of <see cref="Sprite"/>
+    /// Private counterpart to <see cref="Sprite"/>
     /// </summary>
     [SerializeField] Sprite sprite;
 
     /// <summary>
-    /// Private version of <see cref="StartingInfluence"/>
+    /// Private counterpart to <see cref="StartingInfluence"/>
     /// </summary>
     [SerializeField] int startingInfluence;
 
     /// <summary>
-    /// Private version of <see cref="Team"/>
+    /// Private counterpart to <see cref="Team"/>
     /// </summary>
     [SerializeField] Team team;
 
     /// <summary>
-    /// Private version of <see cref="PlayersRequired"/>
+    /// Private counterpart to <see cref="PlayersRequired"/>
     /// </summary>
     [SerializeField] int playersRequired;
 
     /// <summary>
-    /// Private version of <see cref="Ability"/>
+    /// Prefab containing both RoleAbilityData and RoleAbility scripts
     /// </summary>
-    [SerializeField] RoleAbilityData ability;
+    [SerializeField] GameObject ability;
     #endregion
 
     #region Public Properties
@@ -115,13 +115,24 @@ public class RoleData : ScriptableObject
     }
 
     /// <summary>
-    /// The ability the role starts with
+    /// The data for the roles ability
     /// </summary>
-    public RoleAbilityData Ability
+    public RoleAbilityData AbilityData
     {
         get
         {
-            return ability;
+            return ability.GetComponent<RoleAbilityData>();
+        }
+    }
+
+    /// <summary>
+    /// The logic for the roles ability
+    /// </summary>
+    public RoleAbility Ability
+    {
+        get
+        {
+            return ability.GetComponent<RoleAbility>();
         }
     }
 
