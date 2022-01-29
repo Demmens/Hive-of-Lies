@@ -59,7 +59,12 @@
     <Compile Include="Assets\Scripts\Systems\Role\RoleAbilityData.cs" />
     <Compile Include="Assets\Scripts\Resources\Abilities\Dictator\DictatorAbility.cs" />
     <Compile Include="Assets\Scripts\Systems\Player.cs" />
+    <Compile Include="Assets\Scripts\FunctionLibrary\Randomness.cs" />
     <Compile Include="Assets\Scripts\Systems\GameEvents\EventSystem.cs" />
+    <Compile Include="Assets\Scripts\Systems\GameStructure\DecideMission.cs" />
+    <Compile Include="Assets\Scripts\Systems\Mission\MissionData.cs" />
+    <Compile Include="Assets\Scripts\Systems\Mission\MissionEffect.cs" />
+    <Compile Include="Assets\Scripts\Systems\Mission\MissionList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
