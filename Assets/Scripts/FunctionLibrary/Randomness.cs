@@ -62,6 +62,28 @@ public static class Randomness
     }
 
     /// <summary>
+    /// Returns a random key value pair from the dictionary
+    /// </summary>
+    /// <typeparam name="T">Key</typeparam>
+    /// <typeparam name="U">Value</typeparam>
+    /// <param name="dict">Dictionary</param>
+    /// <returns></returns>
+    public static KeyValuePair<T,U> GetRandom<T,U>(this Dictionary<T,U> dict)
+    {
+        int index = dict.Count;
+        foreach (KeyValuePair<T,U> item in dict)
+        {
+            if (Random.Range(1, index) == index)
+            {
+                return item;
+            }
+            index--;
+        }
+
+        return new KeyValuePair<T,U>(default,default);
+    }
+
+    /// <summary>
     /// Returns a random item from the list given specific weightings
     /// </summary>
     /// <typeparam name="T"></typeparam>

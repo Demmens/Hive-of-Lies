@@ -52,9 +52,24 @@ public class MissionList : ScriptableObject
 public struct MissionListEntry
 {
     /// <summary>
+    /// Private counterpart of <see cref="Missions"/>
+    /// </summary>
+    [SerializeField] List<MissionListEntryEntry> missions;
+
+    /// <summary>
     /// Each entry in the mission list is an array of missions that can show up at that position
     /// </summary>
-    [SerializeField] List<MissionListEntryEntry> Missions;
+    public List<MissionListEntryEntry> Missions
+    {
+        get
+        {
+            return missions;
+        }
+        set
+        {
+            missions = Missions;
+        }
+    }
 }
 
 /// <summary>
@@ -64,11 +79,42 @@ public struct MissionListEntry
 public struct MissionListEntryEntry
 {
     /// <summary>
+    /// Private counterpart of <see cref="Mission"/>
+    /// </summary>
+    [SerializeField] MissionData mission;
+
+    /// <summary>
+    /// Private counterpart of <see cref="Weight"/>
+    /// </summary>
+    [SerializeField] float weight;
+
+    /// <summary>
     /// The mission
     /// </summary>
-    [SerializeField] MissionData Mission;
+    public MissionData Mission
+    {
+        get
+        {
+            return mission;
+        }
+        set
+        {
+            mission = Mission;
+        }
+    }
+
     /// <summary>
-    /// How likely that mission is to show up
+    /// How likely the mission is to show up
     /// </summary>
-    [SerializeField] float Weighting;
+    public float Weight
+    {
+        get
+        {
+            return weight;
+        }
+        set
+        {
+            weight = Weight;
+        }
+    }
 }

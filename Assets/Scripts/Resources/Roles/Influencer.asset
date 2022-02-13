@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
+  m_Name: Influencer
+  m_EditorClassIdentifier: 
+  name: Influencer
+  description: 'Extra votes cost you half as much favour.
+
+
+    Extra rerolls cost
+    you twice as much favour.'
+  sprite: {fileID: 0}
+  startingFavour: 15
+  team: 0
+  playersRequired: 0
+  ability: {fileID: 8587719178297419551, guid: 2a17acd1b5661b148a5127e265bc79bf, type: 3}

@@ -8,7 +8,7 @@ using UnityEngine;
 public class RoleAbility : MonoBehaviour
 {
 
-    #region Private Properties
+    #region Fields
     /// <summary>
     /// Private counterpart to <see cref="Enabled"/>
     /// </summary>
@@ -18,14 +18,9 @@ public class RoleAbility : MonoBehaviour
     /// Private counterpart to <see cref="Owner"/>
     /// </summary>
     Player owner;
-
-    /// <summary>
-    /// Reference to the event system
-    /// </summary>
-    protected EventSystem events;
     #endregion
 
-    #region Public Properties
+    #region Properties
     /// <summary>
     /// Whether this ability should have an effect
     /// </summary>
@@ -56,9 +51,4 @@ public class RoleAbility : MonoBehaviour
         }
     }
     #endregion
-
-    private void Start()
-    {
-        events = FindObjectOfType<EventSystem>();
-    }
 }

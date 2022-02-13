@@ -6,14 +6,24 @@ public class Player : MonoBehaviour
 {
     #region Private Properties
     /// <summary>
-    /// Private counterpart to <see cref="Influence"/>
+    /// Private counterpart to <see cref="Favour"/>
     /// </summary>
-    int influence = 0;
+    int favour = 0;
 
     /// <summary>
     /// Private counterpart to <see cref="Team"/>
     /// </summary>
-    Team team = Team.Innocent;
+    Team team = Team.Bee;
+
+    /// <summary>
+    /// Private counterpart to <see cref="ID"/>
+    /// </summary>
+    int id;
+
+    /// <summary>
+    /// Private counterpart to <see cref="DisplayName"/>
+    /// </summary>
+    string displayName;
     #endregion
 
     #region Public Properties
@@ -28,25 +38,54 @@ public class Player : MonoBehaviour
         }
         set
         {
-            team = Team;
+            team = value;
         }
     }
 
     /// <summary>
-    /// The influence the player has
+    /// The favour the player has
     /// </summary>
-    public int Influence
+    public int Favour
     {
         get
         {
-            return influence;
+            return favour;
         }
         set
         {
-            influence = Influence;
+            favour = value;
         }
     }
 
+    /// <summary>
+    /// The unique ID of the player
+    /// </summary>
+    public int ID
+    {
+        get
+        {
+            return id;
+        }
+        set
+        {
+            id = value;
+        }
+    }
+
+    /// <summary>
+    /// The display name of the player
+    /// </summary>
+    public string DisplayName
+    {
+        get
+        {
+            return displayName;
+        }
+        set
+        {
+            displayName = value;
+        }
+    }
     #endregion
 }
 
@@ -55,6 +94,6 @@ public class Player : MonoBehaviour
 /// </summary>
 public enum Team
 {
-    Innocent,
-    Traitor
+    Bee,
+    Wasp
 }

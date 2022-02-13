@@ -5,29 +5,52 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MissionData", menuName = "Missions/Create mission")]
 public class MissionData : ScriptableObject
 {
-    #region Private Properties
+    #region Fields
     /// <summary>
     /// Private counterpart to <see cref="Name"/>
     /// </summary>
     [SerializeField] new string name;
 
     /// <summary>
-    /// Private counterpart to <see cref="InfluenceCost"/>
+    /// Private counterpart to <see cref="Description"/>
+    /// </summary>
+    [TextArea]
+    [SerializeField] string description;
+
+    /// <summary>
+    /// Private counterpart to <see cref="FavourCost"/>
     /// </summary>
     [SerializeField] int influenceCost;
 
     /// <summary>
     /// Private counterpart to <see cref="SuccessEffect"/>
     /// </summary>
-    [SerializeField] MissionEffect successEffect;
+    [SerializeField] List<MissionEffect> successEffects;
+
+    /// <summary>
+    /// Private counterpart to <see cref="SuccessFlavour"/>
+    /// </summary>
+    [TextArea]
+    [SerializeField] string successFlavour;
 
     /// <summary>
     /// Private counterpart to <see cref="FailEffect"/>
     /// </summary>
-    [SerializeField] MissionEffect failEffect;
+    [SerializeField] List<MissionEffect> failEffects;
+
+    /// <summary>
+    /// Private counterpart to <see cref="FailFlavour"/>
+    /// </summary>
+    [TextArea]
+    [SerializeField] string failFlavour;
+
+    /// <summary>
+    /// Private counterpart to <see cref="Condition"/>
+    /// </summary>
+    [SerializeField] MissionCondition condition;
     #endregion
 
-    #region Public Properties
+    #region Properties
 
     /// <summary>
     /// Name of the mission
@@ -45,9 +68,23 @@ public class MissionData : ScriptableObject
     }
 
     /// <summary>
-    /// How much it costs to stand for the general of this mission
+    /// The flavour text for the mission
     /// </summary>
-    public int InfluenceCost
+    public string Description
+    {
+        get
+        {
+            return description;
+        }
+        set
+        {
+            description = Description;
+        }
+    }
+    /// <summary>
+    /// How much it costs to stand for the teamLeader of this mission
+    /// </summary>
+    public int FavourCost
     {
         get
         {
@@ -55,37 +92,78 @@ public class MissionData : ScriptableObject
         }
         set
         {
-            influenceCost = InfluenceCost;
+            influenceCost = FavourCost;
         }
     }
 
     /// <summary>
     /// What happens on a mission success
     /// </summary>
-    public MissionEffect SuccessEffect
+    public List<MissionEffect> SuccessEffects
     {
         get
         {
-            return successEffect;
+            return successEffects;
         }
         set
         {
-            successEffect = SuccessEffect;
+            successEffects = SuccessEffects;
+        }
+    }
+
+    /// <summary>
+    /// The flavour text for the success effect
+    /// </summary>
+    public string SuccessFlavour
+    {
+        get
+        {
+            return successFlavour;
+        }
+        set
+        {
+            successFlavour = SuccessFlavour;
         }
     }
 
     /// <summary>
     /// What happens on a mission fail
     /// </summary>
-    public MissionEffect FailEffect
+    public List<MissionEffect> FailEffects
     {
         get
         {
-            return failEffect;
+            return failEffects;
         }
         set
         {
-            failEffect = FailEffect;
+            failEffects = FailEffects;
+        }
+    }
+
+    /// <summary>
+    /// The flavour text for the fail effect
+    /// </summary>
+    public string FailFlavour
+    {
+        get
+        {
+            return failFlavour;
+        }
+        set
+        {
+            failFlavour = FailFlavour;
+        }
+    }
+
+    /// <summary>
+    /// The condition under which this mission will appear
+    /// </summary>
+    public MissionCondition Condition
+    {
+        get
+        {
+            return condition;
         }
     }
     #endregion

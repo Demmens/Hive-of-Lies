@@ -26,9 +26,9 @@ public class RoleData : ScriptableObject
     [SerializeField] Sprite sprite;
 
     /// <summary>
-    /// Private counterpart to <see cref="StartingInfluence"/>
+    /// Private counterpart to <see cref="StartingFavour"/>
     /// </summary>
-    [SerializeField] int startingInfluence;
+    [SerializeField] int startingFavour;
 
     /// <summary>
     /// Private counterpart to <see cref="Team"/>
@@ -84,11 +84,11 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// Amount of influence the role starts with
     /// </summary>
-    public int StartingInfluence
+    public int StartingFavour
     {
         get
         {
-            return startingInfluence;
+            return startingFavour;
         }
     }
 
