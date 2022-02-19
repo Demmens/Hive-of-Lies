@@ -35,7 +35,7 @@ public class DetectiveAbility : RoleAbility
                 {
                     if (role.Data.Team == Team.Bee)
                     {
-                        txt = $"{role.Ability.Owner.DisplayName} is the {role.Data.Name}";
+                        txt = $"{role.Ability.Owner.DisplayName} is the {role.Data.RoleName}";
                         break;
                     }
                 }

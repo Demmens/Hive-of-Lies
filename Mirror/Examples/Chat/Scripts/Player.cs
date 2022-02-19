@@ -10,6 +10,8 @@ namespace Mirror.Examples.Chat
         [SyncVar(hook = nameof(OnPlayerNameChanged))]
         public string playerName;
 
+        public static Action<Player, string> OnMessage { get; internal set; }
+
         // RuntimeInitializeOnLoadMethod -> fast playmode without domain reload
         [UnityEngine.RuntimeInitializeOnLoadMethod]
         static void ResetStatics()
@@ -25,6 +27,11 @@ namespace Mirror.Examples.Chat
         public override void OnStartServer()
         {
             playerName = (string)connectionToClient.authenticationData;
+        }
+
+        internal void CmdSend(string v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

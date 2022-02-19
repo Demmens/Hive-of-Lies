@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class DiceMission : MissionType
 {
@@ -24,11 +25,6 @@ public class DiceMission : MissionType
     /// The minimum combined roll from all players needed to succeed the mission
     /// </summary>
     static int totalNeeded = 25;
-
-    /// <summary>
-    /// Prefab for the UI of this mission
-    /// </summary>
-    [SerializeField] GameObject UI;
 
     /// <summary>
     /// Contains information about the current state of each players' dice rolls.
@@ -164,6 +160,12 @@ public class DiceMission : MissionType
 
     #endregion
 
+    void Start()
+    {
+        NetworkServer.RegisterHandler<PlayerRolledMsg>(PlayerRerolled);
+        NetworkServer.RegisterHandler<PlayerLockedRollMsg>(PlayerLockedIn);
+    }
+
     public override void StartMission()
     {
         playersLocked = new List<Player>();
@@ -197,22 +199,24 @@ public class DiceMission : MissionType
     /// Called when a player uses a reroll
     /// </summary>
     /// <param name="ply">The player that rerolled</param>
-    public void PlayerRerolled(Player ply)
+    void PlayerRerolled(NetworkConnection conn, PlayerRolledMsg msg)
     {
-        //Assume they have 0 rerolls and their first roll is 0.
-        PlayerRollInfo roll = new PlayerRollInfo()
-        {
-            rerollsUsed = 0,
-            currentRoll = 0,
-            locked = false
-        };
-        //If they have an entry in the dictionary, get that instead.
-        rollInfo.TryGetValue(ply, out roll);
+        if (!Active) return;
+        GameInfo.Players.TryGetValue(conn, out Player ply);
+
+        //Make sure they're actually on the mission
+        if (!GameInfo.PlayersOnMission.Contains(ply)) return;
+
+        rollInfo.TryGetValue(ply, out PlayerRollInfo roll);
 
         //Make sure they haven't locked in their dice roll yet.
         if (roll.locked) return;
 
         int rerollCost = CalculateRerollCost(ply, roll.rerollsUsed);
+
+        //Make sure they can afford the reroll
+        if (rerollCost > ply.Favour) return;
+
         ply.Favour -= rerollCost;
         roll.rerollsUsed++;
         //Roll the dice
@@ -228,17 +232,21 @@ public class DiceMission : MissionType
     /// Called when a player locks in their dice roll.
     /// </summary>
     /// <param name="ply">The player that locked their roll</param>
-    public void PlayerLockedIn(Player ply)
+    void PlayerLockedIn(NetworkConnection conn, PlayerLockedRollMsg msg)
     {
-        //Create rollinfo in case they never actually rolled their dice.
-        PlayerRollInfo rollInfo = new PlayerRollInfo()
-        {
-            rerollsUsed = 0,
-            currentRoll = 0,
-        };
-        this.rollInfo.TryGetValue(ply, out rollInfo);
-        rollInfo.locked = true;
-        rollTotal += rollInfo.currentRoll;
+        if (!Active) return;
+        GameInfo.Players.TryGetValue(conn, out Player ply);
+
+        //Make sure they're actually on the mission
+        if (!GameInfo.PlayersOnMission.Contains(ply)) return;
+
+        rollInfo.TryGetValue(ply, out var plyRollInfo);
+
+        //Make sure they're not already locked.
+        if (plyRollInfo.locked) return;
+
+        plyRollInfo.locked = true;
+        rollTotal += plyRollInfo.currentRoll;
         playersLocked.Add(ply);
 
         //Invoke the player locked event
@@ -273,4 +281,14 @@ public struct PlayerRollInfo
     /// Whether the player has locked in their roll yet
     /// </summary>
     public bool locked;
+}
+
+public struct PlayerRolledMsg : NetworkMessage
+{
+
+}
+
+public struct PlayerLockedRollMsg : NetworkMessage
+{
+
 }

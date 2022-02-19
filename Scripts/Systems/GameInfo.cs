@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Steamworks;
+using Mirror;
 
 /// <summary>
 /// Contains basic information about the current game
@@ -13,11 +15,6 @@ public class GameInfo : MonoBehaviour
     /// Reference to the game end script
     /// </summary>
     [SerializeField] GameEnd end;
-
-    /// <summary>
-    /// Private counterpart to <see cref="General"/>
-    /// </summary>
-    private Player teamLeader;
 
     /// <summary>
     /// Private counterpart to <see cref="StandingTeamLeader"/>
@@ -37,26 +34,11 @@ public class GameInfo : MonoBehaviour
     /// <summary>
     /// Private counterpart to <see cref="Roles"/>
     /// </summary>
-    private List<Role> roles; 
+    private List<Role> roles = new List<Role>();
 
     #endregion
 
     #region Properties
-    /// <summary>
-    /// The player that is the team leader of the current mission.
-    /// </summary>
-    public Player TeamLeader
-    {
-        get
-        {
-            return teamLeader;
-        }
-        set
-        {
-            teamLeader = value;
-            TeamLeaderID = value == null ? -1 : value.ID;
-        }
-    }
 
     /// <summary>
     /// The player that is currently being voted to become the team leader.
@@ -156,6 +138,11 @@ public class GameInfo : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Map each CSteamID to the respective player. Makes it a lot easier to find players
+    /// </summary>
+    public static Dictionary<NetworkConnection, Player> Players = new Dictionary<NetworkConnection, Player>();
+
     #endregion
 
     #region Static Fields and Properties
@@ -188,15 +175,31 @@ public class GameInfo : MonoBehaviour
     /// <summary>
     /// The player ID of the team leader
     /// </summary>
-    public static int TeamLeaderID { get; private set; }
+    public static CSteamID TeamLeaderID { get; private set; }
+
+    /// <summary>
+    /// The current team leader
+    /// </summary>
+    public static Player TeamLeader;
+
+    /// <summary>
+    /// A list of all players that are on the mission
+    /// </summary>
+    public static List<Player> PlayersOnMission = new List<Player>();
 
     #endregion
+
+    private void Start()
+    {
+        PlayerCount = SteamMatchmaking.GetNumLobbyMembers(SteamLobby.LobbyID);
+        Debug.Log($"Started game with {PlayerCount} players");
+    }
 }
 
 /// <summary>
 /// All the information of a role. Contains RoleData and instantiated RoleAbility.
 /// </summary>
-public struct Role
+public class Role
 {
     /// <summary>
     /// Data of the role

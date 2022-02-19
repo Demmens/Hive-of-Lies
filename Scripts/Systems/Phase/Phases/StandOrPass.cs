@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 /// <summary>
 /// All players have the choice to either stand for TeamLeader, or pass. Those who stand must have enough influence.
@@ -127,6 +128,11 @@ public class StandOrPass : GamePhase
 
     #endregion
 
+    private void Start()
+    {
+        NetworkServer.RegisterHandler<PlayerStandOrPassMessage>(PlayerDecision);
+    }
+
     public override void Begin()
     {
         standingPlayers = new List<Player>();
@@ -139,13 +145,15 @@ public class StandOrPass : GamePhase
     /// </summary>
     /// <param name="ply">The player who made the decision</param>
     /// <param name="stood">True if they chose to stand</param>
-    public void PlayerDecision(Player ply, bool stood)
+    public void PlayerDecision(NetworkConnection conn, PlayerStandOrPassMessage msg)
     {
-        if (stood) standingPlayers.Add(ply);
+        if (!Active) return;
+        GameInfo.Players.TryGetValue(conn, out Player ply);
+        if (msg.isStanding) standingPlayers.Add(ply);
         else passedPlayers.Add(ply);
 
         //Invoke event for a player deciding to stand or pass
-        OnPlayerStandOrPass?.Invoke(ply, stood);
+        OnPlayerStandOrPass?.Invoke(ply, msg.isStanding);
 
         if (standingPlayers.Count + passedPlayers.Count == GameInfo.PlayerCount) ReceiveResults();
     }
@@ -169,10 +177,10 @@ public class StandOrPass : GamePhase
             SortStandingList();
 
         //Now, since we've sorted, the player at the top of the list will be the Team Leader
-        info.TeamLeader = standingPlayers[0];
+        GameInfo.TeamLeader = standingPlayers[0];
 
         //The Team Leader pays the favour cost of standing
-        info.TeamLeader.Favour -= info.CurrentMission.Data.FavourCost;
+        GameInfo.TeamLeader.Favour -= info.CurrentMission.Data.FavourCost;
 
         End();
     }
@@ -191,4 +199,9 @@ public class StandOrPass : GamePhase
             return result == 0 ? Random.Range(-1, 1) : result;
         });
     }
+}
+
+public struct PlayerStandOrPassMessage : NetworkMessage
+{
+    public bool isStanding;
 }

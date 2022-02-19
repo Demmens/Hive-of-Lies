@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Steamworks;
+using Mirror;
 
-public class Player : MonoBehaviour
+public class Player
 {
-    #region Private Properties
+    #region Fields
     /// <summary>
     /// Private counterpart to <see cref="Favour"/>
     /// </summary>
@@ -16,17 +18,27 @@ public class Player : MonoBehaviour
     Team team = Team.Bee;
 
     /// <summary>
-    /// Private counterpart to <see cref="ID"/>
-    /// </summary>
-    int id;
-
-    /// <summary>
     /// Private counterpart to <see cref="DisplayName"/>
     /// </summary>
     string displayName;
+
+    /// <summary>
+    /// Private counterpart to <see cref="SteamID"/>
+    /// </summary>
+    CSteamID steamID;
+
+    /// <summary>
+    /// Private counterpart of <see cref="RoleChoices"/>
+    /// </summary>
+    List<RoleData> roleChoices;
+
+    /// <summary>
+    /// Private counterpart of <see cref="Conn"/>
+    /// </summary>
+    NetworkConnection conn;
     #endregion
 
-    #region Public Properties
+    #region Properties
     /// <summary>
     /// The team that the player is on
     /// </summary>
@@ -58,21 +70,6 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// The unique ID of the player
-    /// </summary>
-    public int ID
-    {
-        get
-        {
-            return id;
-        }
-        set
-        {
-            id = value;
-        }
-    }
-
-    /// <summary>
     /// The display name of the player
     /// </summary>
     public string DisplayName
@@ -86,7 +83,59 @@ public class Player : MonoBehaviour
             displayName = value;
         }
     }
+
+    /// <summary>
+    /// The steam ID of the player
+    /// </summary>
+    public CSteamID SteamID
+    {
+        get
+        {
+            return steamID;
+        }
+        set
+        {
+            steamID = SteamID;
+        }
+    }
+
+    /// <summary>
+    /// List of choices the player gets to choose from when picking their role.
+    /// </summary>
+    public List<RoleData> RoleChoices
+    {
+        get
+        {
+            return roleChoices;
+        }
+        set
+        {
+            roleChoices = value;
+        }
+    }
+
+    /// <summary>
+    /// The network connection of this player
+    /// </summary>
+    public NetworkConnection Conn
+    {
+        get
+        {
+            return conn;
+        }
+        set
+        {
+            conn = value;
+        }
+    }
     #endregion
+
+    public Player(NetworkConnection conn, CSteamID id)
+    {
+        Conn = conn;
+        SteamID = id;
+        RoleChoices = new List<RoleData>();
+    }
 }
 
 /// <summary>
@@ -94,6 +143,7 @@ public class Player : MonoBehaviour
 /// </summary>
 public enum Team
 {
+    None,
     Bee,
-    Wasp
+    Wasp,
 }

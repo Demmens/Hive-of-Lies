@@ -10,9 +10,9 @@ public class RoleData : ScriptableObject
 {
     #region Private Properties
     /// <summary>
-    /// Private counterpart to <see cref="Name"/>
+    /// Private counterpart to <see cref="RoleName"/>
     /// </summary>
-    [SerializeField] new string name;
+    [SerializeField] string roleName;
 
     /// <summary>
     /// Private counterpart to <see cref="Description"/>
@@ -23,7 +23,7 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="Sprite"/>
     /// </summary>
-    [SerializeField] Sprite sprite;
+    [SerializeField] string sprite;
 
     /// <summary>
     /// Private counterpart to <see cref="StartingFavour"/>
@@ -44,6 +44,11 @@ public class RoleData : ScriptableObject
     /// Prefab containing both RoleAbilityData and RoleAbility scripts
     /// </summary>
     [SerializeField] GameObject ability;
+
+    /// <summary>
+    /// Private counterpart of <see cref="Enabled"/>
+    /// </summary>
+    [SerializeField] bool enabled;
     #endregion
 
     #region Public Properties
@@ -51,11 +56,11 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// Name of the role
     /// </summary>
-    public string Name
+    public string RoleName
     {
         get
         {
-            return name;
+            return roleName;
         }
     }
 
@@ -73,7 +78,7 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// Sprite used for the role UI
     /// </summary>
-    public Sprite Sprite
+    public string Sprite
     {
         get
         {
@@ -136,5 +141,19 @@ public class RoleData : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Whether the role should appear in games
+    /// </summary>
+    public bool Enabled
+    {
+        get
+        {
+            return enabled;
+        }
+        set
+        {
+            enabled = value;
+        }
+    }
     #endregion
 }

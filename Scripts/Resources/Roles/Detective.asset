@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: Detective
   m_EditorClassIdentifier: 
-  name: Detective
+  roleName: Detective
   description: After the third round, learn the identity of a random innocent
-  sprite: {fileID: 0}
-  startingInfluence: 8
-  team: 0
+  sprite: 
+  startingFavour: 0
+  team: 1
   playersRequired: 5
-  ability: {fileID: 0}
+  ability: {fileID: 6644010579822107672, guid: 8498c6ee8832eae4dae0d6517e874cf2, type: 3}
+  enabled: 0

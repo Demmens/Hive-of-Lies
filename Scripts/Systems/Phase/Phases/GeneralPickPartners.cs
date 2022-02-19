@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 /// <summary>
 /// Allows the TeamLeader to choose players to join them on the mission.
@@ -41,6 +42,9 @@ public class GeneralPickPartners : GamePhase
         {
             if (partnerPlayerCounts.TryGetValue(i, out int num)) numPartners = num;
         }
+
+        NetworkServer.RegisterHandler<TeamLeaderChangePartnersMsg>(GeneralSelectedPlayer);
+        NetworkServer.RegisterHandler<TeamLeaderLockInMsg>(LockInChoices);
     }
 
     public override void Begin()
@@ -52,29 +56,42 @@ public class GeneralPickPartners : GamePhase
     /// Called when the TeamLeader chooses a player to join them
     /// </summary>
     /// <param name="ply">The player that the TeamLeader has selected</param>
-    public void GeneralSelectedPlayer(Player ply)
+    public void GeneralSelectedPlayer(NetworkConnection conn, TeamLeaderChangePartnersMsg msg)
     {
-        playersSelected.Add(ply);
-        if (playersSelected.Count == numPartners)
-        {
-            //Highlight lock in button
-        }
-    }
+        if (!Active) return;
+        GameInfo.Players.TryGetValue(conn, out Player ply);
+        if (ply != GameInfo.TeamLeader) return;
 
-    /// <summary>
-    /// Called when the TeamLeader decides to unselect a player.
-    /// </summary>
-    /// <param name="ply"></param>
-    public void GeneralUnselectedPlayer(Player ply)
-    {
-        playersSelected.Remove(ply);
+        if (msg.selected)
+        {
+            if (playersSelected.Count < numPartners)
+            {
+                playersSelected.Add(ply);
+            }
+        }
+        else
+        {
+            if (playersSelected.Contains(ply))
+                playersSelected.Remove(ply);
+        }
     }
 
     /// <summary>
     /// Called when the TeamLeader locks in their choices of players for the mission.
     /// </summary>
-    public void LockInChoices()
+    public void LockInChoices(NetworkConnection conn, TeamLeaderLockInMsg msg)
     {
+        if (!Active) return;
+        GameInfo.Players.TryGetValue(conn, out Player ply);
+        if (ply != GameInfo.TeamLeader) return;
+
         End();
     }
 }
+
+public struct TeamLeaderChangePartnersMsg : NetworkMessage
+{
+    public int playerID;
+    public bool selected;
+}
+public struct TeamLeaderLockInMsg : NetworkMessage {}

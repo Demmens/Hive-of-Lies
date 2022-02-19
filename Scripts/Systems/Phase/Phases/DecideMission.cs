@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 /// <summary>
 /// Decides what the next mission will be
@@ -32,7 +33,7 @@ public class DecideMission : GamePhase
     /// <summary>
     /// Private counterpart to <see cref="MissionVotes"/>
     /// </summary>
-    Dictionary<Mission, (List<Player>, int)> missionVotes;
+    Dictionary<MissionData, (List<Player>, int)> missionVotes;
 
     /// <summary>
     /// Which players have voted
@@ -73,7 +74,7 @@ public class DecideMission : GamePhase
     /// <summary>
     /// Who has voted for which mission, and how many votes in total that mission has
     /// </summary>
-    public Dictionary<Mission, (List<Player>, int)> MissionVotes
+    public Dictionary<MissionData, (List<Player>, int)> MissionVotes
     {
         get
         {
@@ -99,6 +100,9 @@ public class DecideMission : GamePhase
 
     void Start()
     {
+        //Listen for player voting
+        NetworkServer.RegisterHandler<PlayerVotedOnMissionMsg>(PlayerVoted);
+
         //Keep track of all the lists we find that are valid for this game
         List<MissionList> possibleLists = new List<MissionList>();
 
@@ -121,9 +125,13 @@ public class DecideMission : GamePhase
     /// </summary>
     public override void Begin()
     {
-        missionVotes = new Dictionary<Mission, (List<Player>, int)>();
+        missionVotes = new Dictionary<MissionData, (List<Player>, int)>();
+        //List of missions and weights
         List<MissionListEntryEntry> missionDataChoices = info.MissionList.List[GameInfo.RoundNum].Missions;
-        List<(Mission,float)> missionChoices = new List<(Mission,float)>();
+        //Essentially the same as above with different formatting because I'm bad at programming
+        List<(MissionData,float)> missionChoices = new List<(MissionData,float)>();
+        //Pure list of missions to send to clients
+        List<MissionData> choices = new List<MissionData>();
 
 
         // Find {MissionChoices} random missions from the list of missions given their particular weightings.
@@ -137,17 +145,15 @@ public class DecideMission : GamePhase
         //Find the total weight of all objects so we know how many balls are in the bag
         missionDataChoices.ForEach(miss =>
         {
-            Mission mission = new Mission(miss.Mission);
+            Mission mission = new Mission(miss.Mission, true);
             //Only add missions if we meet the condition
             if (mission.Condition())
             {
                 total += miss.Weight;
-                missionChoices.Add((mission, total)); //Set each weight to be cumulative so we can find actual probabilities later.
+                missionChoices.Add((mission.Data, total)); //Set each weight to be cumulative so we can find actual probabilities later.
             }
-            else
-            {
-                mission.Destroy();
-            }
+            //Clean up all missions
+            mission.Destroy();
         });
 
         //Draw a ball from the bag and then remove all instances of that colour of ball so we don't draw the same mission twice.
@@ -162,7 +168,7 @@ public class DecideMission : GamePhase
             //Run for each mission choice
             for (int j = 0; j < missionChoices.Count; i++)
             {
-                (Mission,float) miss = missionChoices[j];
+                (MissionData,float) miss = missionChoices[j];
                 //Make sure we only select one item per pass
                 if (selectedWeight == 0)
                 {
@@ -171,6 +177,7 @@ public class DecideMission : GamePhase
                     {
                         //Add the mission to the selection
                         missionVotes.Add(miss.Item1, (new List<Player>(), 0));
+                        choices.Add(miss.Item1);
                         //Remove all instances of this mission, thus reducing the total number of balls in the bag.
                         total -= miss.Item2;
                         //Store the weight of this mission so we can adjust the weight of the other missions to compensate for this missions removal.
@@ -189,11 +196,10 @@ public class DecideMission : GamePhase
             }
         }
 
-        //Destroy all unused missions
-        foreach ((Mission,int) mission in missionChoices)
-            mission.Item1.Destroy();
-
-        //: Show mission choices to players.
+        NetworkServer.SendToAll(new SendMissionChoices
+        {
+            choices = choices
+        });
     }
 
     /// <summary>
@@ -201,15 +207,22 @@ public class DecideMission : GamePhase
     /// </summary>
     /// <param name="ply">The player that voted</param>
     /// <param name="mission">The mission they voted for</param>
-    public void PlayerVoted(Player ply, Mission mission)
+    public void PlayerVoted(NetworkConnection conn, PlayerVotedOnMissionMsg msg)
     {
+        if (!Active) return;
+
         (List<Player>, int) Tuple;
-        MissionVotes.TryGetValue(mission, out Tuple);
+        GameInfo.Players.TryGetValue(conn, out Player ply);
+
+        //Make sure players don't vote twice.
+        if (TotalVotes.Contains(ply)) return;
+
+        MissionVotes.TryGetValue(msg.mission, out Tuple);
 
         Tuple.Item1.Add(ply);
         Tuple.Item2++;
 
-        MissionVotes.Add(mission, Tuple);
+        MissionVotes.Add(msg.mission, Tuple);
         TotalVotes.Add(ply);
 
         if (TotalVotes.Count >= GameInfo.PlayerCount)
@@ -228,9 +241,9 @@ public class DecideMission : GamePhase
     void DetermineMission()
     {
         int maxVotes = int.MinValue;
-        foreach (KeyValuePair<Mission,(List<Player>,int)> item in missionVotes)
+        foreach (KeyValuePair<MissionData,(List<Player>,int)> item in missionVotes)
         {
-            Mission mission = item.Key;
+            Mission mission = new Mission(item.Key);
 
             if (item.Value.Item2 > maxVotes)
             {
@@ -247,8 +260,16 @@ public class DecideMission : GamePhase
             }
         }
 
-        //Create the success and fail effects for the decided mission
-        DecidedMission.CreateEffectObjects();
         info.CurrentMission = DecidedMission;
     }
+}
+
+public struct PlayerVotedOnMissionMsg : NetworkMessage
+{
+    public MissionData mission;
+}
+
+public struct SendMissionChoices : NetworkMessage
+{
+    public List<MissionData> choices;
 }

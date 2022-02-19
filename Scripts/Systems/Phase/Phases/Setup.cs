@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Steamworks;
+using Mirror;
 
 public class Setup : GamePhase
 {
@@ -36,7 +38,7 @@ public class Setup : GamePhase
     [SerializeField] List<RoleData> roles;
 
     /// <summary>
-    /// Temporary. Replace soon pls.
+    /// Temporary list of all players in the game
     /// </summary>
     List<Player> players = new List<Player>();
 
@@ -55,22 +57,47 @@ public class Setup : GamePhase
         }
     }
 
+    private void Start()
+    {
+        NetworkServer.RegisterHandler<PlayerReadyMsg>(OnPlayerReady);
+        NetworkServer.RegisterHandler<PlayerSelectedRoleMsg>(PlayerSelectedRole);
+    }
+
+    /// <summary>
+    /// Called when a player loads into the game
+    /// </summary>
+    /// <param name="conn">The connection of the player</param>
+    /// <param name="msg">The message</param>
+    void OnPlayerReady(NetworkConnection conn, PlayerReadyMsg msg)
+    {
+        Debug.Log($"{SteamFriends.GetFriendPersonaName(msg.playerID)} loaded into the game");
+        Player ply = new Player(conn, msg.playerID);
+
+        players.Add(ply);
+        GameInfo.Players.Add(conn, ply);
+
+        //Begin the setup once all players are in.
+        if (players.Count == GameInfo.PlayerCount)
+        {
+            Debug.Log("All players have entered the lobby. Beginning setup.");
+            BeginSetup();
+        }
+    }
 
     /// <summary>
     /// Run the game setup. This includes handing out roles and selecting teams.
     /// </summary>
-    public override void Begin()
+    public void BeginSetup()
     {
+        Roles.Shuffle();
         //Shuffle the players so we can randomly assign teams
         players.Shuffle();
         //Shuffle the roles so we can randomly dish them out to players
-        Roles.Shuffle();
+        //Roles.Shuffle();
 
         AssignTeams(players);
         
         GiveRoleChoices(players, Roles);
-
-        End();
     }
 
     /// <summary>
@@ -100,26 +127,29 @@ public class Setup : GamePhase
     /// </summary>
     void GiveRoleChoices(List<Player> plys, List<RoleData> roles)
     {
-        plys.ForEach(ply =>
+        foreach (Player ply in plys)
         {
-            if (RoleChoices.TryGetValue(ply.Team, out int choices))
+            RoleChoices.TryGetValue(ply.Team, out int choices);
+            for (int i = 0; i < roles.Count; i++)
             {
-                int n = 0;
-                List<RoleData> RoleChoices = new List<RoleData>();
-                while (choices > 0 && n < roles.Count)
+                RoleData role = roles[i];
+                if (role.Team == ply.Team)
                 {
-                    if (roles[n].Team == ply.Team)
-                    {
-                        RoleChoices.Add(roles[n]);
-                        roles.RemoveAt(n); // In future want to avoid removing values from this list, but it works for now.
-                        choices--;
-                    }
-                    else n++;
+                    ply.RoleChoices.Add(role);
+                    roles.Remove(role);
+                    i--;
+                    if (ply.RoleChoices.Count == choices) break;
                 }
-
-                //ply.DisplayRoleChoices(RoleChoices);
             }
-        });
+        }
+
+        foreach (Player ply in plys)
+        {
+            ply.Conn.Send(new SendRoleInfoMsg
+            {
+                roleChoices = ply.RoleChoices,
+            });
+        }
     }
 
     /// <summary>
@@ -127,8 +157,14 @@ public class Setup : GamePhase
     /// </summary>
     /// <param name="ply">The player who selected the role</param>
     /// <param name="role">The role the player selected</param>
-    public void PlayerSelectedRole(Player ply, RoleData role)
+    public void PlayerSelectedRole(NetworkConnection conn, PlayerSelectedRoleMsg msg)
     {
+        RoleData role = msg.role;
+        if (!GameInfo.Players.TryGetValue(conn, out Player ply))
+        {
+            Debug.Log("Something went wrong. Couldn't find player from network connection.");
+        }
+
         RoleAbility ability = Instantiate(role.Ability);
         ability.Owner = ply;
         ply.Favour = role.StartingFavour;
@@ -139,6 +175,28 @@ public class Setup : GamePhase
             Data = role
         });
 
-        //Sort out clientside stuff here
+        if (info.Roles.Count == GameInfo.PlayerCount) End();
     }
+
+    /// <summary>
+    /// We don't actually need the begin for this, since it begins under different circumstances.
+    /// </summary>
+    public override void Begin()
+    {
+    }
+}
+
+public struct SendRoleInfoMsg : NetworkMessage
+{
+    public List<RoleData> roleChoices;
+}
+
+public struct PlayerReadyMsg : NetworkMessage
+{
+    public CSteamID playerID;
+}
+
+public struct PlayerSelectedRoleMsg : NetworkMessage
+{
+    public RoleData role;
 }

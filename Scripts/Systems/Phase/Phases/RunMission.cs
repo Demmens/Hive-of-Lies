@@ -12,17 +12,19 @@ public class RunMission : GamePhase
         }
     }
 
-    [SerializeField] MissionType MissionType;
+    [SerializeField] MissionType missionType;
 
     public override void Begin()
     {
-        MissionType.OnMissionEnded += new MissionType.MissionEnded(OnMissionEnded);
-        MissionType.StartMission();
+        missionType.OnMissionEnded += new MissionType.MissionEnded(OnMissionEnded);
+        missionType.Active = true;
+        missionType.StartMission();
 
     }
 
     void OnMissionEnded()
     {
+        missionType.Active = false;
         End();
     }
 }

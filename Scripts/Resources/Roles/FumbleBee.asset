@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: FumbleBee
   m_EditorClassIdentifier: 
-  name: Fumble Bee
+  roleName: Fumble Bee
   description: Your first two rolls cannot be above 5.
-  sprite: {fileID: 0}
+  sprite: 
   startingFavour: 0
-  team: 1
+  team: 2
   playersRequired: 0
-  ability: {fileID: 0}
+  ability: {fileID: 6495601977097981214, guid: d0c28c3aa3ab1954cbdf1f4c11964e01, type: 3}
+  enabled: 0

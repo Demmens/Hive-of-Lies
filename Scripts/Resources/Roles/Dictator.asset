@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: Dictator
   m_EditorClassIdentifier: 
-  name: Dictator
+  roleName: Dictator
   description: Always wins if they stand for the position of General.
-  sprite: {fileID: 0}
-  startingInfluence: 10
-  team: 1
+  sprite: 
+  startingFavour: 0
+  team: 2
   playersRequired: 5
   ability: {fileID: 899694251160386601, guid: 15aa3f0230c2b3242b8d28e4d47bd514, type: 3}
+  enabled: 0

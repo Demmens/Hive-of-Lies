@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class TeamLeaderVote : GamePhase
 {
@@ -19,6 +20,11 @@ public class TeamLeaderVote : GamePhase
     /// Private counterpart to <see cref="VoteTotal"/>
     /// </summary>
     int voteTotal;
+
+    /// <summary>
+    /// How many votes each player has currently placed
+    /// </summary>
+    Dictionary<Player, int> currentVotes;
 
     #endregion
 
@@ -99,21 +105,42 @@ public class TeamLeaderVote : GamePhase
 
     #endregion
 
+    void Start()
+    {
+        NetworkServer.RegisterHandler<PlayerChangeVoteMsg>(ChangedVoteNumber);
+        NetworkServer.RegisterHandler<PlayerLockInMsg>(VoteLockedIn);
+    }
+
     public override void Begin()
     {
         votes = new List<PlayerVote>();
         voteTotal = 0;
     }
 
-    public void ChangedVoteNumber(Player ply, int oldNum, int newNum)
+    void ChangedVoteNumber(NetworkConnection conn, PlayerChangeVoteMsg msg)
     {
-        int cost = CalculateNextVoteCost(ply, newNum);
+        if (!Active) return;
+
+        GameInfo.Players.TryGetValue(conn, out Player ply);
+
+        currentVotes.TryGetValue(ply, out int votes);
+
+        //Don't need to worry about 0 since our first vote is always free anyway.
+        bool isPositive = votes > 0;
+
+        votes += msg.increased ? 1 : -1;
+        
+        int cost = CalculateNextVoteCost(ply, votes);
+
+        //If we've removed a vote, refund the cost, otherwise pay it.
+        if (msg.increased == isPositive) cost *= -1;
 
         //Don't remove favour if we can't afford it
         if (cost > ply.Favour) return;
+        
+        ply.Favour -= cost;
 
-        //If we've removed a vote, refund the cost, otherwise pay it.
-        ply.Favour += Mathf.Abs(newNum) < Mathf.Abs(oldNum) ? cost : -cost;
+        currentVotes.Add(ply, votes);
 
         //Send the client the new information.
         //CalculateNextVoteCost(newNum - 1);
@@ -125,9 +152,13 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     /// <param name="ply">The player that voted</param>
     /// <param name="vote">How many votes the player sent</param>
-    public void VoteLockedIn(Player ply, int vote)
+    void VoteLockedIn(NetworkConnection conn, PlayerLockInMsg msg)
     {
         if (!Active) return;
+
+        GameInfo.Players.TryGetValue(conn, out Player ply);
+
+        currentVotes.TryGetValue(ply, out int vote);
 
         voteTotal += vote;
         votes.Add(new PlayerVote()
@@ -163,7 +194,7 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     /// <param name="ply">The player who's voting</param>
     /// <param name="numVotes">The number of votes</param>
-    int CalculateNextVoteCost(Player ply, int numVotes)
+    public int CalculateNextVoteCost(Player ply, int numVotes)
     {
         //Votes cost the same up and down
         numVotes = Mathf.Abs(numVotes);
@@ -191,4 +222,14 @@ public struct PlayerVote
     /// How many votes the player sent
     /// </summary>
     public int votes; // int instead of bool in case we want to allow influence to be used for increasing number of votes.
+}
+
+public struct PlayerChangeVoteMsg : NetworkMessage
+{
+    public bool increased;
+}
+
+public struct PlayerLockInMsg : NetworkMessage
+{
+
 }

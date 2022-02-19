@@ -32,33 +32,28 @@ public class Mission
     /// </summary>
     MissionCondition conditionObject;
 
-    public Mission(MissionData data)
+    public Mission(MissionData data, bool conditionOnly = false)
     {
         Data = data;
         
-        //If the mission data has no condition, don't create an object
-        conditionObject = data.Condition == null ? null : Object.Instantiate(data.Condition);
-        //If the mission data has no condition, then the condition is always true
-        Condition = conditionObject == null ? (System.Func<bool>) (() => { return true; }) : conditionObject.Condition;
-    }
-
-    /// <summary>
-    /// Call to create the success and fail effect objects
-    /// </summary>
-    public void CreateEffectObjects()
-    {
-        foreach (MissionEffect effect in Data.SuccessEffects)
+        if (conditionOnly)
         {
-            SuccessEffects.Add(Object.Instantiate(effect));
+            //If the mission data has no condition, don't create an object
+            conditionObject = data.Condition == null ? null : Object.Instantiate(data.Condition);
+            //If the mission data has no condition, then the condition is always true
+            Condition = conditionObject == null ? (System.Func<bool>)(() => { return true; }) : conditionObject.Condition;
         }
-        foreach (MissionEffect effect in Data.FailEffects)
+        else
         {
-            FailEffects.Add(Object.Instantiate(effect));
+            foreach (MissionEffect effect in Data.SuccessEffects)
+            {
+                SuccessEffects.Add(Object.Instantiate(effect));
+            }
+            foreach (MissionEffect effect in Data.FailEffects)
+            {
+                FailEffects.Add(Object.Instantiate(effect));
+            }
         }
-
-        //If we're creating the effects, the condition is no longer required
-        if (conditionObject != null)
-            Object.Destroy(conditionObject);
     }
 
     /// <summary>
