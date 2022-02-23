@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.Events;
+using Steamworks;
 
 public class TeamLeaderVote : GamePhase
 {
@@ -75,24 +77,14 @@ public class TeamLeaderVote : GamePhase
     #region Events
 
     /// <summary>
-    /// Delegate for <see cref="OnPlayerVoted"/>
-    /// </summary>
-    /// <param name="ply">The player that voted</param>
-    /// <param name="vote">How much they voted for</param>
-    public delegate void PlayerVoted(Player ply, int vote);
-    /// <summary>
     /// Invoked when a player votes
     /// </summary>
-    public event PlayerVoted OnPlayerVoted;
+    public UnityEvent<Player,int> OnPlayerVoted;
 
-    /// <summary>
-    /// Delegate for <see cref="OnAllPlayersVoted"/>
-    /// </summary>
-    public delegate void AllPlayersVoted();
     /// <summary>
     /// Invoked when all players have voted
     /// </summary>
-    public event AllPlayersVoted OnAllPlayersVoted;
+    public UnityEvent OnAllPlayersVoted;
 
     #endregion
 
@@ -105,37 +97,35 @@ public class TeamLeaderVote : GamePhase
     public override void Begin()
     {
         votes = new List<PlayerVote>();
+        currentVotes = new Dictionary<Player, int>();
         voteTotal = 0;
+        NetworkServer.SendToAll(new TeamLeaderVoteStartedMsg() { });
     }
 
     void ChangedVoteNumber(NetworkConnection conn, PlayerChangeVoteMsg msg)
     {
         if (!Active) return;
-
         GameInfo.Players.TryGetValue(conn, out Player ply);
 
-        currentVotes.TryGetValue(ply, out int votes);
+        bool exists = currentVotes.TryGetValue(ply, out int votes);
 
-        //Don't need to worry about 0 since our first vote is always free anyway.
-        bool isPositive = votes > 0;
+        bool refund = (votes > 0) != msg.increased;
+
+        int refundIndex = refund ? votes : Mathf.Abs(votes)+1;
+        int cost = costCalc.CalculateVoteCost(ply.SteamID, refundIndex);
 
         votes += msg.increased ? 1 : -1;
-        
-        int cost = costCalc.CalculateVoteCost(ply, votes);
 
         //If we've removed a vote, refund the cost, otherwise pay it.
-        if (msg.increased == isPositive) cost *= -1;
+        if (refund) cost *= -1;
 
         //Don't remove favour if we can't afford it
         if (cost > ply.Favour) return;
         
         ply.Favour -= cost;
 
-        currentVotes.Add(ply, votes);
-
-        //Send the client the new information.
-        //CalculateNextVoteCost(newNum - 1);
-        //CalculateNextVoteCost(newNum + 1);
+        if (exists) currentVotes[ply] = votes;
+        else currentVotes.Add(ply, votes);
     }
 
     /// <summary>
@@ -154,7 +144,7 @@ public class TeamLeaderVote : GamePhase
         voteTotal += vote;
         votes.Add(new PlayerVote()
         {
-            ply = ply,
+            ply = ply.SteamID,
             votes = vote
         });
 
@@ -169,6 +159,12 @@ public class TeamLeaderVote : GamePhase
     {
         //Invoke the all players voted event
         OnAllPlayersVoted?.Invoke();
+
+        NetworkServer.SendToAll(new SendVoteResultMsg()
+        {
+            votes = votes
+        });
+
         //If the vote was successful
         if (voteTotal > 0)
         {
@@ -191,11 +187,16 @@ public struct PlayerVote
     /// <summary>
     /// The player that this vote is from
     /// </summary>
-    public Player ply;
+    public CSteamID ply;
     /// <summary>
     /// How many votes the player sent
     /// </summary>
     public int votes; // int instead of bool in case we want to allow influence to be used for increasing number of votes.
+}
+
+public struct TeamLeaderVoteStartedMsg : NetworkMessage
+{
+
 }
 
 public struct PlayerChangeVoteMsg : NetworkMessage
@@ -206,4 +207,9 @@ public struct PlayerChangeVoteMsg : NetworkMessage
 public struct PlayerLockInMsg : NetworkMessage
 {
 
+}
+
+public struct SendVoteResultMsg : NetworkMessage
+{
+    public List<PlayerVote> votes;
 }

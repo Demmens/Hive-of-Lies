@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Steamworks;
+using UnityEngine.Events;
 
 public class CostCalculation : MonoBehaviour
 {
@@ -17,13 +19,13 @@ public class CostCalculation : MonoBehaviour
     /// Sends vote cost information out for modification
     /// </summary>
     public event VoteCalculation OnVoteCalculation;
-    public delegate void VoteCalculation(Player ply, ref int cost);
+    public delegate void VoteCalculation(CSteamID ply, ref int cost);
 
     /// <summary>
     /// Sends roll cost information out for modification
     /// </summary>
     public event RerollCalculation OnRerollCalculation;
-    public delegate void RerollCalculation(Player ply, ref int cost);
+    public delegate void RerollCalculation(CSteamID ply, ref int cost);
 
 
     /// <summary>
@@ -31,7 +33,7 @@ public class CostCalculation : MonoBehaviour
     /// </summary>
     /// <param name="ply">The player who's voting</param>
     /// <param name="numVotes">The number of votes</param>
-    public int CalculateVoteCost(Player ply, int numVotes)
+    public int CalculateVoteCost(CSteamID ply, int numVotes)
     {
         //Votes cost the same up and down
         numVotes = Mathf.Abs(numVotes);
@@ -51,7 +53,7 @@ public class CostCalculation : MonoBehaviour
     /// <param name="ply">The player rolling</param>
     /// <param name="numRerolls">The number of rolls they have done so far</param>
     /// <returns></returns>
-    public int CalculateRerollCost(Player ply, int numRolls)
+    public int CalculateRerollCost(CSteamID ply, int numRolls)
     {
         //Make sure the correct number of rerolls are free
         if (numRolls < freeRolls) return 0;

@@ -14,10 +14,6 @@ public class RoleAbility : MonoBehaviour
     /// </summary>
     bool active = true;
 
-    /// <summary>
-    /// Private counterpart to <see cref="Owner"/>
-    /// </summary>
-    Player owner;
     #endregion
 
     #region Properties
@@ -39,16 +35,6 @@ public class RoleAbility : MonoBehaviour
     /// <summary>
     /// The player that owns this ability
     /// </summary>
-    public Player Owner
-    {
-        get
-        {
-            return owner;
-        }
-        set
-        {
-            owner = Owner;
-        }
-    }
+    public Player Owner;
     #endregion
 }

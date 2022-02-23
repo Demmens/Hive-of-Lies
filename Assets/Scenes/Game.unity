@@ -3640,6 +3640,8 @@ MonoBehaviour:
   voteNumber: {fileID: 1239337028}
   yesCost: {fileID: 579990387}
   noCost: {fileID: 1612561253}
+  yesVote: {fileID: 1197108066}
+  noVote: {fileID: 2004716334}
   voteUI: {fileID: 613341989}
   favourController: {fileID: 721782995}
   costCalc: {fileID: 1824260611}
@@ -5427,7 +5429,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1197108069}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 721782998}
+        m_TargetAssemblyTypeName: VoteUI, Assembly-CSharp
+        m_MethodName: IncreaseVote
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1197108069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10487,7 +10501,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2004716337}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 721782998}
+        m_TargetAssemblyTypeName: VoteUI, Assembly-CSharp
+        m_MethodName: DecreaseVote
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2004716337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10608,7 +10634,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2024876845}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 721782998}
+        m_TargetAssemblyTypeName: VoteUI, Assembly-CSharp
+        m_MethodName: LockInVote
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2024876845
 MonoBehaviour:
   m_ObjectHideFlags: 0

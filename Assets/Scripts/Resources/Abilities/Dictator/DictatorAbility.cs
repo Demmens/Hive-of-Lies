@@ -11,11 +11,13 @@ public class DictatorAbility : RoleAbility
         teamLeaderVote = FindObjectOfType<TeamLeaderVote>();
 
         //Listen for when the Team Leader vote is about to be decided
-        teamLeaderVote.OnAllPlayersVoted += new TeamLeaderVote.AllPlayersVoted(() =>
-        {
-            //If the team leader is the owner of this role, guarantee that they can't be voted out of team leader
-            if (GameInfo.TeamLeaderID == Owner.SteamID)
-                teamLeaderVote.VoteTotal += 1000;
-        });
+        teamLeaderVote.OnAllPlayersVoted.AddListener(AlwaysWinVote);
+    }
+
+    void AlwaysWinVote()
+    {
+        //If the team leader is the owner of this role, guarantee that they can't be voted out of team leader
+        if (GameInfo.TeamLeaderID == Owner.SteamID)
+            teamLeaderVote.VoteTotal += 1000;
     }
 }

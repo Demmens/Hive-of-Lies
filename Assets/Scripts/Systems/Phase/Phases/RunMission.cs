@@ -14,12 +14,14 @@ public class RunMission : GamePhase
 
     [SerializeField] MissionType missionType;
 
+    private void Start()
+    {
+        missionType.OnMissionEnded += OnMissionEnded;
+    }
     public override void Begin()
     {
-        missionType.OnMissionEnded += new MissionType.MissionEnded(OnMissionEnded);
         missionType.Active = true;
         missionType.StartMission();
-
     }
 
     void OnMissionEnded()

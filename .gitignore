@@ -4,3 +4,15 @@ Logs/*
 .vs/Hive of Lies/v16/.suo
 *.meta
 /Assembly-CSharp.csproj
+/obj/Debug/Assembly-CSharp.csproj.AssemblyReference.cache
+/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/obj/Debug/kcp2k.csproj.AssemblyReference.cache
+/obj/Debug/Mirror.Authenticators.csproj.AssemblyReference.cache
+/obj/Debug/Mirror.CompilerSymbols.csproj.AssemblyReference.cache
+/obj/Debug/Mirror.Components.csproj.AssemblyReference.cache
+/obj/Debug/Mirror.csproj.AssemblyReference.cache
+/obj/Debug/Mirror.Editor.csproj.AssemblyReference.cache
+/obj/Debug/Mirror.Examples.csproj.AssemblyReference.cache
+/obj/Debug/SimpleWebTransport.csproj.AssemblyReference.cache
+/obj/Debug/Telepathy.csproj.AssemblyReference.cache
+/UserSettings/EditorUserSettings.asset

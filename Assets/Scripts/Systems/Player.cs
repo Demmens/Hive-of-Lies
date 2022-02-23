@@ -133,6 +133,7 @@ public class Player
     public Player(CSteamID id)
     {
         SteamID = id;
+        DisplayName = SteamFriends.GetFriendPersonaName(id);
         RoleChoices = new List<RoleData>();
     }
 }
