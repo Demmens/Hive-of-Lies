@@ -11,11 +11,6 @@ public class DecideMission : GamePhase
     #region Fields
 
     /// <summary>
-    /// Reference to the GameInfo class
-    /// </summary>
-    [SerializeField] GameInfo info;
-
-    /// <summary>
     /// List of all possible mission lists for all possible player counts.
     /// </summary>
     [SerializeField] List<MissionList> missionLists;
@@ -116,8 +111,7 @@ public class DecideMission : GamePhase
         });
 
         decidedMissionList = possibleLists.GetRandom();
-
-        info.MissionList = decidedMissionList;
+        GameInfo.MissionList = decidedMissionList;
     }
 
     /// <summary>
@@ -125,11 +119,16 @@ public class DecideMission : GamePhase
     /// </summary>
     public override void Begin()
     {
+        TotalVotes = new List<Player>();
         missionVotes = new Dictionary<MissionData, (List<Player>, int)>();
-        //List of missions and weights
-        List<MissionListEntryEntry> missionDataChoices = info.MissionList.List[GameInfo.RoundNum].Missions;
-        //Essentially the same as above with different formatting because I'm bad at programming
+
+        //List of missions and weights. Make sure if we reach the end of the list that we just start looping the final mission indefinitely.
+        int missionListIndex = Mathf.Min(GameInfo.RoundNum, GameInfo.MissionList.List.Count - 1);
+        List<MissionListEntryEntry> missionDataChoices = GameInfo.MissionList.List[missionListIndex].Missions;
+
+        //Essentially the same as above, but we can edit it as much as we like since it's non-static.
         List<(MissionData,float)> missionChoices = new List<(MissionData,float)>();
+
         //Pure list of missions to send to clients
         List<MissionData> choices = new List<MissionData>();
 
@@ -166,7 +165,7 @@ public class DecideMission : GamePhase
             float selectedWeight = 0;
 
             //Run for each mission choice
-            for (int j = 0; j < missionChoices.Count; i++)
+            for (int j = 0; j < missionChoices.Count; j++)
             {
                 (MissionData,float) miss = missionChoices[j];
                 //Make sure we only select one item per pass
@@ -196,7 +195,7 @@ public class DecideMission : GamePhase
             }
         }
 
-        NetworkServer.SendToAll(new SendMissionChoices
+        NetworkServer.SendToAll(new SendMissionChoicesMsg
         {
             choices = choices
         });
@@ -217,12 +216,13 @@ public class DecideMission : GamePhase
         //Make sure players don't vote twice.
         if (TotalVotes.Contains(ply)) return;
 
-        MissionVotes.TryGetValue(msg.mission, out Tuple);
+        //Make sure they're voting on a valid mission.
+        if (!MissionVotes.TryGetValue(msg.mission, out Tuple)) return;
 
         Tuple.Item1.Add(ply);
         Tuple.Item2++;
 
-        MissionVotes.Add(msg.mission, Tuple);
+        MissionVotes[msg.mission] = Tuple;
         TotalVotes.Add(ply);
 
         if (TotalVotes.Count >= GameInfo.PlayerCount)
@@ -243,24 +243,24 @@ public class DecideMission : GamePhase
         int maxVotes = int.MinValue;
         foreach (KeyValuePair<MissionData,(List<Player>,int)> item in missionVotes)
         {
-            Mission mission = new Mission(item.Key);
-
             if (item.Value.Item2 > maxVotes)
             {
                 maxVotes = item.Value.Item2;
-                //Make sure we clean up missions we don't want to use
-                DecidedMission.Destroy();
+                //Make sure we clean up missions from previous rounds
+                if (DecidedMission != null)
+                    DecidedMission.Destroy();
 
-                DecidedMission = mission;
-            }
-            else
-            {
-                //Make sure to clean up missions we don't want to use
-                mission.Destroy();
+                DecidedMission = new Mission(item.Key);
             }
         }
 
-        info.CurrentMission = DecidedMission;
+        GameInfo.CurrentMission = DecidedMission;
+        NetworkServer.SendToAll(new SendDecidedMissionMsg()
+        {
+            mission = DecidedMission.Data
+        });
+
+        End();
     }
 }
 
@@ -269,7 +269,12 @@ public struct PlayerVotedOnMissionMsg : NetworkMessage
     public MissionData mission;
 }
 
-public struct SendMissionChoices : NetworkMessage
+public struct SendMissionChoicesMsg : NetworkMessage
 {
     public List<MissionData> choices;
+}
+
+public struct SendDecidedMissionMsg : NetworkMessage
+{
+    public MissionData mission;
 }

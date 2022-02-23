@@ -22,16 +22,6 @@ public class GameInfo : MonoBehaviour
     private Player standingTeamLeader;
 
     /// <summary>
-    /// Private counterpart to <see cref="CurrentMission"/>
-    /// </summary>
-    private Mission currentMission;
-
-    /// <summary>
-    /// Private counterpart to <see cref="MissionList"/>
-    /// </summary>
-    private MissionList missionList;
-
-    /// <summary>
     /// Private counterpart to <see cref="Roles"/>
     /// </summary>
     private List<Role> roles = new List<Role>();
@@ -52,36 +42,6 @@ public class GameInfo : MonoBehaviour
         set
         {
             standingTeamLeader = StandingTeamLeader;
-        }
-    }
-
-    /// <summary>
-    /// The current mission
-    /// </summary>
-    public Mission CurrentMission
-    {
-        get
-        {
-            return currentMission;
-        }
-        set
-        {
-            currentMission = CurrentMission;
-        }
-    }
-
-    /// <summary>
-    /// The list of missions we are using for this game
-    /// </summary>
-    public MissionList MissionList
-    {
-        get
-        {
-            return missionList;
-        }
-        set
-        {
-            missionList = MissionList;
         }
     }
 
@@ -186,6 +146,16 @@ public class GameInfo : MonoBehaviour
     /// A list of all players that are on the mission
     /// </summary>
     public static List<Player> PlayersOnMission = new List<Player>();
+
+    /// <summary>
+    /// The list of missions we are using for this game
+    /// </summary>
+    public static MissionList MissionList;
+
+    /// <summary>
+    /// The current mission
+    /// </summary>
+    public static Mission CurrentMission;
 
     #endregion
 

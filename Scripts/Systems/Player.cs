@@ -33,9 +33,9 @@ public class Player
     List<RoleData> roleChoices;
 
     /// <summary>
-    /// Private counterpart of <see cref="Conn"/>
+    /// Private counterpart to <see cref="Exhaustion"/>
     /// </summary>
-    NetworkConnection conn;
+    int exhaustion;
     #endregion
 
     #region Properties
@@ -95,7 +95,7 @@ public class Player
         }
         set
         {
-            steamID = SteamID;
+            steamID = value;
         }
     }
 
@@ -115,24 +115,23 @@ public class Player
     }
 
     /// <summary>
-    /// The network connection of this player
+    /// How many consecutive missions the player has been on
     /// </summary>
-    public NetworkConnection Conn
+    public int Exhaustion
     {
         get
         {
-            return conn;
+            return exhaustion;
         }
         set
         {
-            conn = value;
+            exhaustion = value;
         }
     }
     #endregion
 
-    public Player(NetworkConnection conn, CSteamID id)
+    public Player(CSteamID id)
     {
-        Conn = conn;
         SteamID = id;
         RoleChoices = new List<RoleData>();
     }

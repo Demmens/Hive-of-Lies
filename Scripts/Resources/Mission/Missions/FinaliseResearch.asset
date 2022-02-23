@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b51d24175a2938a4fbcb3a8814396e60, type: 3}
   m_Name: FinaliseResearch
   m_EditorClassIdentifier: 
-  name: Final Research Push
+  missionName: Final Research Push
   description: Spend the last of your resources searching the final threads in the
     hive library in a last ditch effort to weed out the wasps.
   influenceCost: 12

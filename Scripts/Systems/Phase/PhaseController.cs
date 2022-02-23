@@ -32,7 +32,14 @@ public class PhaseController : MonoBehaviour
         {
             //Listen for when phases end
             phase.OnGamePhaseChange += new GamePhase.GamePhaseChange(PhaseChange);
+            if (phase is StandOrPass)
+            {
+                StandOrPass sop = phase as StandOrPass;
+                sop.OnNobodyStood += new StandOrPass.NobodyStood(ResetRound);
+            }
         }
+        //Make sure to listen for the setup ending too.
+        setup.OnGamePhaseChange += new GamePhase.GamePhaseChange(PhaseChange);
         //Set to -1 since on a phase end it increments, and we want to start at phases[0].
         currentPhase = -1;
         //Complete the setup first.
@@ -47,8 +54,23 @@ public class PhaseController : MonoBehaviour
         //Move to the next phase
         currentPhase++;
         //Make sure to loop back to the beginning again once we reach the last phase
-        if (currentPhase >= phases.Length) currentPhase = 0;
+        if (currentPhase >= phases.Length)
+        {
+            currentPhase = 0;
+            GameInfo.RoundNum++;
+        }
         //And begin the next phase
         phases[currentPhase].ChangePhase();
+    }
+
+    /// <summary>
+    /// Call to reset the round back to the beginning.
+    /// </summary>
+    void ResetRound()
+    {
+        phases[currentPhase].End(true);
+        currentPhase = 0;
+        GameInfo.RoundNum++;
+        phases[0].ChangePhase();
     }
 }

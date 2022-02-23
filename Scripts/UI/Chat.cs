@@ -22,6 +22,7 @@ public class Chat : MonoBehaviour
     /// </summary>
     public void SendMessage()
     {
+        if (input.text == "") return;
         NetworkClient.Send(new SendChatMessageMsg
         {
             userName = SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()),
@@ -30,10 +31,12 @@ public class Chat : MonoBehaviour
 
         input.text = "";
         input.Select();
+        input.ActivateInputField();
     }
 
     void ServerGetMessage(NetworkConnection conn, SendChatMessageMsg msg)
     {
+        if (msg.message == "") return;
         NetworkServer.SendToAll(msg);
     }
 

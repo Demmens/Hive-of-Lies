@@ -21,6 +21,11 @@ public class RoleAbilityData : MonoBehaviour
     /// </summary>
     [SerializeField] bool canGiveTwoBees = true;
 
+    /// <summary>
+    /// Whether this ability should also be instantiated on the client side.
+    /// </summary>
+    [SerializeField] bool instantiateOnClient;
+
     #endregion
 
     #region Public Properties

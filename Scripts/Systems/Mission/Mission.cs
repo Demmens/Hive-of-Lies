@@ -45,6 +45,9 @@ public class Mission
         }
         else
         {
+            SuccessEffects = new List<MissionEffect>();
+            FailEffects = new List<MissionEffect>();
+
             foreach (MissionEffect effect in Data.SuccessEffects)
             {
                 SuccessEffects.Add(Object.Instantiate(effect));
@@ -61,11 +64,13 @@ public class Mission
     /// </summary>
     public void Destroy()
     {
-        foreach (MissionEffect effect in SuccessEffects)
-            Object.Destroy(effect);
+        if (SuccessEffects != null)
+            foreach (MissionEffect effect in SuccessEffects)
+                Object.Destroy(effect);
 
-        foreach (MissionEffect effect in FailEffects)
-            Object.Destroy(effect);
+        if (FailEffects != null)
+            foreach (MissionEffect effect in FailEffects)
+                Object.Destroy(effect);
 
         if (conditionObject != null)
             Object.Destroy(conditionObject);

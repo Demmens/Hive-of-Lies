@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Steamworks;
 
 /// <summary>
 /// Allows the TeamLeader to choose players to join them on the mission.
 /// </summary>
-public class GeneralPickPartners : GamePhase
+public class TeamLeaderPickPartners : GamePhase
 {
     public override EGamePhase Phase
     {
@@ -28,7 +29,7 @@ public class GeneralPickPartners : GamePhase
     /// <summary>
     /// Number of players that go on the mission with the TeamLeader in this game.
     /// </summary>
-    int numPartners;
+    public static int NumPartners;
 
     /// <summary>
     /// List of players the TeamLeader has selected so far
@@ -40,10 +41,10 @@ public class GeneralPickPartners : GamePhase
         //Find the appropriate number of players that need to go on each mission.
         for (int i = 0; i <= GameInfo.PlayerCount; i++)
         {
-            if (partnerPlayerCounts.TryGetValue(i, out int num)) numPartners = num;
+            if (partnerPlayerCounts.TryGetValue(i, out int num)) NumPartners = num;
         }
 
-        NetworkServer.RegisterHandler<TeamLeaderChangePartnersMsg>(GeneralSelectedPlayer);
+        NetworkServer.RegisterHandler<TeamLeaderChangePartnersMsg>(TeamLeaderSelectedPlayer);
         NetworkServer.RegisterHandler<TeamLeaderLockInMsg>(LockInChoices);
     }
 
@@ -56,24 +57,42 @@ public class GeneralPickPartners : GamePhase
     /// Called when the TeamLeader chooses a player to join them
     /// </summary>
     /// <param name="ply">The player that the TeamLeader has selected</param>
-    public void GeneralSelectedPlayer(NetworkConnection conn, TeamLeaderChangePartnersMsg msg)
+    void TeamLeaderSelectedPlayer(NetworkConnection conn, TeamLeaderChangePartnersMsg msg)
     {
         if (!Active) return;
         GameInfo.Players.TryGetValue(conn, out Player ply);
         if (ply != GameInfo.TeamLeader) return;
 
+        Player target = null;
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+        {
+            if (pair.Value.SteamID == msg.playerID)
+            {
+                target = pair.Value;
+            }
+        }
+
+        if (target == null) return;
+
         if (msg.selected)
         {
-            if (playersSelected.Count < numPartners)
+            if (playersSelected.Count < NumPartners)
             {
-                playersSelected.Add(ply);
+                Debug.Log($"{SteamFriends.GetFriendPersonaName(ply.SteamID)} has selected {SteamFriends.GetFriendPersonaName(msg.playerID)}");
+                playersSelected.Add(target);
             }
         }
         else
         {
-            if (playersSelected.Contains(ply))
-                playersSelected.Remove(ply);
+            if (playersSelected.Contains(target))
+                playersSelected.Remove(target);
         }
+
+        NetworkServer.SendToAll(new TeamLeaderChangePartnersMsg()
+        {
+            playerID = msg.playerID,
+            selected = msg.selected
+        });
     }
 
     /// <summary>
@@ -85,13 +104,15 @@ public class GeneralPickPartners : GamePhase
         GameInfo.Players.TryGetValue(conn, out Player ply);
         if (ply != GameInfo.TeamLeader) return;
 
+        Debug.Log("Team leader has locked in their partner choices");
+
         End();
     }
 }
 
 public struct TeamLeaderChangePartnersMsg : NetworkMessage
 {
-    public int playerID;
+    public CSteamID playerID;
     public bool selected;
 }
 public struct TeamLeaderLockInMsg : NetworkMessage {}

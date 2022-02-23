@@ -57,10 +57,13 @@ public abstract class GamePhase : MonoBehaviour
     /// <summary>
     /// Call to end the phase and move to the next phase
     /// </summary>
-    public virtual void End()
+    public virtual void End(bool forced = false)
     {
         active = false;
-        OnGamePhaseChange?.Invoke();
+        if (!forced)
+        {
+            OnGamePhaseChange?.Invoke();
+        }
     }
 }
 

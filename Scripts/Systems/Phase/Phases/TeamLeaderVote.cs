@@ -26,6 +26,8 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     Dictionary<Player, int> currentVotes;
 
+    [SerializeField] CostCalculation costCalc;
+
     #endregion
 
     #region Properties
@@ -92,17 +94,6 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     public event AllPlayersVoted OnAllPlayersVoted;
 
-    /// <summary>
-    /// Delegate for <see cref="OnVoteCalculation"/>
-    /// </summary>
-    /// <param name="ply">The player voting</param>
-    /// <param name="cost">The base cost of the vote</param>
-    public delegate void VoteCalculation(Player ply, ref int cost);
-    /// <summary>
-    /// Invoked when the cost of voting is calculated
-    /// </summary>
-    public event VoteCalculation OnVoteCalculation;
-
     #endregion
 
     void Start()
@@ -130,7 +121,7 @@ public class TeamLeaderVote : GamePhase
 
         votes += msg.increased ? 1 : -1;
         
-        int cost = CalculateNextVoteCost(ply, votes);
+        int cost = costCalc.CalculateVoteCost(ply, votes);
 
         //If we've removed a vote, refund the cost, otherwise pay it.
         if (msg.increased == isPositive) cost *= -1;
@@ -189,24 +180,7 @@ public class TeamLeaderVote : GamePhase
         }
     }
 
-    /// <summary>
-    /// Calculate the favour cost of the vote
-    /// </summary>
-    /// <param name="ply">The player who's voting</param>
-    /// <param name="numVotes">The number of votes</param>
-    public int CalculateNextVoteCost(Player ply, int numVotes)
-    {
-        //Votes cost the same up and down
-        numVotes = Mathf.Abs(numVotes);
-        // Cost is 2n We can change this formula at any time for balance
-        // Gives us the costs: {0,2,4,6,8}
-        // Cumulatively: {0,2,6,12,20}
-        int cost = numVotes*2;
-
-        OnVoteCalculation?.Invoke(ply, ref cost);
-
-        return cost;
-    }
+    
 }
 
 /// <summary>

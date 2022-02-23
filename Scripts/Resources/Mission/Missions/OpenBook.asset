@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b51d24175a2938a4fbcb3a8814396e60, type: 3}
   m_Name: OpenBook
   m_EditorClassIdentifier: 
-  name: Research Wasps
+  missionName: Research Wasps
   description: Send a team of top bees to open a large book on wasps
   influenceCost: 6
   successEffects:

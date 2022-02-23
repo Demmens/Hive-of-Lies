@@ -7,9 +7,9 @@ public class MissionData : ScriptableObject
 {
     #region Fields
     /// <summary>
-    /// Private counterpart to <see cref="Name"/>
+    /// Private counterpart to <see cref="MissionName"/>
     /// </summary>
-    [SerializeField] new string name;
+    [SerializeField] string missionName;
 
     /// <summary>
     /// Private counterpart to <see cref="Description"/>
@@ -55,15 +55,15 @@ public class MissionData : ScriptableObject
     /// <summary>
     /// Name of the mission
     /// </summary>
-    public string Name
+    public string MissionName
     {
         get
         {
-            return name;
+            return missionName;
         }
         set
         {
-            name = Name;
+            missionName = MissionName;
         }
     }
 

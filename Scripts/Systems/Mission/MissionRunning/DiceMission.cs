@@ -22,6 +22,11 @@ public class DiceMission : MissionType
     [SerializeField] int diceSize = 20;
 
     /// <summary>
+    /// How much exhaustion should affect the result of your roll
+    /// </summary>
+    [SerializeField] int exhaustionPenalty = 5;
+
+    /// <summary>
     /// The minimum combined roll from all players needed to succeed the mission
     /// </summary>
     static int totalNeeded = 25;
@@ -219,8 +224,8 @@ public class DiceMission : MissionType
 
         ply.Favour -= rerollCost;
         roll.rerollsUsed++;
-        //Roll the dice
-        roll.currentRoll = Random.Range(1, diceSize);
+        //Roll the dice and apply exhaustion penalty
+        roll.currentRoll = Mathf.Max(1,Random.Range(1, diceSize) - ply.Exhaustion * exhaustionPenalty);
 
         rollInfo.Add(ply, roll);
 

@@ -55,7 +55,7 @@ public abstract class MissionType : MonoBehaviour
             if (result == MissionResult.Success)
             {
                 //Trigger all success effects
-                foreach (MissionEffect effect in Info.CurrentMission.SuccessEffects)
+                foreach (MissionEffect effect in GameInfo.CurrentMission.SuccessEffects)
                 {
                     effect.TriggerEffect();
                 }
@@ -63,7 +63,7 @@ public abstract class MissionType : MonoBehaviour
             else
             {
                 //Trigger all fail effects
-                foreach (MissionEffect effect in Info.CurrentMission.FailEffects)
+                foreach (MissionEffect effect in GameInfo.CurrentMission.FailEffects)
                 {
                     effect.TriggerEffect();
                 }

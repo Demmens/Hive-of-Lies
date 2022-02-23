@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Steamworks;
 
 /// <summary>
 /// All players have the choice to either stand for TeamLeader, or pass. Those who stand must have enough influence.
@@ -14,6 +15,11 @@ public class StandOrPass : GamePhase
     #region Fields
 
     [SerializeField] GameInfo info;
+
+    /// <summary>
+    /// The amount of favour all players lose if nobody stands for the position of team leader.
+    /// </summary>
+    [SerializeField] int favourLostForNobodyStanding;
 
     /// <summary>
     /// Players that chose to stand for TeamLeader
@@ -126,11 +132,20 @@ public class StandOrPass : GamePhase
     /// </summary>
     public event TeamLeaderVoteCounted OnTeamLeaderVoteCounted;
 
+    /// <summary>
+    /// Delegate for <see cref="OnNobodyStood"/>
+    /// </summary>
+    public delegate void NobodyStood();
+    /// <summary>
+    /// Invoked if nobody stands for the position of team leader.
+    /// </summary>
+    public event NobodyStood OnNobodyStood;
+
     #endregion
 
     private void Start()
     {
-        NetworkServer.RegisterHandler<PlayerStandOrPassMessage>(PlayerDecision);
+        NetworkServer.RegisterHandler<PlayerStandOrPassMsg>(PlayerDecision);
     }
 
     public override void Begin()
@@ -138,6 +153,11 @@ public class StandOrPass : GamePhase
         standingPlayers = new List<Player>();
         passedPlayers = new List<Player>();
         playerBoosts = new Dictionary<Player, int>();
+
+        NetworkServer.SendToAll(new StartStandOrPassMsg()
+        {
+            favourCost = GameInfo.CurrentMission.Data.FavourCost
+        });
     }
 
     /// <summary>
@@ -145,10 +165,15 @@ public class StandOrPass : GamePhase
     /// </summary>
     /// <param name="ply">The player who made the decision</param>
     /// <param name="stood">True if they chose to stand</param>
-    public void PlayerDecision(NetworkConnection conn, PlayerStandOrPassMessage msg)
+    public void PlayerDecision(NetworkConnection conn, PlayerStandOrPassMsg msg)
     {
+        Debug.Log("Player has stood or passed");
         if (!Active) return;
         GameInfo.Players.TryGetValue(conn, out Player ply);
+
+        //Make sure they haven't already voted
+        if (passedPlayers.Contains(ply) || standingPlayers.Contains(ply)) return;
+
         if (msg.isStanding) standingPlayers.Add(ply);
         else passedPlayers.Add(ply);
 
@@ -163,8 +188,24 @@ public class StandOrPass : GamePhase
     /// </summary>
     void ReceiveResults()
     {
+        Debug.Log("All players have stood or passed");
         //Invoke event for all players having made a decision
         OnAllPlayersStandOrPass?.Invoke();
+
+        //If nobody stood for the position of team leader
+        if (standingPlayers.Count == 0)
+        {
+            foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+            {
+                pair.Value.Favour -= favourLostForNobodyStanding;
+                pair.Key.Send(new SetFavourMsg()
+                {
+                    newFavour = pair.Value.Favour
+                });
+            }
+            OnNobodyStood?.Invoke();
+            return;
+        }
 
         //Find the highest influence players who stood.
         SortStandingList();
@@ -180,7 +221,13 @@ public class StandOrPass : GamePhase
         GameInfo.TeamLeader = standingPlayers[0];
 
         //The Team Leader pays the favour cost of standing
-        GameInfo.TeamLeader.Favour -= info.CurrentMission.Data.FavourCost;
+        GameInfo.TeamLeader.Favour -= GameInfo.CurrentMission.Data.FavourCost;
+
+        NetworkServer.SendToAll(new TeamLeaderChangedMsg()
+        {
+            ID = GameInfo.TeamLeader.SteamID,
+            maxPartners = TeamLeaderPickPartners.NumPartners
+        });
 
         End();
     }
@@ -201,7 +248,18 @@ public class StandOrPass : GamePhase
     }
 }
 
-public struct PlayerStandOrPassMessage : NetworkMessage
+public struct PlayerStandOrPassMsg : NetworkMessage
 {
     public bool isStanding;
+}
+
+public struct StartStandOrPassMsg : NetworkMessage
+{
+    public int favourCost;
+}
+
+public struct TeamLeaderChangedMsg : NetworkMessage
+{
+    public CSteamID ID;
+    public int maxPartners;
 }

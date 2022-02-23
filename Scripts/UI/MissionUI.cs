@@ -3,33 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Mirror;
+using Steamworks;
 
 public class MissionUI : MonoBehaviour
 {
+    [SerializeField] GameObject missionUI;
     [SerializeField] TMP_Text missionName;
     [SerializeField] TMP_Text missionFlavour;
     [SerializeField] TMP_Text successFlavour;
     [SerializeField] TMP_Text successEffect;
     [SerializeField] TMP_Text failFlavour;
     [SerializeField] TMP_Text failEffect;
+    [SerializeField] GameObject missionCard;
+    [SerializeField] Transform OverlayCanvas;
 
-    List<MissionCard> cards;
+    [SerializeField] TMP_Text teamLeaderName;
+    [SerializeField] TMP_Text missionPlayerList;
+    [SerializeField] TMP_Text missionCost;
+
+    List<GameObject> cards = new List<GameObject>();
 
     private void Start()
     {
-        NetworkClient.RegisterHandler<SendMissionChoices>(CreateMissionCards);
         // Listen for server sending us information
+        NetworkClient.RegisterHandler<SendMissionChoicesMsg>(CreateMissionCards);
+        NetworkClient.RegisterHandler<SendDecidedMissionMsg>(ChangeMission);
+        NetworkClient.RegisterHandler<TeamLeaderChangePartnersMsg>(OnTeamLeaderChangePartner);
+
+        ClientEventProvider.singleton.OnTeamLeaderChanged += OnTeamLeaderDecided;
     }
 
-    public void ChangeMission(Mission mission)
+    /// <summary>
+    /// Creates the mission cards on the screen
+    /// </summary>
+    /// <param name="choices"></param>
+    void CreateMissionCards(SendMissionChoicesMsg msg)
     {
-        missionName.text = mission.Data.Name;
-        missionFlavour.text = mission.Data.Description;
-        successFlavour.text = mission.Data.SuccessFlavour;
-        failFlavour.text = mission.Data.FailFlavour;
+        Debug.Log("Received mission choices");
+        for (int i = 0; i < msg.choices.Count; i++)
+        {
+            GameObject card = Instantiate(missionCard, GetCardPositionOnScreen(i, msg.choices.Count), new Quaternion());
+            card.transform.SetParent(OverlayCanvas);
 
-        successEffect.text = CreateStringFromList(mission.SuccessEffects);
-        failEffect.text = CreateStringFromList(mission.FailEffects);
+            MissionCard cardScript = card.GetComponent<MissionCard>();
+            cardScript.SetData(msg.choices[i]);
+            cardScript.OnMissionCardClicked += MissionCardClicked;
+            cards.Add(card);
+            
+        }
+    }
+
+    Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
+    {
+        const float margin = 600;
+
+        float adjustedWidth = Screen.width - (2 * margin);
+
+        float x = Screen.width / 2;
+        if (cardsTotal > 1)
+        {
+            x = margin + adjustedWidth * (index / (float)(cardsTotal - 1));
+        }
+
+        return new Vector3(x, Screen.height / 2, 0);
     }
 
     /// <summary>
@@ -40,7 +76,7 @@ public class MissionUI : MonoBehaviour
     public static string CreateStringFromList(List<MissionEffect> list)
     {
         string res = "";
-        for (int i = 0; i <list.Count; i++)
+        for (int i = 0; i < list.Count; i++)
         {
             res += list[i].Description;
             if (i != list.Count - 1)
@@ -48,46 +84,66 @@ public class MissionUI : MonoBehaviour
                 res += ", ";
             }
         }
+        if (res == "") res = "No effect";
         return res;
-    }
-
-    /// <summary>
-    /// Creates the mission cards on the screen
-    /// </summary>
-    /// <param name="choices"></param>
-    void CreateMissionCards(SendMissionChoices msg)
-    {
-        for (int i = 0; i < msg.choices.Count; i++)
-        {
-            MissionCard card = new MissionCard()
-            {
-                Data = msg.choices[i]
-            };
-            card.OnMissionCardClicked += MissionCardClicked;
-            cards.Add(card);
-            Instantiate(card, GetCardPositionOnScreen(i, msg.choices.Count), new Quaternion());
-        }
-    }
-
-    Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
-    {
-        const int margin = 50;
-
-        int x = (Screen.width - 2 * margin)*(index/cardsTotal);
-
-        return new Vector3(x, Screen.height / 2, 0);
     }
 
     void MissionCardClicked(MissionData data)
     {
-        foreach (MissionCard card in cards)
+        foreach (GameObject card in cards)
         {
-            Destroy(card.gameObject);
+            Destroy(card);
         }
 
         NetworkClient.Send(new PlayerVotedOnMissionMsg()
         {
             mission = data
         });
+    }
+
+    void ChangeMission(SendDecidedMissionMsg msg)
+    {
+        cards = new List<GameObject>();
+        missionUI.SetActive(true);
+        missionName.text = msg.mission.MissionName;
+        missionFlavour.text = msg.mission.Description;
+        successFlavour.text = msg.mission.SuccessFlavour;
+        failFlavour.text = msg.mission.FailFlavour;
+        missionCost.text = $"Mission Cost: {msg.mission.FavourCost}f";
+
+        successEffect.text = CreateStringFromList(msg.mission.SuccessEffects);
+        failEffect.text = CreateStringFromList(msg.mission.FailEffects);
+    }
+
+    /// <summary>
+    /// Called when the team leader is decided
+    /// </summary>
+    /// <param name="msg"></param>
+    void OnTeamLeaderDecided(TeamLeaderChangedMsg msg)
+    {
+        teamLeaderName.text = SteamFriends.GetFriendPersonaName(msg.ID);
+    }
+
+    /// <summary>
+    /// Called when the team leader has added or removed a player from the mission.
+    /// </summary>
+    /// <param name="msg"></param>
+    void OnTeamLeaderChangePartner(TeamLeaderChangePartnersMsg msg)
+    {
+        Debug.Log("Team Leader has changed partners");
+        string playerName = SteamFriends.GetFriendPersonaName(msg.playerID);
+        if (msg.selected)
+        {
+            //If we haven't selected any players yet, clear the text, otherwise add a line break for the next player
+            missionPlayerList.text = (missionPlayerList.text == "Undecided") ? "" : missionPlayerList.text + "\n";
+
+            missionPlayerList.text += playerName;
+        }
+        else
+        {
+            missionPlayerList.text.Replace(playerName, "");
+            //Make sure to remove duplicate line breaks
+            missionPlayerList.text.Replace("\n\n", "\n");
+        }
     }
 }

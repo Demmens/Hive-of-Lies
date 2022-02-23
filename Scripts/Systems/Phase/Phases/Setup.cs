@@ -43,6 +43,11 @@ public class Setup : GamePhase
     List<Player> players = new List<Player>();
 
     /// <summary>
+    /// The steam IDs of all players currently in the lobby. Used to sync player buttons with clients
+    /// </summary>
+    List<CSteamID> playerIDs = new List<CSteamID>(); 
+
+    /// <summary>
     /// List of all roles that can appear in the game
     /// </summary>
     public List<RoleData> Roles
@@ -70,8 +75,18 @@ public class Setup : GamePhase
     /// <param name="msg">The message</param>
     void OnPlayerReady(NetworkConnection conn, PlayerReadyMsg msg)
     {
+        //If for whatever reason this is called twice on a client
+        if (playerIDs.Contains(msg.playerID)) return;
+
+        playerIDs.Add(msg.playerID);
+        NetworkServer.SendToAll(new PlayerReadyMsg()
+        {
+            playerID = msg.playerID,
+            loadedPlayers = playerIDs
+        });
+
         Debug.Log($"{SteamFriends.GetFriendPersonaName(msg.playerID)} loaded into the game");
-        Player ply = new Player(conn, msg.playerID);
+        Player ply = new Player(msg.playerID);
 
         players.Add(ply);
         GameInfo.Players.Add(conn, ply);
@@ -143,11 +158,11 @@ public class Setup : GamePhase
             }
         }
 
-        foreach (Player ply in plys)
+        foreach (KeyValuePair<NetworkConnection,Player> pair in GameInfo.Players)
         {
-            ply.Conn.Send(new SendRoleInfoMsg
+            pair.Key.Send(new SendRoleInfoMsg
             {
-                roleChoices = ply.RoleChoices,
+                roleChoices = pair.Value.RoleChoices,
             });
         }
     }
@@ -159,11 +174,11 @@ public class Setup : GamePhase
     /// <param name="role">The role the player selected</param>
     public void PlayerSelectedRole(NetworkConnection conn, PlayerSelectedRoleMsg msg)
     {
+        if (!Active) return;
         RoleData role = msg.role;
-        if (!GameInfo.Players.TryGetValue(conn, out Player ply))
-        {
-            Debug.Log("Something went wrong. Couldn't find player from network connection.");
-        }
+        GameInfo.Players.TryGetValue(conn, out Player ply);
+        //If the role they selected is not one of their options
+        if (!ply.RoleChoices.Contains(role)) return;
 
         RoleAbility ability = Instantiate(role.Ability);
         ability.Owner = ply;
@@ -194,6 +209,7 @@ public struct SendRoleInfoMsg : NetworkMessage
 public struct PlayerReadyMsg : NetworkMessage
 {
     public CSteamID playerID;
+    public List<CSteamID> loadedPlayers;
 }
 
 public struct PlayerSelectedRoleMsg : NetworkMessage

@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using TMPro;
+using UnityEngine.UI;
 
 public class RoleUI : MonoBehaviour
 {
     List<GameObject> cards;
 
     [SerializeField] TMP_Text RoleName;
-    [SerializeField] TMP_Text RoleDescription;
-    [SerializeField] TMP_Text Team;
-    [SerializeField] TMP_Text Favour;
+    [SerializeField] FavourController Favour;
     [SerializeField] GameObject RoleCard;
+    [SerializeField] Transform OverlayCanvas;
+    [SerializeField] Image RoleBackground;
+
+
+    [SerializeField] Color WaspColour;
+    [SerializeField] Color BeeColour;
  
     private void Start()
     {
@@ -22,14 +27,15 @@ public class RoleUI : MonoBehaviour
 
     void ReceiveRoleInfo(SendRoleInfoMsg msg)
     {
+        
         for (int i = 0; i < msg.roleChoices.Count; i++)
         {
             GameObject card = Instantiate(RoleCard, GetCardPositionOnScreen(i, msg.roleChoices.Count), new Quaternion());
+            card.transform.SetParent(OverlayCanvas);
             RoleCard cardScript = card.GetComponent<RoleCard>();
             cardScript.SetData(msg.roleChoices[i]);
             cardScript.OnRoleCardClicked += RoleCardClicked;
             cards.Add(card);
-            
         }
     }
 
@@ -41,9 +47,7 @@ public class RoleUI : MonoBehaviour
         }
 
         RoleName.text = data.RoleName;
-        RoleDescription.text = data.Description;
-        Team.text = data.Team.ToString();
-        Favour.text = $"{data.StartingFavour}f";
+        Favour.Favour = data.StartingFavour;
 
         NetworkClient.Send(new PlayerSelectedRoleMsg()
         {
@@ -53,9 +57,15 @@ public class RoleUI : MonoBehaviour
 
     Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
     {
-        const int margin = 50;
+        const float margin = 600;
 
-        int x = (Screen.width - 2 * margin) * ((index + 1) / cardsTotal);
+        float adjustedWidth = Screen.width - (2 * margin);
+
+        float x = Screen.width / 2;
+        if (cardsTotal > 1)
+        {
+            x = margin + adjustedWidth * (index / (float)(cardsTotal - 1));
+        }
 
         return new Vector3(x, Screen.height / 2, 0);
     }

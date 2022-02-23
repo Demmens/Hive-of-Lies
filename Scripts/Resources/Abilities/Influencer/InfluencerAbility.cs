@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class InfluencerAbility : RoleAbility
 {
-    DiceMission dice;
-    TeamLeaderVote vote;
+    CostCalculation costCalc;
     void Start()
     {
-        dice = FindObjectOfType<DiceMission>();
-        vote = FindObjectOfType<TeamLeaderVote>();
+        costCalc = FindObjectOfType<CostCalculation>();
 
-        dice.OnRerollCaculation += new DiceMission.RerollCalculation(ModifyRollCost);
-        vote.OnVoteCalculation += new TeamLeaderVote.VoteCalculation(ModifyVoteCost);
+        costCalc.OnRerollCalculation += ModifyRollCost;
+        costCalc.OnVoteCalculation += ModifyVoteCost;
     }
 
     void ModifyRollCost(Player ply, ref int cost)
