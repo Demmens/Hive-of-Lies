@@ -17,13 +17,13 @@ public class FumbleBeeAbility : RoleAbility
     {
         dice = FindObjectOfType<DiceMission>();
 
-        dice.OnPlayerRolled += new DiceMission.PlayerRolled(ModifyDiceRoll);
+        dice.OnPlayerRolled += ModifyDiceRoll;
     }
 
-    void ModifyDiceRoll(Player ply, PlayerRollInfo roll)
+    void ModifyDiceRoll(Player ply, ref PlayerRollInfo roll)
     {
         if (ply != Owner || roll.rerollsUsed < rollsWithCap || roll.currentRoll <= rollCap) return;
+
         roll.currentRoll = Random.Range(1, rollCap);
-        dice.RollInfo.Add(ply, roll);
     }
 }

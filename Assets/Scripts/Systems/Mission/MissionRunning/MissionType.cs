@@ -32,7 +32,7 @@ public abstract class MissionType : MonoBehaviour
     /// </summary>
     [SerializeField] protected GameInfo Info { get; private set; }
 
-    public delegate void MissionEnded();
+    public delegate void MissionEnded(MissionResult result);
     public event MissionEnded OnMissionEnded;
 
     /// <summary>
@@ -70,7 +70,7 @@ public abstract class MissionType : MonoBehaviour
             }
         }
         
-        OnMissionEnded?.Invoke();
+        OnMissionEnded?.Invoke(result);
     }
 }
 

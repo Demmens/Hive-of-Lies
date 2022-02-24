@@ -6,15 +6,6 @@ using Mirror;
 public class DiceMission : MissionType
 {
     #region Fields
-    /// <summary>
-    /// How many times players can roll for free
-    /// </summary>
-    [SerializeField] int freeRolls = 2;
-
-    /// <summary>
-    /// How much influence the first non-free reroll should cost
-    /// </summary>
-    [SerializeField] int firstRerollCost = 2;
 
     /// <summary>
     /// How many sides the dice you roll should have
@@ -27,9 +18,14 @@ public class DiceMission : MissionType
     [SerializeField] int exhaustionPenalty = 5;
 
     /// <summary>
+    /// Reference to the cost calculation class
+    /// </summary>
+    [SerializeField] CostCalculation costCalc;
+
+    /// <summary>
     /// The minimum combined roll from all players needed to succeed the mission
     /// </summary>
-    static int totalNeeded = 25;
+    public static int totalNeeded = 25;
 
     /// <summary>
     /// Contains information about the current state of each players' dice rolls.
@@ -125,7 +121,7 @@ public class DiceMission : MissionType
     /// </summary>
     /// <param name="ply">The player that rolled</param>
     /// <param name="roll">The roll information for that player</param>
-    public delegate void PlayerRolled(Player ply, PlayerRollInfo roll);
+    public delegate void PlayerRolled(Player ply, ref PlayerRollInfo roll);
     /// <summary>
     /// Invoked when a player rolls a dice
     /// </summary>
@@ -151,18 +147,6 @@ public class DiceMission : MissionType
     /// </summary>
     public event AllPlayersLocked OnAllPlayersLocked;
 
-    /// <summary>
-    /// Delegate for <see cref="OnRerollCaculation"/>
-    /// </summary>
-    /// <param name="ply">The player rolling</param>
-    /// <param name="cost">The base cost</param>
-    /// <returns></returns>
-    public delegate void RerollCalculation(Player ply, ref int cost);
-    /// <summary>
-    /// Invoked when the cost of rerolling is calculated. Allows subscribers to modify the result
-    /// </summary>
-    public event RerollCalculation OnRerollCaculation;
-
     #endregion
 
     void Start()
@@ -176,28 +160,7 @@ public class DiceMission : MissionType
         playersLocked = new List<Player>();
         rollTotal = 0;
         rollInfo = new Dictionary<Player, PlayerRollInfo>();
-    }
-
-    /// <summary>
-    /// Determines how much the next reroll should cost
-    /// </summary>
-    /// <param name="numRerolls">How many times the player has rerolled so far</param>
-    /// <returns></returns>
-    int CalculateRerollCost(Player ply, int numRerolls)
-    {
-        //Make sure the correct number of rerolls are free
-        if (numRerolls < freeRolls) return 0;
-
-        //Calculate how many rerolls we have used that aren't free.
-        numRerolls -= freeRolls;
-
-        //Formula. Can edit this however we like for balance.
-        int cost = firstRerollCost * (numRerolls+1);
-
-        //Allow listeners to modify the cost
-        OnRerollCaculation?.Invoke(ply, ref cost);
-
-        return Mathf.Min(cost,0);
+        NetworkServer.SendToAll(new DiceMissionStartedMsg() { });
     }
 
     /// <summary>
@@ -208,29 +171,29 @@ public class DiceMission : MissionType
     {
         if (!Active) return;
         GameInfo.Players.TryGetValue(conn, out Player ply);
-
         //Make sure they're actually on the mission
         if (!GameInfo.PlayersOnMission.Contains(ply)) return;
-
-        rollInfo.TryGetValue(ply, out PlayerRollInfo roll);
-
+        bool exists = rollInfo.TryGetValue(ply, out PlayerRollInfo roll);
         //Make sure they haven't locked in their dice roll yet.
         if (roll.locked) return;
-
-        int rerollCost = CalculateRerollCost(ply, roll.rerollsUsed);
-
+        int rerollCost = costCalc.CalculateRerollCost(ply.SteamID, roll.rerollsUsed);
         //Make sure they can afford the reroll
         if (rerollCost > ply.Favour) return;
+
 
         ply.Favour -= rerollCost;
         roll.rerollsUsed++;
         //Roll the dice and apply exhaustion penalty
         roll.currentRoll = Mathf.Max(1,Random.Range(1, diceSize) - ply.Exhaustion * exhaustionPenalty);
 
-        rollInfo.Add(ply, roll);
-
         //Invoke the player rolled event
-        OnPlayerRolled?.Invoke(ply,roll);
+        OnPlayerRolled?.Invoke(ply,ref roll);
+
+        if (exists) rollInfo[ply] = roll;
+        else rollInfo.Add(ply, roll);
+
+        msg.rollResult = roll.currentRoll;
+        conn.Send(msg);
     }
 
     /// <summary>
@@ -259,13 +222,34 @@ public class DiceMission : MissionType
 
         if (playersLocked.Count == Players.Count)
         {
-            MissionResult result = (rollTotal >= totalNeeded) ? MissionResult.Success : MissionResult.Fail;
-
-            //Invoke the all players locked event
-            OnAllPlayersLocked?.Invoke(result);
-
-            EndMission(result);
+            AllPlayersSubmitted();
         }
+    }
+
+    void AllPlayersSubmitted()
+    {
+        MissionResult result = (rollTotal >= totalNeeded) ? MissionResult.Success : MissionResult.Fail;
+
+        //Invoke the all players locked event
+        OnAllPlayersLocked?.Invoke(result);
+
+        List<int> finalRolls = new List<int>();
+        foreach (KeyValuePair<Player,PlayerRollInfo> roll in rollInfo)
+        {
+            finalRolls.Add(roll.Value.currentRoll);
+        }
+
+        SendMissionPlayersRollsMsg msg = new SendMissionPlayersRollsMsg()
+        {
+            finalRolls = finalRolls
+        };
+
+        foreach (KeyValuePair<NetworkConnection,Player> pair in GameInfo.Players)
+        {
+
+        }
+
+        EndMission(result);
     }
 }
 
@@ -288,12 +272,22 @@ public struct PlayerRollInfo
     public bool locked;
 }
 
+public struct DiceMissionStartedMsg : NetworkMessage
+{
+    
+}
+
 public struct PlayerRolledMsg : NetworkMessage
 {
-
+    public int rollResult;
 }
 
 public struct PlayerLockedRollMsg : NetworkMessage
 {
+    public bool lastPlayer;
+}
 
+public struct SendMissionPlayersRollsMsg : NetworkMessage
+{
+    public List<int> finalRolls;
 }

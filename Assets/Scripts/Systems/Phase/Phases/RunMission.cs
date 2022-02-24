@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class RunMission : GamePhase
 {
@@ -24,9 +25,15 @@ public class RunMission : GamePhase
         missionType.StartMission();
     }
 
-    void OnMissionEnded()
+    void OnMissionEnded(MissionResult result)
     {
         missionType.Active = false;
+        NetworkServer.SendToAll(new MissionEndMsg() { result = result });
         End();
     }
+}
+
+public struct MissionEndMsg : NetworkMessage
+{
+    public MissionResult result;
 }

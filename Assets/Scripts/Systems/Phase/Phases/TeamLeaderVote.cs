@@ -28,6 +28,11 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     Dictionary<Player, int> currentVotes;
 
+    /// <summary>
+    /// The players that have closed the vote popup
+    /// </summary>
+    List<Player> playersClosedPopup;
+
     [SerializeField] CostCalculation costCalc;
 
     #endregion
@@ -92,6 +97,7 @@ public class TeamLeaderVote : GamePhase
     {
         NetworkServer.RegisterHandler<PlayerChangeVoteMsg>(ChangedVoteNumber);
         NetworkServer.RegisterHandler<PlayerLockInMsg>(VoteLockedIn);
+        NetworkServer.RegisterHandler<VotePopupClosedMsg>(VotePopupClosed);
     }
 
     public override void Begin()
@@ -99,6 +105,7 @@ public class TeamLeaderVote : GamePhase
         votes = new List<PlayerVote>();
         currentVotes = new Dictionary<Player, int>();
         voteTotal = 0;
+        playersClosedPopup = new List<Player>();
         NetworkServer.SendToAll(new TeamLeaderVoteStartedMsg() { });
     }
 
@@ -164,7 +171,37 @@ public class TeamLeaderVote : GamePhase
         {
             votes = votes
         });
+    }
 
+    /// <summary>
+    /// Called when a player closes the vote result popup
+    /// </summary>
+    void VotePopupClosed(NetworkConnection conn, VotePopupClosedMsg msg)
+    {
+        GameInfo.Players.TryGetValue(conn, out Player ply);
+        if (playersClosedPopup.Contains(ply)) return;
+
+        playersClosedPopup.Add(ply);
+
+        bool lastPlayer = playersClosedPopup.Count == GameInfo.PlayerCount;
+
+        NetworkServer.SendToAll(new VotePopupClosedMsg()
+        {
+            closedBy = ply.SteamID,
+            lastPlayer = lastPlayer
+        });
+
+        if (lastPlayer)
+        {
+            AllPlayersClosedPopup();
+        }
+    }
+
+    /// <summary>
+    /// Called once all players have closed the vote result popup
+    /// </summary>
+    void AllPlayersClosedPopup()
+    {
         //If the vote was successful
         if (voteTotal > 0)
         {
@@ -175,8 +212,6 @@ public class TeamLeaderVote : GamePhase
             //Back to standing for TeamLeader
         }
     }
-
-    
 }
 
 /// <summary>
@@ -212,4 +247,17 @@ public struct PlayerLockInMsg : NetworkMessage
 public struct SendVoteResultMsg : NetworkMessage
 {
     public List<PlayerVote> votes;
+}
+
+public struct VotePopupClosedMsg : NetworkMessage
+{
+    /// <summary>
+    /// The player that closed the popup
+    /// </summary>
+    public CSteamID closedBy;
+
+    /// <summary>
+    /// Whether this is the last player to close the popup
+    /// </summary>
+    public bool lastPlayer;
 }
