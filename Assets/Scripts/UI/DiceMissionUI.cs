@@ -35,7 +35,7 @@ public class DiceMissionUI : MonoBehaviour
         set
         {
             _nextRerollCost = value;
-            RollCost.text = $"{value}f";
+            RollCost.text = $"Reroll ({value}f)";
         }
     }
 
@@ -51,8 +51,7 @@ public class DiceMissionUI : MonoBehaviour
     /// </summary>
     void MissionStarted(DiceMissionStartedMsg msg)
     {
-        CSteamID steamID = SteamUser.GetSteamID();
-        if (ClientGameInfo.CurrentlySelected.Contains(steamID) || ClientGameInfo.TeamLeaderID == steamID)
+        if (ClientGameInfo.CurrentlySelected.Contains(ClientGameInfo.PlayerID))
         {
             RollResult.text = "0";
             numRolls = 0;
@@ -71,9 +70,8 @@ public class DiceMissionUI : MonoBehaviour
         favourController.Favour -= nextRerollCost;
         RollResult.text = "-";
         numRolls++;
-
-        nextRerollCost = costCalc.CalculateRerollCost(SteamUser.GetSteamID(), numRolls);
-        if (favourController.Favour < nextRerollCost) RollButton.SetActive(false);
+        RollButton.SetActive(false);
+        SubmitButton.SetActive(false);
 
         NetworkClient.Send(new PlayerRolledMsg() { });
     }
@@ -84,6 +82,11 @@ public class DiceMissionUI : MonoBehaviour
     void ReceiveRollResultFromServer(PlayerRolledMsg msg)
     {
         RollResult.text = msg.rollResult.ToString();
+        SubmitButton.SetActive(true);
+        RollButton.SetActive(true);
+
+        nextRerollCost = costCalc.CalculateRerollCost(SteamUser.GetSteamID(), numRolls);
+        if (favourController.Favour < nextRerollCost) RollButton.SetActive(false);
     }
 
     /// <summary>
@@ -92,6 +95,7 @@ public class DiceMissionUI : MonoBehaviour
     public void LockInDice()
     {
         SubmitButton.SetActive(false);
+        RollButton.SetActive(false);
         NetworkClient.Send(new PlayerLockedRollMsg() { });
     }
 

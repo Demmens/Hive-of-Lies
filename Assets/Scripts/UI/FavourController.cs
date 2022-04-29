@@ -5,6 +5,7 @@ using Mirror;
 
 public class FavourController : MonoBehaviour
 {
+    public static FavourController singleton;
     [SerializeField] TMPro.TMP_Text FavourText;
     private int favour;
 
@@ -23,6 +24,7 @@ public class FavourController : MonoBehaviour
 
     private void Start()
     {
+        singleton = this;
         NetworkClient.RegisterHandler<ChangeFavourMsg>(ChangeFavour);
         NetworkClient.RegisterHandler<SetFavourMsg>(SetFavour);
     }

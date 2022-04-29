@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 /// <summary>
 /// Contains information on how the mission will be played (with a deck of cards, rolling dice etc.)
@@ -28,6 +29,16 @@ public abstract class MissionType : MonoBehaviour
     protected List<Player> Players;
 
     /// <summary>
+    /// List of connections that have closed the mission result popup
+    /// </summary>
+    List<NetworkConnection> popupsClosed;
+
+    /// <summary>
+    /// The result of the mission
+    /// </summary>
+    protected MissionResult result;
+
+    /// <summary>
     /// Reference to the game information
     /// </summary>
     [SerializeField] protected GameInfo Info { get; private set; }
@@ -35,12 +46,17 @@ public abstract class MissionType : MonoBehaviour
     public delegate void MissionEnded(MissionResult result);
     public event MissionEnded OnMissionEnded;
 
+    void Start()
+    {
+        NetworkServer.RegisterHandler<ClosedMissionResultPopupMsg>(PlayerClosedPopup);
+    }
+
     /// <summary>
     /// Called when the mission begins (after TeamLeader is successfully voted in)
     /// </summary>
     public virtual void StartMission()
     {
-
+        popupsClosed = new List<NetworkConnection>();
     }
 
     /// <summary>
@@ -71,6 +87,14 @@ public abstract class MissionType : MonoBehaviour
         }
         
         OnMissionEnded?.Invoke(result);
+    }
+
+    void PlayerClosedPopup(NetworkConnection conn, ClosedMissionResultPopupMsg msg)
+    {
+        if (popupsClosed.Contains(conn)) return;
+
+        popupsClosed.Add(conn);
+        if (popupsClosed.Count == GameInfo.PlayerCount) EndMission(result);
     }
 }
 

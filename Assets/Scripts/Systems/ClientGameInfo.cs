@@ -16,9 +16,14 @@ public static class ClientGameInfo
     public static CSteamID TeamLeaderID;
 
     /// <summary>
+    /// The ID of the local player
+    /// </summary>
+    public static ulong PlayerID;
+
+    /// <summary>
     /// The number of players the team leader has currently selected for the mission
     /// </summary>
-    public static List<CSteamID> CurrentlySelected = new List<CSteamID>();
+    public static List<ulong> CurrentlySelected = new List<ulong>();
 
     /// <summary>
     /// The total number of players that can be chosen to go on the mission

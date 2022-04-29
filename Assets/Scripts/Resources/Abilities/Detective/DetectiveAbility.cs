@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Mirror;
 
 public class DetectiveAbility : RoleAbility
 {
@@ -18,33 +19,34 @@ public class DetectiveAbility : RoleAbility
     [SerializeField] TMP_Text text;
 
     RunMission mission;
-    GameInfo info;
 
     void Start()
     {
         if (!Active) return;
         mission = FindObjectOfType<RunMission>();
-        info = FindObjectOfType<GameInfo>();
-        mission.OnGamePhaseChange += new GamePhase.GamePhaseChange(() =>
+        mission.OnGamePhaseEnd += () =>
         {
             if (GameInfo.RoundNum == abilityTriggerRound)
             {
                 string txt = "";
-                info.Roles.Shuffle();
-                foreach(Role role in info.Roles)
+                GameInfo.Roles.Shuffle();
+                foreach (Role role in GameInfo.Roles)
                 {
-                    if (role.Data.Team == Team.Bee)
+                    if (role.Data.Team == Team.Bee && !(role.Ability is DetectiveAbility))
                     {
                         txt = $"{role.Ability.Owner.DisplayName} is the {role.Data.RoleName}";
                         break;
                     }
                 }
                 text.text = txt;
-                //Enable popup on client
-                //if (client)
-                popup.SetActive(true);
-                //
+                SpawnPopup(Owner.connection);
             }
-        });
+        };
+    }
+
+    [TargetRpc]
+    void SpawnPopup(NetworkConnection target)
+    {
+        popup.SetActive(true);
     }
 }

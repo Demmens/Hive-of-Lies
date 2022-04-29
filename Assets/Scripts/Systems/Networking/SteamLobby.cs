@@ -18,9 +18,16 @@ public class SteamLobby : MonoBehaviour
     /// Server only storage of lobbyID
     /// </summary>
     public static CSteamID LobbyID;
+    /// <summary>
+    /// The sole steam lobby instance
+    /// </summary>
+    public static SteamLobby singleton;
 
     private void Start()
     {
+        if (!SteamManager.Initialized) { return; }
+        if (singleton == null) singleton = this;
+
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         lobbyEnter = Callback<LobbyEnter_t>.Create(LobbyEnter);
@@ -28,7 +35,8 @@ public class SteamLobby : MonoBehaviour
 
     public void HostLobby()
     {
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePrivate, networkManager.maxConnections);
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, networkManager.maxConnections);
+        networkManager.ServerChangeScene("Lobby");
     }
 
     void OnLobbyCreated(LobbyCreated_t callback)
@@ -38,6 +46,7 @@ public class SteamLobby : MonoBehaviour
         networkManager.StartHost();
 
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), hostAddressKey, SteamUser.GetSteamID().ToString());
+        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "name", SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()) + "'s lobby");
     }
 
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)

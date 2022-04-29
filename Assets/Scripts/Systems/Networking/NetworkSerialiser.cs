@@ -16,7 +16,7 @@ public static class NetworkSerialiser
     }
 
 
-    public static void ReadMissionData(this NetworkWriter writer, MissionData value)
+    public static void WriteMissionData(this NetworkWriter writer, MissionData value)
     {
         writer.WriteString(value.name);
     }
@@ -26,12 +26,23 @@ public static class NetworkSerialiser
     }
 
 
-    public static void ReadCSteamID(this NetworkWriter writer, CSteamID value)
+    public static void WriteCSteamID(this NetworkWriter writer, CSteamID value)
     {
         writer.WriteULong(value.m_SteamID);
     }
     public static CSteamID ReadCSteamID(this NetworkReader reader)
     {
         return new CSteamID(reader.ReadULong());
+    }
+
+    public static void WriteCard(this NetworkWriter writer, Card value)
+    {
+        writer.WriteString(value.Name);
+        writer.WriteInt(value.Value);
+    }
+
+    public static Card ReadCard(this NetworkReader reader)
+    {
+        return new Card(reader.ReadString(), reader.ReadInt());
     }
 }

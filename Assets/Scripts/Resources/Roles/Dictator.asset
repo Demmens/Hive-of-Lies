@@ -19,4 +19,4 @@ MonoBehaviour:
   team: 2
   playersRequired: 5
   ability: {fileID: 899694251160386601, guid: 15aa3f0230c2b3242b8d28e4d47bd514, type: 3}
-  enabled: 0
+  enabled: 1

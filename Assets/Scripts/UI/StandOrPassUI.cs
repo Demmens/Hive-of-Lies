@@ -21,7 +21,7 @@ public class StandOrPassUI : MonoBehaviour
         ClientEventProvider.singleton.OnTeamLeaderChanged += TeamLeaderDecided;
     }
 
-    public void CreateUI(StartStandOrPassMsg msg)
+    void CreateUI(StartStandOrPassMsg msg)
     {
         favourCost = msg.favourCost;
         FavourCost.text = $"{favourCost}f";
@@ -34,7 +34,9 @@ public class StandOrPassUI : MonoBehaviour
     {
         UI.SetActive(false);
 
-        Favour.Favour -= favourCost;
+        stood = standing;
+
+        if (standing) Favour.Favour -= favourCost;
 
         NetworkClient.Send(new PlayerStandOrPassMsg()
         {
@@ -46,7 +48,7 @@ public class StandOrPassUI : MonoBehaviour
     /// If the team leader is decided and it wasn't you, refund the cost for standing.
     /// </summary>
     /// <param name="msg"></param>
-    public void TeamLeaderDecided(TeamLeaderChangedMsg msg)
+    void TeamLeaderDecided(TeamLeaderChangedMsg msg)
     {
         if (stood && msg.ID != SteamUser.GetSteamID())
         {

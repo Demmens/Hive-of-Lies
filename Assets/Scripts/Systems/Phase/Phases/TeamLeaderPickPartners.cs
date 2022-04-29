@@ -22,8 +22,9 @@ public class TeamLeaderPickPartners : GamePhase
     readonly Dictionary<int, int> partnerPlayerCounts = new Dictionary<int, int>()
     {
         {0,1},
-        {6,2},
-        {9,3}
+        {2,2},
+        {6,3},
+        {9,4}
     };
 
     /// <summary>
@@ -36,6 +37,12 @@ public class TeamLeaderPickPartners : GamePhase
     /// </summary>
     List<Player> playersSelected;
 
+    /// <summary>
+    /// Invoked when the Team Leader locks in their partner choices
+    /// </summary>
+    public event LockInPartners OnLockInChoices;
+    public delegate void LockInPartners();
+
     void Start()
     {
         //Find the appropriate number of players that need to go on each mission.
@@ -43,7 +50,6 @@ public class TeamLeaderPickPartners : GamePhase
         {
             if (partnerPlayerCounts.TryGetValue(i, out int num)) NumPartners = num;
         }
-
         NetworkServer.RegisterHandler<TeamLeaderChangePartnersMsg>(TeamLeaderSelectedPlayer);
         NetworkServer.RegisterHandler<TeamLeaderLockInMsg>(LockInChoices);
     }
@@ -51,6 +57,7 @@ public class TeamLeaderPickPartners : GamePhase
     public override void Begin()
     {
         playersSelected = new List<Player>();
+        NetworkServer.SendToAll(new TeamLeaderStartPickingMsg() { teamLeaderID = (ulong)GameInfo.TeamLeaderID });
     }
 
     /// <summary>
@@ -72,7 +79,11 @@ public class TeamLeaderPickPartners : GamePhase
             }
         }
 
+        Debug.Log("SERVER: Player selected partner");
+
         if (target == null) return;
+
+        Debug.Log("SERVER: Selected player isn't null");
 
         if (msg.selected)
         {
@@ -104,10 +115,17 @@ public class TeamLeaderPickPartners : GamePhase
         GameInfo.Players.TryGetValue(conn, out Player ply);
         if (ply != GameInfo.TeamLeader) return;
 
+        GameInfo.PlayersOnMission = playersSelected;
         Debug.Log("Team leader has locked in their partner choices");
+        OnLockInChoices?.Invoke();
 
         End();
     }
+}
+
+public struct TeamLeaderStartPickingMsg : NetworkMessage
+{
+    public ulong teamLeaderID;
 }
 
 public struct TeamLeaderChangePartnersMsg : NetworkMessage
@@ -115,4 +133,4 @@ public struct TeamLeaderChangePartnersMsg : NetworkMessage
     public CSteamID playerID;
     public bool selected;
 }
-public struct TeamLeaderLockInMsg : NetworkMessage {}
+public struct TeamLeaderLockInMsg : NetworkMessage { }

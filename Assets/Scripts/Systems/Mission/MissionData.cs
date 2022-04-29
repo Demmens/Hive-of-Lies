@@ -61,10 +61,6 @@ public class MissionData : ScriptableObject
         {
             return missionName;
         }
-        set
-        {
-            missionName = MissionName;
-        }
     }
 
     /// <summary>
@@ -76,10 +72,6 @@ public class MissionData : ScriptableObject
         {
             return description;
         }
-        set
-        {
-            description = Description;
-        }
     }
     /// <summary>
     /// How much it costs to stand for the teamLeader of this mission
@@ -89,10 +81,6 @@ public class MissionData : ScriptableObject
         get
         {
             return influenceCost;
-        }
-        set
-        {
-            influenceCost = FavourCost;
         }
     }
 
@@ -105,10 +93,6 @@ public class MissionData : ScriptableObject
         {
             return successEffects;
         }
-        set
-        {
-            successEffects = SuccessEffects;
-        }
     }
 
     /// <summary>
@@ -119,10 +103,6 @@ public class MissionData : ScriptableObject
         get
         {
             return successFlavour;
-        }
-        set
-        {
-            successFlavour = SuccessFlavour;
         }
     }
 
@@ -135,10 +115,6 @@ public class MissionData : ScriptableObject
         {
             return failEffects;
         }
-        set
-        {
-            failEffects = FailEffects;
-        }
     }
 
     /// <summary>
@@ -149,10 +125,6 @@ public class MissionData : ScriptableObject
         get
         {
             return failFlavour;
-        }
-        set
-        {
-            failFlavour = FailFlavour;
         }
     }
 

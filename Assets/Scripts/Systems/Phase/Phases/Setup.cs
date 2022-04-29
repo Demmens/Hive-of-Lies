@@ -6,7 +6,8 @@ using Mirror;
 
 public class Setup : GamePhase
 {
-    public override EGamePhase Phase {
+    public override EGamePhase Phase
+    {
         get
         {
             return EGamePhase.Setup;
@@ -14,17 +15,13 @@ public class Setup : GamePhase
     }
 
     /// <summary>
-    /// Reference to the GameInfo class
-    /// </summary>
-    [SerializeField] GameInfo info;
-
-    /// <summary>
     /// Number of role choices given to each role. If set too high, some players may not receive any choices.
     /// </summary>
-    [SerializeField] Dictionary<Team, int> RoleChoices = new Dictionary<Team, int>()
+    [SerializeField]
+    Dictionary<Team, int> RoleChoices = new Dictionary<Team, int>()
     {
-        {Team.Bee, 3},
-        {Team.Wasp, 3}
+        {Team.Bee, 1},
+        {Team.Wasp, 1}
     };
 
     /// <summary>
@@ -45,7 +42,7 @@ public class Setup : GamePhase
     /// <summary>
     /// The steam IDs of all players currently in the lobby. Used to sync player buttons with clients
     /// </summary>
-    List<CSteamID> playerIDs = new List<CSteamID>(); 
+    List<CSteamID> playerIDs = new List<CSteamID>();
 
     /// <summary>
     /// List of all roles that can appear in the game
@@ -71,10 +68,9 @@ public class Setup : GamePhase
     /// <summary>
     /// Called when a player loads into the game
     /// </summary>
-    /// <param name="conn">The connection of the player</param>
-    /// <param name="msg">The message</param>
     void OnPlayerReady(NetworkConnection conn, PlayerReadyMsg msg)
     {
+        Debug.Log($"{SteamFriends.GetFriendPersonaName(msg.playerID)} has loaded into the lobby");
         //If for whatever reason this is called twice on a client
         if (playerIDs.Contains(msg.playerID)) return;
 
@@ -86,7 +82,7 @@ public class Setup : GamePhase
         });
 
         Debug.Log($"{SteamFriends.GetFriendPersonaName(msg.playerID)} loaded into the game");
-        Player ply = new Player(msg.playerID);
+        Player ply = new Player(msg.playerID, conn);
 
         players.Add(ply);
         GameInfo.Players.Add(conn, ply);
@@ -111,7 +107,7 @@ public class Setup : GamePhase
         //Roles.Shuffle();
 
         AssignTeams(players);
-        
+
         GiveRoleChoices(players, Roles);
     }
 
@@ -148,7 +144,7 @@ public class Setup : GamePhase
             for (int i = 0; i < roles.Count; i++)
             {
                 RoleData role = roles[i];
-                if (role.Team == ply.Team)
+                if (role.Team == ply.Team && role.Enabled)
                 {
                     ply.RoleChoices.Add(role);
                     roles.Remove(role);
@@ -158,7 +154,7 @@ public class Setup : GamePhase
             }
         }
 
-        foreach (KeyValuePair<NetworkConnection,Player> pair in GameInfo.Players)
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
         {
             pair.Key.Send(new SendRoleInfoMsg
             {
@@ -170,8 +166,6 @@ public class Setup : GamePhase
     /// <summary>
     /// Called when a player selects their role
     /// </summary>
-    /// <param name="ply">The player who selected the role</param>
-    /// <param name="role">The role the player selected</param>
     public void PlayerSelectedRole(NetworkConnection conn, PlayerSelectedRoleMsg msg)
     {
         if (!Active) return;
@@ -179,18 +173,20 @@ public class Setup : GamePhase
         GameInfo.Players.TryGetValue(conn, out Player ply);
         //If the role they selected is not one of their options
         if (!ply.RoleChoices.Contains(role)) return;
-
-        RoleAbility ability = Instantiate(role.Ability);
+        GameObject abilityObject = Instantiate(role.Ability);
+        RoleAbility ability = abilityObject.GetComponent<RoleAbility>();
         ability.Owner = ply;
+        ability.OwnerConnection = conn;
+        NetworkServer.Spawn(ability.gameObject, conn);
         ply.Favour = role.StartingFavour;
 
-        info.Roles.Add(new Role()
+        GameInfo.Roles.Add(new Role()
         {
             Ability = ability,
             Data = role
         });
 
-        if (info.Roles.Count == GameInfo.PlayerCount) End();
+        if (GameInfo.Roles.Count == GameInfo.PlayerCount) End();
     }
 
     /// <summary>

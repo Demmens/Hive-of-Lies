@@ -12,6 +12,7 @@ public class StartGameButton : MonoBehaviour
 
     public void StartGame()
     {
-        NetworkManager.singleton.ServerChangeScene("Game");
+        HoLNetworkManager manager = NetworkManager.singleton as HoLNetworkManager;
+        manager.StartGame("Game");
     }
 }

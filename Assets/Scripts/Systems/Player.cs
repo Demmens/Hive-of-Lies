@@ -128,13 +128,29 @@ public class Player
             exhaustion = value;
         }
     }
+
+    /// <summary>
+    /// The clients connection
+    /// </summary>
+    public NetworkConnection connection;
     #endregion
 
-    public Player(CSteamID id)
+    public Player(CSteamID id, NetworkConnection conn)
     {
         SteamID = id;
+        connection = conn;
         DisplayName = SteamFriends.GetFriendPersonaName(id);
         RoleChoices = new List<RoleData>();
+    }
+
+    public Player()
+    {
+        if (NetworkClient.active)
+        {
+            SteamID = SteamUser.GetSteamID();
+            DisplayName = SteamFriends.GetPersonaName();
+        }
+        
     }
 }
 

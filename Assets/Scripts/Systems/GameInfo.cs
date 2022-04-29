@@ -21,11 +21,6 @@ public class GameInfo : MonoBehaviour
     /// </summary>
     private Player standingTeamLeader;
 
-    /// <summary>
-    /// Private counterpart to <see cref="Roles"/>
-    /// </summary>
-    private List<Role> roles = new List<Role>();
-
     #endregion
 
     #region Properties
@@ -56,7 +51,7 @@ public class GameInfo : MonoBehaviour
         }
         set
         {
-            waspResearch = Mathf.Clamp(value,0,end.ResearchNeededForWin);
+            waspResearch = Mathf.Clamp(value, 0, end.ResearchNeededForWin);
             if (waspResearch == end.ResearchNeededForWin)
             {
                 end.EndGame(Team.Bee);
@@ -75,7 +70,7 @@ public class GameInfo : MonoBehaviour
         }
         set
         {
-            honeyStolen = Mathf.Clamp(value,0,end.HoneyNeededForWin);
+            honeyStolen = Mathf.Clamp(value, 0, end.HoneyNeededForWin);
             if (honeyStolen == end.HoneyNeededForWin)
             {
                 end.EndGame(Team.Wasp);
@@ -86,17 +81,7 @@ public class GameInfo : MonoBehaviour
     /// <summary>
     /// All roles and their instantiated abilities
     /// </summary>
-    public List<Role> Roles
-    {
-        get
-        {
-            return roles;
-        }
-        set
-        {
-            roles = value;
-        }
-    }
+    public static List<Role> Roles = new List<Role>();
 
     /// <summary>
     /// Map each CSteamID to the respective player. Makes it a lot easier to find players
@@ -158,12 +143,6 @@ public class GameInfo : MonoBehaviour
     public static Mission CurrentMission;
 
     #endregion
-
-    private void Start()
-    {
-        PlayerCount = SteamMatchmaking.GetNumLobbyMembers(SteamLobby.LobbyID);
-        Debug.Log($"Started game with {PlayerCount} players");
-    }
 }
 
 /// <summary>

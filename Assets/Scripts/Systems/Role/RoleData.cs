@@ -31,6 +31,14 @@ public class RoleData : ScriptableObject
     [SerializeField] int startingFavour;
 
     /// <summary>
+    /// Private counterpart to <see cref="StartingDeck"/>
+    /// </summary>
+    [SerializeField] List<int> startingDeck = new List<int>
+    {
+        1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+    };
+
+    /// <summary>
     /// Private counterpart to <see cref="Team"/>
     /// </summary>
     [SerializeField] Team team;
@@ -48,7 +56,7 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// Private counterpart of <see cref="Enabled"/>
     /// </summary>
-    [SerializeField] bool enabled;
+    [SerializeField] bool enabled = true;
     #endregion
 
     #region Public Properties
@@ -133,11 +141,11 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// The logic for the roles ability
     /// </summary>
-    public RoleAbility Ability
+    public GameObject Ability
     {
         get
         {
-            return ability.GetComponent<RoleAbility>();
+            return ability;
         }
     }
 
@@ -153,6 +161,21 @@ public class RoleData : ScriptableObject
         set
         {
             enabled = value;
+        }
+    }
+
+    /// <summary>
+    /// The roles starting deck of cards
+    /// </summary>
+    public List<int> StartingDeck
+    {
+        get
+        {
+            return startingDeck;
+        }
+        set
+        {
+            startingDeck = value;
         }
     }
     #endregion

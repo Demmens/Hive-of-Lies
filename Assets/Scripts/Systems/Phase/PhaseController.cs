@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class PhaseController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PhaseController : MonoBehaviour
     /// The game object that contains all the phases.
     /// </summary>
     [SerializeField] GameObject phasesObject;
+
+    [SerializeField] int favourGainPerRound;
 
     /// <summary>
     /// Array of all the game phases we want to repeat for the gameplay loop.
@@ -31,7 +34,7 @@ public class PhaseController : MonoBehaviour
         foreach (GamePhase phase in phases)
         {
             //Listen for when phases end
-            phase.OnGamePhaseChange += new GamePhase.GamePhaseChange(PhaseChange);
+            phase.OnGamePhaseEnd += new GamePhase.BasicDelegate(PhaseChange);
             if (phase is StandOrPass)
             {
                 StandOrPass sop = phase as StandOrPass;
@@ -39,7 +42,7 @@ public class PhaseController : MonoBehaviour
             }
         }
         //Make sure to listen for the setup ending too.
-        setup.OnGamePhaseChange += new GamePhase.GamePhaseChange(PhaseChange);
+        setup.OnGamePhaseEnd += new GamePhase.BasicDelegate(PhaseChange);
         //Set to -1 since on a phase end it increments, and we want to start at phases[0].
         currentPhase = -1;
         //Complete the setup first.
@@ -56,11 +59,14 @@ public class PhaseController : MonoBehaviour
         //Make sure to loop back to the beginning again once we reach the last phase
         if (currentPhase >= phases.Length)
         {
-            currentPhase = 0;
-            GameInfo.RoundNum++;
+            StartNextRound();
         }
-        //And begin the next phase
-        phases[currentPhase].ChangePhase();
+        else
+        {
+            //Begin the next phase
+            phases[currentPhase].ChangePhase();
+        }
+
     }
 
     /// <summary>
@@ -69,8 +75,25 @@ public class PhaseController : MonoBehaviour
     void ResetRound()
     {
         phases[currentPhase].End(true);
+
+        StartNextRound();
+    }
+
+    void StartNextRound()
+    {
         currentPhase = 0;
         GameInfo.RoundNum++;
+
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+        {
+            pair.Value.Favour += favourGainPerRound;
+        }
+
+        NetworkServer.SendToAll(new ChangeFavourMsg()
+        {
+            favourIncrease = favourGainPerRound
+        });
+
         phases[0].ChangePhase();
     }
 }

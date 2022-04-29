@@ -33,24 +33,6 @@ public class PlayerButton : MonoBehaviour
 
     public void OnClicked()
     {
-        Debug.Log("clicked");
-        if (SteamUser.GetSteamID() == ClientGameInfo.TeamLeaderID && ClientGameInfo.CurrentlySelected.Count < ClientGameInfo.MaxPartners)
-        {
-            Debug.Log("Click attempt");
-            selected = true;
-            ClientGameInfo.CurrentlySelected.Add(steamID);
-            NetworkClient.Send(new TeamLeaderChangePartnersMsg()
-            {
-                selected = true,
-                playerID = steamID
-            });
-            if (ClientGameInfo.CurrentlySelected.Count == ClientGameInfo.MaxPartners)
-            {
-                NetworkClient.Send(new TeamLeaderLockInMsg()
-                {
-
-                });
-            }
-        }
+        ClientEventProvider.singleton.ClickPlayer((ulong)steamID);
     }
 }

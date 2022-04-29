@@ -31,13 +31,17 @@ public abstract class GamePhase : MonoBehaviour
     }
 
     /// <summary>
-    /// Delegate for <see cref="OnGamePhaseChange"/>
+    /// Empty Delegate
     /// </summary>
-    public delegate void GamePhaseChange();
+    public delegate void BasicDelegate();
     /// <summary>
     /// Invoked when this game phases ends
     /// </summary>
-    public event GamePhaseChange OnGamePhaseChange;
+    public event BasicDelegate OnGamePhaseEnd;
+    /// <summary>
+    /// Invoked when this game phase starts
+    /// </summary>
+    public event BasicDelegate OnGamePhaseStart;
 
     /// <summary>
     /// Call to start this phase
@@ -46,6 +50,7 @@ public abstract class GamePhase : MonoBehaviour
     {
         active = true;
         GameInfo.GamePhase = Phase;
+        OnGamePhaseStart?.Invoke();
         Begin();
     }
 
@@ -53,7 +58,7 @@ public abstract class GamePhase : MonoBehaviour
     /// Called when this game phase begins
     /// </summary>
     public abstract void Begin();
-    
+
     /// <summary>
     /// Call to end the phase and move to the next phase
     /// </summary>
@@ -62,7 +67,7 @@ public abstract class GamePhase : MonoBehaviour
         active = false;
         if (!forced)
         {
-            OnGamePhaseChange?.Invoke();
+            OnGamePhaseEnd?.Invoke();
         }
     }
 }

@@ -16,13 +16,13 @@ public class InfluencerAbility : RoleAbility
 
     void ModifyRollCost(CSteamID ply, ref int cost)
     {
-        if (ply == Owner.SteamID && Active)
+        if (ply == Owner.SteamID || hasAuthority)
             cost *= 2;
     }
 
     void ModifyVoteCost(CSteamID ply, ref int cost)
     {
-        if (ply == Owner.SteamID && Active)
+        if (ply == Owner.SteamID || hasAuthority)
             cost /= 2;
     }
 }

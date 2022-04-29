@@ -8,6 +8,10 @@ public class DiceMission : MissionType
     #region Fields
 
     /// <summary>
+    /// The only DiceMission script
+    /// </summary>
+    public static DiceMission singleton;
+    /// <summary>
     /// How many sides the dice you roll should have
     /// </summary>
     [SerializeField] int diceSize = 20;
@@ -111,7 +115,31 @@ public class DiceMission : MissionType
             totalNeeded = value;
         }
     }
-    
+
+    public int ExhaustionPenalty
+    {
+        get
+        {
+            return exhaustionPenalty;
+        }
+    }
+
+    /// <summary>
+    /// The size of the dice that players roll.
+    /// </summary>
+    /// <value></value>
+    public int DiceSize
+    {
+        get
+        {
+            return diceSize;
+        }
+        set
+        {
+            diceSize = value;
+        }
+    }
+
     #endregion
 
     #region Events
@@ -151,12 +179,14 @@ public class DiceMission : MissionType
 
     void Start()
     {
+        singleton = this;
         NetworkServer.RegisterHandler<PlayerRolledMsg>(PlayerRerolled);
         NetworkServer.RegisterHandler<PlayerLockedRollMsg>(PlayerLockedIn);
     }
 
     public override void StartMission()
     {
+        base.StartMission();
         playersLocked = new List<Player>();
         rollTotal = 0;
         rollInfo = new Dictionary<Player, PlayerRollInfo>();
@@ -170,30 +200,42 @@ public class DiceMission : MissionType
     void PlayerRerolled(NetworkConnection conn, PlayerRolledMsg msg)
     {
         if (!Active) return;
-        GameInfo.Players.TryGetValue(conn, out Player ply);
+        if (!GameInfo.Players.TryGetValue(conn, out Player ply)) return;
         //Make sure they're actually on the mission
         if (!GameInfo.PlayersOnMission.Contains(ply)) return;
-        bool exists = rollInfo.TryGetValue(ply, out PlayerRollInfo roll);
+
+        rollInfo.TryGetValue(ply, out PlayerRollInfo roll);
         //Make sure they haven't locked in their dice roll yet.
         if (roll.locked) return;
+
         int rerollCost = costCalc.CalculateRerollCost(ply.SteamID, roll.rerollsUsed);
         //Make sure they can afford the reroll
         if (rerollCost > ply.Favour) return;
 
-
         ply.Favour -= rerollCost;
         roll.rerollsUsed++;
+
+        RollDice(ply);
+    }
+
+    /// <summary>
+    /// Call to force a dice roll.
+    /// </summary>
+    public void RollDice(Player ply)
+    {
+        bool exists = rollInfo.TryGetValue(ply, out PlayerRollInfo roll);
         //Roll the dice and apply exhaustion penalty
-        roll.currentRoll = Mathf.Max(1,Random.Range(1, diceSize) - ply.Exhaustion * exhaustionPenalty);
+        roll.currentRoll = Random.Range(1, diceSize) - ply.Exhaustion * exhaustionPenalty;
 
         //Invoke the player rolled event
-        OnPlayerRolled?.Invoke(ply,ref roll);
+        OnPlayerRolled?.Invoke(ply, ref roll);
+
+        roll.currentRoll = Mathf.Max(1, roll.currentRoll);
 
         if (exists) rollInfo[ply] = roll;
         else rollInfo.Add(ply, roll);
 
-        msg.rollResult = roll.currentRoll;
-        conn.Send(msg);
+        ply.connection.Send(new PlayerRolledMsg() { rollResult = roll.currentRoll });
     }
 
     /// <summary>
@@ -220,36 +262,50 @@ public class DiceMission : MissionType
         //Invoke the player locked event
         OnPlayerLocked?.Invoke(ply);
 
-        if (playersLocked.Count == Players.Count)
+        if (playersLocked.Count == GameInfo.PlayersOnMission.Count)
         {
+            NetworkServer.SendToAll(new PlayerLockedRollMsg()
+            {
+                lastPlayer = true
+            });
             AllPlayersSubmitted();
+        }
+        else
+        {
+            NetworkServer.SendToAll(new PlayerLockedRollMsg()
+            {
+            });
         }
     }
 
     void AllPlayersSubmitted()
     {
-        MissionResult result = (rollTotal >= totalNeeded) ? MissionResult.Success : MissionResult.Fail;
+        Debug.Log("All players have submitted");
+        result = (rollTotal >= totalNeeded) ? MissionResult.Success : MissionResult.Fail;
 
         //Invoke the all players locked event
         OnAllPlayersLocked?.Invoke(result);
 
         List<int> finalRolls = new List<int>();
-        foreach (KeyValuePair<Player,PlayerRollInfo> roll in rollInfo)
+        foreach (KeyValuePair<Player, PlayerRollInfo> roll in rollInfo)
         {
             finalRolls.Add(roll.Value.currentRoll);
         }
 
-        SendMissionPlayersRollsMsg msg = new SendMissionPlayersRollsMsg()
-        {
-            finalRolls = finalRolls
-        };
 
-        foreach (KeyValuePair<NetworkConnection,Player> pair in GameInfo.Players)
-        {
 
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+        {
+            CreateMissionResultPopupMsg msg = new CreateMissionResultPopupMsg()
+            {
+                result = result,
+            };
+
+            if (playersLocked.Contains(pair.Value)) msg.finalRolls = finalRolls;
+
+            pair.Key.Send(msg);
         }
 
-        EndMission(result);
     }
 }
 
@@ -274,7 +330,7 @@ public struct PlayerRollInfo
 
 public struct DiceMissionStartedMsg : NetworkMessage
 {
-    
+
 }
 
 public struct PlayerRolledMsg : NetworkMessage
@@ -287,7 +343,8 @@ public struct PlayerLockedRollMsg : NetworkMessage
     public bool lastPlayer;
 }
 
-public struct SendMissionPlayersRollsMsg : NetworkMessage
+public struct CreateMissionResultPopupMsg : NetworkMessage
 {
     public List<int> finalRolls;
+    public MissionResult result;
 }

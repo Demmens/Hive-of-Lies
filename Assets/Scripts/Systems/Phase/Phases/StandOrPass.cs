@@ -219,6 +219,7 @@ public class StandOrPass : GamePhase
 
         //Now, since we've sorted, the player at the top of the list will be the Team Leader
         GameInfo.TeamLeader = standingPlayers[0];
+        Debug.Log($"The team leader has been set to {GameInfo.TeamLeader.DisplayName}");
 
         //The Team Leader pays the favour cost of standing
         GameInfo.TeamLeader.Favour -= GameInfo.CurrentMission.Data.FavourCost;

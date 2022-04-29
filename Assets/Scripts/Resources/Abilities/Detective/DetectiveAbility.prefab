@@ -599,8 +599,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b37055c6d561e4141a07dc8f4eda8d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityTriggerRound: 4
+  syncMode: 0
+  syncInterval: 0.1
+  abilityTriggerRound: 2
   popup: {fileID: 0}
+  text: {fileID: 0}
 --- !u!1 &6735921130177565735
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using Mirror;
 
 public class RunMission : GamePhase
 {
+    public static RunMission singleton;
     public override EGamePhase Phase
     {
         get
@@ -18,6 +19,7 @@ public class RunMission : GamePhase
     private void Start()
     {
         missionType.OnMissionEnded += OnMissionEnded;
+        singleton = this;
     }
     public override void Begin()
     {
@@ -28,7 +30,23 @@ public class RunMission : GamePhase
     void OnMissionEnded(MissionResult result)
     {
         missionType.Active = false;
-        NetworkServer.SendToAll(new MissionEndMsg() { result = result });
+        NetworkServer.SendToAll(new MissionEndMsg()
+        {
+            result = result,
+        });
+
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+        {
+            if (GameInfo.PlayersOnMission.Contains(pair.Value))
+            {
+                pair.Value.Exhaustion++;
+            }
+            else
+            {
+                pair.Value.Exhaustion = 0;
+            }
+        }
+
         End();
     }
 }

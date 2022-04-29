@@ -6,9 +6,13 @@ using Mirror;
 
 public class PlayerList : MonoBehaviour
 {
-    [SerializeField] List<GameObject> PlayerButtons;
+    [SerializeField] GameObject playerList;
+    [SerializeField] GameObject playerButton;
+
+    List<ulong> playersLoaded;
     void Start()
     {
+        playersLoaded = new List<ulong>();
         NetworkClient.RegisterHandler<PlayerReadyMsg>(OnClientLoaded);
     }
 
@@ -16,8 +20,13 @@ public class PlayerList : MonoBehaviour
     {
         for (int i = 0; i < msg.loadedPlayers.Count; i++)
         {
-            PlayerButtons[i].GetComponentInChildren<PlayerButton>().SteamID = msg.loadedPlayers[i];
-            PlayerButtons[i].SetActive(true);
+            ulong id = (ulong)msg.loadedPlayers[i];
+            if (playersLoaded.Contains(id)) continue;
+
+            GameObject button = Instantiate(playerButton);
+            button.transform.SetParent(playerList.transform);
+            button.GetComponent<PlayerButton>().SteamID = new CSteamID(id);
+            playersLoaded.Add(id);
         }
     }
 }

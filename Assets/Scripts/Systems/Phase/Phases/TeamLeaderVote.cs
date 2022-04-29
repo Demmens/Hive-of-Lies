@@ -97,7 +97,7 @@ public class TeamLeaderVote : GamePhase
     {
         NetworkServer.RegisterHandler<PlayerChangeVoteMsg>(ChangedVoteNumber);
         NetworkServer.RegisterHandler<PlayerLockInMsg>(VoteLockedIn);
-        NetworkServer.RegisterHandler<VotePopupClosedMsg>(VotePopupClosed);
+        NetworkServer.RegisterHandler<VoteContinueClickedMsg>(VotePopupClosed);
     }
 
     public override void Begin()
@@ -176,7 +176,7 @@ public class TeamLeaderVote : GamePhase
     /// <summary>
     /// Called when a player closes the vote result popup
     /// </summary>
-    void VotePopupClosed(NetworkConnection conn, VotePopupClosedMsg msg)
+    void VotePopupClosed(NetworkConnection conn, VoteContinueClickedMsg msg)
     {
         GameInfo.Players.TryGetValue(conn, out Player ply);
         if (playersClosedPopup.Contains(ply)) return;
@@ -185,7 +185,7 @@ public class TeamLeaderVote : GamePhase
 
         bool lastPlayer = playersClosedPopup.Count == GameInfo.PlayerCount;
 
-        NetworkServer.SendToAll(new VotePopupClosedMsg()
+        NetworkServer.SendToAll(new VoteContinueClickedMsg()
         {
             closedBy = ply.SteamID,
             lastPlayer = lastPlayer
@@ -249,7 +249,7 @@ public struct SendVoteResultMsg : NetworkMessage
     public List<PlayerVote> votes;
 }
 
-public struct VotePopupClosedMsg : NetworkMessage
+public struct VoteContinueClickedMsg : NetworkMessage
 {
     /// <summary>
     /// The player that closed the popup

@@ -28,8 +28,8 @@ public class MissionUI : MonoBehaviour
         // Listen for server sending us information
         NetworkClient.RegisterHandler<SendMissionChoicesMsg>(CreateMissionCards);
         NetworkClient.RegisterHandler<SendDecidedMissionMsg>(ChangeMission);
-        NetworkClient.RegisterHandler<TeamLeaderChangePartnersMsg>(OnTeamLeaderChangePartner);
 
+        ClientEventProvider.singleton.OnTeamLeaderChangePartner += OnTeamLeaderChangePartner;
         ClientEventProvider.singleton.OnTeamLeaderChanged += OnTeamLeaderDecided;
     }
 
@@ -49,7 +49,7 @@ public class MissionUI : MonoBehaviour
             cardScript.SetData(msg.choices[i]);
             cardScript.OnMissionCardClicked += MissionCardClicked;
             cards.Add(card);
-            
+
         }
     }
 
@@ -110,6 +110,8 @@ public class MissionUI : MonoBehaviour
         successFlavour.text = msg.mission.SuccessFlavour;
         failFlavour.text = msg.mission.FailFlavour;
         missionCost.text = $"Mission Cost: {msg.mission.FavourCost}f";
+        teamLeaderName.text = "Undecided";
+        missionPlayerList.text = "Undecided";
 
         successEffect.text = CreateStringFromList(msg.mission.SuccessEffects);
         failEffect.text = CreateStringFromList(msg.mission.FailEffects);
@@ -132,6 +134,9 @@ public class MissionUI : MonoBehaviour
     {
         Debug.Log("Team Leader has changed partners");
         string playerName = SteamFriends.GetFriendPersonaName(msg.playerID);
+
+        if (!ClientGameInfo.CurrentlySelected.Contains((ulong) msg.playerID)) ClientGameInfo.CurrentlySelected.Add((ulong) msg.playerID);
+
         if (msg.selected)
         {
             //If we haven't selected any players yet, clear the text, otherwise add a line break for the next player
@@ -141,9 +146,10 @@ public class MissionUI : MonoBehaviour
         }
         else
         {
-            missionPlayerList.text.Replace(playerName, "");
+            missionPlayerList.text = missionPlayerList.text.Replace(playerName, "");
             //Make sure to remove duplicate line breaks
-            missionPlayerList.text.Replace("\n\n", "\n");
+            missionPlayerList.text = missionPlayerList.text.Replace("\n\n", "\n");
+            if (missionPlayerList.text == "" || missionPlayerList.text == "\n") missionPlayerList.text = "Undecided";
         }
     }
 }

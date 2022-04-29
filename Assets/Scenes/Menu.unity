@@ -739,24 +739,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1344363386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
+  m_Script: {fileID: 11500000, guid: fab2bcfa029055346a18fa8fa7a6002a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
   autoStartServerBuild: 1
-  serverTickRate: 2
+  serverTickRate: 30
   offlineScene: Assets/Scenes/Menu.unity
   onlineScene: Assets/Scenes/Lobby.unity
   transport: {fileID: 1344363387}
   networkAddress: localhost
   maxConnections: 100
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 4045230744431811720, guid: dc2a6a477e34eab42bbda84879ae52ef,
+  playerPrefab: {fileID: 1475903555409176729, guid: d92fac9098a66254c8f625071f5921b3,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 7211407046739218782, guid: 63ce2b03da1ac5749a3dc548765ea4cf, type: 3}
+  - {fileID: 154556641476704504, guid: 61b5b115f3bffae4f9f4f2c3e17636a2, type: 3}
+  - {fileID: 6644010579822107672, guid: 8498c6ee8832eae4dae0d6517e874cf2, type: 3}
+  - {fileID: 899694251160386601, guid: 15aa3f0230c2b3242b8d28e4d47bd514, type: 3}
+  - {fileID: 6495601977097981214, guid: d0c28c3aa3ab1954cbdf1f4c11964e01, type: 3}
+  - {fileID: 8587719178297419551, guid: 2a17acd1b5661b148a5127e265bc79bf, type: 3}
+  GamePlayerPrefab: {fileID: 7818846157891585568, guid: 63ce2b03da1ac5749a3dc548765ea4cf,
+    type: 3}
 --- !u!4 &1344363389
 Transform:
   m_ObjectHideFlags: 0

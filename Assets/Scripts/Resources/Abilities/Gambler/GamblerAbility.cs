@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
+using Mirror;
 
 public class GamblerAbility : RoleAbility
 {
@@ -13,16 +14,26 @@ public class GamblerAbility : RoleAbility
 
     void Start()
     {
+        previousRolls = new List<int>();
         dice = FindObjectOfType<DiceMission>();
         costCalc = FindObjectOfType<CostCalculation>();
 
         dice.OnPlayerRolled += PlayerRolled;
-        ClientEventProvider.singleton.OnPlayerRolled += PlayerRolled;
-
         costCalc.OnRerollCalculation += ModifyRerollCost;
-
         dice.OnMissionEnded += MissionEnd;
-        ClientEventProvider.singleton.OnMissionEnd += MissionEnd;
+
+        NetworkClient.RegisterHandler<GoneBustMsg>(ClientGoneBust);
+        NetworkServer.RegisterHandler<TestNetworkingMsg>(TestNetworking);
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        NetworkClient.Send(new TestNetworkingMsg() { authority = hasAuthority });
+    }
+
+    void TestNetworking(NetworkConnection conn, TestNetworkingMsg msg)
+    {
+        Debug.Log($"player has authority: {msg.authority}");
     }
 
     /// <summary>
@@ -32,17 +43,9 @@ public class GamblerAbility : RoleAbility
     /// <param name="cost">Cost of the reroll</param>
     void ModifyRerollCost(CSteamID ply, ref int cost)
     {
-        if (ply != Owner.SteamID) return;
+        if (ply != Owner.SteamID || !hasAuthority) return;
 
-        cost = goneBust ? 99 : 0;
-    }
-
-    /// <summary>
-    /// Client version of player rolled
-    /// </summary>
-    void PlayerRolled(PlayerRolledMsg msg)
-    {
-        CheckForBust(msg.rollResult);
+        cost = goneBust ? 999 : 0;
     }
 
     /// <summary>
@@ -65,6 +68,7 @@ public class GamblerAbility : RoleAbility
         if (previousRolls.Contains(roll))
         {
             GoBust();
+            OwnerConnection.Send(new GoneBustMsg { });
             return;
         }
 
@@ -72,7 +76,15 @@ public class GamblerAbility : RoleAbility
     }
 
     /// <summary>
-    /// Logic for what happens on going bust
+    /// Server tells the client they've gone bust
+    /// </summary>
+    void ClientGoneBust(GoneBustMsg msg)
+    {
+        GoBust();
+    }
+
+    /// <summary>
+    /// Logic for what immediately happens on going bust
     /// </summary>
     void GoBust()
     {
@@ -82,9 +94,19 @@ public class GamblerAbility : RoleAbility
     /// <summary>
     /// Reset previous rolls on mission end
     /// </summary>
-    void MissionEnd()
+    void MissionEnd(MissionResult result)
     {
         previousRolls = new List<int>();
         goneBust = false;
     }
+}
+
+struct GoneBustMsg : NetworkMessage
+{
+
+}
+
+struct TestNetworkingMsg : NetworkMessage 
+{
+    public bool authority;
 }

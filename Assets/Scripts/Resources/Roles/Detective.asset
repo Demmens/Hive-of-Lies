@@ -15,8 +15,8 @@ MonoBehaviour:
   roleName: Detective
   description: After the third round, learn the identity of a random innocent
   sprite: 
-  startingFavour: 0
+  startingFavour: 10
   team: 1
   playersRequired: 5
   ability: {fileID: 6644010579822107672, guid: 8498c6ee8832eae4dae0d6517e874cf2, type: 3}
-  enabled: 0
+  enabled: 1

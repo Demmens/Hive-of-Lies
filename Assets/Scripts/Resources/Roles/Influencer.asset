@@ -23,4 +23,4 @@ MonoBehaviour:
   team: 1
   playersRequired: 0
   ability: {fileID: 8587719178297419551, guid: 2a17acd1b5661b148a5127e265bc79bf, type: 3}
-  enabled: 0
+  enabled: 1
