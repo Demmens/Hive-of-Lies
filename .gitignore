@@ -2,7 +2,6 @@ Temp/*
 Library/*
 Logs/*
 .vs/Hive of Lies/v16/.suo
-*.meta
 /Assembly-CSharp.csproj
 /obj/Debug/Assembly-CSharp.csproj.AssemblyReference.cache
 /obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
