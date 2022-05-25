@@ -33,10 +33,13 @@ public class CardsMission : MissionType
 
     [SerializeField] Setup setup;
     
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         CardInfo = new Dictionary<Player, Deck>();
         setup.OnGamePhaseEnd += OnSetupFinished;
+        NetworkServer.RegisterHandler<DrawCardMsg>(PlayerClickedDraw);
+        NetworkServer.RegisterHandler<PlayerPlayedMsg>(PlayerClickedSubmit);
     }
 
     void OnSetupFinished()
@@ -49,6 +52,7 @@ public class CardsMission : MissionType
                 playerDeck.Add(new Card(role.Data.StartingDeck[i]));
             }
             Deck deck = new Deck(playerDeck);
+            deck.Shuffle();
 
             CardInfo.Add(role.Ability.Owner, deck);
         }
@@ -59,45 +63,66 @@ public class CardsMission : MissionType
         base.StartMission();
         playedTotal = 0;
         playersPlayed = new List<Player>();
-        NetworkServer.SendToAll(new DiceMissionStartedMsg() { });
+        Debug.Log("Mission started on server");
+        NetworkServer.SendToAll(new CardMissionStartedMsg() { });
     }
 
-    private void PlayerClickedDraw(NetworkConnection conn)
+    private void PlayerClickedDraw(NetworkConnection conn, DrawCardMsg msg)
     {
         if (!GameInfo.Players.TryGetValue(conn, out Player ply)) return;
         //If the player isn't on the mission
-        if (!Players.Contains(ply)) return;
+        if (!GameInfo.PlayersOnMission.Contains(ply)) return;
         CardInfo.TryGetValue(ply, out Deck deck);
 
-        Card handCard = deck.Hand[0];
-        deck.Discard(handCard);
+        if (deck.Hand.Count > 0)
+        {
+            Card handCard = deck.Hand[0];
+            deck.Discard(handCard);
+        }
 
         deck.Draw();
+
+        Debug.Log("Sending client draw information");
+        conn.Send(new DrawCardMsg()
+        {
+            drawnCard = deck.Hand[0]
+        });
     }
 
-    private void PlayerClickedSubmit(NetworkConnection conn)
+    private void PlayerClickedSubmit(NetworkConnection conn, PlayerPlayedMsg msg)
     {
         if (!GameInfo.Players.TryGetValue(conn, out Player ply)) return;
         //If the player isn't on the mission
-        if (!Players.Contains(ply)) return;
+        if (!GameInfo.PlayersOnMission.Contains(ply)) return;
+        //If the player has already played a card
+        if (playersPlayed.Contains(ply)) return;
         CardInfo.TryGetValue(ply, out Deck deck);
 
         Card card = deck.Play();
 
         playedTotal += card.Value;
 
-        if (!playersPlayed.Contains(ply))
+        playersPlayed.Add(ply);
+
+        if (playersPlayed.Count >= GameInfo.PlayersOnMission.Count)
         {
-            playersPlayed.Add(ply);
-            if (playersPlayed.Count >= Players.Count)
+            AllPlayersPlayed();
+            NetworkServer.SendToAll(new PlayerPlayedMsg()
             {
-                AllPlayersPlayed();
-            }
+                lastPlayer = true
+            });
+        }
+        else
+        {
+            NetworkServer.SendToAll(new PlayerPlayedMsg()
+            {
+            });
         }
     }
 
     private void AllPlayersPlayed()
     {
+        Debug.Log("All players have submitted");
         result = playedTotal >= Difficulty ? MissionResult.Success : MissionResult.Fail;
 
         List<int> finalCards = new List<int>();
@@ -111,6 +136,19 @@ public class CardsMission : MissionType
             }
             finalCards.Add(result);
         }
+
+
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+        {
+            CreateMissionResultPopupMsg msg = new CreateMissionResultPopupMsg()
+            {
+                result = result,
+            };
+
+            if (playersPlayed.Contains(pair.Value)) msg.finalCards = finalCards;
+
+            pair.Key.Send(msg);
+        }
     }
 }
 
@@ -121,10 +159,15 @@ public struct DrawCardMsg : NetworkMessage
 
 public struct PlayerPlayedMsg : NetworkMessage
 {
-
+    public bool lastPlayer;
 }
 
 public struct AllPlayersPlayedMsg : NetworkMessage
 {
     
+}
+
+public struct CardMissionStartedMsg : NetworkMessage
+{
+
 }

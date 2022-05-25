@@ -8,7 +8,7 @@ public class CardMissionUI : MonoBehaviour
 {
     [SerializeField] GameObject UI;
     [SerializeField] TMP_Text drawResult;
-    [SerializeField] TMP_Text drawCost;
+    [SerializeField] TMP_Text drawButtonText;
     [SerializeField] TMP_Text needed;
     [SerializeField] GameObject drawButton;
     [SerializeField] GameObject submitButton;
@@ -34,24 +34,26 @@ public class CardMissionUI : MonoBehaviour
         set
         {
             _nextRerollCost = value;
-            drawCost.text = $"Reroll ({value}f)";
+            drawButtonText.text = $"Reroll ({value}f)";
         }
     }
 
     private void Start()
     {
-        NetworkClient.RegisterHandler<DiceMissionStartedMsg>(MissionStarted);
+        NetworkClient.RegisterHandler<CardMissionStartedMsg>(MissionStarted);
         ClientEventProvider.singleton.OnPlayerDrew += ReceiveDrawResultFromServer;
-        NetworkClient.RegisterHandler<PlayerLockedRollMsg>(PlayerSubmitted);
+        NetworkClient.RegisterHandler<PlayerPlayedMsg>(PlayerSubmitted);
     }
 
     /// <summary>
     /// Called when the cards mission starts
     /// </summary>
-    void MissionStarted(DiceMissionStartedMsg msg)
+    void MissionStarted(CardMissionStartedMsg msg)
     {
+        Debug.Log("Mission started on client");
         if (ClientGameInfo.CurrentlySelected.Contains(ClientGameInfo.PlayerID))
         {
+            Debug.Log("Mission started. Player is on mission.");
             drawResult.text = "0";
             numDraws = 0;
             nextDrawCost = 0;
@@ -80,6 +82,7 @@ public class CardMissionUI : MonoBehaviour
     /// </summary>
     void ReceiveDrawResultFromServer(DrawCardMsg msg)
     {
+        Debug.Log("Received draw result from the server");
         drawResult.text = msg.drawnCard.Value.ToString();
         submitButton.SetActive(true);
         drawButton.SetActive(true);
@@ -91,7 +94,7 @@ public class CardMissionUI : MonoBehaviour
     /// <summary>
     /// Called when the submit button is clicked on this client
     /// </summary>
-    public void LockInDice()
+    public void PlayCard()
     {
         submitButton.SetActive(false);
         drawButton.SetActive(false);
@@ -99,9 +102,9 @@ public class CardMissionUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Called when any client locks in their draw
+    /// Called from the server when any client locks in their draw
     /// </summary>
-    void PlayerSubmitted(PlayerLockedRollMsg msg)
+    private void PlayerSubmitted(PlayerPlayedMsg msg)
     {
         if (msg.lastPlayer)
         {
