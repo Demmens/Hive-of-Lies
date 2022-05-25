@@ -7,6 +7,6 @@ public class ChangeMissionDifficulty : MissionEffect
     [SerializeField] int difficultyIncrease;
     public override void TriggerEffect()
     {
-        DiceMission.TotalNeeded += difficultyIncrease;
+        CardsMission.Difficulty += difficultyIncrease;
     }
 }
