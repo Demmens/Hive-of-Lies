@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deck : MonoBehaviour
+public class Deck
 {
     /// <summary>
     /// The player that owns this deck
@@ -66,6 +66,12 @@ public class Deck : MonoBehaviour
             {
                 if (DiscardPile.Count == 0) return;
                 Shuffle();
+            }
+
+            if (DrawPile.Count == 0)
+            {
+                Debug.LogError("Tried to draw from a deck with no cards.");
+                return;
             }
 
             DrawPile[0].DrawEffects.ForEach(effect => effect());
