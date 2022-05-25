@@ -34,7 +34,7 @@ public class CardMissionUI : MonoBehaviour
         set
         {
             _nextRerollCost = value;
-            drawButtonText.text = $"Reroll ({value}f)";
+            drawButtonText.text = $"Redraw ({value}f)";
         }
     }
 
