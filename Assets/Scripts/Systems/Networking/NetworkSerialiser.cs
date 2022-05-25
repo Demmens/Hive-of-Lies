@@ -37,6 +37,13 @@ public static class NetworkSerialiser
 
     public static void WriteCard(this NetworkWriter writer, Card value)
     {
+        if (value == null)
+        {
+            writer.WriteString("");
+            writer.WriteInt(0);
+            return;
+        }
+
         writer.WriteString(value.Name);
         writer.WriteInt(value.Value);
     }
