@@ -8175,7 +8175,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 721783004}
         m_TargetAssemblyTypeName: CardMissionUI, Assembly-CSharp
-        m_MethodName: LockInDice
+        m_MethodName: PlayCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
