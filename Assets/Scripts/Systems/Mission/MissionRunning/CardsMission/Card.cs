@@ -17,17 +17,17 @@ public class Card
     /// <summary>
     /// Delegates to run when the card is drawn
     /// </summary>
-    public List<Action> DrawEffects;
+    public List<Action> DrawEffects = new List<Action>();
 
     /// <summary>
     /// Delegates to run when the card is played
     /// </summary>
-    public List<Action> PlayEffects;
+    public List<Action> PlayEffects = new List<Action>();
 
     /// <summary>
     /// Delegates to run when the card is discarded
     /// </summary>
-    public List<Action> DiscardEffects;
+    public List<Action> DiscardEffects = new List<Action>();
  
 
     public Card(int value)
