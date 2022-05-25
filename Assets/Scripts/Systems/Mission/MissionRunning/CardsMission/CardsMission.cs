@@ -32,6 +32,13 @@ public class CardsMission : MissionType
 
 
     [SerializeField] Setup setup;
+
+    /// <summary>
+    /// Invokes when any player draws a card
+    /// </summary>
+    public event DrawCard OnDrawCard;
+    public delegate void DrawCard(Card card);
+
     
     protected override void Start()
     {
@@ -80,6 +87,10 @@ public class CardsMission : MissionType
         }
 
         deck.Draw();
+
+        if (deck.Hand.Count == 0) return;
+
+        OnDrawCard?.Invoke(deck.Hand[0]);
 
         conn.Send(new DrawCardMsg()
         {
