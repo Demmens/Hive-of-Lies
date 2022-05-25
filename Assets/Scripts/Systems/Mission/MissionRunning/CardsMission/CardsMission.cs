@@ -171,3 +171,9 @@ public struct CardMissionStartedMsg : NetworkMessage
 {
 
 }
+
+public struct CreateMissionResultPopupMsg : NetworkMessage
+{
+    public MissionResult result;
+    public List<int> finalCards;
+}
