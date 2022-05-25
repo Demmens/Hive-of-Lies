@@ -25,7 +25,7 @@ public class MissionResultPopup : MonoBehaviour
         for (int i = 0; i < ClientGameInfo.CurrentlySelected.Count; i++)
         {
             if (i != 0) rollResultsText += ", ";
-            rollResultsText += wasOnMission ? msg.finalRolls[i].ToString() : "??";
+            rollResultsText += wasOnMission ? msg.finalCards[i].ToString() : "??";
         }
         rollResults.text = rollResultsText;
 

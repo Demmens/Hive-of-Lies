@@ -301,7 +301,7 @@ public class DiceMission : MissionType
                 result = result,
             };
 
-            if (playersLocked.Contains(pair.Value)) msg.finalRolls = finalRolls;
+            if (playersLocked.Contains(pair.Value)) msg.finalCards = finalRolls;
 
             pair.Key.Send(msg);
         }
@@ -345,6 +345,6 @@ public struct PlayerLockedRollMsg : NetworkMessage
 
 public struct CreateMissionResultPopupMsg : NetworkMessage
 {
-    public List<int> finalRolls;
+    public List<int> finalCards;
     public MissionResult result;
 }
