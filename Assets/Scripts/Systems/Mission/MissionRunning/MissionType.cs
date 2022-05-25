@@ -8,10 +8,6 @@ using Mirror;
 /// </summary>
 public abstract class MissionType : MonoBehaviour
 {
-    /// <summary>
-    /// Private counterpart to <see cref="Active"/>
-    /// </summary>
-    private bool active;
 
     /// <summary>
     /// Whether the current phase of the game is the mission phase
