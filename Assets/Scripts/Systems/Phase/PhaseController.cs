@@ -34,15 +34,15 @@ public class PhaseController : MonoBehaviour
         foreach (GamePhase phase in phases)
         {
             //Listen for when phases end
-            phase.OnGamePhaseEnd += new GamePhase.BasicDelegate(PhaseChange);
+            phase.OnGamePhaseEnd += PhaseChange;
             if (phase is StandOrPass)
             {
                 StandOrPass sop = phase as StandOrPass;
-                sop.OnNobodyStood += new StandOrPass.NobodyStood(ResetRound);
+                sop.OnNobodyStood += ResetRound;
             }
         }
         //Make sure to listen for the setup ending too.
-        setup.OnGamePhaseEnd += new GamePhase.BasicDelegate(PhaseChange);
+        setup.OnGamePhaseEnd += PhaseChange;
         //Set to -1 since on a phase end it increments, and we want to start at phases[0].
         currentPhase = -1;
         //Complete the setup first.
@@ -66,7 +66,6 @@ public class PhaseController : MonoBehaviour
             //Begin the next phase
             phases[currentPhase].ChangePhase();
         }
-
     }
 
     /// <summary>
