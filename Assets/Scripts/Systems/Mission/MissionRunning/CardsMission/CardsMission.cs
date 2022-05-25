@@ -13,12 +13,12 @@ public class CardsMission : MissionType
     /// <summary>
     /// The difficulty of the mission
     /// </summary>
-    public int Difficulty = 25;
+    public static int Difficulty = 25;
 
     /// <summary>
     /// The penalty given to a players card result when they're exhausted
     /// </summary>
-    public int ExhaustionPenalty = 5;
+    public static int ExhaustionPenalty = 5;
 
     /// <summary>
     /// Total value of all played cards
