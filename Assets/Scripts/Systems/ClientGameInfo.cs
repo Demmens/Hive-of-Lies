@@ -18,7 +18,7 @@ public static class ClientGameInfo
     /// <summary>
     /// The ID of the local player
     /// </summary>
-    public static ulong PlayerID;
+    public static ulong PlayerID = SteamUser.GetSteamID().m_SteamID;
 
     /// <summary>
     /// The number of players the team leader has currently selected for the mission
