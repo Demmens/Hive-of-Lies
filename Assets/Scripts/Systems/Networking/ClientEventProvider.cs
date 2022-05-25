@@ -52,7 +52,6 @@ public class ClientEventProvider : MonoBehaviour
         //Register events
         NetworkClient.RegisterHandler((TeamLeaderChangedMsg msg) => { OnTeamLeaderChanged?.Invoke(msg); });
         NetworkClient.RegisterHandler((DrawCardMsg msg) => {OnPlayerDrew?.Invoke(msg); });
-        NetworkClient.RegisterHandler((PlayerRolledMsg msg) => { OnPlayerRolled?.Invoke(msg); });
         NetworkClient.RegisterHandler((MissionEndMsg msg) => { OnMissionEnd?.Invoke(msg.result); });
         NetworkClient.RegisterHandler((TeamLeaderStartPickingMsg msg) => { OnTeamLeaderStartPicking?.Invoke(msg.teamLeaderID); });
         NetworkClient.RegisterHandler((TeamLeaderChangePartnersMsg msg) => { OnTeamLeaderChangePartner?.Invoke(msg); });
