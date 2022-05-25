@@ -36,9 +36,10 @@ public class CardsMission : MissionType
     /// <summary>
     /// Invokes when any player draws a card
     /// </summary>
-    public event DrawCard OnDrawCard;
-    public delegate void DrawCard(Card card);
+    public event CardDelegate OnDrawCard;
+    public delegate void CardDelegate(Player ply, Card card);
 
+    public event CardDelegate OnPlayCard;
     
     protected override void Start()
     {
@@ -90,7 +91,7 @@ public class CardsMission : MissionType
 
         if (deck.Hand.Count == 0) return;
 
-        OnDrawCard?.Invoke(deck.Hand[0]);
+        OnDrawCard?.Invoke(ply, deck.Hand[0]);
 
         conn.Send(new DrawCardMsg()
         {
@@ -108,6 +109,8 @@ public class CardsMission : MissionType
         CardInfo.TryGetValue(ply, out Deck deck);
 
         Card card = deck.Play();
+
+        OnPlayCard?.Invoke(ply, card);
 
         playedTotal += card.Value;
 
