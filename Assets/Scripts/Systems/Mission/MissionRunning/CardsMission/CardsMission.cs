@@ -63,7 +63,6 @@ public class CardsMission : MissionType
         base.StartMission();
         playedTotal = 0;
         playersPlayed = new List<Player>();
-        Debug.Log("Mission started on server");
         NetworkServer.SendToAll(new CardMissionStartedMsg() { });
     }
 
@@ -82,7 +81,6 @@ public class CardsMission : MissionType
 
         deck.Draw();
 
-        Debug.Log("Sending client draw information");
         conn.Send(new DrawCardMsg()
         {
             drawnCard = deck.Hand[0]
