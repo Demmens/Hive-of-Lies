@@ -32,12 +32,6 @@ public class ClientEventProvider : MonoBehaviour
     public delegate void PlayerDrew(DrawCardMsg msg);
 
     /// <summary>
-    /// Invoked when a client rolls a dice. Contains the roll result.
-    /// </summary>
-    public event PlayerRolled OnPlayerRolled;
-    public delegate void PlayerRolled(PlayerRolledMsg msg);
-
-    /// <summary>
     /// Invoked  when a player button is clicked on.
     /// </summary>
     public event PlayerID OnPlayerClicked;
