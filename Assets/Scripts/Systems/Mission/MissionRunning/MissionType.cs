@@ -24,11 +24,6 @@ public abstract class MissionType : MonoBehaviour
     protected Player General;
 
     /// <summary>
-    /// All players on the mission
-    /// </summary>
-    protected List<Player> Players;
-
-    /// <summary>
     /// List of connections that have closed the mission result popup
     /// </summary>
     List<NetworkConnection> popupsClosed;
