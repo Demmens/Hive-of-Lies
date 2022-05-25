@@ -6,6 +6,7 @@ using Mirror;
 
 public class GamblerAbility : RoleAbility
 {
+    /*
     DiceMission dice;
     CostCalculation costCalc;
 
@@ -99,6 +100,7 @@ public class GamblerAbility : RoleAbility
         previousRolls = new List<int>();
         goneBust = false;
     }
+    */
 }
 
 struct GoneBustMsg : NetworkMessage
