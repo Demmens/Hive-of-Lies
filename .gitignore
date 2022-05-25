@@ -1,6 +1,10 @@
-Temp/*
 Library/*
-Logs/*
-.vs/Hive of Lies/v16/.suo
-*.csproj
+ProjectSettings/*
 obj/Debug/*
+.vs/*
+*.sln
+Logs/*
+*.csproj
+Temp/*
+Packages/*
+.vsconfig
