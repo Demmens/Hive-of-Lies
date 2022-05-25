@@ -11,22 +11,22 @@ public class Deck
     /// <summary>
     /// The cards in the draw pile
     /// </summary>
-    public List<Card> DrawPile;
+    public List<Card> DrawPile = new List<Card>();
 
     /// <summary>
     /// The cards in the discard pile
     /// </summary>
-    public List<Card> DiscardPile;
+    public List<Card> DiscardPile = new List<Card>();
 
     /// <summary>
     /// The cards in a players hand
     /// </summary>
-    public List<Card> Hand;
+    public List<Card> Hand = new List<Card>();
 
     /// <summary>
     /// The cards the player has played
     /// </summary>
-    public List<Card> Played;
+    public List<Card> Played = new List<Card>();
 
     /// <summary>
     /// Add a card to the deck
@@ -116,15 +116,10 @@ public class Deck
     public Deck(List<Card> starting)
     {
         DrawPile = starting;
-        DiscardPile = new List<Card>();
-        Hand = new List<Card>();
     }
 
     public Deck(List<int> starting)
     {
-        DrawPile = new List<Card>();
-        DiscardPile = new List<Card>();
-        Hand = new List<Card>();
         for (int i = 0; i < starting.Count; i++)
         {
             DrawPile.Add(new Card(starting[i]));
