@@ -37,7 +37,7 @@ public abstract class MissionType : MonoBehaviour
     public delegate void MissionEnded(MissionResult result);
     public event MissionEnded OnMissionEnded;
 
-    void Start()
+    protected virtual void Start()
     {
         NetworkServer.RegisterHandler<ClosedMissionResultPopupMsg>(PlayerClosedPopup);
     }
