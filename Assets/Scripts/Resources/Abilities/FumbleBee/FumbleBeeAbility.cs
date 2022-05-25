@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FumbleBeeAbility : RoleAbility
 {
-    DiceMission dice;
+    /*DiceMission dice;
     /// <summary>
     /// The number your roll is capped at
     /// </summary>
@@ -25,5 +25,5 @@ public class FumbleBeeAbility : RoleAbility
         if (ply != Owner || roll.rerollsUsed < rollsWithCap || roll.currentRoll <= rollCap) return;
 
         roll.currentRoll = Random.Range(1, rollCap);
-    }
+    }*/
 }

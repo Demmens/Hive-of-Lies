@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuzzedBeeAbility : RoleAbility
 {
-    DiceMission dice;
+    /*DiceMission dice;
     void Start()
     {
         dice = DiceMission.singleton;
@@ -14,5 +14,5 @@ public class BuzzedBeeAbility : RoleAbility
     void PlayerRolled(Player ply, ref PlayerRollInfo roll)
     {
         if (ply == Owner) roll.currentRoll += dice.ExhaustionPenalty * ply.Exhaustion;
-    }
+    }*/
 }

@@ -6,7 +6,7 @@ using Steamworks;
 
 public class HypnotistAbility : RoleAbility
 {
-    [SerializeField] int cost = 5;
+    /*[SerializeField] int cost = 5;
     [SerializeField] GameObject button;
     [SerializeField] GameObject dropdownButton;
     DiceMission dice;
@@ -63,5 +63,5 @@ public class HypnotistAbility : RoleAbility
                 dice.RollDice(pair.Key);
             }
         }
-    }
+    }*/
 }
