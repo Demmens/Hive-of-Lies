@@ -38,10 +38,11 @@ public class CardsMission : MissionType
     /// Invokes when any player draws a card
     /// </summary>
     public event CardDelegate OnDrawCard;
-    public delegate void CardDelegate(Player ply, Card card);
+    public delegate void CardDelegate(Player ply, ref Card card);
 
-    public event CardDelegate OnPlayCard;
-    
+    public event DrawnCardDelegate OnPlayCard;
+    public delegate void DrawnCardDelegate(Player ply, ref Card card, ref int value);
+
     protected override void Start()
     {
         singleton = this;
@@ -93,7 +94,9 @@ public class CardsMission : MissionType
 
         if (deck.Hand.Count == 0) return;
 
-        OnDrawCard?.Invoke(ply, deck.Hand[0]);
+        Card drawnCard = deck.Hand[0];
+
+        OnDrawCard?.Invoke(ply, ref drawnCard);
 
         conn.Send(new DrawCardMsg()
         {
@@ -112,7 +115,9 @@ public class CardsMission : MissionType
 
         Card card = deck.Play();
 
-        OnPlayCard?.Invoke(ply, card);
+        int value = card.Value;
+
+        OnPlayCard?.Invoke(ply, ref card, ref value);
 
         playedTotal += card.Value;
 
