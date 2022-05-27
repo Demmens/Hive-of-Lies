@@ -5,6 +5,7 @@ using Mirror;
 
 public class CardsMission : MissionType
 {
+    public static CardsMission singleton;
     /// <summary>
     /// The card info for each player
     /// </summary>
@@ -43,6 +44,7 @@ public class CardsMission : MissionType
     
     protected override void Start()
     {
+        singleton = this;
         base.Start();
         CardInfo = new Dictionary<Player, Deck>();
         setup.OnGamePhaseEnd += OnSetupFinished;
