@@ -16,7 +16,8 @@ MonoBehaviour:
   description: You are not affected by exhaustion.
   sprite: 
   startingFavour: 15
+  startingDeck: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
   team: 1
   playersRequired: 0
-  ability: {fileID: 0}
+  ability: {fileID: 7337258368762165034, guid: b976df64dda8cab418a8ac671abacf78, type: 3}
   enabled: 1
