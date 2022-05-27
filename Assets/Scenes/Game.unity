@@ -5462,7 +5462,6 @@ GameObject:
   - component: {fileID: 721783003}
   - component: {fileID: 721782998}
   - component: {fileID: 721782999}
-  - component: {fileID: 721783000}
   - component: {fileID: 721783001}
   - component: {fileID: 721782990}
   - component: {fileID: 721783004}
@@ -5693,26 +5692,6 @@ MonoBehaviour:
   voteTotal: {fileID: 1453537677}
   unreadyColour: {r: 0.909804, g: 0.4666667, b: 0.4666667, a: 1}
   readyColour: {r: 0.5764706, g: 0.89019614, b: 0.43137258, a: 1}
---- !u!114 &721783000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721782989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 391e8bc5081c2c0458bfdf9787a4c3c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 0}
-  RollResult: {fileID: 0}
-  RollCost: {fileID: 0}
-  RollNeeded: {fileID: 0}
-  RollButton: {fileID: 0}
-  SubmitButton: {fileID: 0}
-  costCalc: {fileID: 1824260611}
-  favourController: {fileID: 721782995}
 --- !u!114 &721783001
 MonoBehaviour:
   m_ObjectHideFlags: 0
