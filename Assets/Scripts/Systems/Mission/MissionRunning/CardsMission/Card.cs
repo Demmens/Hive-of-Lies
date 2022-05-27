@@ -12,7 +12,11 @@ public class Card
     /// <summary>
     /// Value of the card when played
     /// </summary>
-    public int Value;   
+    public int Value;
+    /// <summary>
+    /// The value of the card as seen on clients. Has no bearing on the actual value, but most of the time will be the same.
+    /// </summary>
+    public int DisplayValue;
     
     /// <summary>
     /// Delegates to run when the card is drawn
@@ -33,11 +37,13 @@ public class Card
     public Card(int value)
     {
         Value = value;
+        DisplayValue = value;
     }
 
     public Card(string name, int value)
     {
         Name = name;
         Value = value;
+        DisplayValue = value;
     }
 }
