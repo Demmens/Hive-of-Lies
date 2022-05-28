@@ -28,6 +28,7 @@ public class VoteResultPopup : MonoBehaviour
 
     void ReceiveVoteResults(SendVoteResultMsg msg)
     {
+        continueButton.SetActive(true);
         playerVotes = new Dictionary<CSteamID, PlayerVoteGameObject>();
         msg.votes.Sort((a, b) => { return a.votes - b.votes; });
 
