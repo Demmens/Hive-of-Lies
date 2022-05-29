@@ -103,6 +103,7 @@ public class MissionUI : MonoBehaviour
 
     void ChangeMission(SendDecidedMissionMsg msg)
     {
+        ClientGameInfo.CurrentlySelected = new List<ulong>();
         cards = new List<GameObject>();
         missionUI.SetActive(true);
         missionName.text = msg.mission.MissionName;
