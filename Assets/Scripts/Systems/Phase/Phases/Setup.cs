@@ -20,8 +20,8 @@ public class Setup : GamePhase
     [SerializeField]
     Dictionary<Team, int> RoleChoices = new Dictionary<Team, int>()
     {
-        {Team.Bee, 1},
-        {Team.Wasp, 1}
+        {Team.Bee, 3},
+        {Team.Wasp, 3}
     };
 
     /// <summary>
