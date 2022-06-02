@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Professional
   m_EditorClassIdentifier: 
   roleName: Professional
-  description: You roll two dice and take the highest roll.
+  description: All cards in your starting deck have +1 (max 20)
   sprite: 
-  startingFavour: 8
+  startingFavour: 9
+  startingDeck: 02000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000014000000
   team: 1
   playersRequired: 0
   ability: {fileID: 8842576888322773413, guid: 1afaaaa57492c084cafda2cd03a4178f, type: 3}
