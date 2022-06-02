@@ -202,6 +202,8 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     void AllPlayersClosedPopup()
     {
+        playersClosedPopup = new List<Player>();
+        votes = new List<PlayerVote>();
         //If the vote was successful
         if (voteTotal > 0)
         {
