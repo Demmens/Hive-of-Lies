@@ -6,7 +6,6 @@ public class ClientAddToMission : PlayerButtonDropdownItem
 {
     public void AddToMission(bool added)
     {
-        Debug.Log($"Player = {playerClicked}");
         ClientSelectPartners.singleton.PlayerPicked(playerClicked, added);
     }
 }

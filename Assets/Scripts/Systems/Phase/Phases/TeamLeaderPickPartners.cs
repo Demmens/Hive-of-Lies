@@ -79,11 +79,7 @@ public class TeamLeaderPickPartners : GamePhase
             }
         }
 
-        Debug.Log("SERVER: Player selected partner");
-
         if (target == null) return;
-
-        Debug.Log("SERVER: Selected player isn't null");
 
         if (msg.selected)
         {
