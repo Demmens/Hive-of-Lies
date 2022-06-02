@@ -18,7 +18,7 @@ public class VoteUI : MonoBehaviour
     [SerializeField] FavourController favourController;
     [SerializeField] CostCalculation costCalc;
 
-    int numVotes = 0;
+    int _numVotes = 0;
     int _upVoteCost = 0;
     int _downVoteCost = 0;
 
@@ -38,6 +38,9 @@ public class VoteUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The cost of the next downvote
+    /// </summary>
     int downVoteCost
     {
         get
@@ -51,42 +54,69 @@ public class VoteUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The number of votes the client has currently placed
+    /// </summary>
+    int numVotes
+    {
+        get
+        {
+            return _numVotes;
+        }
+        set
+        {
+            _numVotes = value;
+            RecalculateCost();
+            voteNumber.text = numVotes.ToString();
+        }
+    }
+
     void Start()
     {
         NetworkClient.RegisterHandler<TeamLeaderVoteStartedMsg>(VoteStarted);
     }
 
+    /// <summary>
+    /// Called when the vote starts
+    /// </summary>
+    /// <param name="msg"></param>
     public void VoteStarted(TeamLeaderVoteStartedMsg msg)
     {
         voteUI.SetActive(true);
+        numVotes = 0;
     }
 
+    /// <summary>
+    /// Called when a player increases their vote (upvotes)
+    /// </summary>
     public void IncreaseVote()
     {
-        numVotes++;
-        voteNumber.text = numVotes.ToString();
         favourController.Favour -= upVoteCost;
+        numVotes++;
 
-        RecalculateCost();
         noVote.SetActive(true);
         if (upVoteCost > favourController.Favour) yesVote.SetActive(false);
 
         NetworkClient.Send(new PlayerChangeVoteMsg() {increased = true});
     }
 
+    /// <summary>
+    /// Called when a player deceases their vote (downvotes)
+    /// </summary>
     public void DecreaseVote()
     {
-        numVotes--;
-        voteNumber.text = numVotes.ToString();
         favourController.Favour -= downVoteCost;
+        numVotes--;
 
-        RecalculateCost();
         yesVote.SetActive(true);
         if (downVoteCost > favourController.Favour) noVote.SetActive(false);
 
         NetworkClient.Send(new PlayerChangeVoteMsg() { increased = false });
     }
 
+    /// <summary>
+    /// Recalculates the cost of increasing or decreasing your vote
+    /// </summary>
     void RecalculateCost()
     {
         if (numVotes > 0)
