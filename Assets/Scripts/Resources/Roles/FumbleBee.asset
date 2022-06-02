@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: FumbleBee
   m_EditorClassIdentifier: 
   roleName: Fumble Bee
-  description: Your first two rolls cannot be above 5.
+  description: Your starting deck is significantly weaker.
   sprite: 
-  startingFavour: 0
+  startingFavour: 10
+  startingDeck: 0100000001000000010000000200000002000000020000000300000003000000030000000400000004000000040000000500000005000000050000000a0000000c0000000e0000001000000014000000
   team: 2
   playersRequired: 0
   ability: {fileID: 6495601977097981214, guid: d0c28c3aa3ab1954cbdf1f4c11964e01, type: 3}
