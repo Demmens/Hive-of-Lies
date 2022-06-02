@@ -10,12 +10,12 @@ public class VeteranAbility : RoleAbility
     void Start()
     {
         costCalc = FindObjectOfType<CostCalculation>();
-        costCalc.OnRerollCalculation += CalculateRerollCost;
+        costCalc.OnDrawCalculation += CalculateRedrawCost;
     }
 
-    void CalculateRerollCost(CSteamID id, ref int cost)
+    void CalculateRedrawCost(ulong id, ref int cost)
     {
-        if (id == Owner.SteamID)
+        if (id == Owner.SteamID.m_SteamID)
         {
             cost = Mathf.Min(cost, maxCost);
         }

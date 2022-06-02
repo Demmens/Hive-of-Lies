@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Veteran
   m_EditorClassIdentifier: 
   roleName: Veteran
-  description: Your rerolls cannot cost more than 2 favour.
+  description: Your redraws cannot cost more than 2 favour.
   sprite: 
-  startingFavour: 7
+  startingFavour: 10
+  startingDeck: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
   team: 1
   playersRequired: 0
-  ability: {fileID: 0}
+  ability: {fileID: 6255500148390384070, guid: 897e5d4ce0d1d0d4d8c7b71835bb636c, type: 3}
   enabled: 1
