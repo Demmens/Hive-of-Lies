@@ -28,6 +28,11 @@ public class Player
     public CSteamID SteamID;
 
     /// <summary>
+    /// The ulong ID of the player
+    /// </summary>
+    public ulong ID;
+
+    /// <summary>
     /// List of choices the player gets to choose from when picking their role.
     /// </summary>
     public List<RoleData> RoleChoices;
@@ -45,8 +50,17 @@ public class Player
     public Player(CSteamID id, NetworkConnection conn)
     {
         SteamID = id;
+        ID = id.m_SteamID;
         Connection = conn;
         DisplayName = SteamFriends.GetFriendPersonaName(id);
+        RoleChoices = new List<RoleData>();
+    }
+    public Player(ulong id, NetworkConnection conn)
+    {
+        SteamID = new CSteamID(id);
+        ID = id;
+        Connection = conn;
+        DisplayName = SteamFriends.GetFriendPersonaName(SteamID);
         RoleChoices = new List<RoleData>();
     }
 
@@ -55,6 +69,7 @@ public class Player
         if (NetworkClient.active)
         {
             SteamID = SteamUser.GetSteamID();
+            ID = SteamID.m_SteamID;
             DisplayName = SteamFriends.GetPersonaName();
         }
         
