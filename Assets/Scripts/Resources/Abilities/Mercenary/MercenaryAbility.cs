@@ -18,7 +18,7 @@ public class MercenaryAbility : RoleAbility
         if (GameInfo.PlayersOnMission.Contains(Owner))
         {
             Owner.Favour += favourGain;
-            Owner.connection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
+            Owner.Connection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
         }
     }
 }

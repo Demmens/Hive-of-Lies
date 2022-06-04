@@ -13,7 +13,7 @@ public class BeesGainFavour : MissionEffect
             if (role.Data.Team == Team.Bee)
             {
                 role.Ability.Owner.Favour += favourGain;
-                role.Ability.Owner.connection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
+                role.Ability.Owner.Connection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
             }
         }
     }

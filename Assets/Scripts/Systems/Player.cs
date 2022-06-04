@@ -6,139 +6,46 @@ using Mirror;
 
 public class Player
 {
-    #region Fields
-    /// <summary>
-    /// Private counterpart to <see cref="Favour"/>
-    /// </summary>
-    int favour = 0;
 
-    /// <summary>
-    /// Private counterpart to <see cref="Team"/>
-    /// </summary>
-    Team team = Team.Bee;
-
-    /// <summary>
-    /// Private counterpart to <see cref="DisplayName"/>
-    /// </summary>
-    string displayName;
-
-    /// <summary>
-    /// Private counterpart to <see cref="SteamID"/>
-    /// </summary>
-    CSteamID steamID;
-
-    /// <summary>
-    /// Private counterpart of <see cref="RoleChoices"/>
-    /// </summary>
-    List<RoleData> roleChoices;
-
-    /// <summary>
-    /// Private counterpart to <see cref="Exhaustion"/>
-    /// </summary>
-    int exhaustion;
-    #endregion
-
-    #region Properties
     /// <summary>
     /// The team that the player is on
     /// </summary>
-    public Team Team
-    {
-        get
-        {
-            return team;
-        }
-        set
-        {
-            team = value;
-        }
-    }
+    public Team Team = Team.Bee;
 
     /// <summary>
     /// The favour the player has
     /// </summary>
-    public int Favour
-    {
-        get
-        {
-            return favour;
-        }
-        set
-        {
-            favour = value;
-        }
-    }
+    public int Favour;
 
     /// <summary>
     /// The display name of the player
     /// </summary>
-    public string DisplayName
-    {
-        get
-        {
-            return displayName;
-        }
-        set
-        {
-            displayName = value;
-        }
-    }
+    public string DisplayName;
 
     /// <summary>
     /// The steam ID of the player
     /// </summary>
-    public CSteamID SteamID
-    {
-        get
-        {
-            return steamID;
-        }
-        set
-        {
-            steamID = value;
-        }
-    }
+    public CSteamID SteamID;
 
     /// <summary>
     /// List of choices the player gets to choose from when picking their role.
     /// </summary>
-    public List<RoleData> RoleChoices
-    {
-        get
-        {
-            return roleChoices;
-        }
-        set
-        {
-            roleChoices = value;
-        }
-    }
+    public List<RoleData> RoleChoices;
 
     /// <summary>
     /// How many consecutive missions the player has been on
     /// </summary>
-    public int Exhaustion
-    {
-        get
-        {
-            return exhaustion;
-        }
-        set
-        {
-            exhaustion = value;
-        }
-    }
+    public int Exhaustion;
 
     /// <summary>
     /// The clients connection
     /// </summary>
-    public NetworkConnection connection;
-    #endregion
+    public NetworkConnection Connection;
 
     public Player(CSteamID id, NetworkConnection conn)
     {
         SteamID = id;
-        connection = conn;
+        Connection = conn;
         DisplayName = SteamFriends.GetFriendPersonaName(id);
         RoleChoices = new List<RoleData>();
     }

@@ -13,7 +13,7 @@ public class WaspsGainFavour : MissionEffect
             if (role.Data.Team == Team.Wasp)
             {
                 role.Ability.Owner.Favour += favourGain;
-                role.Ability.Owner.connection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
+                role.Ability.Owner.Connection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
             }
         }
     }
