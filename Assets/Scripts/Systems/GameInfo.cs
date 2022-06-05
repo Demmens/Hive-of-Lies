@@ -127,6 +127,11 @@ public class GameInfo : MonoBehaviour
     /// </summary>
     public static Mission CurrentMission;
 
+    /// <summary>
+    /// All completed missions
+    /// </summary>
+    public static Dictionary<Mission, MissionResult> CompletedMissions = new Dictionary<Mission, MissionResult>();
+
     #endregion
 }
 

@@ -29,6 +29,7 @@ public class RunMission : GamePhase
 
     void OnMissionEnded(MissionResult result)
     {
+        GameInfo.CompletedMissions.Add(GameInfo.CurrentMission, result);
         missionType.Active = false;
         NetworkServer.SendToAll(new MissionEndMsg()
         {
