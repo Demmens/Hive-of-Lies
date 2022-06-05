@@ -39,7 +39,7 @@ public class DetectiveAbility : RoleAbility
                     }
                 }
                 text.text = txt;
-                SpawnPopup(Owner.connection);
+                SpawnPopup(Owner.Connection);
             }
         };
     }
