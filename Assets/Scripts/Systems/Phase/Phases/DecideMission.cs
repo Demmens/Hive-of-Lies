@@ -16,19 +16,9 @@ public class DecideMission : GamePhase
     [SerializeField] List<MissionList> missionLists;
 
     /// <summary>
-    /// Private counterpart to <see cref="MissionChoices"/>
-    /// </summary>
-    [SerializeField] int missionChoices;
-
-    /// <summary>
-    /// Private counterpart to <see cref="DecidedMissionList"/>
+    /// The mission list we will use this game.
     /// </summary>
     MissionList decidedMissionList;
-
-    /// <summary>
-    /// Private counterpart to <see cref="MissionVotes"/>
-    /// </summary>
-    Dictionary<MissionData, (List<Player>, int)> missionVotes;
 
     /// <summary>
     /// Which players have voted
@@ -54,32 +44,12 @@ public class DecideMission : GamePhase
     /// <summary>
     /// Number of missions that players get to vote on at the start of each round.
     /// </summary>
-    public int MissionChoices
-    {
-        get
-        {
-            return missionChoices;
-        }
-        set
-        {
-            missionChoices = MissionChoices;
-        }
-    }
+    public int MissionChoices;
 
     /// <summary>
     /// Who has voted for which mission, and how many votes in total that mission has
     /// </summary>
-    public Dictionary<MissionData, (List<Player>, int)> MissionVotes
-    {
-        get
-        {
-            return missionVotes;
-        }
-        set
-        {
-            missionVotes = value;
-        }
-    }
+    public Dictionary<MissionData, (List<Player>, int)> MissionVotes;
     #endregion
 
     #region Events
@@ -120,7 +90,7 @@ public class DecideMission : GamePhase
     public override void Begin()
     {
         TotalVotes = new List<Player>();
-        missionVotes = new Dictionary<MissionData, (List<Player>, int)>();
+        MissionVotes = new Dictionary<MissionData, (List<Player>, int)>();
 
         //List of missions and weights. Make sure if we reach the end of the list that we just start looping the final mission indefinitely.
         int missionListIndex = Mathf.Min(GameInfo.RoundNum, GameInfo.MissionList.List.Count - 1);
@@ -175,7 +145,7 @@ public class DecideMission : GamePhase
                     if (rand < miss.Item2 / total)
                     {
                         //Add the mission to the selection
-                        missionVotes.Add(miss.Item1, (new List<Player>(), 0));
+                        MissionVotes.Add(miss.Item1, (new List<Player>(), 0));
                         choices.Add(miss.Item1);
                         //Remove all instances of this mission, thus reducing the total number of balls in the bag.
                         total -= miss.Item2;
@@ -241,7 +211,7 @@ public class DecideMission : GamePhase
     void DetermineMission()
     {
         int maxVotes = int.MinValue;
-        foreach (KeyValuePair<MissionData,(List<Player>,int)> item in missionVotes)
+        foreach (KeyValuePair<MissionData,(List<Player>,int)> item in MissionVotes)
         {
             if (item.Value.Item2 > maxVotes)
             {
