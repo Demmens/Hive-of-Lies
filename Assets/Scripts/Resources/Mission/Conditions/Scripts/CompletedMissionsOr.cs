@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SucceededMissionsOr : MissionCondition
+public class CompletedMissionsOr : MissionCondition
 {
     [SerializeField] private List<Mission> requiredMissions = new List<Mission>();
     [SerializeField] private MissionResult missionResult;
