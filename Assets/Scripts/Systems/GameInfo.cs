@@ -16,11 +16,6 @@ public class GameInfo : MonoBehaviour
     /// </summary>
     [SerializeField] GameEnd end;
 
-    /// <summary>
-    /// Private counterpart to <see cref="StandingTeamLeader"/>
-    /// </summary>
-    private Player standingTeamLeader;
-
     #endregion
 
     #region Properties
@@ -28,17 +23,7 @@ public class GameInfo : MonoBehaviour
     /// <summary>
     /// The player that is currently being voted to become the team leader.
     /// </summary>
-    public Player StandingTeamLeader
-    {
-        get
-        {
-            return standingTeamLeader;
-        }
-        set
-        {
-            standingTeamLeader = StandingTeamLeader;
-        }
-    }
+    public Player StandingTeamLeader;
 
     /// <summary>
     /// Progress on researching wasps. 3 research wins the game.
