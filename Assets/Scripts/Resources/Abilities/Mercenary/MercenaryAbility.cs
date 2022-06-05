@@ -15,10 +15,10 @@ public class MercenaryAbility : RoleAbility
 
     void ChoicesLockedIn()
     {
-        if (GameInfo.PlayersOnMission.Contains(Owner))
+        if (GameInfo.PlayersOnMission.Contains(Owner.ID))
         {
             Owner.Favour += favourGain;
-            Owner.Connection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
+            OwnerConnection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
         }
     }
 }
