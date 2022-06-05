@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class CompletedMissionsOr : MissionCondition
 {
-    [SerializeField] private List<Mission> requiredMissions = new List<Mission>();
+    [SerializeField] private List<MissionData> requiredMissions = new List<MissionData>();
     [SerializeField] private MissionResult missionResult;
 
     public override bool Condition()
     {
         for (int i = 0; i < requiredMissions.Count; i++)
         {
-            if (!GameInfo.CompletedMissions.TryGetValue(requiredMissions[i], out MissionResult result)) continue;
+            foreach (KeyValuePair<Mission, MissionResult> pair in GameInfo.CompletedMissions) {
+                if (pair.Key.Data != requiredMissions[i]) continue;
 
-            if (result == missionResult) return true;
+                if (pair.Value == missionResult) return true;
+            }
         }
 
         return false;
