@@ -27,7 +27,7 @@ public class PlayerButtonDropdown : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !isMouseOver)
+        if (Input.GetMouseButtonDown(1))
         {
             dropDown.SetActive(false);
         }
