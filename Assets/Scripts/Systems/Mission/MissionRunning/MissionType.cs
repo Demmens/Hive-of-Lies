@@ -62,7 +62,7 @@ public abstract class MissionType : MonoBehaviour
             if (result == MissionResult.Success)
             {
                 //Trigger all success effects
-                foreach (MissionEffect effect in GameInfo.CurrentMission.SuccessEffects)
+                foreach (MissionEffect effect in GameInfo.singleton.CurrentMission.SuccessEffects)
                 {
                     effect.TriggerEffect();
                 }
@@ -70,7 +70,7 @@ public abstract class MissionType : MonoBehaviour
             else
             {
                 //Trigger all fail effects
-                foreach (MissionEffect effect in GameInfo.CurrentMission.FailEffects)
+                foreach (MissionEffect effect in GameInfo.singleton.CurrentMission.FailEffects)
                 {
                     effect.TriggerEffect();
                 }
@@ -85,7 +85,7 @@ public abstract class MissionType : MonoBehaviour
         if (popupsClosed.Contains(conn)) return;
 
         popupsClosed.Add(conn);
-        if (popupsClosed.Count == GameInfo.PlayerCount) EndMission(result);
+        if (popupsClosed.Count == GameInfo.singleton.PlayerCount) EndMission(result);
     }
 }
 

@@ -8,7 +8,7 @@ public class BeesGainFavour : MissionEffect
     [SerializeField] int favourGain;
     public override void TriggerEffect()
     {
-        foreach (Role role in GameInfo.Roles)
+        foreach (Role role in GameInfo.singleton.Roles)
         {
             if (role.Data.Team == Team.Bee)
             {

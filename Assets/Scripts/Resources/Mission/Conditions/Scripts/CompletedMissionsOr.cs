@@ -11,7 +11,7 @@ public class CompletedMissionsOr : MissionCondition
     {
         for (int i = 0; i < requiredMissions.Count; i++)
         {
-            foreach (KeyValuePair<Mission, MissionResult> pair in GameInfo.CompletedMissions) {
+            foreach (KeyValuePair<Mission, MissionResult> pair in GameInfo.singleton.CompletedMissions) {
                 if (pair.Key.Data != requiredMissions[i]) continue;
 
                 if (pair.Value == missionResult) return true;

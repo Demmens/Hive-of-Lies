@@ -112,7 +112,7 @@ public class TeamLeaderVote : GamePhase
     void ChangedVoteNumber(NetworkConnection conn, PlayerChangeVoteMsg msg)
     {
         if (!Active) return;
-        GameInfo.Players.TryGetValue(conn, out Player ply);
+        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
 
         bool exists = currentVotes.TryGetValue(ply, out int votes);
 
@@ -144,7 +144,7 @@ public class TeamLeaderVote : GamePhase
     {
         if (!Active) return;
 
-        GameInfo.Players.TryGetValue(conn, out Player ply);
+        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
 
         currentVotes.TryGetValue(ply, out int vote);
 
@@ -159,7 +159,7 @@ public class TeamLeaderVote : GamePhase
         OnPlayerVoted?.Invoke(ply, vote);
 
         //If we have received a vote from everyone
-        if (votes.Count == GameInfo.PlayerCount) AllVotesReceived();
+        if (votes.Count == GameInfo.singleton.PlayerCount) AllVotesReceived();
     }
 
     void AllVotesReceived()
@@ -178,12 +178,12 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     void VotePopupClosed(NetworkConnection conn, VoteContinueClickedMsg msg)
     {
-        GameInfo.Players.TryGetValue(conn, out Player ply);
+        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
         if (playersClosedPopup.Contains(ply)) return;
 
         playersClosedPopup.Add(ply);
 
-        bool lastPlayer = playersClosedPopup.Count == GameInfo.PlayerCount;
+        bool lastPlayer = playersClosedPopup.Count == GameInfo.singleton.PlayerCount;
 
         NetworkServer.SendToAll(new VoteContinueClickedMsg()
         {

@@ -156,7 +156,7 @@ public class StandOrPass : GamePhase
 
         NetworkServer.SendToAll(new StartStandOrPassMsg()
         {
-            favourCost = GameInfo.CurrentMission.Data.FavourCost
+            favourCost = GameInfo.singleton.CurrentMission.Data.FavourCost
         });
     }
 
@@ -169,7 +169,7 @@ public class StandOrPass : GamePhase
     {
         Debug.Log("Player has stood or passed");
         if (!Active) return;
-        GameInfo.Players.TryGetValue(conn, out Player ply);
+        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
 
         //Make sure they haven't already voted
         if (passedPlayers.Contains(ply) || standingPlayers.Contains(ply)) return;
@@ -180,7 +180,7 @@ public class StandOrPass : GamePhase
         //Invoke event for a player deciding to stand or pass
         OnPlayerStandOrPass?.Invoke(ply, msg.isStanding);
 
-        if (standingPlayers.Count + passedPlayers.Count == GameInfo.PlayerCount) ReceiveResults();
+        if (standingPlayers.Count + passedPlayers.Count == GameInfo.singleton.PlayerCount) ReceiveResults();
     }
 
     /// <summary>
@@ -195,7 +195,7 @@ public class StandOrPass : GamePhase
         //If nobody stood for the position of team leader
         if (standingPlayers.Count == 0)
         {
-            foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+            foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
             {
                 pair.Value.Favour -= favourLostForNobodyStanding;
                 pair.Key.Send(new SetFavourMsg()
@@ -218,15 +218,15 @@ public class StandOrPass : GamePhase
             SortStandingList();
 
         //Now, since we've sorted, the player at the top of the list will be the Team Leader
-        GameInfo.TeamLeader = standingPlayers[0];
-        Debug.Log($"The team leader has been set to {GameInfo.TeamLeader.DisplayName}");
+        GameInfo.singleton.TeamLeader = standingPlayers[0];
+        Debug.Log($"The team leader has been set to {GameInfo.singleton.TeamLeader.DisplayName}");
 
         //The Team Leader pays the favour cost of standing
-        GameInfo.TeamLeader.Favour -= GameInfo.CurrentMission.Data.FavourCost;
+        GameInfo.singleton.TeamLeader.Favour -= GameInfo.singleton.CurrentMission.Data.FavourCost;
 
         NetworkServer.SendToAll(new TeamLeaderChangedMsg()
         {
-            ID = GameInfo.TeamLeader.SteamID,
+            ID = GameInfo.singleton.TeamLeader.SteamID,
             maxPartners = TeamLeaderPickPartners.NumPartners
         });
 

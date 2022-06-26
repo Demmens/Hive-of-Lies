@@ -49,7 +49,7 @@ public abstract class GamePhase : MonoBehaviour
     public void ChangePhase()
     {
         active = true;
-        GameInfo.GamePhase = Phase;
+        GameInfo.singleton.GamePhase = Phase;
         OnGamePhaseStart?.Invoke();
         Begin();
     }

@@ -13,7 +13,7 @@ public static class Functions
     /// <returns></returns>
     public static NetworkConnection FindConnectionFromPlayer(Player ply)
     {
-        return GameInfo.Players.FirstOrDefault(x => x.Value == ply).Key;
+        return GameInfo.singleton.Players.FirstOrDefault(x => x.Value == ply).Key;
     }
 
     /// <summary>

@@ -26,11 +26,11 @@ public class DetectiveAbility : RoleAbility
         mission = FindObjectOfType<RunMission>();
         mission.OnGamePhaseEnd += () =>
         {
-            if (GameInfo.RoundNum == abilityTriggerRound)
+            if (GameInfo.singleton.RoundNum == abilityTriggerRound)
             {
                 string txt = "";
-                GameInfo.Roles.Shuffle();
-                foreach (Role role in GameInfo.Roles)
+                GameInfo.singleton.Roles.Shuffle();
+                foreach (Role role in GameInfo.singleton.Roles)
                 {
                     if (role.Data.Team == Team.Bee && !(role.Ability is DetectiveAbility))
                     {

@@ -46,7 +46,7 @@ public class TeamLeaderPickPartners : GamePhase
     void Start()
     {
         //Find the appropriate number of players that need to go on each mission.
-        for (int i = 0; i <= GameInfo.PlayerCount; i++)
+        for (int i = 0; i <= GameInfo.singleton.PlayerCount; i++)
         {
             if (partnerPlayerCounts.TryGetValue(i, out int num)) NumPartners = num;
         }
@@ -57,7 +57,7 @@ public class TeamLeaderPickPartners : GamePhase
     public override void Begin()
     {
         playersSelected = new List<Player>();
-        NetworkServer.SendToAll(new TeamLeaderStartPickingMsg() { teamLeaderID = (ulong)GameInfo.TeamLeaderID });
+        NetworkServer.SendToAll(new TeamLeaderStartPickingMsg() { teamLeaderID = (ulong) GameInfo.singleton.TeamLeaderID });
     }
 
     /// <summary>
@@ -67,11 +67,11 @@ public class TeamLeaderPickPartners : GamePhase
     void TeamLeaderSelectedPlayer(NetworkConnection conn, TeamLeaderChangePartnersMsg msg)
     {
         if (!Active) return;
-        GameInfo.Players.TryGetValue(conn, out Player ply);
-        if (ply != GameInfo.TeamLeader) return;
+        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
+        if (ply != GameInfo.singleton.TeamLeader) return;
 
         Player target = null;
-        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
         {
             if (pair.Value.SteamID == msg.playerID)
             {
@@ -108,10 +108,10 @@ public class TeamLeaderPickPartners : GamePhase
     public void LockInChoices(NetworkConnection conn, TeamLeaderLockInMsg msg)
     {
         if (!Active) return;
-        GameInfo.Players.TryGetValue(conn, out Player ply);
-        if (ply != GameInfo.TeamLeader) return;
+        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
+        if (ply != GameInfo.singleton.TeamLeader) return;
 
-        GameInfo.PlayersOnMission = playersSelected;
+        GameInfo.singleton.PlayersOnMission = playersSelected;
         Debug.Log("Team leader has locked in their partner choices");
         OnLockInChoices?.Invoke();
 

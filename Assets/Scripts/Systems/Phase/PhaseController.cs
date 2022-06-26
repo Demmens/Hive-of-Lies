@@ -81,9 +81,9 @@ public class PhaseController : MonoBehaviour
     void StartNextRound()
     {
         currentPhase = 0;
-        GameInfo.RoundNum++;
+        GameInfo.singleton.RoundNum++;
 
-        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
         {
             pair.Value.Favour += favourGainPerRound;
         }

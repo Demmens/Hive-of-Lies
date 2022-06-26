@@ -85,10 +85,10 @@ public class Setup : GamePhase
         Player ply = new Player(msg.playerID, conn);
 
         players.Add(ply);
-        GameInfo.Players.Add(conn, ply);
+        GameInfo.singleton.Players.Add(conn, ply);
 
         //Begin the setup once all players are in.
-        if (players.Count == GameInfo.PlayerCount)
+        if (players.Count == GameInfo.singleton.PlayerCount)
         {
             Debug.Log("All players have entered the lobby. Beginning setup.");
             BeginSetup();
@@ -154,7 +154,7 @@ public class Setup : GamePhase
             }
         }
 
-        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
         {
             pair.Key.Send(new SendRoleInfoMsg
             {
@@ -170,7 +170,7 @@ public class Setup : GamePhase
     {
         if (!Active) return;
         RoleData role = msg.role;
-        GameInfo.Players.TryGetValue(conn, out Player ply);
+        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
         //If the role they selected is not one of their options
         if (!ply.RoleChoices.Contains(role)) return;
         GameObject abilityObject = Instantiate(role.Ability);
@@ -180,13 +180,13 @@ public class Setup : GamePhase
         NetworkServer.Spawn(ability.gameObject, conn);
         ply.Favour = role.StartingFavour;
 
-        GameInfo.Roles.Add(new Role()
+        GameInfo.singleton.Roles.Add(new Role()
         {
             Ability = ability,
             Data = role
         });
 
-        if (GameInfo.Roles.Count == GameInfo.PlayerCount) End();
+        if (GameInfo.singleton.Roles.Count == GameInfo.singleton.PlayerCount) End();
     }
 
     /// <summary>

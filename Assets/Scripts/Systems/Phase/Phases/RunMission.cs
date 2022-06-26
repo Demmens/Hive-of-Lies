@@ -29,16 +29,16 @@ public class RunMission : GamePhase
 
     void OnMissionEnded(MissionResult result)
     {
-        GameInfo.CompletedMissions.Add(GameInfo.CurrentMission, result);
+        GameInfo.singleton.CompletedMissions.Add(GameInfo.singleton.CurrentMission, result);
         missionType.Active = false;
         NetworkServer.SendToAll(new MissionEndMsg()
         {
             result = result,
         });
 
-        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
         {
-            if (GameInfo.PlayersOnMission.Contains(pair.Value))
+            if (GameInfo.singleton.PlayersOnMission.Contains(pair.Value))
             {
                 pair.Value.Exhaustion++;
             }

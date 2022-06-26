@@ -76,14 +76,14 @@ public class DecideMission : GamePhase
         missionLists.ForEach(list =>
         {
             //If the current playercount falls within the valid range for the mission list
-            if (list.MinPlayers <= GameInfo.PlayerCount && list.MaxPlayers >= GameInfo.PlayerCount)
+            if (list.MinPlayers <= GameInfo.singleton.PlayerCount && list.MaxPlayers >= GameInfo.singleton.PlayerCount)
             {
                 possibleLists.Add(list);
             }
         });
 
         decidedMissionList = possibleLists.GetRandom();
-        GameInfo.MissionList = decidedMissionList;
+        GameInfo.singleton.MissionList = decidedMissionList;
     }
 
     /// <summary>
@@ -95,8 +95,8 @@ public class DecideMission : GamePhase
         MissionVotes = new Dictionary<MissionData, (List<Player>, int)>();
 
         //List of missions and weights. Make sure if we reach the end of the list that we just start looping the final mission indefinitely.
-        int missionListIndex = Mathf.Min(GameInfo.RoundNum, GameInfo.MissionList.List.Count - 1);
-        List<MissionListEntryEntry> missionDataChoices = GameInfo.MissionList.List[missionListIndex].Missions;
+        int missionListIndex = Mathf.Min(GameInfo.singleton.RoundNum, GameInfo.singleton.MissionList.List.Count - 1);
+        List<MissionListEntryEntry> missionDataChoices = GameInfo.singleton.MissionList.List[missionListIndex].Missions;
 
         //Essentially the same as above, but we can edit it as much as we like since it's non-static.
         List<(MissionData,float)> missionChoices = new List<(MissionData,float)>();
@@ -183,7 +183,7 @@ public class DecideMission : GamePhase
         if (!Active) return;
 
         (List<Player>, int) Tuple;
-        GameInfo.Players.TryGetValue(conn, out Player ply);
+        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
 
         //Make sure players don't vote twice.
         if (TotalVotes.Contains(ply)) return;
@@ -197,7 +197,7 @@ public class DecideMission : GamePhase
         MissionVotes[msg.mission] = Tuple;
         TotalVotes.Add(ply);
 
-        if (TotalVotes.Count >= GameInfo.PlayerCount)
+        if (TotalVotes.Count >= GameInfo.singleton.PlayerCount)
         {
             //Let everyone know we're just about to determine the mission result.
             //Allows other classes to quickly change the info
@@ -226,7 +226,7 @@ public class DecideMission : GamePhase
             }
         }
 
-        GameInfo.CurrentMission = DecidedMission;
+        GameInfo.singleton.CurrentMission = DecidedMission;
         NetworkServer.SendToAll(new SendDecidedMissionMsg()
         {
             mission = DecidedMission.Data

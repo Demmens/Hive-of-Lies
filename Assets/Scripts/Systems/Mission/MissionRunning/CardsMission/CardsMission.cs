@@ -55,7 +55,7 @@ public class CardsMission : MissionType
 
     void OnSetupFinished()
     {
-        foreach (Role role in GameInfo.Roles)
+        foreach (Role role in GameInfo.singleton.Roles)
         {
             List<Card> playerDeck = new List<Card>();
             for (int i = 0; i < role.Data.StartingDeck.Count; i++)
@@ -79,9 +79,9 @@ public class CardsMission : MissionType
 
     private void PlayerClickedDraw(NetworkConnection conn, DrawCardMsg msg)
     {
-        if (!GameInfo.Players.TryGetValue(conn, out Player ply)) return;
+        if (!GameInfo.singleton.Players.TryGetValue(conn, out Player ply)) return;
         //If the player isn't on the mission
-        if (!GameInfo.PlayersOnMission.Contains(ply)) return;
+        if (!GameInfo.singleton.PlayersOnMission.Contains(ply)) return;
         CardInfo.TryGetValue(ply, out Deck deck);
 
         if (deck.Hand.Count > 0)
@@ -106,9 +106,9 @@ public class CardsMission : MissionType
 
     private void PlayerClickedSubmit(NetworkConnection conn, PlayerPlayedMsg msg)
     {
-        if (!GameInfo.Players.TryGetValue(conn, out Player ply)) return;
+        if (!GameInfo.singleton.Players.TryGetValue(conn, out Player ply)) return;
         //If the player isn't on the mission
-        if (!GameInfo.PlayersOnMission.Contains(ply)) return;
+        if (!GameInfo.singleton.PlayersOnMission.Contains(ply)) return;
         //If the player has already played a card
         if (playersPlayed.Contains(ply)) return;
         CardInfo.TryGetValue(ply, out Deck deck);
@@ -123,7 +123,7 @@ public class CardsMission : MissionType
 
         playersPlayed.Add(ply);
 
-        if (playersPlayed.Count >= GameInfo.PlayersOnMission.Count)
+        if (playersPlayed.Count >= GameInfo.singleton.PlayersOnMission.Count)
         {
             AllPlayersPlayed();
             NetworkServer.SendToAll(new PlayerPlayedMsg()
@@ -157,7 +157,7 @@ public class CardsMission : MissionType
         }
 
 
-        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.Players)
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
         {
             CreateMissionResultPopupMsg msg = new CreateMissionResultPopupMsg()
             {

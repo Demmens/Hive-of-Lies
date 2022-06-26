@@ -17,7 +17,7 @@ public class DictatorAbility : RoleAbility
     void AlwaysWinVote()
     {
         //If the team leader is the owner of this role, guarantee that they can't be voted out of team leader
-        if (GameInfo.TeamLeaderID == Owner.SteamID)
+        if (GameInfo.singleton.TeamLeaderID == Owner.SteamID)
             teamLeaderVote.VoteTotal += 1000;
     }
 }
