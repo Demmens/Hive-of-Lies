@@ -51,7 +51,7 @@ public class CardMissionUI : MonoBehaviour
     void MissionStarted(CardMissionStartedMsg msg)
     {
         Debug.Log("Mission started on client");
-        if (ClientGameInfo.CurrentlySelected.Contains(ClientGameInfo.PlayerID))
+        if (ClientGameInfo.singleton.CurrentlySelected.Contains(ClientGameInfo.singleton.PlayerID))
         {
             Debug.Log("Mission started. Player is on mission.");
             drawResult.text = "0";
@@ -87,7 +87,7 @@ public class CardMissionUI : MonoBehaviour
         submitButton.SetActive(true);
         drawButton.SetActive(true);
 
-        nextDrawCost = costCalc.CalculateDrawCost(ClientGameInfo.PlayerID, numDraws);
+        nextDrawCost = costCalc.CalculateDrawCost(ClientGameInfo.singleton.PlayerID, numDraws);
         if (favourController.Favour < nextDrawCost) drawButton.SetActive(false);
     }
 

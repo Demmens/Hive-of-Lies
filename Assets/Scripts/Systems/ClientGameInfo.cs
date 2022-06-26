@@ -3,30 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
 
-public static class ClientGameInfo
+public class ClientGameInfo : MonoBehaviour
 {
+    public static ClientGameInfo singleton;
+
     /// <summary>
     /// The current phase of the game
     /// </summary>
-    public static GamePhase GamePhase;
+    public GamePhase GamePhase;
 
     /// <summary>
     /// The steam ID of the team leader
     /// </summary>
-    public static CSteamID TeamLeaderID;
+    public CSteamID TeamLeaderID;
 
     /// <summary>
     /// The ID of the local player
     /// </summary>
-    public static ulong PlayerID = SteamUser.GetSteamID().m_SteamID;
+    public ulong PlayerID;
 
     /// <summary>
     /// The number of players the team leader has currently selected for the mission
     /// </summary>
-    public static List<ulong> CurrentlySelected = new List<ulong>();
+    public List<ulong> CurrentlySelected = new List<ulong>();
 
     /// <summary>
     /// The total number of players that can be chosen to go on the mission
     /// </summary>
-    public static int MaxPartners;
+    public int MaxPartners;
+
+    private void Start()
+    {
+        singleton = this;
+        DontDestroyOnLoad(this);
+        PlayerID = SteamUser.GetSteamID().m_SteamID;
+    }
 }

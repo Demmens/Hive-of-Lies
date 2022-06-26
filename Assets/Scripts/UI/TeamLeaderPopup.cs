@@ -16,8 +16,8 @@ public class TeamLeaderPopup : MonoBehaviour
 
     void Popup(TeamLeaderChangedMsg msg)
     {
-        ClientGameInfo.TeamLeaderID = msg.ID;
-        ClientGameInfo.MaxPartners = msg.maxPartners;
+        ClientGameInfo.singleton.TeamLeaderID = msg.ID;
+        ClientGameInfo.singleton.MaxPartners = msg.maxPartners;
 
         if (msg.ID == SteamUser.GetSteamID())
         {

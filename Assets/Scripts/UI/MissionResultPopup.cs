@@ -20,9 +20,9 @@ public class MissionResultPopup : MonoBehaviour
     void OnMissionEnded(CreateMissionResultPopupMsg msg)
     {
         string cardResultsText = "";
-        bool wasOnMission = ClientGameInfo.CurrentlySelected.Contains(ClientGameInfo.PlayerID);
+        bool wasOnMission = ClientGameInfo.singleton.CurrentlySelected.Contains(ClientGameInfo.singleton.PlayerID);
 
-        for (int i = 0; i < ClientGameInfo.CurrentlySelected.Count; i++)
+        for (int i = 0; i < ClientGameInfo.singleton.CurrentlySelected.Count; i++)
         {
             if (i != 0) cardResultsText += ", ";
             cardResultsText += wasOnMission ? msg.finalCards[i].ToString() : "??";

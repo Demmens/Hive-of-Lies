@@ -24,7 +24,7 @@ public class ClientSelectPartners : MonoBehaviour
 
     void CanStartPicking(ulong teamLeaderID)
     {
-        if (ClientGameInfo.TeamLeaderID == SteamUser.GetSteamID())
+        if (ClientGameInfo.singleton.TeamLeaderID == SteamUser.GetSteamID())
         {
             pickedPlayers = new List<ulong>();
             canPick = true;
@@ -40,7 +40,7 @@ public class ClientSelectPartners : MonoBehaviour
             dropDown.AddItem(unpickPlayerButton);
             dropDown.RemoveItem(pickPlayerButton);
 
-            if (pickedPlayers.Count == ClientGameInfo.MaxPartners)
+            if (pickedPlayers.Count == ClientGameInfo.singleton.MaxPartners)
             {
                 lockInButton.SetActive(true);
             }
@@ -71,7 +71,7 @@ public class ClientSelectPartners : MonoBehaviour
         }
         else
         {
-            if (pickedPlayers.Count < ClientGameInfo.MaxPartners) dropDown.AddItem(pickPlayerButton);
+            if (pickedPlayers.Count < ClientGameInfo.singleton.MaxPartners) dropDown.AddItem(pickPlayerButton);
             dropDown.RemoveItem(unpickPlayerButton);
         }
     }

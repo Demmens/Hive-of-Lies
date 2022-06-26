@@ -103,7 +103,7 @@ public class MissionUI : MonoBehaviour
 
     void ChangeMission(SendDecidedMissionMsg msg)
     {
-        ClientGameInfo.CurrentlySelected = new List<ulong>();
+        ClientGameInfo.singleton.CurrentlySelected = new List<ulong>();
         cards = new List<GameObject>();
         missionUI.SetActive(true);
         missionName.text = msg.mission.MissionName;
@@ -136,7 +136,7 @@ public class MissionUI : MonoBehaviour
         Debug.Log("Team Leader has changed partners");
         string playerName = SteamFriends.GetFriendPersonaName(msg.playerID);
 
-        if (!ClientGameInfo.CurrentlySelected.Contains((ulong) msg.playerID)) ClientGameInfo.CurrentlySelected.Add((ulong) msg.playerID);
+        if (!ClientGameInfo.singleton.CurrentlySelected.Contains((ulong) msg.playerID)) ClientGameInfo.singleton.CurrentlySelected.Add((ulong) msg.playerID);
 
         if (msg.selected)
         {
