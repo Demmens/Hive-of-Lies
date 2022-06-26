@@ -4,51 +4,18 @@ using UnityEngine;
 
 public class GameEnd : MonoBehaviour
 {
-    #region Fields
-
-    /// <summary>
-    /// Private counterpart to <see cref="ResearchNeededForWin"/>
-    /// </summary>
-    [SerializeField] int researchNeededForWin;
-
-    /// <summary>
-    /// Private counterpart to <see cref="HoneyNeededForWin"/>
-    /// </summary>
-    [SerializeField] int honeyNeededForWin;
-
-    #endregion
 
     #region Properties
 
     /// <summary>
     /// Amount of research needed for the Bees to win the game
     /// </summary>
-    public int ResearchNeededForWin
-    {
-        get
-        {
-            return researchNeededForWin;
-        }
-        set
-        {
-            researchNeededForWin = value;
-        }
-    }
+    public int ResearchNeededForWin = 3;
 
     /// <summary>
     /// How much honey has to be stolen before the wasps win
     /// </summary>
-    public int HoneyNeededForWin
-    {
-        get
-        {
-            return honeyNeededForWin;
-        }
-        set
-        {
-            honeyNeededForWin = value;
-        }
-    }
+    public int HoneyNeededForWin = 3;
 
     #endregion
 
