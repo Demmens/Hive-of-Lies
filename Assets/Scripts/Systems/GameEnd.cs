@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GameEnd : MonoBehaviour
 {
-
-    #region Properties
+    public static GameEnd singleton;
 
     /// <summary>
     /// Amount of research needed for the Bees to win the game
@@ -16,8 +15,6 @@ public class GameEnd : MonoBehaviour
     /// How much honey has to be stolen before the wasps win
     /// </summary>
     public int HoneyNeededForWin = 3;
-
-    #endregion
 
     #region Events
 
@@ -41,5 +38,10 @@ public class GameEnd : MonoBehaviour
     {
         OnGameEnded?.Invoke(winningTeam);
         Debug.Log($"{winningTeam}s won the game");
+    }
+
+    private void Start()
+    {
+        singleton = this;
     }
 }
