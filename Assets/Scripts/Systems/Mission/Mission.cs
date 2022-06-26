@@ -41,7 +41,14 @@ public class Mission
             //If the mission data has no condition, don't create an object
             conditionObject = data.Condition ?? Object.Instantiate(data.Condition);
             //If the mission data has no condition, then the condition is always true
-            Condition = conditionObject == null ? (() => { return true; }) : conditionObject.Condition;
+            if (conditionObject == null)
+            {
+                Condition = () => { return true; };
+            }
+            else
+            {
+                Condition = conditionObject.GetComponent<MissionCondition>().Condition;
+            }
         }
         else
         {
