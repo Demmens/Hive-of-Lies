@@ -30,6 +30,8 @@ public class DecideMission : GamePhase
     /// </summary>
     Mission DecidedMission;
 
+    [HideInInspector] public List<Mission> CompletedMissions = new List<Mission>();
+
     #endregion
 
     #region Properties
