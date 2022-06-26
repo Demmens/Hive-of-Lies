@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PlayerButtonDropdownItem : MonoBehaviour
 {
-    public ulong playerClicked;
+    [HideInInspector] public ulong playerClicked;
 }
