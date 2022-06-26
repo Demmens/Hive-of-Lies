@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Hypnotist
   m_EditorClassIdentifier: 
   roleName: Hypnotist
-  description: '5 favour: Choose a player on the mission. Reroll their dice.'
+  description: '5 favour: Choose a player on the mission. Redraw their card.'
   sprite: 
   startingFavour: 9
+  startingDeck: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
   team: 2
   playersRequired: 0
   ability: {fileID: 0}
