@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51d24175a2938a4fbcb3a8814396e60, type: 3}
+  m_Name: SpreadPropaganda
+  m_EditorClassIdentifier: 
+  missionName: Create Propaganda
+  description: Spend time designing promotional posters for the Bee political campaign.
+  influenceCost: 0
+  successEffects:
+  - {fileID: -3984264974561545604, guid: 16a4281477de446488300bf4c624048f, type: 3}
+  successFlavour: Create a simple and effective poster design.
+  failEffects:
+  - {fileID: 5454322466086311148, guid: 684117a8f3812cd499827fa966d6bdfc, type: 3}
+  failFlavour: Accidentally promote fascist imagery
+  condition: {fileID: 0}
