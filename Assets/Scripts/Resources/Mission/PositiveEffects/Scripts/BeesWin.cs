@@ -14,5 +14,6 @@ public class BeesWin : MissionEffect
     public override void TriggerEffect()
     {
         end.EndGame(Team.Bee);
+        EndEffect();
     }
 }

@@ -14,5 +14,6 @@ public class ChangeFreeRolls : MissionEffect
     public override void TriggerEffect()
     {
         costCalc.FreeRolls += freeRollChange;
+        EndEffect();
     }
 }

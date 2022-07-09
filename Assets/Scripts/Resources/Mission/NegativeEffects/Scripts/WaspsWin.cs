@@ -13,5 +13,6 @@ public class WaspsWin : MissionEffect
     public override void TriggerEffect()
     {
         end.EndGame(Team.Wasp);
+        EndEffect();
     }
 }

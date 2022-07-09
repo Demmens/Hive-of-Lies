@@ -9,6 +9,7 @@ public class StealHoney : MissionEffect
     /// How much to increase wasp research by
     /// </summary>
     [SerializeField] int honeyStolen;
+
     void Start()
     {
         info = FindObjectOfType<GameInfo>();
@@ -16,5 +17,6 @@ public class StealHoney : MissionEffect
     public override void TriggerEffect()
     {
         info.HoneyStolen += honeyStolen;
+        EndEffect();
     }
 }

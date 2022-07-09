@@ -9,6 +9,12 @@ public abstract class MissionEffect : MonoBehaviour
     /// </summary>
     [SerializeField] string description;
 
+    public delegate void MissionEffectOver();
+    /// <summary>
+    /// Invoked when the mission effect has finished. Important for effects that aren't instantaneous (e.g. investigation)
+    /// </summary>
+    public event MissionEffectOver OnMissionEffectFinished;
+
     /// <summary>
     /// Description of the effect
     /// </summary>
@@ -24,4 +30,12 @@ public abstract class MissionEffect : MonoBehaviour
     /// Trigger this mission effect
     /// </summary>
     public abstract void TriggerEffect();
+
+    /// <summary>
+    /// Call to end the mission effect
+    /// </summary>
+    protected void EndEffect()
+    {
+        OnMissionEffectFinished?.Invoke();
+    }
 }

@@ -16,5 +16,6 @@ public class GainWaspResearch : MissionEffect
     public override void TriggerEffect()
     {
         info.WaspResearch += researchGain;
+        EndEffect();
     }
 }

@@ -14,5 +14,6 @@ public class ChangeRollCost : MissionEffect
     public override void TriggerEffect()
     {
         costCalc.GlobalRollCostMod += rollCostChange;
+        EndEffect();
     }
 }

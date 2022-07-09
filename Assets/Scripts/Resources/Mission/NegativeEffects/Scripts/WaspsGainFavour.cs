@@ -16,5 +16,6 @@ public class WaspsGainFavour : MissionEffect
                 role.Ability.Owner.Connection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
             }
         }
+        EndEffect();
     }
 }

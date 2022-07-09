@@ -8,5 +8,6 @@ public class ChangeMissionDifficulty : MissionEffect
     public override void TriggerEffect()
     {
         CardsMission.Difficulty += difficultyIncrease;
+        EndEffect();
     }
 }
