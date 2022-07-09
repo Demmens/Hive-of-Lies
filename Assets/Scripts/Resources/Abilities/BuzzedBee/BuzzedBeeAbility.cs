@@ -12,7 +12,7 @@ public class BuzzedBeeAbility : RoleAbility
         cards = CardsMission.singleton;
         cards.OnPlayCard += PlayerPlayed;
         cards.OnDrawCard += PlayerDrew;
-        cards.OnMissionEnded += MissionEnded;
+        RunMission.singleton.OnMissionEnd += MissionEnded;
     }
 
     void PlayerDrew(Player ply, ref Card card)

@@ -34,7 +34,7 @@ public abstract class MissionType : MonoBehaviour
     /// </summary>
     [SerializeField] protected GameInfo Info { get; private set; }
 
-    public delegate void MissionEnded(MissionResult result);
+    public delegate void MissionEnded(MissionResult result, bool triggerEffects = true);
     public event MissionEnded OnMissionEnded;
 
     protected virtual void Start()
@@ -53,31 +53,11 @@ public abstract class MissionType : MonoBehaviour
     /// <summary>
     /// Call to end the mission
     /// </summary>
-    /// <param name="result">The result of the mission</param>
+    /// <param name="res">The result of the mission</param>
     /// <param name="triggerEffects">Whether the mission should trigger the success or fail effect</param>
-    protected void EndMission(MissionResult result, bool triggerEffects = true)
+    protected void EndMission(MissionResult res, bool triggerEffects = true)
     {
-        if (triggerEffects)
-        {
-            if (result == MissionResult.Success)
-            {
-                //Trigger all success effects
-                foreach (MissionEffect effect in GameInfo.singleton.CurrentMission.SuccessEffects)
-                {
-                    effect.TriggerEffect();
-                }
-            }
-            else
-            {
-                //Trigger all fail effects
-                foreach (MissionEffect effect in GameInfo.singleton.CurrentMission.FailEffects)
-                {
-                    effect.TriggerEffect();
-                }
-            }
-        }
-        
-        OnMissionEnded?.Invoke(result);
+        OnMissionEnded?.Invoke(result, triggerEffects);
     }
 
     void PlayerClosedPopup(NetworkConnection conn, ClosedMissionResultPopupMsg msg)
