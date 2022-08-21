@@ -82,9 +82,4 @@ public class Mission
         if (conditionObject != null)
             Object.Destroy(conditionObject);
     }
-
-    private bool TrueFunction()
-    {
-        return true;
-    }
 }
