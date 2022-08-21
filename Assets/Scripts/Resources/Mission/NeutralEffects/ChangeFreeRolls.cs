@@ -6,6 +6,8 @@ public class ChangeFreeRolls : MissionEffect
 {
     CostCalculation costCalc;
     [SerializeField] int freeRollChange;
+
+    public override EffectType Type => freeRollChange > 0 ? EffectType.Positive : EffectType.Negative;
     void Start()
     {
         costCalc = CostCalculation.singleton;

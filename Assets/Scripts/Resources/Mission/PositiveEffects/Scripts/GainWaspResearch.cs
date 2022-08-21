@@ -9,6 +9,8 @@ public class GainWaspResearch : MissionEffect
     /// How much to increase wasp research by
     /// </summary>
     [SerializeField] int researchGain;
+
+    public override EffectType Type => researchGain > 0 ? EffectType.Positive : EffectType.Negative;
     void Start()
     {
         info = FindObjectOfType<GameInfo>();

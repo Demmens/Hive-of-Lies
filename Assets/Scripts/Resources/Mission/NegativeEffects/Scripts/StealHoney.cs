@@ -10,6 +10,8 @@ public class StealHoney : MissionEffect
     /// </summary>
     [SerializeField] int honeyStolen;
 
+    public override EffectType Type => honeyStolen > 0 ? EffectType.Negative : EffectType.Positive;
+
     void Start()
     {
         info = FindObjectOfType<GameInfo>();

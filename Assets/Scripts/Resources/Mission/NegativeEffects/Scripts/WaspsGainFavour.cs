@@ -6,6 +6,8 @@ using Mirror;
 public class WaspsGainFavour : MissionEffect
 {
     [SerializeField] int favourGain;
+
+    public override EffectType Type => favourGain > 0 ? EffectType.Negative : EffectType.Positive;
     public override void TriggerEffect()
     {
         foreach (Role role in GameInfo.singleton.Roles)

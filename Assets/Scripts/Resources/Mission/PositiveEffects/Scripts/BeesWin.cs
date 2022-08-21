@@ -6,6 +6,7 @@ public class BeesWin : MissionEffect
 {
     GameEnd end;
 
+    public override EffectType Type => EffectType.Positive;
     private void Start()
     {
         end = FindObjectOfType<GameEnd>();

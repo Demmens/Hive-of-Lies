@@ -9,6 +9,7 @@ public class InvestigatePlayer : MissionEffect
 
     public static InvestigatePlayer Singleton;
 
+    public override EffectType Type => EffectType.Neutral;
     void Start()
     {
         Singleton = this;

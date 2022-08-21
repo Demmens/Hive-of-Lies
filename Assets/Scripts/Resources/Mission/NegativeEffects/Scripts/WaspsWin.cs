@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaspsWin : MissionEffect
 {
     GameEnd end;
+    public override EffectType Type => EffectType.Negative;
 
     private void Start()
     {

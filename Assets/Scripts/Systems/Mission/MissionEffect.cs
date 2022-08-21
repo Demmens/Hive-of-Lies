@@ -27,6 +27,11 @@ public abstract class MissionEffect : MonoBehaviour
     }
 
     /// <summary>
+    /// Whether this effect is positive, negative, or neutral
+    /// </summary>
+    public abstract EffectType Type { get; }
+
+    /// <summary>
     /// Trigger this mission effect
     /// </summary>
     public abstract void TriggerEffect();
@@ -37,5 +42,12 @@ public abstract class MissionEffect : MonoBehaviour
     protected void EndEffect()
     {
         OnMissionEffectFinished?.Invoke();
+    }
+
+    public enum EffectType
+    {
+        Positive,
+        Negative,
+        Neutral,
     }
 }
