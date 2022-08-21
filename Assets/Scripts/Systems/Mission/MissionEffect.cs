@@ -32,7 +32,7 @@ public abstract class MissionEffect : MonoBehaviour
     public abstract void TriggerEffect();
 
     /// <summary>
-    /// Call to end the mission effect
+    /// Call on the server to end the mission effect
     /// </summary>
     protected void EndEffect()
     {
