@@ -70,12 +70,12 @@ public class GameInfo : MonoBehaviour
     public int MissionChoices;
 
     /// <summary>
-    /// Whether the next success effect should be cancelled
+    /// Whether the next success effect should be canceled
     /// </summary>
     public bool CancelNextSuccess;
 
     /// <summary>
-    /// Whether the next fail effect should be cancelled
+    /// Whether the next fail effect should be canceled
     /// </summary>
     public bool CancelNextFail;
 
