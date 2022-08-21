@@ -67,18 +67,22 @@ public class RunMission : GamePhase
 
         if (triggerEffects)
         {
-            List<MissionEffect> effects = (result == MissionResult.Fail) ?
+            List<MissionEffect> effects = (result == MissionResult.Success) ?
                 GameInfo.singleton.CurrentMission.SuccessEffects :
                 GameInfo.singleton.CurrentMission.FailEffects;
 
             numEffects = effects.Count;
             effectsTriggered = 0;
-            //Trigger all success effects
+            //Trigger all effects
             foreach (MissionEffect effect in effects)
             {
                 effect.OnMissionEffectFinished += OnEffectEnded;
                 effect.TriggerEffect();
             }
+        }
+        else
+        {
+            End();
         }
     }
 
