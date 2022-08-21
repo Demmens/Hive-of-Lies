@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51d24175a2938a4fbcb3a8814396e60, type: 3}
+  m_Name: BackgroundChecks
+  m_EditorClassIdentifier: 
+  missionName: Perform Background Checks
+  description: Thoroughly look into the history of one board member, looking for
+    any clues that might identify their loyalty.
+  influenceCost: 6
+  successEffects:
+  - {fileID: 7374341581710127415, guid: f6fc966a71d833343aee71a4f8d8d15f, type: 3}
+  successFlavour: Perform a successful background check.
+  failEffects:
+  - {fileID: 7374341581710127415, guid: f6fc966a71d833343aee71a4f8d8d15f, type: 3}
+  - {fileID: -457443593917796554, guid: c3f32767c0c135642bf883f842426839, type: 3}
+  failFlavour: Become distracted by the background checks, and forget your shift
+    at the honey vault.
+  condition: {fileID: 0}
