@@ -65,6 +65,21 @@ public class GameInfo : MonoBehaviour
     }
 
     /// <summary>
+    /// Number of missions that players get to vote on at the start of each round.
+    /// </summary>
+    public int MissionChoices;
+
+    /// <summary>
+    /// Whether the next success effect should be cancelled
+    /// </summary>
+    public bool CancelNextSuccess;
+
+    /// <summary>
+    /// Whether the next fail effect should be cancelled
+    /// </summary>
+    public bool CancelNextFail;
+
+    /// <summary>
     /// All roles and their instantiated abilities
     /// </summary>
     public List<Role> Roles = new List<Role>();

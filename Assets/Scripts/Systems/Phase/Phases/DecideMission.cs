@@ -8,7 +8,6 @@ using Mirror;
 /// </summary>
 public class DecideMission : GamePhase
 {
-    #region Fields
 
     /// <summary>
     /// List of all possible mission lists for all possible player counts.
@@ -31,10 +30,6 @@ public class DecideMission : GamePhase
     Mission DecidedMission;
 
     [HideInInspector] public List<Mission> CompletedMissions = new List<Mission>();
-
-    #endregion
-
-    #region Properties
     public override EGamePhase Phase
     {
         get
@@ -44,15 +39,9 @@ public class DecideMission : GamePhase
     }
 
     /// <summary>
-    /// Number of missions that players get to vote on at the start of each round.
-    /// </summary>
-    public int MissionChoices;
-
-    /// <summary>
     /// Who has voted for which mission, and how many votes in total that mission has
     /// </summary>
     public Dictionary<MissionData, (List<Player>, int)> MissionVotes;
-    #endregion
 
     #region Events
 
@@ -128,7 +117,7 @@ public class DecideMission : GamePhase
         });
 
         //Draw a ball from the bag and then remove all instances of that colour of ball so we don't draw the same mission twice.
-        for (int i = 0; i < MissionChoices; i++)
+        for (int i = 0; i < GameInfo.singleton.MissionChoices; i++)
         {
             float rand = 1;
             while (rand == 1) rand = Random.Range(0f, 1f); //Get a random float in the range [0,1).

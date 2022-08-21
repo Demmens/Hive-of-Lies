@@ -57,7 +57,19 @@ public abstract class MissionType : MonoBehaviour
     /// <param name="triggerEffects">Whether the mission should trigger the success or fail effect</param>
     protected void EndMission(MissionResult res, bool triggerEffects = true)
     {
-        OnMissionEnded?.Invoke(result, triggerEffects);
+        if (!triggerEffects) 
+        {
+            OnMissionEnded?.Invoke(result, triggerEffects);
+            return;
+        }
+
+        if (GameInfo.singleton.CancelNextFail && res == MissionResult.Fail
+            || GameInfo.singleton.CancelNextSuccess && res == MissionResult.Success)
+        {
+            GameInfo.singleton.CancelNextFail = false;
+            GameInfo.singleton.CancelNextSuccess = false;
+            OnMissionEnded?.Invoke(res, false);
+        }        
     }
 
     void PlayerClosedPopup(NetworkConnection conn, ClosedMissionResultPopupMsg msg)
