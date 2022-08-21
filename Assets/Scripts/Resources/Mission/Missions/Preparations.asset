@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51d24175a2938a4fbcb3a8814396e60, type: 3}
+  m_Name: Preparations
+  m_EditorClassIdentifier: 
+  missionName: Preparations
+  description: Prepare for the worst-case scenarios, and build backup plans to mitigate
+    the risks.
+  influenceCost: 0
+  successEffects:
+  - {fileID: 7101208923668515899, guid: e4b4a0529796d53479ee36a3d87f890d, type: 3}
+  successFlavour: Successfully determine the risks associated with the next mission,
+    and prepare accordingly.
+  failEffects:
+  - {fileID: 750555647210007776, guid: f2bbf3ccd20c6a84a938b9a3b1dd55c9, type: 3}
+  failFlavour: Accidentally prepare for the wrong outcome, and mitigate any chance
+    of success.
+  condition: {fileID: 0}

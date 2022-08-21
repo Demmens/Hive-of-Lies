@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b51d24175a2938a4fbcb3a8814396e60, type: 3}
   m_Name: PlanMissions
   m_EditorClassIdentifier: 
-  missionName: 
-  description: 
+  missionName: Plan Missions
+  description: Create a detailed plan of all future missions
   influenceCost: 0
-  successEffects: []
-  successFlavour: 
-  failEffects: []
-  failFlavour: 
+  successEffects:
+  - {fileID: 7245340903586606226, guid: 79076347c37c9264cab9326fc2ddfb47, type: 3}
+  successFlavour: Successfully create a plan, and understand all the potential options.
+  failEffects:
+  - {fileID: 5454322466086311148, guid: 684117a8f3812cd499827fa966d6bdfc, type: 3}
+  failFlavour: There are too many options and you get confused.
   condition: {fileID: 0}
