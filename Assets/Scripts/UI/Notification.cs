@@ -32,7 +32,7 @@ public class Notification : MonoBehaviour
     }
 
     /// <summary>
-    /// Creates a notification
+    /// Creates a notification. If called on the server, all clients receive the notification.
     /// </summary>
     /// <param name="newText"></param>
     public void CreateNotification(string newText, NotificationType type = NotificationType.Generic)
