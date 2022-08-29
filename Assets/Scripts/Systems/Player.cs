@@ -47,6 +47,11 @@ public class Player
     /// </summary>
     public NetworkConnection Connection;
 
+    /// <summary>
+    /// The target of the player (if they're a traitor)
+    /// </summary>
+    public Player target;
+
     public Player(CSteamID id, NetworkConnection conn)
     {
         SteamID = id;
