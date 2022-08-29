@@ -16,6 +16,9 @@ public class Notification : MonoBehaviour
     /// </summary>
     public static Notification Singleton;
 
+    /// <summary>
+    /// Invoked when a notification is created
+    /// </summary>
     public event NotificationCreated OnNotificationCreated;
     public delegate void NotificationCreated(string text, NotificationType type, NetworkConnection conn);
 
@@ -24,18 +27,36 @@ public class Notification : MonoBehaviour
     {
         text = gameObject.GetComponentInChildren<TMP_Text>();
         Singleton = this;
-        NetworkServer.RegisterHandler<CreatedNotificationsMsg>(ServerReceiveNotification);
+        NetworkServer.RegisterHandler<CreatedNotificationMsg>(ServerReceiveNotification);
+        NetworkClient.RegisterHandler<CreatedNotificationMsg>(ClientReceiveNotification);
     }
 
     /// <summary>
-    /// Call to change the 
+    /// Creates a notification
     /// </summary>
     /// <param name="newText"></param>
     public void CreateNotification(string newText, NotificationType type = NotificationType.Generic)
     {
-        text.text = newText;
-        gameObject.SetActive(true);
+        CreatedNotificationMsg msg = new CreatedNotificationMsg() { text = newText, type = type };
+        if (NetworkServer.active)
+        {
+            NetworkServer.SendToAll(msg);
+        }
+        else
+        {
+            text.text = newText;
+            gameObject.SetActive(true);
+            NetworkClient.Send(msg);
+        }
+    }
 
+    /// <summary>
+    /// If the server sends a notification, client reads it here
+    /// </summary>
+    /// <param name="msg"></param>
+    private void ClientReceiveNotification(CreatedNotificationMsg msg)
+    {
+        CreateNotification(msg.text, msg.type);
     }
 
     /// <summary>
@@ -43,7 +64,7 @@ public class Notification : MonoBehaviour
     /// </summary>
     /// <param name="conn"></param>
     /// <param name="msg"></param>
-    private void ServerReceiveNotification(NetworkConnection conn, CreatedNotificationsMsg msg)
+    private void ServerReceiveNotification(NetworkConnection conn, CreatedNotificationMsg msg)
     {
         OnNotificationCreated?.Invoke(msg.text, msg.type, conn);
     }
@@ -55,7 +76,7 @@ public class Notification : MonoBehaviour
 
     }
 
-    public struct CreatedNotificationsMsg : NetworkMessage
+    public struct CreatedNotificationMsg : NetworkMessage
     {
         public string text;
         public NotificationType type;
