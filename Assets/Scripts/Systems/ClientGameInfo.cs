@@ -32,6 +32,11 @@ public class ClientGameInfo : MonoBehaviour
     /// </summary>
     public int MaxPartners;
 
+    /// <summary>
+    /// Whether the player should be included in the game.
+    /// </summary>
+    public bool Alive = true;
+
     private void Start()
     {
         singleton = this;
