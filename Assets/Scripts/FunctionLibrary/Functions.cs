@@ -17,6 +17,16 @@ public static class Functions
     }
 
     /// <summary>
+    /// Finds the corresponding player from their ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public static Player FindPlayerFromID(ulong id)
+    {
+        return GameInfo.singleton.Players.FirstOrDefault(x => x.Value.ID == id).Value;
+    }
+
+    /// <summary>
     /// Whether a list of players contains a player of the given ID
     /// </summary>
     /// <param name="playerList"></param>
@@ -30,5 +40,18 @@ public static class Functions
 
         return false;
     }
-}
 
+    /// <summary>
+    /// Send a network message to all alive clients.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="msg"></param>
+    /// <param name="channelId"></param>
+    public static void SendToAlive<T>(T msg, int channelId = Channels.Reliable) where T : struct, NetworkMessage
+    {
+        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
+        {
+            pair.Key.Send(msg, channelId);
+        } 
+    }
+}
