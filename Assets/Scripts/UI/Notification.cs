@@ -31,7 +31,7 @@ public class Notification : MonoBehaviour
     /// Call to change the 
     /// </summary>
     /// <param name="newText"></param>
-    public void CreateNotification(string newText, NotificationType type = NotificationType.generic)
+    public void CreateNotification(string newText, NotificationType type = NotificationType.Generic)
     {
         text.text = newText;
         gameObject.SetActive(true);
@@ -50,8 +50,8 @@ public class Notification : MonoBehaviour
 
     public enum NotificationType
     {
-        generic,
-        investigate,
+        Generic,
+        Investigate,
 
     }
 
