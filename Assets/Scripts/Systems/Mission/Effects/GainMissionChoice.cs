@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "Gain Mission Choice", menuName = "Missions/Effects/Gain Mission Choice")]
 public class GainMissionChoice : MissionEffect
 {
     [SerializeField] int missionChoicesGained;

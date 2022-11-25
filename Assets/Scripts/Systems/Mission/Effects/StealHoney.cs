@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "Steal Honey", menuName = "Missions/Effects/Steal Honey")]
 public class StealHoney : MissionEffect
 {
     GameInfo info;

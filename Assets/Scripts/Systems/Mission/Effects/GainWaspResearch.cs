@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "Gain Research", menuName = "Missions/Effects/Gain Research")]
 public class GainWaspResearch : MissionEffect
 {
     GameInfo info;

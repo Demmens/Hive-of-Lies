@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeFreeRolls : MissionEffect
+[CreateAssetMenu(fileName = "Change Free Draws", menuName = "Missions/Effects/Change Free Draws")]
+public class ChangeFreeDraws : MissionEffect
 {
     CostCalculation costCalc;
-    [SerializeField] int freeRollChange;
+    [SerializeField] int freeDrawChange;
 
-    public override EffectType Type => freeRollChange > 0 ? EffectType.Positive : EffectType.Negative;
+    public override EffectType Type => freeDrawChange > 0 ? EffectType.Positive : EffectType.Negative;
     void Start()
     {
         costCalc = CostCalculation.singleton;
@@ -15,7 +16,7 @@ public class ChangeFreeRolls : MissionEffect
 
     public override void TriggerEffect()
     {
-        costCalc.FreeRolls += freeRollChange;
+        costCalc.FreeDraws += freeDrawChange;
         EndEffect();
     }
 }

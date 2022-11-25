@@ -55,19 +55,6 @@ public class Mission
         {
             SuccessEffects = new List<MissionEffect>();
             FailEffects = new List<MissionEffect>();
-
-            foreach (MissionEffect effect in Data.SuccessEffects)
-            {
-                SuccessEffects.Add(Object.Instantiate(effect));
-                //Spawn on all clients so we can do some client shenanigans with this as well.
-                NetworkServer.Spawn(effect.gameObject);
-            }
-            foreach (MissionEffect effect in Data.FailEffects)
-            {
-                FailEffects.Add(Object.Instantiate(effect));
-                //Spawn on all clients so we can do some client shenanigans with this as well.
-                NetworkServer.Spawn(effect.gameObject);
-            }
         }
     }
 
@@ -76,15 +63,6 @@ public class Mission
     /// </summary>
     public void Destroy()
     {
-        if (SuccessEffects != null)
-            foreach (MissionEffect effect in SuccessEffects)
-                Object.Destroy(effect.gameObject);
 
-        if (FailEffects != null)
-            foreach (MissionEffect effect in FailEffects)
-                Object.Destroy(effect.gameObject);
-
-        if (conditionObject != null)
-            Object.Destroy(conditionObject);
     }
 }

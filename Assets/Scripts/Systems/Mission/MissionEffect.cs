@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MissionEffect : MonoBehaviour
+public abstract class MissionEffect : ScriptableObject
 {
     /// <summary>
     /// Private counterpart to <see cref="Description"/>
