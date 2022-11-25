@@ -31,7 +31,7 @@ public class Mission
     /// <summary>
     /// Reference to the condition object we created, which we save for deletion later.
     /// </summary>
-    GameObject conditionObject;
+    MissionCondition conditionObject;
 
     public Mission(MissionData data, bool conditionOnly = false)
     {
@@ -40,7 +40,7 @@ public class Mission
         if (conditionOnly)
         {
             //If the mission data has no condition, don't create an object
-            conditionObject = data.Condition == null ? null : Object.Instantiate(data.Condition);
+            conditionObject = data.Condition;
             //If the mission data has no condition, then the condition is always true
             if (conditionObject == null)
             {
@@ -48,7 +48,7 @@ public class Mission
             }
             else
             {
-                Condition = conditionObject.GetComponent<MissionCondition>().Condition;
+                Condition = conditionObject.Condition;
             }
         }
         else

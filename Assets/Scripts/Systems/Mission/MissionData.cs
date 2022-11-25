@@ -47,7 +47,7 @@ public class MissionData : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="Condition"/>
     /// </summary>
-    [SerializeField] GameObject condition;
+    [SerializeField] MissionCondition condition;
     #endregion
 
     #region Properties
@@ -131,7 +131,7 @@ public class MissionData : ScriptableObject
     /// <summary>
     /// The condition under which this mission will appear
     /// </summary>
-    public GameObject Condition
+    public MissionCondition Condition
     {
         get
         {
