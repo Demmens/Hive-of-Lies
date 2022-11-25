@@ -41,7 +41,7 @@ public class DecideMission : GamePhase
     /// <summary>
     /// Who has voted for which mission, and how many votes in total that mission has
     /// </summary>
-    public Dictionary<MissionData, (List<Player>, int)> MissionVotes;
+    public Dictionary<Mission, (List<Player>, int)> MissionVotes;
 
     #region Events
 
@@ -81,17 +81,17 @@ public class DecideMission : GamePhase
     public override void Begin()
     {
         TotalVotes = new List<Player>();
-        MissionVotes = new Dictionary<MissionData, (List<Player>, int)>();
+        MissionVotes = new Dictionary<Mission, (List<Player>, int)>();
 
         //List of missions and weights. Make sure if we reach the end of the list that we just start looping the final mission indefinitely.
         int missionListIndex = Mathf.Min(GameInfo.singleton.RoundNum, GameInfo.singleton.MissionList.List.Count - 1);
         List<MissionListEntryEntry> missionDataChoices = GameInfo.singleton.MissionList.List[missionListIndex].Missions;
 
         //Essentially the same as above, but we can edit it as much as we like since it's non-static.
-        List<(MissionData,float)> missionChoices = new List<(MissionData,float)>();
+        List<(Mission,float)> missionChoices = new List<(Mission,float)>();
 
         //Pure list of missions to send to clients
-        List<MissionData> choices = new List<MissionData>();
+        List<Mission> choices = new List<Mission>();
 
 
         // Find {MissionChoices} random missions from the list of missions given their particular weightings.
@@ -105,15 +105,12 @@ public class DecideMission : GamePhase
         //Find the total weight of all objects so we know how many balls are in the bag
         missionDataChoices.ForEach(miss =>
         {
-            Mission mission = new Mission(miss.Mission, true);
             //Only add missions if we meet the condition
-            if (mission.Condition())
+            if (miss.Mission.Condition.Condition())
             {
                 total += miss.Weight;
-                missionChoices.Add((mission.Data, total)); //Set each weight to be cumulative so we can find actual probabilities later.
+                missionChoices.Add((miss.Mission, total)); //Set each weight to be cumulative so we can find actual probabilities later.
             }
-            //Clean up all missions
-            mission.Destroy();
         });
 
         //Draw a ball from the bag and then remove all instances of that colour of ball so we don't draw the same mission twice.
@@ -128,7 +125,7 @@ public class DecideMission : GamePhase
             //Run for each mission choice
             for (int j = 0; j < missionChoices.Count; j++)
             {
-                (MissionData,float) miss = missionChoices[j];
+                (Mission,float) miss = missionChoices[j];
                 //Make sure we only select one item per pass
                 if (selectedWeight == 0)
                 {
@@ -202,23 +199,20 @@ public class DecideMission : GamePhase
     void DetermineMission()
     {
         int maxVotes = int.MinValue;
-        foreach (KeyValuePair<MissionData,(List<Player>,int)> item in MissionVotes)
+        foreach (KeyValuePair<Mission,(List<Player>,int)> item in MissionVotes)
         {
             if (item.Value.Item2 > maxVotes)
             {
                 maxVotes = item.Value.Item2;
-                //Make sure we clean up missions from previous rounds
-                if (DecidedMission != null)
-                    DecidedMission.Destroy();
 
-                DecidedMission = new Mission(item.Key);
+                DecidedMission = item.Key;
             }
         }
 
         GameInfo.singleton.CurrentMission = DecidedMission;
         NetworkServer.SendToAll(new SendDecidedMissionMsg()
         {
-            mission = DecidedMission.Data
+            mission = DecidedMission
         });
 
         End();
@@ -227,15 +221,15 @@ public class DecideMission : GamePhase
 
 public struct PlayerVotedOnMissionMsg : NetworkMessage
 {
-    public MissionData mission;
+    public Mission mission;
 }
 
 public struct SendMissionChoicesMsg : NetworkMessage
 {
-    public List<MissionData> choices;
+    public List<Mission> choices;
 }
 
 public struct SendDecidedMissionMsg : NetworkMessage
 {
-    public MissionData mission;
+    public Mission mission;
 }

@@ -88,7 +88,7 @@ public class MissionUI : MonoBehaviour
         return res;
     }
 
-    void MissionCardClicked(MissionData data)
+    void MissionCardClicked(Mission data)
     {
         foreach (GameObject card in cards)
         {

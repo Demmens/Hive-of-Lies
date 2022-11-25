@@ -1,68 +1,142 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 
-/// <summary>
-/// Contains all the information about a Mission
-/// </summary>
-public class Mission
+[CreateAssetMenu(fileName = "Mission", menuName = "Missions/Create mission")]
+public class Mission : ScriptableObject
 {
+    #region Fields
     /// <summary>
-    /// The basic information about the mission
+    /// Private counterpart to <see cref="MissionName"/>
     /// </summary>
-    public MissionData Data;
+    [SerializeField] string missionName;
 
     /// <summary>
-    /// Effects that happen upon a mission success
+    /// Private counterpart to <see cref="Description"/>
     /// </summary>
-    public List<MissionEffect> SuccessEffects;
+    [TextArea]
+    [SerializeField] string description;
 
     /// <summary>
-    /// Effects that happen upon a mission fail
+    /// Private counterpart to <see cref="FavourCost"/>
     /// </summary>
-    public List<MissionEffect> FailEffects;
+    [SerializeField] int influenceCost;
 
     /// <summary>
-    /// The condition that must be met for the mission to appear
+    /// Private counterpart to <see cref="SuccessEffect"/>
     /// </summary>
-    public System.Func<bool> Condition;
+    [SerializeField] List<MissionEffect> successEffects;
 
     /// <summary>
-    /// Reference to the condition object we created, which we save for deletion later.
+    /// Private counterpart to <see cref="SuccessFlavour"/>
     /// </summary>
-    MissionCondition conditionObject;
+    [TextArea]
+    [SerializeField] string successFlavour;
 
-    public Mission(MissionData data, bool conditionOnly = false)
+    /// <summary>
+    /// Private counterpart to <see cref="FailEffect"/>
+    /// </summary>
+    [SerializeField] List<MissionEffect> failEffects;
+
+    /// <summary>
+    /// Private counterpart to <see cref="FailFlavour"/>
+    /// </summary>
+    [TextArea]
+    [SerializeField] string failFlavour;
+
+    /// <summary>
+    /// Private counterpart to <see cref="Condition"/>
+    /// </summary>
+    [SerializeField] MissionCondition condition;
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Name of the mission
+    /// </summary>
+    public string MissionName
     {
-        Data = data;
-        
-        if (conditionOnly)
+        get
         {
-            //If the mission data has no condition, don't create an object
-            conditionObject = data.Condition;
-            //If the mission data has no condition, then the condition is always true
-            if (conditionObject == null)
-            {
-                Condition = () => { return true; };
-            }
-            else
-            {
-                Condition = conditionObject.Condition;
-            }
-        }
-        else
-        {
-            SuccessEffects = new List<MissionEffect>();
-            FailEffects = new List<MissionEffect>();
+            return missionName;
         }
     }
 
     /// <summary>
-    /// Call when finished with the mission to clean up the scene
+    /// The flavour text for the mission
     /// </summary>
-    public void Destroy()
+    public string Description
     {
-
+        get
+        {
+            return description;
+        }
     }
+    /// <summary>
+    /// How much it costs to stand for the teamLeader of this mission
+    /// </summary>
+    public int FavourCost
+    {
+        get
+        {
+            return influenceCost;
+        }
+    }
+
+    /// <summary>
+    /// What happens on a mission success
+    /// </summary>
+    public List<MissionEffect> SuccessEffects
+    {
+        get
+        {
+            return successEffects;
+        }
+    }
+
+    /// <summary>
+    /// The flavour text for the success effect
+    /// </summary>
+    public string SuccessFlavour
+    {
+        get
+        {
+            return successFlavour;
+        }
+    }
+
+    /// <summary>
+    /// What happens on a mission fail
+    /// </summary>
+    public List<MissionEffect> FailEffects
+    {
+        get
+        {
+            return failEffects;
+        }
+    }
+
+    /// <summary>
+    /// The flavour text for the fail effect
+    /// </summary>
+    public string FailFlavour
+    {
+        get
+        {
+            return failFlavour;
+        }
+    }
+
+    /// <summary>
+    /// The condition under which this mission will appear
+    /// </summary>
+    public MissionCondition Condition
+    {
+        get
+        {
+            return condition;
+        }
+    }
+    #endregion
 }

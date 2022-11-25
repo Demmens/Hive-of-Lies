@@ -5,7 +5,7 @@ using TMPro;
 
 public class MissionCard : MonoBehaviour
 {
-    MissionData Data;
+    Mission Data;
 
     [SerializeField] TMP_Text Name;
 
@@ -15,10 +15,10 @@ public class MissionCard : MonoBehaviour
 
     [SerializeField] TMP_Text FavourCost;
 
-    public delegate void MissionCardClicked(MissionData data);
+    public delegate void MissionCardClicked(Mission data);
     public event MissionCardClicked OnMissionCardClicked;
 
-    public void SetData(MissionData data)
+    public void SetData(Mission data)
     {
         Data = data;
         Debug.Log(Data.MissionName);

@@ -156,7 +156,7 @@ public class StandOrPass : GamePhase
 
         NetworkServer.SendToAll(new StartStandOrPassMsg()
         {
-            favourCost = GameInfo.singleton.CurrentMission.Data.FavourCost
+            favourCost = GameInfo.singleton.CurrentMission.FavourCost
         });
     }
 
@@ -222,7 +222,7 @@ public class StandOrPass : GamePhase
         Debug.Log($"The team leader has been set to {GameInfo.singleton.TeamLeader.DisplayName}");
 
         //The Team Leader pays the favour cost of standing
-        GameInfo.singleton.TeamLeader.Favour -= GameInfo.singleton.CurrentMission.Data.FavourCost;
+        GameInfo.singleton.TeamLeader.Favour -= GameInfo.singleton.CurrentMission.FavourCost;
 
         NetworkServer.SendToAll(new TeamLeaderChangedMsg()
         {

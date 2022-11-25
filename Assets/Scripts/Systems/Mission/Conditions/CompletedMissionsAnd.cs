@@ -14,7 +14,7 @@ public class CompletedMissionsAnd : MissionCondition
             bool isMet = false;
             foreach (KeyValuePair<Mission, MissionResult> pair in GameInfo.singleton.CompletedMissions)
             {
-                if (requiredMissions[i].mission != pair.Key.Data) continue;
+                if (requiredMissions[i].mission != pair.Key) continue;
 
                 if (!requiredMissions[i].ignoreResult && pair.Value != requiredMissions[i].result) return false;
 
@@ -30,7 +30,7 @@ public class CompletedMissionsAnd : MissionCondition
     [System.Serializable]
     private struct CompletedMission
     {
-        public MissionData mission;
+        public Mission mission;
         public bool ignoreResult;
         public MissionResult result;
     }

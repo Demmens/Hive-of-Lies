@@ -81,7 +81,7 @@ public struct MissionListEntryEntry
     /// <summary>
     /// Private counterpart of <see cref="Mission"/>
     /// </summary>
-    [SerializeField] MissionData mission;
+    [SerializeField] Mission mission;
 
     /// <summary>
     /// Private counterpart of <see cref="Weight"/>
@@ -91,7 +91,7 @@ public struct MissionListEntryEntry
     /// <summary>
     /// The mission
     /// </summary>
-    public MissionData Mission
+    public Mission Mission
     {
         get
         {

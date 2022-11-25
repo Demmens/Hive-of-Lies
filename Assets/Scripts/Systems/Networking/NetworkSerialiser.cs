@@ -16,13 +16,13 @@ public static class NetworkSerialiser
     }
 
 
-    public static void WriteMissionData(this NetworkWriter writer, MissionData value)
+    public static void WriteMissionData(this NetworkWriter writer, Mission value)
     {
         writer.WriteString(value.name);
     }
-    public static MissionData ReadMissionData(this NetworkReader reader)
+    public static Mission ReadMissionData(this NetworkReader reader)
     {
-        return (MissionData) Resources.Load($"Mission/Missions/{reader.ReadString()}");
+        return (Mission) Resources.Load($"Mission/Missions/{reader.ReadString()}");
     }
 
 
