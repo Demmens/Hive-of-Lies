@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Int", menuName = "Variable/Int")]
-public class IntVariable : ScriptableObject
+[CreateAssetMenu(fileName = "Int", menuName = "Variable/Basic/Int")]
+public class IntVariable : Variable<int>
 {
-    public int value;
 }
