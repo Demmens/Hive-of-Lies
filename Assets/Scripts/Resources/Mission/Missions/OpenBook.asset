@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Send a team of top bees to open a large book on wasps
   influenceCost: 6
   successEffects:
-  - {fileID: -1224426871949327296, guid: c8dada23ba7ef904d9f6cfe631cd7447, type: 3}
+  - {fileID: 11400000, guid: f4c9b40bae93dea4ca4035541b9cd9ae, type: 2}
   successFlavour: Manage to read one page
   failEffects: []
   failFlavour: Can't get the book open (too heavy)

@@ -16,9 +16,9 @@ MonoBehaviour:
   description: Create a detailed plan of all future missions
   influenceCost: 0
   successEffects:
-  - {fileID: 7245340903586606226, guid: 79076347c37c9264cab9326fc2ddfb47, type: 3}
+  - {fileID: 11400000, guid: 83c358885e7265e4794da7d77ad6ca12, type: 2}
   successFlavour: Successfully create a plan, and understand all the potential options.
   failEffects:
-  - {fileID: 5454322466086311148, guid: 684117a8f3812cd499827fa966d6bdfc, type: 3}
+  - {fileID: 11400000, guid: 8716347b3b35b89439955a269fb9f848, type: 2}
   failFlavour: There are too many options and you get confused.
   condition: {fileID: 0}

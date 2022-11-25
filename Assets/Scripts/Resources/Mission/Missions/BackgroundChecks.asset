@@ -17,11 +17,11 @@ MonoBehaviour:
     any clues that might identify their loyalty.
   influenceCost: 6
   successEffects:
-  - {fileID: 7374341581710127415, guid: f6fc966a71d833343aee71a4f8d8d15f, type: 3}
+  - {fileID: 11400000, guid: 2381eed0cf403e84891a61b5da3e92f6, type: 2}
   successFlavour: Perform a successful background check.
   failEffects:
-  - {fileID: 7374341581710127415, guid: f6fc966a71d833343aee71a4f8d8d15f, type: 3}
-  - {fileID: -457443593917796554, guid: c3f32767c0c135642bf883f842426839, type: 3}
+  - {fileID: 11400000, guid: 2381eed0cf403e84891a61b5da3e92f6, type: 2}
+  - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
   failFlavour: Become distracted by the background checks, and forget your shift
     at the honey vault.
   condition: {fileID: 0}

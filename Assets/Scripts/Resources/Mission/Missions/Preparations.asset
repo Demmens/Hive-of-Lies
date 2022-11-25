@@ -17,11 +17,11 @@ MonoBehaviour:
     the risks.
   influenceCost: 0
   successEffects:
-  - {fileID: 7101208923668515899, guid: e4b4a0529796d53479ee36a3d87f890d, type: 3}
+  - {fileID: 11400000, guid: 9840bfe71caa76f4bb351aebb702f7d2, type: 2}
   successFlavour: Successfully determine the risks associated with the next mission,
     and prepare accordingly.
   failEffects:
-  - {fileID: 750555647210007776, guid: f2bbf3ccd20c6a84a938b9a3b1dd55c9, type: 3}
+  - {fileID: 11400000, guid: f3e62efb6045c334db7c23cc14b3203e, type: 2}
   failFlavour: Accidentally prepare for the wrong outcome, and mitigate any chance
     of success.
   condition: {fileID: 0}

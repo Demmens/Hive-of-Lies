@@ -17,9 +17,9 @@ MonoBehaviour:
     they belong.
   influenceCost: 5
   successEffects:
-  - {fileID: 6018221648188600288, guid: 915bd9c9ebbc7af46a4f115cc7a0ce62, type: 3}
+  - {fileID: 11400000, guid: 1e84f3ea66f5d4142885f61a5f6d59ca, type: 2}
   successFlavour: The library is a lot cleaner than it used to be!
   failEffects:
-  - {fileID: -7414672067896608494, guid: 81fe8f9459b52a643afdcfab4991c9c9, type: 3}
+  - {fileID: 11400000, guid: 0eb0458e3ea61794bbf437ab526ae557, type: 2}
   failFlavour: Knock over some shelves. There's paper everywhere.
   condition: {fileID: 0}

@@ -17,9 +17,9 @@ MonoBehaviour:
     hive library in a last ditch effort to weed out the wasps.
   influenceCost: 12
   successEffects:
-  - {fileID: -3986078560726631481, guid: 19054b50b5a5e1e4aa763307a7194ba8, type: 3}
+  - {fileID: 11400000, guid: c20462baca7fd364b857081d92087c9e, type: 2}
   successFlavour: Find the information you need and finally oust the wasps
   failEffects:
-  - {fileID: -8475165573065396012, guid: d1b3ffc02d254bf43a108ed440c9cfad, type: 3}
+  - {fileID: 11400000, guid: 34235a5eb24d62e4086243ed8787bdc4, type: 2}
   failFlavour: The library comes up empty. There is no more hope.
   condition: {fileID: 0}

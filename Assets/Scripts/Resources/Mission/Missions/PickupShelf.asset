@@ -17,12 +17,11 @@ MonoBehaviour:
     spend some time trying to pick it back up again.
   influenceCost: 0
   successEffects:
-  - {fileID: 6018221648188600288, guid: 915bd9c9ebbc7af46a4f115cc7a0ce62, type: 3}
+  - {fileID: 11400000, guid: 1e84f3ea66f5d4142885f61a5f6d59ca, type: 2}
   successFlavour: The library is still a mess, but at least that shelf is back where
     it should be.
   failEffects:
-  - {fileID: 5454322466086311148, guid: 684117a8f3812cd499827fa966d6bdfc, type: 3}
+  - {fileID: 11400000, guid: 88ac73c2e59ffb144a8b2984851ef7c1, type: 2}
   failFlavour: The shelf is too heavy to pick up. Looks like you'll have to give
     up on this one.
-  condition: {fileID: 8627441289473210214, guid: 317dd00421c2b0a4888e533c540627b7,
-    type: 3}
+  condition: {fileID: 11400000, guid: 10c8a10fe3b048a4c83ea983d0b0b71d, type: 2}
