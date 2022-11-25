@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "Completed Missions And", menuName = "Missions/Conditions/Completed Missions/Or")]
 public class CompletedMissionsOr : MissionCondition
 {
     [SerializeField] private List<MissionData> requiredMissions = new List<MissionData>();

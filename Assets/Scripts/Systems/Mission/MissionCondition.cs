@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Allows for missions to only appear under specific circumstances
 /// </summary>
-public abstract class MissionCondition : MonoBehaviour
+public abstract class MissionCondition : ScriptableObject
 {
     /// <summary>
     /// The conditions under which the mission can appear
