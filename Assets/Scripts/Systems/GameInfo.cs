@@ -140,18 +140,3 @@ public class GameInfo : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 }
-
-/// <summary>
-/// All the information of a role. Contains RoleData and instantiated RoleAbility.
-/// </summary>
-public class Role
-{
-    /// <summary>
-    /// Data of the role
-    /// </summary>
-    public RoleData Data;
-    /// <summary>
-    /// Ability of the role
-    /// </summary>
-    public RoleAbility Ability;
-}

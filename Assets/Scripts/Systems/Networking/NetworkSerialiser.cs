@@ -6,13 +6,13 @@ using Steamworks;
 
 public static class NetworkSerialiser
 {
-    public static void WriteRoleData(this NetworkWriter writer, RoleData value)
+    public static void WriteRoleData(this NetworkWriter writer, Role value)
     {
         writer.WriteString(value.name);
     }
-    public static RoleData ReadRoleData(this NetworkReader reader)
+    public static Role ReadRoleData(this NetworkReader reader)
     {
-        return Resources.Load($"Roles/{reader.ReadString()}") as RoleData;
+        return Resources.Load($"Roles/{reader.ReadString()}") as Role;
     }
 
 

@@ -39,7 +39,7 @@ public class RoleUI : MonoBehaviour
         }
     }
 
-    void RoleCardClicked(RoleData data)
+    void RoleCardClicked(Role data)
     {
         foreach (GameObject card in cards)
         {
