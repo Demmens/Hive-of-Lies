@@ -5,7 +5,9 @@ using Mirror;
 
 public abstract class Variable<T> : ScriptableObject
 {
-    private T val;
+    public static implicit operator T(Variable<T> a) => a.Value;
+
+    [SerializeField] private T _value;
 
     /// <summary>
     /// Is this variable accessible on clients
@@ -26,14 +28,14 @@ public abstract class Variable<T> : ScriptableObject
             if (!NetworkClient.active && client) Debug.LogError($"Tried to get value of {name} from a client, but it is not a client variable.");
             if (!NetworkServer.active && server) Debug.LogError($"Tried to get value of {name} from a server, but it is not a server variable.");
 
-            return val; 
+            return _value; 
         }
         set
         {
             if (!NetworkClient.active && client) return;
             if (!NetworkServer.active && server) return;
 
-            val = value;
+            _value = value;
             OnVariableChanged?.Invoke(value);
         } 
     }
