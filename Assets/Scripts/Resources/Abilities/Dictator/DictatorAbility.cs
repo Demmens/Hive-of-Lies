@@ -4,20 +4,11 @@ using UnityEngine;
 
 public class DictatorAbility : RoleAbility
 {
-    TeamLeaderVote teamLeaderVote;
-    void Start()
-    {
-        if (!Active) return;
-        teamLeaderVote = FindObjectOfType<TeamLeaderVote>();
-
-        //Listen for when the Team Leader vote is about to be decided
-        teamLeaderVote.OnAllPlayersVoted.AddListener(AlwaysWinVote);
-    }
-
-    void AlwaysWinVote()
+    [SerializeField] HoLPlayerVariable teamLeader;
+    [SerializeField] IntVariable teamLeaderVoteTotal;
+    public void OnAllPlayersVoted()
     {
         //If the team leader is the owner of this role, guarantee that they can't be voted out of team leader
-        if (GameInfo.singleton.TeamLeaderID == Owner.SteamID)
-            teamLeaderVote.VoteTotal += 1000;
+        if (teamLeader == Owner) teamLeaderVoteTotal.Value += 1000;
     }
 }
