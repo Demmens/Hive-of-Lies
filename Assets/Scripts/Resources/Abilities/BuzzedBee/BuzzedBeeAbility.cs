@@ -4,37 +4,16 @@ using UnityEngine;
 
 public class BuzzedBeeAbility : RoleAbility
 {
-    CardsMission cards;
+    private IntVariable playerExhaustion;
 
-    List<Card> affectedCards = new List<Card>();
     void Start()
     {
-        cards = CardsMission.singleton;
-        cards.OnPlayCard += PlayerPlayed;
-        cards.OnDrawCard += PlayerDrew;
-        RunMission.singleton.OnMissionEnd += MissionEnded;
+        playerExhaustion = Owner.Exhaustion;
+        playerExhaustion.OnVariableChanged += ExhaustionChanged;
     }
 
-    void PlayerDrew(Player ply, ref Card card)
+    public void ExhaustionChanged(int oldVal, ref int newVal)
     {
-        if (ply == Owner)
-        {
-            card.DisplayValue += CardsMission.ExhaustionPenalty * ply.Exhaustion;
-            affectedCards.Add(card);
-        }
-    }
-
-    void PlayerPlayed(Player ply, ref Card card, ref int value)
-    {
-        if (ply == Owner)
-        {
-            value += CardsMission.ExhaustionPenalty * ply.Exhaustion;
-        }
-    }
-
-    void MissionEnded(MissionResult result)
-    {
-        affectedCards.ForEach((Card card) => { card.DisplayValue -= CardsMission.ExhaustionPenalty * Owner.Exhaustion; });
-        affectedCards = new List<Card>();
+        newVal = oldVal;
     }
 }
