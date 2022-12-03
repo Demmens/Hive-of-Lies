@@ -18,7 +18,7 @@ public class RoleAbility : NetworkBehaviour
     /// <summary>
     /// The player that owns this ability
     /// </summary>
-    public Player Owner;
+    public HoLPlayer Owner;
 
     /// <summary>
     /// The network connection associated with the owner of this ability
@@ -46,6 +46,6 @@ public class RoleAbility : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        Owner = new Player();
+        Owner = new HoLPlayer();
     }
 }
