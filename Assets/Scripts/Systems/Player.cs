@@ -35,7 +35,7 @@ public class Player
     /// <summary>
     /// List of choices the player gets to choose from when picking their role.
     /// </summary>
-    public List<Role> RoleChoices;
+    public List<RoleData> RoleChoices;
 
     /// <summary>
     /// How many consecutive missions the player has been on
@@ -58,7 +58,7 @@ public class Player
         ID = id.m_SteamID;
         Connection = conn;
         DisplayName = SteamFriends.GetFriendPersonaName(id);
-        RoleChoices = new List<Role>();
+        RoleChoices = new List<RoleData>();
     }
     public Player(ulong id, NetworkConnection conn)
     {
@@ -66,7 +66,7 @@ public class Player
         ID = id;
         Connection = conn;
         DisplayName = SteamFriends.GetFriendPersonaName(SteamID);
-        RoleChoices = new List<Role>();
+        RoleChoices = new List<RoleData>();
     }
 
     public Player()

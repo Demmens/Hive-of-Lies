@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class RoleAbility : ScriptableObject
+public class RoleAbilityData : MonoBehaviour
 {
     #region Private Properties
     /// <summary>

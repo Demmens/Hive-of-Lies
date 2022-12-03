@@ -58,14 +58,14 @@ public class CardsMission : MissionType
         foreach (Role role in GameInfo.singleton.Roles)
         {
             List<Card> playerDeck = new List<Card>();
-            for (int i = 0; i < role.StartingDeck.Count; i++)
+            for (int i = 0; i < role.Data.StartingDeck.Count; i++)
             {
-                playerDeck.Add(new Card(role.StartingDeck[i]));
+                playerDeck.Add(new Card(role.Data.StartingDeck[i]));
             }
             Deck deck = new Deck(playerDeck);
             deck.Shuffle();
 
-            //CardInfo.Add(role.Ability.Owner, deck);
+            CardInfo.Add(role.Ability.Owner, deck);
         }
     }
 

@@ -9,11 +9,11 @@ public class RoleCard : MonoBehaviour
     [SerializeField] TMP_Text Description;
     [SerializeField] TMP_Text Favour;
 
-    Role Data;
+    RoleData Data;
 
-    public delegate void RoleCardClicked(Role data);
+    public delegate void RoleCardClicked(RoleData data);
     public event RoleCardClicked OnRoleCardClicked;
-    public void SetData(Role data)
+    public void SetData(RoleData data)
     {
         Data = data;
         Name.text = Data.RoleName;

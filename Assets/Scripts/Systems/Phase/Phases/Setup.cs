@@ -32,7 +32,7 @@ public class Setup : GamePhase
     /// <summary>
     /// Private counterpart to <see cref="Roles"/>
     /// </summary>
-    [SerializeField] List<Role> roles;
+    [SerializeField] List<RoleData> roles;
 
     /// <summary>
     /// Temporary list of all players in the game
@@ -47,7 +47,7 @@ public class Setup : GamePhase
     /// <summary>
     /// List of all roles that can appear in the game
     /// </summary>
-    public List<Role> Roles
+    public List<RoleData> Roles
     {
         get
         {
@@ -136,14 +136,14 @@ public class Setup : GamePhase
     /// <summary>
     /// Give players a selection of roles to choose from
     /// </summary>
-    void GiveRoleChoices(List<Player> plys, List<Role> roles)
+    void GiveRoleChoices(List<Player> plys, List<RoleData> roles)
     {
         foreach (Player ply in plys)
         {
             RoleChoices.TryGetValue(ply.Team, out int choices);
             for (int i = 0; i < roles.Count; i++)
             {
-                Role role = roles[i];
+                RoleData role = roles[i];
                 if (role.Team == ply.Team && role.Enabled)
                 {
                     ply.RoleChoices.Add(role);
@@ -169,18 +169,22 @@ public class Setup : GamePhase
     public void PlayerSelectedRole(NetworkConnection conn, PlayerSelectedRoleMsg msg)
     {
         if (!Active) return;
-        Role role = msg.role;
+        RoleData role = msg.role;
         GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
         //If the role they selected is not one of their options
         if (!ply.RoleChoices.Contains(role)) return;
-        //GameObject abilityObject = Instantiate(role.Abilities);
-        //RoleAbility ability = abilityObject.GetComponent<RoleAbility>();
-        //ability.Owner = ply;
-        //ability.OwnerConnection = conn;
-        //NetworkServer.Spawn(ability.gameObject, conn);
+        GameObject abilityObject = Instantiate(role.Ability);
+        RoleAbility ability = abilityObject.GetComponent<RoleAbility>();
+        ability.Owner = ply;
+        ability.OwnerConnection = conn;
+        NetworkServer.Spawn(ability.gameObject, conn);
         ply.Favour = role.StartingFavour;
 
-        GameInfo.singleton.Roles.Add(role);
+        GameInfo.singleton.Roles.Add(new Role()
+        {
+            Ability = ability,
+            Data = role
+        });
 
         if (GameInfo.singleton.Roles.Count == GameInfo.singleton.PlayerCount) End();
     }
@@ -195,7 +199,7 @@ public class Setup : GamePhase
 
 public struct SendRoleInfoMsg : NetworkMessage
 {
-    public List<Role> roleChoices;
+    public List<RoleData> roleChoices;
 }
 
 public struct PlayerReadyMsg : NetworkMessage
@@ -206,5 +210,5 @@ public struct PlayerReadyMsg : NetworkMessage
 
 public struct PlayerSelectedRoleMsg : NetworkMessage
 {
-    public Role role;
+    public RoleData role;
 }

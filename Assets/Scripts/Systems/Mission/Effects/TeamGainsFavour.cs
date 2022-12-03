@@ -13,14 +13,14 @@ public class TeamGainsFavour : MissionEffect
     public override EffectType Type => (Team == Team.Bee) == (favourGain > 0) ? EffectType.Positive : EffectType.Negative;
     public override void TriggerEffect()
     {
-        /*foreach (Role role in GameInfo.singleton.Roles)
+        foreach (Role role in GameInfo.singleton.Roles)
         {
             if (role.Data.Team == Team)
             {
                 role.Ability.Owner.Favour += favourGain;
                 role.Ability.Owner.Connection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
             }
-        }*/
+        }
         EndEffect();
     }
 }
