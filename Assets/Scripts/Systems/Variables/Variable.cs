@@ -7,17 +7,21 @@ public abstract class Variable<T> : ScriptableObject
 {
     public static implicit operator T(Variable<T> a) => a.Value;
 
-    [SerializeField] private T _value;
+    [Tooltip("The initial value of this variable")]
+    [SerializeField] private T initialValue;
 
-    /// <summary>
-    /// Is this variable accessible on clients
-    /// </summary>
+    [Tooltip("The current value of this variable")]
+    [SerializeField] private T currentValue;
+
+    [Space]
+    [Space]
+
+    [Tooltip("Should this variable be accessible on the server")]
     [SerializeField] private bool server;
-    /// <summary>
-    /// Is this variable accessible on the server
-    /// </summary>
-    [SerializeField] private bool client;
 
+    [Tooltip("Should this variable be accessible on clients")]
+    [SerializeField] private bool client;
+    
     /// <summary>
     /// The value of this variable
     /// </summary>
@@ -28,18 +32,25 @@ public abstract class Variable<T> : ScriptableObject
             if (!NetworkClient.active && client) Debug.LogError($"Tried to get value of {name} from a client, but it is not a client variable.");
             if (!NetworkServer.active && server) Debug.LogError($"Tried to get value of {name} from a server, but it is not a server variable.");
 
-            return _value; 
+            return currentValue; 
         }
         set
         {
             if (!NetworkClient.active && client) return;
             if (!NetworkServer.active && server) return;
 
-            _value = value;
-            OnVariableChanged?.Invoke(value);
+            OnVariableChanged?.Invoke(currentValue, ref value);
+
+            currentValue = value;
         } 
     }
 
-    public delegate void VariableChanged(T val);
+    public delegate void VariableChanged(T oldVal, ref T newVal);
     public event VariableChanged OnVariableChanged;
+
+    private void OnEnable()
+    {
+        //Set _value to bypass all the code that runs from setting Value
+        currentValue = initialValue;
+    }
 }
