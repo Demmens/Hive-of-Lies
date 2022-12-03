@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 495c36f1107980646b3089017536c930, type: 3}
+  m_Name: Dictator Ability
+  m_EditorClassIdentifier: 
+  name: 
+  description: 
+  canGiveTwoBees: 1
+  instantiateOnClient: 0
+  isTeamLeader: {fileID: 0}
