@@ -13,11 +13,13 @@ public class RoleAbility : NetworkBehaviour
     /// <summary>
     /// Private counterpart to <see cref="Active"/>
     /// </summary>
-    bool active = true;
+    [HideInInspector]
+    public bool active = true;
 
     /// <summary>
     /// The player that owns this ability
     /// </summary>
+    [HideInInspector]
     public HoLPlayer Owner;
 
     /// <summary>
@@ -25,23 +27,6 @@ public class RoleAbility : NetworkBehaviour
     /// </summary>
     public NetworkConnection OwnerConnection;
 
-    #endregion
-
-    #region Properties
-    /// <summary>
-    /// Whether this ability should have an effect
-    /// </summary>
-    public bool Active
-    {
-        get
-        {
-            return active;
-        }
-        set
-        {
-            active = Active;
-        }
-    }
     #endregion
 
     public override void OnStartAuthority()
