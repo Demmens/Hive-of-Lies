@@ -6,19 +6,10 @@ using Mirror;
 public class MercenaryAbility : RoleAbility
 {
     [SerializeField] int favourGain = 5;
-    TeamLeaderPickPartners pick;
-    void Start()
+    [SerializeField] HoLPlayerSet playersOnMission;
+    
+    public void ChoicesLockedIn()
     {
-        pick = FindObjectOfType<TeamLeaderPickPartners>();
-        pick.OnLockInChoices += ChoicesLockedIn;
-    }
-
-    void ChoicesLockedIn()
-    {
-        if (GameInfo.singleton.PlayersOnMission.Contains(Owner.ID))
-        {
-            Owner.Favour += favourGain;
-            OwnerConnection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
-        }
+        if (playersOnMission.Value.Contains(Owner)) Owner.Favour.Value += favourGain;
     }
 }
