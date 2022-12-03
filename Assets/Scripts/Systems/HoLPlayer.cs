@@ -37,5 +37,15 @@ public class HoLPlayer : NetworkBehaviour
     /// How many missions the player has been on in a row. Each level reduces the value of the cards in their deck.
     /// </summary>
     public IntVariable Exhaustion = new IntVariable();
+
+    /// <summary>
+    /// How much favour it costs to draw another card
+    /// </summary>
+    public IntVariable NextDrawCost = new IntVariable();
+
+    /// <summary>
+    /// How much favour it costs to place another vote
+    /// </summary>
+    public IntVariable NextVoteCost = new IntVariable();
     #endregion
 }
