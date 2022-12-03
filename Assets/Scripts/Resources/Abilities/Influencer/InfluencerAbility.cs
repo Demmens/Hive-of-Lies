@@ -5,24 +5,25 @@ using Steamworks;
 
 public class InfluencerAbility : RoleAbility
 {
-    CostCalculation costCalc;
+    [SerializeField] float drawCostMod;
+    [SerializeField] float voteCostMod;
     void Start()
     {
-        costCalc = FindObjectOfType<CostCalculation>();
-
-        costCalc.OnRerollCalculation += ModifyRollCost;
-        costCalc.OnVoteCalculation += ModifyVoteCost;
+        Owner.NextDrawCost.OnVariableChanged += ModifyDrawCost;
+        Owner.NextVoteCost.OnVariableChanged += ModifyVoteCost;
     }
 
-    void ModifyRollCost(CSteamID ply, ref int cost)
+    void ModifyDrawCost(int oldVal, ref int newVal)
     {
-        if (ply == Owner.SteamID || hasAuthority)
-            cost *= 2;
+        float change = newVal - oldVal;
+        change *= drawCostMod;
+        newVal = oldVal + Mathf.FloorToInt(change);
     }
 
-    void ModifyVoteCost(CSteamID ply, ref int cost)
+    void ModifyVoteCost(int oldVal, ref int newVal)
     {
-        if (ply == Owner.SteamID || hasAuthority)
-            cost /= 2;
+        float change = newVal - oldVal;
+        change *= voteCostMod;
+        newVal = oldVal + Mathf.FloorToInt(change);
     }
 }
