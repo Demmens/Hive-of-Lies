@@ -4,10 +4,10 @@ using UnityEngine;
 
 #region Primitives
 
-[CreateAssetMenu(fileName = "Bool", menuName = "Variable/Primitive/Bool")]
+[CreateAssetMenu(fileName = "Bool", menuName = "Variable/Primitives/Bool")]
 public class BoolVariable : Variable<bool> { }
 
-[CreateAssetMenu(fileName = "Float", menuName = "Variable/Primitive/Float")]
+[CreateAssetMenu(fileName = "Float", menuName = "Variable/Primitives/Float")]
 public class FloatVariable : Variable<float>
 {
     public static FloatVariable operator ++(FloatVariable a)
@@ -22,7 +22,7 @@ public class FloatVariable : Variable<float>
     }
 }
 
-[CreateAssetMenu(fileName = "Int", menuName = "Variable/Primitive/Int")]
+[CreateAssetMenu(fileName = "Int", menuName = "Variable/Primitives/Int")]
 public class IntVariable : Variable<int>
 {
     public static IntVariable operator ++(IntVariable a)
@@ -37,10 +37,10 @@ public class IntVariable : Variable<int>
     }
 }
 
-[CreateAssetMenu(fileName = "String", menuName = "Variable/Primitive/String")]
+[CreateAssetMenu(fileName = "String", menuName = "Variable/Primitives/String")]
 public class StringVariable : Variable<string> { }
 
-[CreateAssetMenu(fileName = "Ulong", menuName = "Variable/Primitive/Ulong")]
+[CreateAssetMenu(fileName = "Ulong", menuName = "Variable/Primitives/Ulong")]
 public class UlongVariable : Variable<ulong>
 {
     public static UlongVariable operator ++(UlongVariable a)
