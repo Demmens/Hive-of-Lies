@@ -6,18 +6,13 @@ using Steamworks;
 public class VeteranAbility : RoleAbility
 {
     [SerializeField] int maxCost = 2;
-    CostCalculation costCalc;
     void Start()
     {
-        costCalc = FindObjectOfType<CostCalculation>();
-        costCalc.OnDrawCalculation += CalculateRedrawCost;
+        Owner.NextDrawCost.OnVariableChanged += ModifyDrawCost;
     }
 
-    void CalculateRedrawCost(ulong id, ref int cost)
+    void ModifyDrawCost(int oldCost, ref int newCost)
     {
-        if (id == Owner.SteamID.m_SteamID)
-        {
-            cost = Mathf.Min(cost, maxCost);
-        }
+        newCost = Mathf.Min(newCost, maxCost);
     }
 }
