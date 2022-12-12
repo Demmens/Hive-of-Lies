@@ -47,6 +47,9 @@ public class Setup : GamePhase
     [Tooltip("Dictionary of Players and their respective NetworkConnections")]
     [SerializeField] HoLPlayerDictionary playersByNetworkConnection;
 
+    [Tooltip("Runtime set of all the roles in the game")]
+    [SerializeField] RoleSet allRoles;
+
     /// <summary>
     /// Temporary list of all players in the game
     /// </summary>
@@ -164,7 +167,7 @@ public class Setup : GamePhase
             }
         }
 
-        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
+        foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in playersByNetworkConnection.Value)
         {
             pair.Key.Send(new SendRoleInfoMsg
             {
@@ -191,13 +194,13 @@ public class Setup : GamePhase
         NetworkServer.Spawn(ability.gameObject, conn);
         ply.Favour.Value = role.StartingFavour;
 
-        GameInfo.singleton.Roles.Add(new Role()
+        allRoles.Add(new Role()
         {
             Ability = ability,
             Data = role
         });
 
-        if (GameInfo.singleton.Roles.Count == GameInfo.singleton.PlayerCount) End();
+        if (allRoles.Value.Count == playerCount) End();
     }
 
     /// <summary>
