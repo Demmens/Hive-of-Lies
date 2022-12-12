@@ -9,7 +9,7 @@ public class CardsMission : MissionType
     /// <summary>
     /// The card info for each player
     /// </summary>
-    public Dictionary<Player,Deck> CardInfo;
+    public Dictionary<HoLPlayer,Deck> CardInfo;
 
     /// <summary>
     /// The difficulty of the mission
@@ -29,25 +29,34 @@ public class CardsMission : MissionType
     /// <summary>
     /// List of all players who have played cards
     /// </summary>
-    private List<Player> playersPlayed;
+    private List<HoLPlayer> playersPlayed;
 
 
     [SerializeField] Setup setup;
+
+    [Tooltip("All the roles in the game")]
+    [SerializeField] RoleSet allRoles;
+
+    [Tooltip("All players by their NetworkConnection")]
+    [SerializeField] HoLPlayerDictionary playersByConnection;
+
+    [Tooltip("Set of all players on the mission")]
+    [SerializeField] HoLPlayerSet playersOnMission;
 
     /// <summary>
     /// Invokes when any player draws a card
     /// </summary>
     public event CardDelegate OnDrawCard;
-    public delegate void CardDelegate(Player ply, ref Card card);
+    public delegate void CardDelegate(HoLPlayer ply, ref Card card);
 
     public event DrawnCardDelegate OnPlayCard;
-    public delegate void DrawnCardDelegate(Player ply, ref Card card, ref int value);
+    public delegate void DrawnCardDelegate(HoLPlayer ply, ref Card card, ref int value);
 
     protected override void Start()
     {
         singleton = this;
         base.Start();
-        CardInfo = new Dictionary<Player, Deck>();
+        CardInfo = new Dictionary<HoLPlayer, Deck>();
         setup.OnGamePhaseEnd += OnSetupFinished;
         NetworkServer.RegisterHandler<DrawCardMsg>(PlayerClickedDraw);
         NetworkServer.RegisterHandler<PlayerPlayedMsg>(PlayerClickedSubmit);
@@ -55,7 +64,7 @@ public class CardsMission : MissionType
 
     void OnSetupFinished()
     {
-        foreach (Role role in GameInfo.singleton.Roles)
+        foreach (Role role in allRoles.Value)
         {
             List<Card> playerDeck = new List<Card>();
             for (int i = 0; i < role.Data.StartingDeck.Count; i++)
@@ -73,15 +82,15 @@ public class CardsMission : MissionType
     {
         base.StartMission();
         playedTotal = 0;
-        playersPlayed = new List<Player>();
+        playersPlayed = new List<HoLPlayer>();
         NetworkServer.SendToAll(new CardMissionStartedMsg() { });
     }
 
     private void PlayerClickedDraw(NetworkConnection conn, DrawCardMsg msg)
     {
-        if (!GameInfo.singleton.Players.TryGetValue(conn, out Player ply)) return;
+        if (playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
         //If the player isn't on the mission
-        if (!GameInfo.singleton.PlayersOnMission.Contains(ply)) return;
+        if (!playersOnMission.Value.Contains(ply)) return;
         CardInfo.TryGetValue(ply, out Deck deck);
 
         if (deck.Hand.Count > 0)
@@ -106,9 +115,9 @@ public class CardsMission : MissionType
 
     private void PlayerClickedSubmit(NetworkConnection conn, PlayerPlayedMsg msg)
     {
-        if (!GameInfo.singleton.Players.TryGetValue(conn, out Player ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
         //If the player isn't on the mission
-        if (!GameInfo.singleton.PlayersOnMission.Contains(ply)) return;
+        if (!playersOnMission.Value.Contains(ply)) return;
         //If the player has already played a card
         if (playersPlayed.Contains(ply)) return;
         CardInfo.TryGetValue(ply, out Deck deck);
@@ -123,7 +132,7 @@ public class CardsMission : MissionType
 
         playersPlayed.Add(ply);
 
-        if (playersPlayed.Count >= GameInfo.singleton.PlayersOnMission.Count)
+        if (playersPlayed.Count >= playersOnMission.Value.Count)
         {
             AllPlayersPlayed();
             NetworkServer.SendToAll(new PlayerPlayedMsg()
@@ -145,7 +154,7 @@ public class CardsMission : MissionType
         result = playedTotal >= Difficulty ? MissionResult.Success : MissionResult.Fail;
 
         List<int> finalCards = new List<int>();
-        foreach (KeyValuePair<Player, Deck> deck in CardInfo)
+        foreach (KeyValuePair<HoLPlayer, Deck> deck in CardInfo)
         {
             int result = 0;
             //Only display the total of all cards played, not how many they've played
@@ -157,7 +166,7 @@ public class CardsMission : MissionType
         }
 
 
-        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
+        foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in playersByConnection.Value)
         {
             CreateMissionResultPopupMsg msg = new CreateMissionResultPopupMsg()
             {
