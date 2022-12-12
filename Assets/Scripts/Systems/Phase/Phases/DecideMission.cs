@@ -15,19 +15,32 @@ public class DecideMission : GamePhase
     [SerializeField] List<MissionList> missionLists;
 
     /// <summary>
-    /// The mission list we will use this game.
-    /// </summary>
-    MissionList decidedMissionList;
-
-    /// <summary>
     /// Which players have voted
     /// </summary>
-    List<Player> TotalVotes;
+    List<HoLPlayer> TotalVotes;
 
     /// <summary>
     /// The mission that was voted in
     /// </summary>
     Mission DecidedMission;
+
+    [Tooltip("The playercount of the game")]
+    [SerializeField] IntVariable playerCount;
+
+    [Tooltip("The current round number of the game")]
+    [SerializeField] IntVariable roundNum;
+
+    [Tooltip("The number of mission choices the players have")]
+    [SerializeField] IntVariable numMissionChoices;
+
+    [Tooltip("The mission list that will be used this game")]
+    [SerializeField] MissionListVariable decidedMissionList;
+
+    [Tooltip("All players by their connection")]
+    [SerializeField] HoLPlayerDictionary players;
+
+    [Tooltip("The currently active mission")]
+    [SerializeField] MissionVariable currentMission;
 
     [HideInInspector] public List<Mission> CompletedMissions = new List<Mission>();
     public override EGamePhase Phase
@@ -41,7 +54,7 @@ public class DecideMission : GamePhase
     /// <summary>
     /// Who has voted for which mission, and how many votes in total that mission has
     /// </summary>
-    public Dictionary<Mission, (List<Player>, int)> MissionVotes;
+    public Dictionary<Mission, (List<HoLPlayer>, int)> MissionVotes;
 
     #region Events
 
@@ -65,14 +78,13 @@ public class DecideMission : GamePhase
         missionLists.ForEach(list =>
         {
             //If the current playercount falls within the valid range for the mission list
-            if (list.MinPlayers <= GameInfo.singleton.PlayerCount && list.MaxPlayers >= GameInfo.singleton.PlayerCount)
+            if (list.MinPlayers <= playerCount && list.MaxPlayers >= playerCount)
             {
                 possibleLists.Add(list);
             }
         });
 
-        decidedMissionList = possibleLists.GetRandom();
-        GameInfo.singleton.MissionList = decidedMissionList;
+        decidedMissionList.Value = possibleLists.GetRandom();
     }
 
     /// <summary>
@@ -80,12 +92,12 @@ public class DecideMission : GamePhase
     /// </summary>
     public override void Begin()
     {
-        TotalVotes = new List<Player>();
-        MissionVotes = new Dictionary<Mission, (List<Player>, int)>();
+        TotalVotes = new List<HoLPlayer>();
+        MissionVotes = new Dictionary<Mission, (List<HoLPlayer>, int)>();
 
         //List of missions and weights. Make sure if we reach the end of the list that we just start looping the final mission indefinitely.
-        int missionListIndex = Mathf.Min(GameInfo.singleton.RoundNum, GameInfo.singleton.MissionList.List.Count - 1);
-        List<MissionListEntryEntry> missionDataChoices = GameInfo.singleton.MissionList.List[missionListIndex].Missions;
+        int missionListIndex = Mathf.Min(roundNum, decidedMissionList.Value.List.Count - 1);
+        List<MissionListEntryEntry> missionDataChoices = decidedMissionList.Value.List[missionListIndex].Missions;
 
         //Essentially the same as above, but we can edit it as much as we like since it's non-static.
         List<(Mission,float)> missionChoices = new List<(Mission,float)>();
@@ -114,7 +126,7 @@ public class DecideMission : GamePhase
         });
 
         //Draw a ball from the bag and then remove all instances of that colour of ball so we don't draw the same mission twice.
-        for (int i = 0; i < GameInfo.singleton.MissionChoices; i++)
+        for (int i = 0; i < numMissionChoices; i++)
         {
             float rand = 1;
             while (rand == 1) rand = Random.Range(0f, 1f); //Get a random float in the range [0,1).
@@ -133,7 +145,7 @@ public class DecideMission : GamePhase
                     if (rand < miss.Item2 / total)
                     {
                         //Add the mission to the selection
-                        MissionVotes.Add(miss.Item1, (new List<Player>(), 0));
+                        MissionVotes.Add(miss.Item1, (new List<HoLPlayer>(), 0));
                         choices.Add(miss.Item1);
                         //Remove all instances of this mission, thus reducing the total number of balls in the bag.
                         total -= miss.Item2;
@@ -168,8 +180,8 @@ public class DecideMission : GamePhase
     {
         if (!Active) return;
 
-        (List<Player>, int) Tuple;
-        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
+        (List<HoLPlayer>, int) Tuple;
+        players.Value.TryGetValue(conn, out HoLPlayer ply);
 
         //Make sure players don't vote twice.
         if (TotalVotes.Contains(ply)) return;
@@ -183,7 +195,7 @@ public class DecideMission : GamePhase
         MissionVotes[msg.mission] = Tuple;
         TotalVotes.Add(ply);
 
-        if (TotalVotes.Count >= GameInfo.singleton.PlayerCount)
+        if (TotalVotes.Count >= playerCount)
         {
             //Let everyone know we're just about to determine the mission result.
             //Allows other classes to quickly change the info
@@ -199,7 +211,7 @@ public class DecideMission : GamePhase
     void DetermineMission()
     {
         int maxVotes = int.MinValue;
-        foreach (KeyValuePair<Mission,(List<Player>,int)> item in MissionVotes)
+        foreach (KeyValuePair<Mission,(List<HoLPlayer>,int)> item in MissionVotes)
         {
             if (item.Value.Item2 > maxVotes)
             {
@@ -209,7 +221,7 @@ public class DecideMission : GamePhase
             }
         }
 
-        GameInfo.singleton.CurrentMission = DecidedMission;
+        currentMission.Value = DecidedMission;
         NetworkServer.SendToAll(new SendDecidedMissionMsg()
         {
             mission = DecidedMission
