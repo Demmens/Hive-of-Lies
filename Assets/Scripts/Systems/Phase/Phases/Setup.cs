@@ -24,15 +24,28 @@ public class Setup : GamePhase
         {Team.Wasp, 3}
     };
 
-    /// <summary>
-    /// Percentage of players that will be a traitor
-    /// </summary>
-    [SerializeField] float TraitorRatio;
+    [Tooltip("The ratio of traitors to innocents")]
+    [SerializeField] FloatVariable traitorRatio;
 
     /// <summary>
     /// Private counterpart to <see cref="Roles"/>
     /// </summary>
     [SerializeField] List<RoleData> roles;
+
+    [Tooltip("Runtime set of all the players in the game")]
+    [SerializeField] HoLPlayerSet allPlayers;
+
+    [Tooltip("Runtime set of all the wasp players in the game")]
+    [SerializeField] HoLPlayerSet waspPlayers;
+
+    [Tooltip("Runtime set of all the bee players in the game")]
+    [SerializeField] HoLPlayerSet beePlayers;
+
+    [Tooltip("The player count of the game")]
+    [SerializeField] IntVariable playerCount;
+
+    [Tooltip("Dictionary of Players and their respective NetworkConnections")]
+    [SerializeField] HoLPlayerDictionary playersByNetworkConnection;
 
     /// <summary>
     /// Temporary list of all players in the game
@@ -52,10 +65,6 @@ public class Setup : GamePhase
         get
         {
             return roles;
-        }
-        set
-        {
-            roles = Roles;
         }
     }
 
@@ -82,13 +91,12 @@ public class Setup : GamePhase
         });
 
         Debug.Log($"{SteamFriends.GetFriendPersonaName(msg.playerID)} loaded into the game");
-        Player ply = new Player(msg.playerID, conn);
+        HoLPlayer ply = new HoLPlayer(/*msg.playerID, conn*/);
 
-        players.Add(ply);
-        GameInfo.singleton.Players.Add(conn, ply);
+        allPlayers.Add(ply);
 
         //Begin the setup once all players are in.
-        if (players.Count == GameInfo.singleton.PlayerCount)
+        if (allPlayers.Value.Count == playerCount)
         {
             Debug.Log("All players have entered the lobby. Beginning setup.");
             BeginSetup();
@@ -102,33 +110,35 @@ public class Setup : GamePhase
     {
         Roles.Shuffle();
         //Shuffle the players so we can randomly assign teams
-        players.Shuffle();
+        allPlayers.Value.Shuffle();
         //Shuffle the roles so we can randomly dish them out to players
         //Roles.Shuffle();
 
-        AssignTeams(players);
+        AssignTeams(allPlayers.Value);
 
-        GiveRoleChoices(players, Roles);
+        GiveRoleChoices(allPlayers, Roles);
     }
 
     /// <summary>
     /// Assign a team to each player
     /// </summary>
-    void AssignTeams(List<Player> plys)
+    void AssignTeams(List<HoLPlayer> plys)
     {
         //Increments to determine whether a player should be an innocent or a traitor
         float teamCounter = 0;
         plys.ForEach(ply =>
         {
-            teamCounter += TraitorRatio;
+            teamCounter += traitorRatio;
             if (teamCounter >= 1)
             {
                 teamCounter--;
-                ply.Team = Team.Wasp;
+                ply.Team = new TeamVariable() { Value = Team.Wasp};
+                waspPlayers.Add(ply);
             }
             else
             {
-                ply.Team = Team.Bee;
+                ply.Team = new TeamVariable() { Value = Team.Bee };
+                beePlayers.Add(ply);
             }
         });
     }
@@ -136,9 +146,9 @@ public class Setup : GamePhase
     /// <summary>
     /// Give players a selection of roles to choose from
     /// </summary>
-    void GiveRoleChoices(List<Player> plys, List<RoleData> roles)
+    void GiveRoleChoices(List<HoLPlayer> plys, List<RoleData> roles)
     {
-        foreach (Player ply in plys)
+        foreach (HoLPlayer ply in plys)
         {
             RoleChoices.TryGetValue(ply.Team, out int choices);
             for (int i = 0; i < roles.Count; i++)
@@ -169,8 +179,9 @@ public class Setup : GamePhase
     public void PlayerSelectedRole(NetworkConnection conn, PlayerSelectedRoleMsg msg)
     {
         if (!Active) return;
+
         RoleData role = msg.role;
-        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
+        playersByNetworkConnection.Value.TryGetValue(conn, out HoLPlayer ply);
         //If the role they selected is not one of their options
         if (!ply.RoleChoices.Contains(role)) return;
         GameObject abilityObject = Instantiate(role.Ability);
@@ -178,7 +189,7 @@ public class Setup : GamePhase
         ability.Owner = ply;
         ability.OwnerConnection = conn;
         NetworkServer.Spawn(ability.gameObject, conn);
-        ply.Favour = role.StartingFavour;
+        ply.Favour.Value = role.StartingFavour;
 
         GameInfo.singleton.Roles.Add(new Role()
         {
