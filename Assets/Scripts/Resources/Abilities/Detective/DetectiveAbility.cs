@@ -22,7 +22,7 @@ public class DetectiveAbility : RoleAbility
 
     void Start()
     {
-        if (!Active) return;
+        /*if (!Active) return;
         mission = FindObjectOfType<RunMission>();
         mission.OnGamePhaseEnd += () =>
         {
@@ -41,7 +41,7 @@ public class DetectiveAbility : RoleAbility
                 text.text = txt;
                 SpawnPopup(Owner.Connection);
             }
-        };
+        };*/
     }
 
     [TargetRpc]
