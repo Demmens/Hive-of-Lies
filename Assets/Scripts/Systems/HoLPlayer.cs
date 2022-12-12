@@ -19,7 +19,7 @@ public class HoLPlayer : NetworkBehaviour
     /// <summary>
     /// The NetworkConnection associated with this player
     /// </summary>
-    public NetworkConnection connection;
+    public NetworkConnection Connection;
     #endregion
 
     #region Gameplay
