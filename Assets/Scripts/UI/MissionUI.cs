@@ -124,7 +124,7 @@ public class MissionUI : MonoBehaviour
     /// <param name="msg"></param>
     void OnTeamLeaderDecided(TeamLeaderChangedMsg msg)
     {
-        teamLeaderName.text = SteamFriends.GetFriendPersonaName(msg.ID);
+        teamLeaderName.text = SteamFriends.GetFriendPersonaName(new CSteamID(msg.ID));
     }
 
     /// <summary>

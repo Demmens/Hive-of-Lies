@@ -16,16 +16,16 @@ public class TeamLeaderPopup : MonoBehaviour
 
     void Popup(TeamLeaderChangedMsg msg)
     {
-        ClientGameInfo.singleton.TeamLeaderID = msg.ID;
+        ClientGameInfo.singleton.TeamLeaderID = new CSteamID(msg.ID);
         ClientGameInfo.singleton.MaxPartners = msg.maxPartners;
 
-        if (msg.ID == SteamUser.GetSteamID())
+        if (msg.ID == SteamUser.GetSteamID().m_SteamID)
         {
             popupText.text = "You are the team leader. Select the player you wish to take on the mission.";
         }
         else
         {
-            popupText.text = $"{SteamFriends.GetFriendPersonaName(msg.ID)} is the team leader";
+            popupText.text = $"{SteamFriends.GetFriendPersonaName(new CSteamID(msg.ID))} is the team leader";
         }
 
         popup.SetActive(true);

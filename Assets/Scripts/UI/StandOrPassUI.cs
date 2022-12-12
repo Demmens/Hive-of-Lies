@@ -50,7 +50,7 @@ public class StandOrPassUI : MonoBehaviour
     /// <param name="msg"></param>
     void TeamLeaderDecided(TeamLeaderChangedMsg msg)
     {
-        if (stood && msg.ID != SteamUser.GetSteamID())
+        if (stood && msg.ID != SteamUser.GetSteamID().m_SteamID)
         {
             Favour.Favour += favourCost;
         }
