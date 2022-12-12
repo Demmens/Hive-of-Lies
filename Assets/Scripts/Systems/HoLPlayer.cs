@@ -12,6 +12,11 @@ public class HoLPlayer : NetworkBehaviour
     public ulong PlayerID;
 
     /// <summary>
+    /// The display name of this player
+    /// </summary>
+    public string DisplayName;
+
+    /// <summary>
     /// Returns true on the client that is represented by this object.
     /// </summary>
     public bool LocalPlayer => hasAuthority && NetworkClient.active;
