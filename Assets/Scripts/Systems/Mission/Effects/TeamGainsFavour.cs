@@ -17,7 +17,7 @@ public class TeamGainsFavour : MissionEffect
         {
             if (role.Data.Team == Team)
             {
-                role.Ability.Owner.Favour += favourGain;
+                role.Ability.Owner.Favour.Value += favourGain;
                 role.Ability.Owner.Connection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
             }
         }
