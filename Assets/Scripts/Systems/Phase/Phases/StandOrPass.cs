@@ -12,94 +12,35 @@ using Steamworks;
 public class StandOrPass : GamePhase
 {
 
-    #region Fields
-
-    [SerializeField] GameInfo info;
-
     /// <summary>
     /// The amount of favour all players lose if nobody stands for the position of team leader.
     /// </summary>
     [SerializeField] int favourLostForNobodyStanding;
 
-    /// <summary>
-    /// Players that chose to stand for TeamLeader
-    /// <para></para>
-    /// Private counterpart to <see cref="StandingPlayers"/>
-    /// </summary>
-    List<Player> standingPlayers;
+    public override EGamePhase Phase => EGamePhase.DecideGeneral;
 
-    /// <summary>
-    /// Players that chose to pass.
-    /// <para></para>
-    /// Private counterpart to <see cref="PassedPlayers"/>
-    /// </summary>
-    List<Player> passedPlayers;
+    [Tooltip("The playercount")]
+    [SerializeField] IntVariable playerCount;
 
-    /// <summary>
-    /// List of players to boost the influence of when deciding TeamLeader.
-    /// <para></para>
-    /// Private counterpart to <see cref="PlayerBoosts"/>
-    /// </summary>
-    Dictionary<Player, int> playerBoosts;
+    [Tooltip("The Team Leader")]
+    [SerializeField] HoLPlayerVariable teamLeader;
 
-    #endregion
+    [Tooltip("The Current Mission")]
+    [SerializeField] MissionVariable currentMission;
 
-    #region Properties
+    [Tooltip("The players that chose to stand")]
+    [SerializeField] HoLPlayerSet standingPlayers;
 
-    public override EGamePhase Phase
-    {
-        get
-        {
-            return EGamePhase.DecideGeneral;
-        }
-    }
+    [Tooltip("The players that chose to pass")]
+    [SerializeField] HoLPlayerSet passedPlayers;
 
-    /// <summary>
-    /// Players that chose to stand for TeamLeader
-    /// </summary>
-    public List<Player> StandingPlayers
-    {
-        get
-        {
-            return standingPlayers;
-        }
-        set
-        {
-            standingPlayers = value;
-        }
-    }
-
-    /// <summary>
-    /// Players that chose to pass
-    /// </summary>
-    public List<Player> PassedPlayers
-    {
-        get
-        {
-            return passedPlayers;
-        }
-        set
-        {
-            passedPlayers = value;
-        }
-    }
+    [Tooltip("All players by their NetworkConnection")]
+    [SerializeField] HoLPlayerDictionary players;
 
     /// <summary>
     /// List of players to boost the influence of when deciding TeamLeader
     /// </summary>
-    public Dictionary<Player, int> PlayerBoosts
-    {
-        get
-        {
-            return playerBoosts;
-        }
-        set
-        {
-            playerBoosts = value;
-        }
-    }
-
-    #endregion
+    public Dictionary<HoLPlayer, int> PlayerBoosts;
 
     #region Events
 
@@ -108,7 +49,7 @@ public class StandOrPass : GamePhase
     /// </summary>
     /// <param name="ply">The player that made the decision</param>
     /// <param name="stood">True if they stood</param>
-    public delegate void PlayerStandOrPass(Player ply, bool stood);
+    public delegate void PlayerStandOrPass(HoLPlayer ply, bool stood);
     /// <summary>
     /// Invoked when a player decides to stand or pass
     /// </summary>
@@ -150,13 +91,13 @@ public class StandOrPass : GamePhase
 
     public override void Begin()
     {
-        standingPlayers = new List<Player>();
-        passedPlayers = new List<Player>();
-        playerBoosts = new Dictionary<Player, int>();
+        standingPlayers.Value = new List<HoLPlayer>();
+        passedPlayers.Value = new List<HoLPlayer>();
+        PlayerBoosts = new Dictionary<HoLPlayer, int>();
 
         NetworkServer.SendToAll(new StartStandOrPassMsg()
         {
-            favourCost = GameInfo.singleton.CurrentMission.FavourCost
+            favourCost = currentMission.Value.FavourCost
         });
     }
 
@@ -169,10 +110,10 @@ public class StandOrPass : GamePhase
     {
         Debug.Log("Player has stood or passed");
         if (!Active) return;
-        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
+        players.Value.TryGetValue(conn, out HoLPlayer ply);
 
         //Make sure they haven't already voted
-        if (passedPlayers.Contains(ply) || standingPlayers.Contains(ply)) return;
+        if (passedPlayers.Value.Contains(ply) || standingPlayers.Value.Contains(ply)) return;
 
         if (msg.isStanding) standingPlayers.Add(ply);
         else passedPlayers.Add(ply);
@@ -180,7 +121,7 @@ public class StandOrPass : GamePhase
         //Invoke event for a player deciding to stand or pass
         OnPlayerStandOrPass?.Invoke(ply, msg.isStanding);
 
-        if (standingPlayers.Count + passedPlayers.Count == GameInfo.singleton.PlayerCount) ReceiveResults();
+        if (standingPlayers.Value.Count + passedPlayers.Value.Count == playerCount) ReceiveResults();
     }
 
     /// <summary>
@@ -193,11 +134,11 @@ public class StandOrPass : GamePhase
         OnAllPlayersStandOrPass?.Invoke();
 
         //If nobody stood for the position of team leader
-        if (standingPlayers.Count == 0)
+        if (standingPlayers.Value.Count == 0)
         {
-            foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
+            foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in players.Value)
             {
-                pair.Value.Favour -= favourLostForNobodyStanding;
+                pair.Value.Favour.Value -= favourLostForNobodyStanding;
                 pair.Key.Send(new SetFavourMsg()
                 {
                     newFavour = pair.Value.Favour
@@ -218,15 +159,15 @@ public class StandOrPass : GamePhase
             SortStandingList();
 
         //Now, since we've sorted, the player at the top of the list will be the Team Leader
-        GameInfo.singleton.TeamLeader = standingPlayers[0];
-        Debug.Log($"The team leader has been set to {GameInfo.singleton.TeamLeader.DisplayName}");
+        teamLeader.Value = standingPlayers.Value[0];
+        Debug.Log($"The team leader has been set to {teamLeader.Value.DisplayName}");
 
         //The Team Leader pays the favour cost of standing
-        GameInfo.singleton.TeamLeader.Favour -= GameInfo.singleton.CurrentMission.FavourCost;
+        teamLeader.Value.Favour.Value -= currentMission.Value.FavourCost;
 
         NetworkServer.SendToAll(new TeamLeaderChangedMsg()
         {
-            ID = GameInfo.singleton.TeamLeader.SteamID,
+            ID = teamLeader.Value.PlayerID,
             maxPartners = TeamLeaderPickPartners.NumPartners
         });
 
@@ -238,10 +179,10 @@ public class StandOrPass : GamePhase
     /// </summary>
     void SortStandingList()
     {
-        standingPlayers.Sort((a, b) =>
+        standingPlayers.Value.Sort((a, b) =>
         {
-            playerBoosts.TryGetValue(a, out int aBoost);
-            playerBoosts.TryGetValue(b, out int bBoost);
+            PlayerBoosts.TryGetValue(a, out int aBoost);
+            PlayerBoosts.TryGetValue(b, out int bBoost);
 
             int result = (a.Favour + aBoost) - (b.Favour + bBoost);
             return result == 0 ? Random.Range(-1, 1) : result;
@@ -261,6 +202,6 @@ public struct StartStandOrPassMsg : NetworkMessage
 
 public struct TeamLeaderChangedMsg : NetworkMessage
 {
-    public CSteamID ID;
+    public ulong ID;
     public int maxPartners;
 }
