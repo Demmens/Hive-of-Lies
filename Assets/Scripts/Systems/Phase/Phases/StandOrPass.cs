@@ -22,6 +22,9 @@ public class StandOrPass : GamePhase
     [Tooltip("The playercount")]
     [SerializeField] IntVariable playerCount;
 
+    [Tooltip("The number of partners on the mission")]
+    [SerializeField] IntVariable numPartners;
+
     [Tooltip("The Team Leader")]
     [SerializeField] HoLPlayerVariable teamLeader;
 
@@ -168,7 +171,7 @@ public class StandOrPass : GamePhase
         NetworkServer.SendToAll(new TeamLeaderChangedMsg()
         {
             ID = teamLeader.Value.PlayerID,
-            maxPartners = TeamLeaderPickPartners.NumPartners
+            maxPartners = numPartners
         });
 
         End();
