@@ -6,15 +6,12 @@ using Mirror;
 public class RunMission : GamePhase
 {
     public static RunMission singleton;
-    public override EGamePhase Phase
-    {
-        get
-        {
-            return EGamePhase.RunMission;
-        }
-    }
+    public override EGamePhase Phase => EGamePhase.RunMission;
 
-    [SerializeField] MissionType missionType;
+    /// <summary>
+    /// The specific type of mission we want to run (e.g. cards, dice, etc.)
+    /// </summary>
+    [SerializeField] MissionType mission;
 
     public delegate void MissionEnded(MissionResult result);
     /// <summary>
@@ -31,35 +28,66 @@ public class RunMission : GamePhase
     /// </summary>
     private int effectsTriggered;
 
+    [Tooltip("The currently active mission")]
+    [SerializeField] MissionVariable currentMission;
+
+    [Tooltip("Set of all completed missions")]
+    [SerializeField] MissionSet completedMissions;
+
+    [Tooltip("Set of all succeeded missions")]
+    [SerializeField] MissionSet succeededMissions;
+
+    [Tooltip("Set of all failed missions")]
+    [SerializeField] MissionSet failedMissions;
+
+    [Tooltip("All players on the mission")]
+    [SerializeField] HoLPlayerSet playersOnMission;
+
+    [Tooltip("All players")]
+    [SerializeField] HoLPlayerSet players;
+
     private void Start()
     {
-        missionType.OnMissionEnded += OnMissionEnded;
+        mission.OnMissionEnded += OnMissionEnded;
         singleton = this;
     }
     public override void Begin()
     {
-        missionType.Active = true;
-        missionType.StartMission();
+        mission.Active = true;
+        mission.StartMission();
     }
 
     void OnMissionEnded(MissionResult result, bool triggerEffects = true)
     {
-        GameInfo.singleton.CompletedMissions.Add(GameInfo.singleton.CurrentMission, result);
-        missionType.Active = false;
+        if (result == MissionResult.Success)
+        {
+            succeededMissions.Add(currentMission.Value);
+        } 
+        else 
+        {
+            failedMissions.Add(currentMission.Value);
+        }
+        completedMissions.Add(currentMission.Value);
+        mission.Active = false;
         NetworkServer.SendToAll(new MissionEndMsg()
         {
             result = result,
         });
 
-        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
+        foreach (HoLPlayer ply in playersOnMission.Value)
         {
-            if (GameInfo.singleton.PlayersOnMission.Contains(pair.Value))
+            ply.Exhaustion++;
+        }
+
+        foreach (HoLPlayer ply in players.Value)
+        {
+            if (playersOnMission.Value.Contains(ply))
             {
-                pair.Value.Exhaustion++;
+                ply.Exhaustion++;
             }
             else
             {
-                pair.Value.Exhaustion = 0;
+                ply.Exhaustion.Value = 0;
             }
         }
 
@@ -68,8 +96,8 @@ public class RunMission : GamePhase
         if (triggerEffects)
         {
             List<MissionEffect> effects = (result == MissionResult.Success) ?
-                GameInfo.singleton.CurrentMission.SuccessEffects :
-                GameInfo.singleton.CurrentMission.FailEffects;
+                currentMission.Value.SuccessEffects :
+                currentMission.Value.FailEffects;
 
             numEffects = effects.Count;
             effectsTriggered = 0;
