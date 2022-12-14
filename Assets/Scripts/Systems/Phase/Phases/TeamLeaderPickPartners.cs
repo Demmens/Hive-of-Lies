@@ -27,15 +27,26 @@ public class TeamLeaderPickPartners : GamePhase
         {9,4}
     };
 
-    /// <summary>
-    /// Number of players that go on the mission with the TeamLeader in this game.
-    /// </summary>
-    public static int NumPartners;
+    [Tooltip("Number of players that go on the mission with the TeamLeader in this game.")]
+    [SerializeField] IntVariable numPartners;
 
-    /// <summary>
-    /// List of players the TeamLeader has selected so far
-    /// </summary>
-    List<Player> playersSelected;
+    [Tooltip("Number of players in the game")]
+    [SerializeField] IntVariable playerCount;
+
+    [Tooltip("The current team leader")]
+    [SerializeField] HoLPlayerVariable teamLeader;
+
+    [Tooltip("List of players the TeamLeader has selected so far")]
+    [SerializeField] HoLPlayerSet playersSelected;
+
+    [Tooltip("List of all players by their NetworkConnection")]
+    [SerializeField] HoLPlayerDictionary playersByConnection;
+
+    [Tooltip("List of all players")]
+    [SerializeField] HoLPlayerSet players;
+
+    [Tooltip("List of all players on the mission")]
+    [SerializeField] HoLPlayerSet playersOnMission;
 
     /// <summary>
     /// Invoked when the Team Leader locks in their partner choices
@@ -46,9 +57,9 @@ public class TeamLeaderPickPartners : GamePhase
     void Start()
     {
         //Find the appropriate number of players that need to go on each mission.
-        for (int i = 0; i <= GameInfo.singleton.PlayerCount; i++)
+        for (int i = 0; i <= playerCount; i++)
         {
-            if (partnerPlayerCounts.TryGetValue(i, out int num)) NumPartners = num;
+            if (partnerPlayerCounts.TryGetValue(i, out int num)) numPartners.Value = num;
         }
         NetworkServer.RegisterHandler<TeamLeaderChangePartnersMsg>(TeamLeaderSelectedPlayer);
         NetworkServer.RegisterHandler<TeamLeaderLockInMsg>(LockInChoices);
@@ -56,8 +67,8 @@ public class TeamLeaderPickPartners : GamePhase
 
     public override void Begin()
     {
-        playersSelected = new List<Player>();
-        NetworkServer.SendToAll(new TeamLeaderStartPickingMsg() { teamLeaderID = (ulong) GameInfo.singleton.TeamLeaderID });
+        playersSelected.Value = new List<HoLPlayer>();
+        NetworkServer.SendToAll(new TeamLeaderStartPickingMsg() { teamLeaderID = teamLeader.Value.PlayerID });
     }
 
     /// <summary>
@@ -67,15 +78,15 @@ public class TeamLeaderPickPartners : GamePhase
     void TeamLeaderSelectedPlayer(NetworkConnection conn, TeamLeaderChangePartnersMsg msg)
     {
         if (!Active) return;
-        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
-        if (ply != GameInfo.singleton.TeamLeader) return;
+        playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply);
+        if (ply != teamLeader) return;
 
-        Player target = null;
-        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
+        HoLPlayer target = null;
+        foreach (HoLPlayer ply2 in players.Value)
         {
-            if (pair.Value.SteamID == msg.playerID)
+            if (ply2.PlayerID == (ulong) msg.playerID)
             {
-                target = pair.Value;
+                target = ply2;
             }
         }
 
@@ -83,16 +94,15 @@ public class TeamLeaderPickPartners : GamePhase
 
         if (msg.selected)
         {
-            if (playersSelected.Count < NumPartners)
+            if (playersSelected.Value.Count < numPartners)
             {
-                Debug.Log($"{SteamFriends.GetFriendPersonaName(ply.SteamID)} has selected {SteamFriends.GetFriendPersonaName(msg.playerID)}");
+                Debug.Log($"{ply.DisplayName} has selected {SteamFriends.GetFriendPersonaName(msg.playerID)}");
                 playersSelected.Add(target);
             }
         }
         else
         {
-            if (playersSelected.Contains(target))
-                playersSelected.Remove(target);
+            if (playersSelected.Value.Contains(target)) playersSelected.Remove(target);
         }
 
         NetworkServer.SendToAll(new TeamLeaderChangePartnersMsg()
@@ -108,10 +118,10 @@ public class TeamLeaderPickPartners : GamePhase
     public void LockInChoices(NetworkConnection conn, TeamLeaderLockInMsg msg)
     {
         if (!Active) return;
-        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
-        if (ply != GameInfo.singleton.TeamLeader) return;
+        playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply);
+        if (ply != teamLeader) return;
 
-        GameInfo.singleton.PlayersOnMission = playersSelected;
+        playersOnMission.Value = playersSelected.Value;
         Debug.Log("Team leader has locked in their partner choices");
         OnLockInChoices?.Invoke();
 
