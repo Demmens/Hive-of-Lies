@@ -19,7 +19,7 @@ public class VoteResultPopup : MonoBehaviour
     /// <summary>
     /// The player vote, and the associated gameobject
     /// </summary>
-    Dictionary<CSteamID, PlayerVoteGameObject> playerVotes;
+    Dictionary<ulong, PlayerVoteGameObject> playerVotes;
     void Start()
     {
         NetworkClient.RegisterHandler<SendVoteResultMsg>(ReceiveVoteResults);
@@ -29,7 +29,7 @@ public class VoteResultPopup : MonoBehaviour
     void ReceiveVoteResults(SendVoteResultMsg msg)
     {
         continueButton.SetActive(true);
-        playerVotes = new Dictionary<CSteamID, PlayerVoteGameObject>();
+        playerVotes = new Dictionary<ulong, PlayerVoteGameObject>();
         msg.votes.Sort((a, b) => { return a.votes - b.votes; });
 
         int total = 0;
@@ -38,7 +38,7 @@ public class VoteResultPopup : MonoBehaviour
         {
             playerVotes.Add(msg.votes[i].ply, allPlayerVotes[i]);
             allPlayerVotes[i].continued.color = unreadyColour;
-            allPlayerVotes[i].name.text = SteamFriends.GetFriendPersonaName(msg.votes[i].ply);
+            allPlayerVotes[i].name.text = SteamFriends.GetFriendPersonaName(new CSteamID(msg.votes[i].ply));
             allPlayerVotes[i].vote.text = msg.votes[i].votes.ToString();
             total += msg.votes[i].votes;
             allPlayerVotes[i].obj.SetActive(true);

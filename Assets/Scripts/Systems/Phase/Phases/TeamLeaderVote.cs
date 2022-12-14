@@ -7,84 +7,41 @@ using Steamworks;
 
 public class TeamLeaderVote : GamePhase
 {
-    #region Fields
-
-    /// <summary>
-    /// List of all player votes
-    /// <para></para>
-    /// Private counterpart to <see cref="Votes"/>
-    /// </summary>
-    List<PlayerVote> votes;
-
-    /// <summary>
-    /// Running total for the vote. If > 0, the TeamLeader is voted in.
-    /// <para></para>
-    /// Private counterpart to <see cref="VoteTotal"/>
-    /// </summary>
-    int voteTotal;
 
     /// <summary>
     /// How many votes each player has currently placed
     /// </summary>
-    Dictionary<Player, int> currentVotes;
+    Dictionary<HoLPlayer, int> currentVotes;
 
     /// <summary>
     /// The players that have closed the vote popup
     /// </summary>
-    List<Player> playersClosedPopup;
+    List<HoLPlayer> playersClosedPopup;
 
     [SerializeField] CostCalculation costCalc;
 
-    #endregion
-
-    #region Properties
-
-    public override EGamePhase Phase
-    {
-        get
-        {
-            return EGamePhase.GeneralVote;
-        }
-    }
+    public override EGamePhase Phase => EGamePhase.GeneralVote;
 
     /// <summary>
     /// List of all player votes
     /// </summary>
-    public List<PlayerVote> Votes
-    {
-        get
-        {
-            return votes;
-        }
-        set
-        {
-            votes = value;
-        }
-    }
+    public List<PlayerVote> votes;
 
-    /// <summary>
-    /// Running total for the vote. If > 0, the team leader is voted in.
-    /// </summary>
-    public int VoteTotal
-    {
-        get
-        {
-            return voteTotal;
-        }
-        set
-        {
-            voteTotal = value;
-        }
-    }
+    [Tooltip("Running total for the vote. If > 0, the team leader is voted in.")]
+    [SerializeField] IntVariable voteTotal;
 
-    #endregion
+    [Tooltip("All players by their NetworkConnections")]
+    [SerializeField] HoLPlayerDictionary playersByConnection;
+
+    [Tooltip("The number of players in the game.")]
+    [SerializeField] IntVariable playerCount;
 
     #region Events
 
     /// <summary>
     /// Invoked when a player votes
     /// </summary>
-    public UnityEvent<Player,int> OnPlayerVoted;
+    public UnityEvent<HoLPlayer,int> OnPlayerVoted;
 
     /// <summary>
     /// Invoked when all players have voted
@@ -103,23 +60,23 @@ public class TeamLeaderVote : GamePhase
     public override void Begin()
     {
         votes = new List<PlayerVote>();
-        currentVotes = new Dictionary<Player, int>();
-        voteTotal = 0;
-        playersClosedPopup = new List<Player>();
+        currentVotes = new Dictionary<HoLPlayer, int>();
+        voteTotal.Value = 0;
+        playersClosedPopup = new List<HoLPlayer>();
         NetworkServer.SendToAll(new TeamLeaderVoteStartedMsg() { });
     }
 
     void ChangedVoteNumber(NetworkConnection conn, PlayerChangeVoteMsg msg)
     {
         if (!Active) return;
-        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
+        playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply);
 
         bool exists = currentVotes.TryGetValue(ply, out int votes);
 
         bool refund = (votes > 0) != msg.increased;
 
         int refundIndex = refund ? votes : Mathf.Abs(votes)+1;
-        int cost = costCalc.CalculateVoteCost(ply.SteamID, refundIndex);
+        int cost = costCalc.CalculateVoteCost(new CSteamID(ply.PlayerID), refundIndex);
 
         votes += msg.increased ? 1 : -1;
 
@@ -129,7 +86,7 @@ public class TeamLeaderVote : GamePhase
         //Don't remove favour if we can't afford it
         if (cost > ply.Favour) return;
         
-        ply.Favour -= cost;
+        ply.Favour.Value -= cost;
 
         if (exists) currentVotes[ply] = votes;
         else currentVotes.Add(ply, votes);
@@ -144,14 +101,14 @@ public class TeamLeaderVote : GamePhase
     {
         if (!Active) return;
 
-        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
+        playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply);
 
         currentVotes.TryGetValue(ply, out int vote);
 
-        voteTotal += vote;
+        voteTotal.Value += vote;
         votes.Add(new PlayerVote()
         {
-            ply = ply.SteamID,
+            ply = ply.PlayerID,
             votes = vote
         });
 
@@ -159,7 +116,7 @@ public class TeamLeaderVote : GamePhase
         OnPlayerVoted?.Invoke(ply, vote);
 
         //If we have received a vote from everyone
-        if (votes.Count == GameInfo.singleton.PlayerCount) AllVotesReceived();
+        if (votes.Count == playerCount) AllVotesReceived();
     }
 
     void AllVotesReceived()
@@ -178,16 +135,16 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     void VotePopupClosed(NetworkConnection conn, VoteContinueClickedMsg msg)
     {
-        GameInfo.singleton.Players.TryGetValue(conn, out Player ply);
+        playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply);
         if (playersClosedPopup.Contains(ply)) return;
 
         playersClosedPopup.Add(ply);
 
-        bool lastPlayer = playersClosedPopup.Count == GameInfo.singleton.PlayerCount;
+        bool lastPlayer = playersClosedPopup.Count == playerCount;
 
         NetworkServer.SendToAll(new VoteContinueClickedMsg()
         {
-            closedBy = ply.SteamID,
+            closedBy = ply.PlayerID,
             lastPlayer = lastPlayer
         });
 
@@ -202,7 +159,7 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     void AllPlayersClosedPopup()
     {
-        playersClosedPopup = new List<Player>();
+        playersClosedPopup = new List<HoLPlayer>();
         votes = new List<PlayerVote>();
         //If the vote was successful
         if (voteTotal > 0)
@@ -224,7 +181,7 @@ public struct PlayerVote
     /// <summary>
     /// The player that this vote is from
     /// </summary>
-    public CSteamID ply;
+    public ulong ply;
     /// <summary>
     /// How many votes the player sent
     /// </summary>
@@ -256,7 +213,7 @@ public struct VoteContinueClickedMsg : NetworkMessage
     /// <summary>
     /// The player that closed the popup
     /// </summary>
-    public CSteamID closedBy;
+    public ulong closedBy;
 
     /// <summary>
     /// Whether this is the last player to close the popup
