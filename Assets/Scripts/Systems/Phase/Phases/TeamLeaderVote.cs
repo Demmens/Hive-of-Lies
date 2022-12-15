@@ -107,7 +107,7 @@ public class TeamLeaderVote : GamePhase
         });
 
         //Invoke the player voted event
-        onPlayerVoted.Invoke();
+        onPlayerVoted?.Invoke();
 
         //If we have received a vote from everyone
         if (votes.Count == playerCount) AllVotesReceived();
@@ -116,7 +116,7 @@ public class TeamLeaderVote : GamePhase
     void AllVotesReceived()
     {
         //Invoke the all players voted event
-        onAllPlayersVoted.Invoke();
+        onAllPlayersVoted?.Invoke();
 
         NetworkServer.SendToAll(new SendVoteResultMsg()
         {
