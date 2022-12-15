@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2340413517240385016}
   - component: {fileID: 2340413517240385023}
   - component: {fileID: 2340413517240385022}
+  - component: {fileID: -6295889642112760574}
   m_Layer: 0
   m_Name: PhaseController
   m_TagString: Untagged
@@ -75,8 +76,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setup: {fileID: 7323658707468256372, guid: 919085fba192005429ed3641e721ecfa, type: 3}
-  phasesObject: {fileID: 0}
+  phases: []
   favourGainPerRound: 2
   roundNum: {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
   players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   resetRound: {fileID: 0}
+--- !u!114 &-6295889642112760574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2340413517240385021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 405a08d216e5c914dbf6dee7722086d9
+  hasSpawned: 0

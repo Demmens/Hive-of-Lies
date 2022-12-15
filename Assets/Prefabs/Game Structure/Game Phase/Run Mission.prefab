@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6469246254804295995}
   - component: {fileID: 8541603504321663892}
+  - component: {fileID: -4355925669750816561}
   m_Layer: 0
   m_Name: Run Mission
   m_TagString: Untagged
@@ -52,3 +53,20 @@ MonoBehaviour:
   failedMissions: {fileID: 11400000, guid: 3607a819c6730274eb3a1bdd526803db, type: 2}
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
   players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+--- !u!114 &-4355925669750816561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3005365250139253029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 08243d548e7d45941aa0345f4999b7f9
+  hasSpawned: 0

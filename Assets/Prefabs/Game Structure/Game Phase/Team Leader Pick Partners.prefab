@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7929508421814240418}
   - component: {fileID: 8864084132564145735}
+  - component: {fileID: -8212179321641859555}
   m_Layer: 0
   m_Name: Team Leader Pick Partners
   m_TagString: Untagged
@@ -52,3 +53,20 @@ MonoBehaviour:
   playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
+--- !u!114 &-8212179321641859555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867046553651884291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 4ae9998a6c0380c4dbca26095bfad075
+  hasSpawned: 0
