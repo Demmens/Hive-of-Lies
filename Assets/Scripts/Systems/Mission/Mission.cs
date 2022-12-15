@@ -22,10 +22,8 @@ public class Mission : ScriptableObject
     /// </summary>
     [SerializeField] int influenceCost;
 
-    /// <summary>
-    /// Private counterpart to <see cref="SuccessEffect"/>
-    /// </summary>
-    [SerializeField] List<MissionEffect> successEffects;
+    [Space]
+    [Space]
 
     /// <summary>
     /// Private counterpart to <see cref="SuccessFlavour"/>
@@ -34,15 +32,26 @@ public class Mission : ScriptableObject
     [SerializeField] string successFlavour;
 
     /// <summary>
-    /// Private counterpart to <see cref="FailEffect"/>
+    /// Private counterpart to <see cref="SuccessEffect"/>
     /// </summary>
-    [SerializeField] List<MissionEffect> failEffects;
+    [SerializeField] List<MissionEffect> successEffects;
+
+    [Space]
+    [Space]
 
     /// <summary>
     /// Private counterpart to <see cref="FailFlavour"/>
     /// </summary>
     [TextArea]
     [SerializeField] string failFlavour;
+
+    /// <summary>
+    /// Private counterpart to <see cref="FailEffect"/>
+    /// </summary>
+    [SerializeField] List<MissionEffect> failEffects;
+
+    [Space]
+    [Space]
 
     /// <summary>
     /// Private counterpart to <see cref="Condition"/>
