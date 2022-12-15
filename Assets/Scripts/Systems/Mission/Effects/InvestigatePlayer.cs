@@ -9,8 +9,6 @@ public class InvestigatePlayer : MissionEffect
     [SerializeField] GameObject investigateButton;
 
     public static InvestigatePlayer Singleton;
-
-    public override EffectType Type => EffectType.Neutral;
     void Start()
     {
         Singleton = this;

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
-  m_Name: Steal Honey
+  m_Name: Gain Wasp Research
   m_EditorClassIdentifier: 
-  description: The wasps steal a jar of honey
-  type: 1
-  intVar: {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
+  description: Gain research progress on the wasps
+  type: 0
+  intVar: {fileID: 11400000, guid: dfe9cf79ab308fa4590bcb660471cac3, type: 2}
   incrementAmount: 1

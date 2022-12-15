@@ -7,8 +7,6 @@ public class ChangeFreeDraws : MissionEffect
 {
     CostCalculation costCalc;
     [SerializeField] int freeDrawChange;
-
-    public override EffectType Type => freeDrawChange > 0 ? EffectType.Positive : EffectType.Negative;
     void Start()
     {
         costCalc = CostCalculation.singleton;

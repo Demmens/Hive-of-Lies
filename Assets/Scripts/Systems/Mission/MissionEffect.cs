@@ -26,10 +26,19 @@ public abstract class MissionEffect : ScriptableObject
         }
     }
 
+    [Tooltip("Whether this is considered a positive, negative, or neutral effect for the Bees")]
+    [SerializeField] EffectType type;
+
     /// <summary>
-    /// Whether this effect is positive, negative, or neutral
+    /// Whether this is considered a positive, negative, or neutral effect for the Bees
     /// </summary>
-    public abstract EffectType Type { get; }
+    public EffectType Type
+    {
+        get
+        {
+            return type;
+        }
+    }
 
     /// <summary>
     /// Trigger this mission effect

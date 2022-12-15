@@ -8,7 +8,6 @@ public class TeamWins : MissionEffect
     [SerializeField] Team Team;
 
     GameEnd end;
-    public override EffectType Type => Team == Team.Wasp ?  EffectType.Negative : EffectType.Positive;
 
     private void Start()
     {

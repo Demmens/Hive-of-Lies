@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a27c53ddfefd34469bf612a9cc8f53e, type: 3}
+  m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
   m_Name: Gain Mission Choice
   m_EditorClassIdentifier: 
-  description: Gain Mission Choice
-  missionChoicesGained: 1
+  description: Future mission choices contain 1 additional option
+  type: 0
+  intVar: {fileID: 11400000, guid: 1939b9c64f1f30b4fa771aff5b5e9ec8, type: 2}
+  incrementAmount: 1

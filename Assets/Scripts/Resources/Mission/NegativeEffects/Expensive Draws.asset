@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
-  m_Name: Steal Honey
+  m_Name: Expensive Draws
   m_EditorClassIdentifier: 
-  description: The wasps steal a jar of honey
-  type: 1
-  intVar: {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
+  description: Drawing extra cards cost more favour
+  type: 0
+  intVar: {fileID: 11400000, guid: 8dde2b8d9eb6dff4a83853849c4de3a4, type: 2}
   incrementAmount: 1
