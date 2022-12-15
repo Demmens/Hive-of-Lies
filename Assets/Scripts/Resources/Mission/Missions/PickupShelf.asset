@@ -17,7 +17,7 @@ MonoBehaviour:
     spend some time trying to pick it back up again.
   influenceCost: 0
   successEffects:
-  - {fileID: 11400000, guid: 1e84f3ea66f5d4142885f61a5f6d59ca, type: 2}
+  - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}
   successFlavour: The library is still a mess, but at least that shelf is back where
     it should be.
   failEffects:

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Players on missions may draw one additional card for free
   type: 0
-  intVar: {fileID: 0}
+  intVar: {fileID: 11400000, guid: 6748b01369dc2d94fbf6dd9449def0a6, type: 2}
   incrementAmount: 1

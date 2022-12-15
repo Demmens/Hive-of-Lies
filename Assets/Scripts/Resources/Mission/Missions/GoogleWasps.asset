@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Send out a team to look up the definition of the word "Wasp" online
   influenceCost: 6
   successEffects:
-  - {fileID: 11400000, guid: f4c9b40bae93dea4ca4035541b9cd9ae, type: 2}
+  - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
   successFlavour: Find a helpful forum thread
   failEffects:
   - {fileID: 11400000, guid: 0eb0458e3ea61794bbf437ab526ae557, type: 2}
