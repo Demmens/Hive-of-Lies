@@ -14,7 +14,7 @@ public class Mission : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="Description"/>
     /// </summary>
-    [TextArea]
+    [Multiline]
     [SerializeField] string description;
 
     /// <summary>
@@ -28,7 +28,7 @@ public class Mission : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="SuccessFlavour"/>
     /// </summary>
-    [TextArea]
+    [Multiline]
     [SerializeField] string successFlavour;
 
     /// <summary>
@@ -42,7 +42,7 @@ public class Mission : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="FailFlavour"/>
     /// </summary>
-    [TextArea]
+    [Multiline]
     [SerializeField] string failFlavour;
 
     /// <summary>
