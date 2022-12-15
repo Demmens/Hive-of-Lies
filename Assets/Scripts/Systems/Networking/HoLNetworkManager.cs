@@ -13,6 +13,9 @@ public class HoLNetworkManager : NetworkManager
 
     int playersLoaded = 0;
 
+    [Tooltip("The number of players in the game")]
+    [SerializeField] IntVariable playerCount;
+
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         if (SceneManager.GetActiveScene().name == "Lobby")
@@ -30,8 +33,8 @@ public class HoLNetworkManager : NetworkManager
     public void StartGame(string sceneName)
     {
         ServerChangeScene(sceneName);
-        GameInfo.singleton.PlayerCount = SteamMatchmaking.GetNumLobbyMembers(SteamLobby.LobbyID);
-        Debug.Log($"Started game with {GameInfo.singleton.PlayerCount} players");
+        playerCount.Value = SteamMatchmaking.GetNumLobbyMembers(SteamLobby.LobbyID);
+        Debug.Log($"Started game with {playerCount.Value} players");
     }
 
     public override void OnServerReady(NetworkConnection conn)
@@ -40,7 +43,7 @@ public class HoLNetworkManager : NetworkManager
 
         if (SceneManager.GetActiveScene().name == "Game")
         {
-            if (++playersLoaded == GameInfo.singleton.PlayerCount)
+            if (++playersLoaded == playerCount)
             {
                 Debug.Log("All players loaded");
                 StartCoroutine(Coroutines.Delay(0.5f, () =>
