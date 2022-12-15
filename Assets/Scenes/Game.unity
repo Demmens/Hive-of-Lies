@@ -98,8 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: b3121d3cd7b48b746a24c206673ffc35,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: b3121d3cd7b48b746a24c206673ffc35, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1463,7 +1462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d646c31b681adf48a6a2c86efe75e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TraitorRatio: 0.49
+  traitorRatio: {fileID: 11400000, guid: 345666eca88bcda4ba738d6fa2fb1795, type: 2}
   roles:
   - {fileID: 11400000, guid: a9e34dacc5cd4654ebe2be3878e558e5, type: 2}
   - {fileID: 11400000, guid: 8dabdcd04de1a234caf6d2f623a75683, type: 2}
@@ -1475,6 +1474,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2a210dec565bfc64bab60527c7f80d66, type: 2}
   - {fileID: 11400000, guid: bb4e576714f1eea4a9d3366e269758be, type: 2}
   - {fileID: 11400000, guid: 5bc19e90e7c1ebc4d9d9be1348904de9, type: 2}
+  allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
+  beePlayers: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
+  playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
+  playersByNetworkConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  allRoles: {fileID: 11400000, guid: 7aecc6004a4878546b7578a75f4e4b79, type: 2}
 --- !u!114 &230035245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1489,6 +1494,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 0
   setup: {fileID: 230035244}
+  allRoles: {fileID: 11400000, guid: 7aecc6004a4878546b7578a75f4e4b79, type: 2}
+  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
 --- !u!114 &230035246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2898,7 +2906,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05501818820feac4f9824cd78e587c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionType: {fileID: 230035245}
+  mission: {fileID: 230035245}
+  currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
+  completedMissions: {fileID: 11400000, guid: 33c18e2444b9f1041947a9afb8a706d0, type: 2}
+  succeededMissions: {fileID: 11400000, guid: 75075791eb0175345867cdbc9d66d1a3, type: 2}
+  failedMissions: {fileID: 11400000, guid: 3607a819c6730274eb3a1bdd526803db, type: 2}
+  playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
+  players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
 --- !u!114 &399537766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2912,6 +2926,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   costCalc: {fileID: 1824260611}
+  voteTotal: {fileID: 11400000, guid: 4399733511110f0499d5096ea4587862, type: 2}
+  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   OnPlayerVoted:
     m_PersistentCalls:
       m_Calls: []
@@ -2930,6 +2947,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940e3c791a125e945a0702e490278b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numPartners: {fileID: 11400000, guid: c0f582f860a057b4184ee8a66885d1b0, type: 2}
+  playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
+  teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
+  playersSelected: {fileID: 11400000, guid: c5185c85b03957546b0a450841d2fd5f, type: 2}
+  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
 --- !u!114 &399537768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2942,8 +2966,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3849f82571f6bf84f84c475d08636b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 0}
   favourLostForNobodyStanding: 5
+  playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
+  numPartners: {fileID: 11400000, guid: c0f582f860a057b4184ee8a66885d1b0, type: 2}
+  teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
+  currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
+  standingPlayers: {fileID: 11400000, guid: a3de5e14b60be0140ab5d73a3395c956, type: 2}
+  passedPlayers: {fileID: 11400000, guid: 42b4f9a265ac4ee418c6333d92cd515c, type: 2}
+  players: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
 --- !u!114 &399537769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2958,7 +2988,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionLists:
   - {fileID: 11400000, guid: f8dc112327b73f54da42cfa3ab2e4412, type: 2}
-  MissionChoices: 2
+  playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
+  roundNum: {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
+  numMissionChoices: {fileID: 11400000, guid: 1939b9c64f1f30b4fa771aff5b5e9ec8, type: 2}
+  decidedMissionList: {fileID: 11400000, guid: f0007d2ca6098c649a90108114c7c3bf, type: 2}
+  players: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
+  CompletedMissions: []
 --- !u!114 &399537770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5550,8 +5586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoleName: {fileID: 45286344}
   Favour: {fileID: 721782995}
-  RoleCard: {fileID: 6331558722751170962, guid: 72d1b9289b9756e4fa6fb9f537ab69a4,
-    type: 3}
+  RoleCard: {fileID: 6331558722751170962, guid: 72d1b9289b9756e4fa6fb9f537ab69a4, type: 3}
   OverlayCanvas: {fileID: 929806512}
   RoleBackground: {fileID: 0}
   WaspColour: {r: 0, g: 0, b: 0, a: 0}
@@ -5590,8 +5625,7 @@ MonoBehaviour:
   successEffect: {fileID: 745823573}
   failFlavour: {fileID: 2115635997}
   failEffect: {fileID: 2141191674}
-  missionCard: {fileID: 6643550700278473917, guid: fc67cc91397293548aa6517b7756d350,
-    type: 3}
+  missionCard: {fileID: 6643550700278473917, guid: fc67cc91397293548aa6517b7756d350, type: 3}
   OverlayCanvas: {fileID: 929806512}
   teamLeaderName: {fileID: 2147480495}
   missionPlayerList: {fileID: 1101995446}
@@ -5638,8 +5672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerList: {fileID: 1869263836}
-  playerButton: {fileID: 8493164326477725227, guid: 141aa0a19c3b95447a559b9f1b764a14,
-    type: 3}
+  playerButton: {fileID: 8493164326477725227, guid: 141aa0a19c3b95447a559b9f1b764a14, type: 3}
 --- !u!114 &721782997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5782,10 +5815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropDown: {fileID: 721783002}
-  pickPlayerButton: {fileID: 5348883325331210057, guid: ef206b6918966b849a02dc0b39eb34ba,
-    type: 3}
-  unpickPlayerButton: {fileID: 8102290754876271477, guid: 3a3d8596762c1944b9f04b0cfd72e8e4,
-    type: 3}
+  pickPlayerButton: {fileID: 5348883325331210057, guid: ef206b6918966b849a02dc0b39eb34ba, type: 3}
+  unpickPlayerButton: {fileID: 8102290754876271477, guid: 3a3d8596762c1944b9f04b0cfd72e8e4, type: 3}
   lockInButton: {fileID: 631464005}
 --- !u!114 &721783004
 MonoBehaviour:
