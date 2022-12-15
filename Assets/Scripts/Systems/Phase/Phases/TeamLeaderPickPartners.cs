@@ -9,13 +9,6 @@ using Steamworks;
 /// </summary>
 public class TeamLeaderPickPartners : GamePhase
 {
-    public override EGamePhase Phase
-    {
-        get
-        {
-            return EGamePhase.GeneralPickPartners;
-        }
-    }
     /// <summary>
     /// Number of players that go on the mission with the TeamLeader for each player count
     /// </summary>

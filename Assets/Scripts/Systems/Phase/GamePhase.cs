@@ -22,12 +22,17 @@ public abstract class GamePhase : MonoBehaviour
             return active;
         }
     }
+
+    [SerializeField] private EGamePhase phase;
     /// <summary>
     /// The phase of the game this class represents
     /// </summary>
-    public abstract EGamePhase Phase
+    public EGamePhase Phase
     {
-        get;
+        get
+        {
+            return phase;
+        }
     }
 
     /// <summary>
@@ -70,17 +75,4 @@ public abstract class GamePhase : MonoBehaviour
             OnGamePhaseEnd?.Invoke();
         }
     }
-}
-
-/// <summary>
-/// The phases of the game
-/// </summary>
-public enum EGamePhase
-{
-    Setup,
-    DecideMission,
-    DecideGeneral,
-    GeneralPickPartners,
-    GeneralVote,
-    RunMission
 }

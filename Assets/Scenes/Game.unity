@@ -1464,6 +1464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d646c31b681adf48a6a2c86efe75e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phase: {fileID: 11400000, guid: 0878ed57b9981b443b62dab369adb201, type: 2}
   traitorRatio: {fileID: 11400000, guid: 345666eca88bcda4ba738d6fa2fb1795, type: 2}
   roles:
   - {fileID: 11400000, guid: a9e34dacc5cd4654ebe2be3878e558e5, type: 2}
@@ -2911,6 +2912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05501818820feac4f9824cd78e587c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phase: {fileID: 11400000, guid: 7281edf4b1599704e9f7af1fc8bc503c, type: 2}
   mission: {fileID: 230035245}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
   completedMissions: {fileID: 11400000, guid: 33c18e2444b9f1041947a9afb8a706d0, type: 2}
@@ -2930,6 +2932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 377990d5e42e178428bd2384f0f2d166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phase: {fileID: 11400000, guid: 289d0b5f6752c24418120b93802bba58, type: 2}
   costCalc: {fileID: 1824260611}
   voteTotal: {fileID: 11400000, guid: 4399733511110f0499d5096ea4587862, type: 2}
   playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
@@ -2952,6 +2955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940e3c791a125e945a0702e490278b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phase: {fileID: 11400000, guid: 79084955b11de134e94345cae657ecc2, type: 2}
   numPartners: {fileID: 11400000, guid: c0f582f860a057b4184ee8a66885d1b0, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
@@ -2971,6 +2975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3849f82571f6bf84f84c475d08636b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phase: {fileID: 11400000, guid: 57b9e1291ccdec847a354002758d949a, type: 2}
   favourLostForNobodyStanding: 5
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   numPartners: {fileID: 11400000, guid: c0f582f860a057b4184ee8a66885d1b0, type: 2}
@@ -2991,6 +2996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cbc1afb2eb04744d8377a4611e56976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phase: {fileID: 11400000, guid: 77e13a3d9db7ce244853ffae43679355, type: 2}
   missionLists:
   - {fileID: 11400000, guid: f8dc112327b73f54da42cfa3ab2e4412, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}

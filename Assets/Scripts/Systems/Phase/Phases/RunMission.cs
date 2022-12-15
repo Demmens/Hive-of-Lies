@@ -6,7 +6,6 @@ using Mirror;
 public class RunMission : GamePhase
 {
     public static RunMission singleton;
-    public override EGamePhase Phase => EGamePhase.RunMission;
 
     /// <summary>
     /// The specific type of mission we want to run (e.g. cards, dice, etc.)

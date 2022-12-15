@@ -20,8 +20,6 @@ public class TeamLeaderVote : GamePhase
 
     [SerializeField] CostCalculation costCalc;
 
-    public override EGamePhase Phase => EGamePhase.GeneralVote;
-
     /// <summary>
     /// List of all player votes
     /// </summary>

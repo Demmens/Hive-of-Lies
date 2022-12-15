@@ -43,13 +43,6 @@ public class DecideMission : GamePhase
     [SerializeField] MissionVariable currentMission;
 
     [HideInInspector] public List<Mission> CompletedMissions = new List<Mission>();
-    public override EGamePhase Phase
-    {
-        get
-        {
-            return EGamePhase.DecideMission;
-        }
-    }
 
     /// <summary>
     /// Who has voted for which mission, and how many votes in total that mission has

@@ -6,13 +6,6 @@ using Mirror;
 
 public class Setup : GamePhase
 {
-    public override EGamePhase Phase
-    {
-        get
-        {
-            return EGamePhase.Setup;
-        }
-    }
 
     /// <summary>
     /// Number of role choices given to each role. If set too high, some players may not receive any choices.

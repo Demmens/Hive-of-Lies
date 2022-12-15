@@ -17,8 +17,6 @@ public class StandOrPass : GamePhase
     /// </summary>
     [SerializeField] int favourLostForNobodyStanding;
 
-    public override EGamePhase Phase => EGamePhase.DecideGeneral;
-
     [Tooltip("The playercount")]
     [SerializeField] IntVariable playerCount;
 
