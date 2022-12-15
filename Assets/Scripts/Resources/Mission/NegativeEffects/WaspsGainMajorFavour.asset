@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: WaspsGainMajorFavour
   m_EditorClassIdentifier: 
   description: Wasps gain 6 favour
+  type: 1
+  players: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
   favourGain: 6
-  Team: 2

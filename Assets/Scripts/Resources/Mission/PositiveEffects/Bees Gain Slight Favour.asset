@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Bees Gain Slight Favour
   m_EditorClassIdentifier: 
   description: Bees gain slight favour
+  type: 0
+  players: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
   favourGain: 2
-  Team: 1
