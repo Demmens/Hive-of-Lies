@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1805870746189362716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1903172484302541235}
+  - component: {fileID: 7323658707468256372}
+  m_Layer: 0
+  m_Name: Setup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1903172484302541235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805870746189362716}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 986.4814, y: 559.02515, z: 4.061875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7323658707468256372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805870746189362716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d646c31b681adf48a6a2c86efe75e3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phase: {fileID: 11400000, guid: 0878ed57b9981b443b62dab369adb201, type: 2}
+  traitorRatio: {fileID: 11400000, guid: 345666eca88bcda4ba738d6fa2fb1795, type: 2}
+  roles:
+  - {fileID: 11400000, guid: a9e34dacc5cd4654ebe2be3878e558e5, type: 2}
+  - {fileID: 11400000, guid: 8dabdcd04de1a234caf6d2f623a75683, type: 2}
+  - {fileID: 11400000, guid: 988865947f68b854bb0e58bc3099ede4, type: 2}
+  - {fileID: 11400000, guid: e0017a1b0a9df8248bce7f5db0ba609a, type: 2}
+  - {fileID: 11400000, guid: 7222f9c54d4db4941820a751bc386ed0, type: 2}
+  - {fileID: 11400000, guid: c8d7c02d6eea7e64989f43246d204b4c, type: 2}
+  - {fileID: 11400000, guid: a376b347111f8d847af09e6a61f071c9, type: 2}
+  - {fileID: 11400000, guid: 2a210dec565bfc64bab60527c7f80d66, type: 2}
+  - {fileID: 11400000, guid: bb4e576714f1eea4a9d3366e269758be, type: 2}
+  - {fileID: 11400000, guid: 5bc19e90e7c1ebc4d9d9be1348904de9, type: 2}
+  allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
+  beePlayers: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
+  playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
+  playersByNetworkConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  allRoles: {fileID: 11400000, guid: 7aecc6004a4878546b7578a75f4e4b79, type: 2}

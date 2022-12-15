@@ -6,10 +6,9 @@ using Mirror;
 public class CardsMission : MissionType
 {
     public static CardsMission singleton;
-    /// <summary>
-    /// The card info for each player
-    /// </summary>
-    public Dictionary<HoLPlayer,Deck> CardInfo;
+
+    [Tooltip("The decks of all players")]
+    [SerializeField] CardInfo cardInfo;
 
     /// <summary>
     /// The difficulty of the mission
@@ -30,9 +29,6 @@ public class CardsMission : MissionType
     /// List of all players who have played cards
     /// </summary>
     private List<HoLPlayer> playersPlayed;
-
-
-    [SerializeField] Setup setup;
 
     [Tooltip("All the roles in the game")]
     [SerializeField] RoleSet allRoles;
@@ -56,13 +52,12 @@ public class CardsMission : MissionType
     {
         singleton = this;
         base.Start();
-        CardInfo = new Dictionary<HoLPlayer, Deck>();
-        setup.OnGamePhaseEnd += OnSetupFinished;
+        cardInfo.Value = new Dictionary<HoLPlayer, Deck>();
         NetworkServer.RegisterHandler<DrawCardMsg>(PlayerClickedDraw);
         NetworkServer.RegisterHandler<PlayerPlayedMsg>(PlayerClickedSubmit);
     }
 
-    void OnSetupFinished()
+    public void OnSetupFinished()
     {
         foreach (Role role in allRoles.Value)
         {
@@ -74,7 +69,7 @@ public class CardsMission : MissionType
             Deck deck = new Deck(playerDeck);
             deck.Shuffle();
 
-            CardInfo.Add(role.Ability.Owner, deck);
+            cardInfo.Value.Add(role.Ability.Owner, deck);
         }
     }
 
@@ -91,7 +86,7 @@ public class CardsMission : MissionType
         if (playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
         //If the player isn't on the mission
         if (!playersOnMission.Value.Contains(ply)) return;
-        CardInfo.TryGetValue(ply, out Deck deck);
+        cardInfo.Value.TryGetValue(ply, out Deck deck);
 
         if (deck.Hand.Count > 0)
         {
@@ -120,7 +115,7 @@ public class CardsMission : MissionType
         if (!playersOnMission.Value.Contains(ply)) return;
         //If the player has already played a card
         if (playersPlayed.Contains(ply)) return;
-        CardInfo.TryGetValue(ply, out Deck deck);
+        cardInfo.Value.TryGetValue(ply, out Deck deck);
 
         Card card = deck.Play();
 
@@ -154,7 +149,7 @@ public class CardsMission : MissionType
         result = playedTotal >= Difficulty ? MissionResult.Success : MissionResult.Fail;
 
         List<int> finalCards = new List<int>();
-        foreach (KeyValuePair<HoLPlayer, Deck> deck in CardInfo)
+        foreach (KeyValuePair<HoLPlayer, Deck> deck in cardInfo.Value)
         {
             int result = 0;
             //Only display the total of all cards played, not how many they've played

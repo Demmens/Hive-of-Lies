@@ -13,14 +13,9 @@ public class PhaseController : MonoBehaviour
     /// <summary>
     /// The game object that contains all the phases.
     /// </summary>
-    [SerializeField] GameObject phasesObject;
+    [SerializeField] List<GamePhase> phases;
 
     [SerializeField] int favourGainPerRound;
-
-    /// <summary>
-    /// Array of all the game phases we want to repeat for the gameplay loop.
-    /// </summary>
-    GamePhase[] phases;
 
     /// <summary>
     /// The index of the current phase of the game.
@@ -38,7 +33,6 @@ public class PhaseController : MonoBehaviour
 
     void Start()
     {
-        phases = phasesObject.GetComponents<GamePhase>();
         //Give all events a reference to the event system. Saves having to do a FindObjectOfType on each child class of GamePhase.
         foreach (GamePhase phase in phases)
         {
@@ -61,7 +55,7 @@ public class PhaseController : MonoBehaviour
         //Move to the next phase
         currentPhase++;
         //Make sure to loop back to the beginning again once we reach the last phase
-        if (currentPhase >= phases.Length)
+        if (currentPhase >= phases.Count)
         {
             StartNextRound();
         }
