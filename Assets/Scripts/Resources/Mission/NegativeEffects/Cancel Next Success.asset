@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9de0b07eb713924eb18f3d580a02910, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ab7c3b70182c4a4c97ab9d8c4d4e4b3, type: 3}
   m_Name: Cancel Next Success
   m_EditorClassIdentifier: 
-  description: Cancel Next Success
+  description: Cancel the next mission's success effect
+  type: 1
+  boolVar: {fileID: 11400000, guid: d1271430eb78c6843a940fcf684e0e41, type: 2}
+  change: 1
