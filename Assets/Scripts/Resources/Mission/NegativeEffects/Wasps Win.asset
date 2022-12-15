@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Wasps Win
   m_EditorClassIdentifier: 
   description: Wasps Win
+  type: 1
   Team: 2

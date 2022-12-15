@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Investigate Player
   m_EditorClassIdentifier: 
   description: Investigate Player
+  type: 2
   investigateButton: {fileID: 8102290754876271477, guid: d7c6ccd1631b7df4b84bd6951d5d32a3, type: 3}

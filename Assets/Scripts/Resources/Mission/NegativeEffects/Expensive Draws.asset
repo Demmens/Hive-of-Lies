@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Expensive Draws
   m_EditorClassIdentifier: 
   description: Drawing extra cards cost more favour
-  type: 0
+  type: 1
   intVar: {fileID: 11400000, guid: 8dde2b8d9eb6dff4a83853849c4de3a4, type: 2}
   incrementAmount: 1
