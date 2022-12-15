@@ -36,15 +36,11 @@ public class TeamLeaderVote : GamePhase
 
     #region Events
 
-    /// <summary>
-    /// Invoked when a player votes
-    /// </summary>
-    public UnityEvent<HoLPlayer,int> OnPlayerVoted;
+    [Tooltip("Invoked when a player votes")]
+    [SerializeField] GameEvent onPlayerVoted;
 
-    /// <summary>
-    /// Invoked when all players have voted
-    /// </summary>
-    public UnityEvent OnAllPlayersVoted;
+    [Tooltip("Invoked when all players have voted")]
+    [SerializeField] GameEvent onAllPlayersVoted;
 
     #endregion
 
@@ -111,7 +107,7 @@ public class TeamLeaderVote : GamePhase
         });
 
         //Invoke the player voted event
-        OnPlayerVoted?.Invoke(ply, vote);
+        onPlayerVoted.Invoke();
 
         //If we have received a vote from everyone
         if (votes.Count == playerCount) AllVotesReceived();
@@ -120,7 +116,7 @@ public class TeamLeaderVote : GamePhase
     void AllVotesReceived()
     {
         //Invoke the all players voted event
-        OnAllPlayersVoted?.Invoke();
+        onAllPlayersVoted.Invoke();
 
         NetworkServer.SendToAll(new SendVoteResultMsg()
         {
