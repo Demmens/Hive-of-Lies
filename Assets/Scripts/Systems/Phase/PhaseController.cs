@@ -27,6 +27,12 @@ public class PhaseController : MonoBehaviour
     /// </summary>
     int currentPhase;
 
+    [Tooltip("The round number")]
+    [SerializeField] IntVariable roundNum;
+
+    [Tooltip("All players")]
+    [SerializeField] HoLPlayerSet players;
+
     void Start()
     {
         phases = phasesObject.GetComponents<GamePhase>();
@@ -81,11 +87,11 @@ public class PhaseController : MonoBehaviour
     void StartNextRound()
     {
         currentPhase = 0;
-        GameInfo.singleton.RoundNum++;
+        roundNum++;
 
-        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
+        foreach (HoLPlayer ply in players.Value)
         {
-            pair.Value.Favour += favourGainPerRound;
+            ply.Favour.Value += favourGainPerRound;
         }
 
         NetworkServer.SendToAll(new ChangeFavourMsg()
