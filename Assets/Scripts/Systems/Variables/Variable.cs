@@ -21,7 +21,14 @@ public abstract class Variable<T> : ScriptableObject
 
     [Tooltip("Should this variable be accessible on clients")]
     [SerializeField] private bool client;
-    
+
+    [Space]
+    [Space]
+
+    [TextArea]
+    [Tooltip("The tooltip for this variable. Doesn't have any mechanical purpose.")]
+    [SerializeField] private string tooltip;
+
     /// <summary>
     /// The value of this variable
     /// </summary>
