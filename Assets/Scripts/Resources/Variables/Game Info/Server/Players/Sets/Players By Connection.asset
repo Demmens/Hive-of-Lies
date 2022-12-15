@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Mission Choices
-  m_EditorClassIdentifier: Assembly-CSharp::IntVariable
-  initialValue: 0
-  currentValue: 0
+  m_Script: {fileID: 11500000, guid: 1d0da68dcd1f47b4d8f94293a7ab2a71, type: 3}
+  m_Name: Players By Connection
+  m_EditorClassIdentifier: 
   server: 0
   client: 0
