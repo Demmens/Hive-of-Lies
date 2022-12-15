@@ -29,13 +29,12 @@ public abstract class MissionType : MonoBehaviour
     /// </summary>
     protected MissionResult result;
 
-    /// <summary>
-    /// Reference to the game information
-    /// </summary>
-    [SerializeField] protected GameInfo Info { get; private set; }
-
     public delegate void MissionEnded(MissionResult result, bool triggerEffects = true);
     public event MissionEnded OnMissionEnded;
+
+    [SerializeField] IntVariable playerCount;
+    [SerializeField] BoolVariable cancelNextSuccess;
+    [SerializeField] BoolVariable cancelNextFail;
 
     protected virtual void Start()
     {
@@ -63,11 +62,10 @@ public abstract class MissionType : MonoBehaviour
             return;
         }
 
-        if (GameInfo.singleton.CancelNextFail && res == MissionResult.Fail
-            || GameInfo.singleton.CancelNextSuccess && res == MissionResult.Success)
+        if (cancelNextFail && res == MissionResult.Fail || cancelNextSuccess && res == MissionResult.Success)
         {
-            GameInfo.singleton.CancelNextFail = false;
-            GameInfo.singleton.CancelNextSuccess = false;
+            cancelNextFail.Value = false;
+            cancelNextSuccess.Value = false;
             OnMissionEnded?.Invoke(res, false);
         }        
     }
@@ -77,7 +75,7 @@ public abstract class MissionType : MonoBehaviour
         if (popupsClosed.Contains(conn)) return;
 
         popupsClosed.Add(conn);
-        if (popupsClosed.Count == GameInfo.singleton.PlayerCount) EndMission(result);
+        if (popupsClosed.Count == playerCount) EndMission(result);
     }
 }
 

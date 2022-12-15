@@ -1495,6 +1495,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Active: 0
+  playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
+  cancelNextSuccess: {fileID: 11400000, guid: d1271430eb78c6843a940fcf684e0e41, type: 2}
+  cancelNextFail: {fileID: 11400000, guid: ff4a3b04733a0ce4ab097c3eecbb8ac1, type: 2}
   setup: {fileID: 230035244}
   allRoles: {fileID: 11400000, guid: 7aecc6004a4878546b7578a75f4e4b79, type: 2}
   playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
