@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-[CreateAssetMenu(fileName = "Team Gains Favour", menuName = "Missions/Effects/Team Gains Favour")]
+[CreateAssetMenu(fileName = "Team Gains Favour", menuName = "Missions/Effects/Specific/Team Gains Favour")]
 public class TeamGainsFavour : MissionEffect
 {
     [SerializeField] int favourGain;

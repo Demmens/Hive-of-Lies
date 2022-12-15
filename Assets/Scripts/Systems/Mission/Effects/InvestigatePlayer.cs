@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-[CreateAssetMenu(fileName = "Investigate Player", menuName = "Missions/Effects/Investigate Player")]
+[CreateAssetMenu(fileName = "Investigate Player", menuName = "Missions/Effects/Specific/Investigate Player")]
 public class InvestigatePlayer : MissionEffect
 {
     [SerializeField] GameObject investigateButton;
