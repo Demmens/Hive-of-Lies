@@ -45,43 +45,17 @@ public class StandOrPass : GamePhase
 
     #region Events
 
-    /// <summary>
-    /// Delegate for <see cref="OnPlayerStandOrPass"/>
-    /// </summary>
-    /// <param name="ply">The player that made the decision</param>
-    /// <param name="stood">True if they stood</param>
-    public delegate void PlayerStandOrPass(HoLPlayer ply, bool stood);
-    /// <summary>
-    /// Invoked when a player decides to stand or pass
-    /// </summary>
-    public event PlayerStandOrPass OnPlayerStandOrPass;
+    [Tooltip("Invoked when a player decides to stand or pass")]
+    [SerializeField] GameEvent onPlayerStandOrPass;
 
-    /// <summary>
-    /// Delegate for <see cref="OnAllPlayersStandOrPass"/>
-    /// </summary>
-    public delegate void AllPlayersStandOrPass();
-    /// <summary>
-    /// Invoked once all players have decided to stand or pass
-    /// </summary>
-    public event AllPlayersStandOrPass OnAllPlayersStandOrPass;
+    [Tooltip("Invoked once all players have decided to stand or pass")]
+    [SerializeField] GameEvent onAllPlayersStandOrPass;
 
-    /// <summary>
-    /// Delegate for <see cref="OnTeamLeaderVoteCounted"/>
-    /// </summary>
-    public delegate void TeamLeaderVoteCounted();
-    /// <summary>
-    /// Invoked once the team leader vote has been counted
-    /// </summary>
-    public event TeamLeaderVoteCounted OnTeamLeaderVoteCounted;
+    [Tooltip("Invoked once the team leader vote has been counted")]
+    [SerializeField] GameEvent onTeamLeaderVoteCounted;
 
-    /// <summary>
-    /// Delegate for <see cref="OnNobodyStood"/>
-    /// </summary>
-    public delegate void NobodyStood();
-    /// <summary>
-    /// Invoked if nobody stands for the position of team leader.
-    /// </summary>
-    public event NobodyStood OnNobodyStood;
+    [Tooltip("Invoked if nobody stands for the position of team leader.")]
+    [SerializeField] GameEvent onNobodyStood;
 
     #endregion
 
@@ -120,7 +94,7 @@ public class StandOrPass : GamePhase
         else passedPlayers.Add(ply);
 
         //Invoke event for a player deciding to stand or pass
-        OnPlayerStandOrPass?.Invoke(ply, msg.isStanding);
+        onPlayerStandOrPass?.Invoke();
 
         if (standingPlayers.Value.Count + passedPlayers.Value.Count == playerCount) ReceiveResults();
     }
@@ -132,7 +106,7 @@ public class StandOrPass : GamePhase
     {
         Debug.Log("All players have stood or passed");
         //Invoke event for all players having made a decision
-        OnAllPlayersStandOrPass?.Invoke();
+        onAllPlayersStandOrPass?.Invoke();
 
         //If nobody stood for the position of team leader
         if (standingPlayers.Value.Count == 0)
@@ -145,7 +119,7 @@ public class StandOrPass : GamePhase
                     newFavour = pair.Value.Favour
                 });
             }
-            OnNobodyStood?.Invoke();
+            onNobodyStood?.Invoke();
             return;
         }
 
@@ -153,10 +127,10 @@ public class StandOrPass : GamePhase
         SortStandingList();
 
         //Invoke event before determining the Team Leader
-        OnTeamLeaderVoteCounted?.Invoke();
+        onTeamLeaderVoteCounted?.Invoke();
 
         //If this has been subscribed to, there's a good chance the standings have changed, so we need to resort
-        if (OnTeamLeaderVoteCounted != null)
+        if (onTeamLeaderVoteCounted != null)
             SortStandingList();
 
         //Now, since we've sorted, the player at the top of the list will be the Team Leader

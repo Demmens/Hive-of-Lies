@@ -33,6 +33,9 @@ public class PhaseController : MonoBehaviour
     [Tooltip("All players")]
     [SerializeField] HoLPlayerSet players;
 
+    [Tooltip("Reset the round when this event is invoked")]
+    [SerializeField] GameEvent resetRound;
+
     void Start()
     {
         phases = phasesObject.GetComponents<GamePhase>();
@@ -41,11 +44,6 @@ public class PhaseController : MonoBehaviour
         {
             //Listen for when phases end
             phase.OnGamePhaseEnd += PhaseChange;
-            if (phase is StandOrPass)
-            {
-                StandOrPass sop = phase as StandOrPass;
-                sop.OnNobodyStood += ResetRound;
-            }
         }
         //Make sure to listen for the setup ending too.
         setup.OnGamePhaseEnd += PhaseChange;
@@ -77,7 +75,7 @@ public class PhaseController : MonoBehaviour
     /// <summary>
     /// Call to reset the round back to the beginning.
     /// </summary>
-    void ResetRound()
+    public void ResetRound()
     {
         phases[currentPhase].End(true);
 

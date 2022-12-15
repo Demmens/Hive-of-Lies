@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GameEvent : ScriptableObject
+[CreateAssetMenu(fileName = "Event", menuName = "Event")]
+public class GameEvent : ScriptableObject
 {
 
     private List<GameEventListener> listeners = new List<GameEventListener>();
