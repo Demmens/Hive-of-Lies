@@ -1450,6 +1450,8 @@ MonoBehaviour:
   setup: {fileID: 230035244}
   phasesObject: {fileID: 399537764}
   favourGainPerRound: 2
+  roundNum: {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
+  players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
 --- !u!114 &230035244
 MonoBehaviour:
   m_ObjectHideFlags: 0
