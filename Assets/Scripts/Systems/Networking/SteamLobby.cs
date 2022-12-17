@@ -6,7 +6,7 @@ using Mirror;
 
 public class SteamLobby : MonoBehaviour
 {
-    [SerializeField] NetworkManager networkManager;
+    [SerializeField] HoLNetworkManager networkManager;
 
     protected Callback<LobbyCreated_t> lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
@@ -36,7 +36,7 @@ public class SteamLobby : MonoBehaviour
     public void HostLobby()
     {
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, networkManager.maxConnections);
-        networkManager.ServerChangeScene("Lobby");
+        networkManager.ServerChangeScene(networkManager.LobbyScene.name);
     }
 
     void OnLobbyCreated(LobbyCreated_t callback)

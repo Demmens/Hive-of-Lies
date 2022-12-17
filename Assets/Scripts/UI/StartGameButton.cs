@@ -13,6 +13,6 @@ public class StartGameButton : MonoBehaviour
     public void StartGame()
     {
         HoLNetworkManager manager = NetworkManager.singleton as HoLNetworkManager;
-        manager.StartGame("Game");
+        manager.StartGame();
     }
 }
