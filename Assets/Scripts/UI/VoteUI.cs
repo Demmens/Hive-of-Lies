@@ -121,15 +121,15 @@ public class VoteUI : MonoBehaviour
     {
         if (numVotes > 0)
         {
-            upVoteCost = costCalc.CalculateVoteCost(SteamUser.GetSteamID(), numVotes + 1);
-            downVoteCost = costCalc.CalculateVoteCost(SteamUser.GetSteamID(), numVotes);
+            upVoteCost = costCalc.CalculateVoteCost(numVotes + 1);
+            downVoteCost = costCalc.CalculateVoteCost(numVotes);
 
             downVoteCost *= -1;
         }
         else
         {
-            upVoteCost = costCalc.CalculateVoteCost(SteamUser.GetSteamID(), numVotes);
-            downVoteCost = costCalc.CalculateVoteCost(SteamUser.GetSteamID(), numVotes - 1);
+            upVoteCost = costCalc.CalculateVoteCost(numVotes);
+            downVoteCost = costCalc.CalculateVoteCost(numVotes - 1);
 
             upVoteCost *= -1;
         }

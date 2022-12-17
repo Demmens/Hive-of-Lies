@@ -70,7 +70,7 @@ public class TeamLeaderVote : GamePhase
         bool refund = (votes > 0) != msg.increased;
 
         int refundIndex = refund ? votes : Mathf.Abs(votes)+1;
-        int cost = costCalc.CalculateVoteCost(new CSteamID(ply.PlayerID), refundIndex);
+        int cost = costCalc.CalculateVoteCost(refundIndex);
 
         votes += msg.increased ? 1 : -1;
 

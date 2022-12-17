@@ -87,7 +87,7 @@ public class CardMissionUI : MonoBehaviour
         submitButton.SetActive(true);
         drawButton.SetActive(true);
 
-        nextDrawCost = costCalc.CalculateDrawCost(ClientGameInfo.singleton.PlayerID, numDraws);
+        nextDrawCost = costCalc.CalculateDrawCost(numDraws);
         if (favourController.Favour < nextDrawCost) drawButton.SetActive(false);
     }
 
