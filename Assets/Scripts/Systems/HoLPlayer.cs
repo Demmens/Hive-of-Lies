@@ -32,37 +32,37 @@ public class HoLPlayer : NetworkBehaviour
     /// The team of this player. Whether they are a bee or a wasp.
     /// </summary>
     [HideInInspector]
-    public TeamVariable Team = new TeamVariable();
+    public TeamVariable Team = ScriptableObject.CreateInstance<TeamVariable>();
 
     /// <summary>
     /// The game's currency. Used for redrawing cards, placing extra votes, and running for team leader.
     /// </summary>
     [HideInInspector]
-    public IntVariable Favour = new IntVariable();
+    public IntVariable Favour = ScriptableObject.CreateInstance<IntVariable>();
 
     /// <summary>
     /// The role that the player has. This determines their deck of cards, starting favour, and special ability.
     /// </summary>
     [HideInInspector]
-    public RoleVariable Role = new RoleVariable();
+    public RoleVariable Role = ScriptableObject.CreateInstance<RoleVariable>();
 
     /// <summary>
     /// How many missions the player has been on in a row. Each level reduces the value of the cards in their deck.
     /// </summary>
     [HideInInspector]
-    public IntVariable Exhaustion = new IntVariable();
+    public IntVariable Exhaustion = ScriptableObject.CreateInstance<IntVariable>();
 
     /// <summary>
     /// How much favour it costs to draw another card
     /// </summary>
     [HideInInspector]
-    public IntVariable NextDrawCost = new IntVariable();
+    public IntVariable NextDrawCost = ScriptableObject.CreateInstance<IntVariable>();
 
     /// <summary>
     /// How much favour it costs to place another vote
     /// </summary>
     [HideInInspector]
-    public IntVariable NextVoteCost = new IntVariable();
+    public IntVariable NextVoteCost = ScriptableObject.CreateInstance<IntVariable>();
 
     /// <summary>
     /// List of the choices of roles the player will have at the start of the game
