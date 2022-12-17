@@ -769,6 +769,10 @@ MonoBehaviour:
   - {fileID: 8587719178297419551, guid: 2a17acd1b5661b148a5127e265bc79bf, type: 3}
   GamePlayerPrefab: {fileID: 7818846157891585568, guid: 63ce2b03da1ac5749a3dc548765ea4cf, type: 3}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
+  playerLoaded: {fileID: 0}
+  allPlayersLoaded: {fileID: 0}
+  GameScene: Assets/Scenes/Game.unity
+  LobbyScene: Assets/Scenes/Lobby.unity
 --- !u!4 &1344363389
 Transform:
   m_ObjectHideFlags: 0

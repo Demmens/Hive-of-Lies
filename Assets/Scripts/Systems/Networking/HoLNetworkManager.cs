@@ -19,15 +19,20 @@ public class HoLNetworkManager : NetworkManager
     [Tooltip("The event to invoke when a player loads into the game")]
     [SerializeField] NetworkingGameEvent playerLoaded;
 
+    [Tooltip("The event to invoke when all players have loaded into the game")]
+    [SerializeField] GameEvent allPlayersLoaded;
+
     [Tooltip("The scene we consider to be the game scene")]
-    public Scene GameScene;
+    [Scene]
+    public string GameScene;
 
     [Tooltip("The scene we consider to be the lobby scene")]
-    public Scene LobbyScene;
+    [Scene]
+    public string LobbyScene;
 
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
-        if (SceneManager.GetActiveScene() == LobbyScene)
+        if (SceneManager.GetActiveScene().name == LobbyScene)
         {
             PlayerObjectController GamePlayerInstance = Instantiate(GamePlayerPrefab);
 
@@ -41,7 +46,7 @@ public class HoLNetworkManager : NetworkManager
 
     public void StartGame()
     {
-        ServerChangeScene(GameScene.name);
+        ServerChangeScene(GameScene);
         playerCount.Value = SteamMatchmaking.GetNumLobbyMembers(SteamLobby.LobbyID);
         Debug.Log($"Started game with {playerCount.Value} players");
     }
@@ -50,7 +55,7 @@ public class HoLNetworkManager : NetworkManager
     {
         base.OnServerReady(conn);
 
-        if (SceneManager.GetActiveScene() == GameScene)
+        if (SceneManager.GetActiveScene().name == GameScene)
         {
             playerLoaded?.Invoke(conn);
             if (++playersLoaded == playerCount)
@@ -58,7 +63,7 @@ public class HoLNetworkManager : NetworkManager
                 Debug.Log("All players loaded");
                 StartCoroutine(Coroutines.Delay(0.5f, () =>
                 {
-                    NetworkServer.SendToAll(new TellAllPlayersReadyMsg() { });
+                    allPlayersLoaded.Invoke();
                 }));
             }
         }
