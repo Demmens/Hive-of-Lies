@@ -2752,7 +2752,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 399537771}
-  - component: {fileID: 399537770}
   m_Layer: 0
   m_Name: Phases
   m_TagString: Untagged
@@ -2760,23 +2759,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &399537770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 399537764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 304410080
-  serverOnly: 1
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!4 &399537771
 Transform:
   m_ObjectHideFlags: 0
@@ -5355,6 +5337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7bfbd1772ce1e40bb31cf2d3d57993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   RoleName: {fileID: 45286344}
   Favour: {fileID: 721782995}
   RoleCard: {fileID: 6331558722751170962, guid: 72d1b9289b9756e4fa6fb9f537ab69a4, type: 3}
@@ -5362,6 +5346,10 @@ MonoBehaviour:
   RoleBackground: {fileID: 0}
   WaspColour: {r: 0, g: 0, b: 0, a: 0}
   BeeColour: {r: 0, g: 0, b: 0, a: 0}
+  playersByConnection: {fileID: 0}
+  allRoles: {fileID: 0}
+  playerCount: {fileID: 0}
+  allPlayersChosenRoles: {fileID: 0}
 --- !u!4 &721782992
 Transform:
   m_ObjectHideFlags: 0
@@ -5442,8 +5430,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257ab07a55b55eb4eb89e3381b4fd9e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   playerList: {fileID: 1869263836}
   playerButton: {fileID: 8493164326477725227, guid: 141aa0a19c3b95447a559b9f1b764a14, type: 3}
+  serverPlayersLoaded: {fileID: 0}
 --- !u!114 &721782997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14652,12 +14643,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  FreeRolls: 2
-  FirstRerollCost: 4
-  GlobalRollCostMod: 0
-  FreeDraws: 2
-  FirstDrawCost: 4
-  GlobalDrawCostMod: 0
+  freeDraws: {fileID: 0}
+  firstDrawCost: {fileID: 0}
+  globalDrawCostMod: {fileID: 0}
 --- !u!1 &1838789497
 GameObject:
   m_ObjectHideFlags: 0
