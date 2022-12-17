@@ -17,7 +17,7 @@ public class HoLNetworkManager : NetworkManager
     [SerializeField] IntVariable playerCount;
 
     [Tooltip("The event to invoke when a player loads into the game")]
-    [SerializeField] NetworkingGameEvent playerLoaded;
+    [SerializeField] NetworkingEvent playerLoaded;
 
     [Tooltip("The event to invoke when all players have loaded into the game")]
     [SerializeField] GameEvent allPlayersLoaded;
