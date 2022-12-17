@@ -49,11 +49,21 @@ public abstract class Variable<T> : ScriptableObject
             OnVariableChanged?.Invoke(currentValue, ref value);
 
             currentValue = value;
+
+            AfterVariableChanged?.Invoke(this);
         } 
     }
 
     public delegate void VariableChanged(T oldVal, ref T newVal);
+    /// <summary>
+    /// Invoked when the value of the variable is changed. Can be used to modify the value the variable is being changed into.
+    /// </summary>
     public event VariableChanged OnVariableChanged;
+
+    /// <summary>
+    /// Invoked after the variable is changed. Can be used to check the value of a variable after all modifications.
+    /// </summary>
+    public event System.Action<Variable<T>> AfterVariableChanged;
 
     private void OnEnable()
     {
