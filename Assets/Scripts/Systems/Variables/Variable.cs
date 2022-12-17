@@ -50,7 +50,7 @@ public abstract class Variable<T> : ScriptableObject
 
             currentValue = value;
 
-            AfterVariableChanged?.Invoke(this);
+            AfterVariableChanged?.Invoke(currentValue);
         } 
     }
 
@@ -63,7 +63,7 @@ public abstract class Variable<T> : ScriptableObject
     /// <summary>
     /// Invoked after the variable is changed. Can be used to check the value of a variable after all modifications.
     /// </summary>
-    public event System.Action<Variable<T>> AfterVariableChanged;
+    public event System.Action<T> AfterVariableChanged;
 
     private void OnEnable()
     {
