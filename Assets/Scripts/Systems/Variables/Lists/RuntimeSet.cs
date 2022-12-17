@@ -14,17 +14,17 @@ public abstract class RuntimeSet<T> : Variable<List<T>>
     public void Add(T item) {
         if (Value.Contains(item)) return;
 
-        BeforeItemAdded.Invoke(item);
+        BeforeItemAdded?.Invoke(item);
         Value.Add(item);
-        AfterItemAdded.Invoke(item);
+        AfterItemAdded?.Invoke(item);
     }
 
     public void Remove(T item)
     {
         if (!Value.Contains(item)) return;
 
-        BeforeItemRemoved.Invoke(item);
+        BeforeItemRemoved?.Invoke(item);
         Value.Remove(item);
-        AfterItemRemoved.Invoke(item);
+        AfterItemRemoved?.Invoke(item);
     }
 }
