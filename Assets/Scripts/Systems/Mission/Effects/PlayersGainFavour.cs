@@ -16,7 +16,6 @@ public class PlayersGainFavour : MissionEffect
         foreach (HoLPlayer ply in players.Value)
         {
             ply.Favour.Value += favourGain;
-            ply.Connection.Send(new ChangeFavourMsg() { favourIncrease = favourGain });
         }
         EndEffect();
     }

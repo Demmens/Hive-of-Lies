@@ -83,11 +83,6 @@ public class PhaseController : MonoBehaviour
             ply.Favour.Value += favourGainPerRound;
         }
 
-        NetworkServer.SendToAll(new ChangeFavourMsg()
-        {
-            favourIncrease = favourGainPerRound
-        });
-
         phases[0].ChangePhase();
     }
 }

@@ -91,11 +91,10 @@ public class VoteUI : MonoBehaviour
     /// </summary>
     public void IncreaseVote()
     {
-        favourController.Favour -= upVoteCost;
         numVotes++;
 
         noVote.SetActive(true);
-        if (upVoteCost > favourController.Favour) yesVote.SetActive(false);
+        //if (upVoteCost > favourController.Favour) yesVote.SetActive(false);
 
         NetworkClient.Send(new PlayerChangeVoteMsg() {increased = true});
     }
@@ -105,11 +104,11 @@ public class VoteUI : MonoBehaviour
     /// </summary>
     public void DecreaseVote()
     {
-        favourController.Favour -= downVoteCost;
+        //favourController.Favour -= downVoteCost;
         numVotes--;
 
         yesVote.SetActive(true);
-        if (downVoteCost > favourController.Favour) noVote.SetActive(false);
+        //if (downVoteCost > favourController.Favour) noVote.SetActive(false);
 
         NetworkClient.Send(new PlayerChangeVoteMsg() { increased = false });
     }

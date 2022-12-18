@@ -26,7 +26,7 @@ public class StandOrPassUI : MonoBehaviour
         favourCost = msg.favourCost;
         FavourCost.text = $"{favourCost}f";
         //If we can't afford to stand, disable the button.
-        if (favourCost > Favour.Favour) StandButton.SetActive(false);
+        //if (favourCost > Favour.Favour) StandButton.SetActive(false);
         UI.SetActive(true);
     }
 
@@ -36,7 +36,7 @@ public class StandOrPassUI : MonoBehaviour
 
         stood = standing;
 
-        if (standing) Favour.Favour -= favourCost;
+        //if (standing) Favour.Favour -= favourCost;
 
         NetworkClient.Send(new PlayerStandOrPassMsg()
         {
@@ -52,7 +52,7 @@ public class StandOrPassUI : MonoBehaviour
     {
         if (stood && msg.ID != SteamUser.GetSteamID().m_SteamID)
         {
-            Favour.Favour += favourCost;
+            //Favour.Favour += favourCost;
         }
     }
 }

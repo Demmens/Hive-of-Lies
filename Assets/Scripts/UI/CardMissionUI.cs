@@ -68,7 +68,7 @@ public class CardMissionUI : MonoBehaviour
     /// </summary>
     public void DrawNewCard()
     {
-        favourController.Favour -= nextDrawCost;
+        //favourController.Favour -= nextDrawCost;
         drawResult.text = "-";
         numDraws++;
         drawButton.SetActive(false);
@@ -88,7 +88,7 @@ public class CardMissionUI : MonoBehaviour
         drawButton.SetActive(true);
 
         nextDrawCost = costCalc.CalculateDrawCost(numDraws);
-        if (favourController.Favour < nextDrawCost) drawButton.SetActive(false);
+        //if (favourController.Favour < nextDrawCost) drawButton.SetActive(false);
     }
 
     /// <summary>

@@ -114,10 +114,6 @@ public class StandOrPass : GamePhase
             foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in players.Value)
             {
                 pair.Value.Favour.Value -= favourLostForNobodyStanding;
-                pair.Key.Send(new SetFavourMsg()
-                {
-                    newFavour = pair.Value.Favour
-                });
             }
             onNobodyStood?.Invoke();
             return;

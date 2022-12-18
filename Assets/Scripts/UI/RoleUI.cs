@@ -75,7 +75,6 @@ public class RoleUI : NetworkBehaviour
         }
 
         RoleName.text = data.RoleName;
-        Favour.Favour = data.StartingFavour;
 
         AssignPlayerRole(data);
     }
