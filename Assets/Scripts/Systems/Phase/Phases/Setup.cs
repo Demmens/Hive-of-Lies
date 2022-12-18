@@ -40,13 +40,11 @@ public class Setup : GamePhase
     [Tooltip("Dictionary of Players and their respective NetworkConnections")]
     [SerializeField] HoLPlayerDictionary playersByNetworkConnection;
 
-    [Tooltip("Runtime set of all the roles in the game")]
-    [SerializeField] RoleSet allRoles;
+    [Tooltip("Invoked when all the setup logic is completed")]
+    [SerializeField] GameEvent setupFinished;
 
-    /// <summary>
-    /// Temporary list of all players in the game
-    /// </summary>
-    List<Player> players = new List<Player>();
+    [Tooltip("Must be a prefab containing a HoLPlayer script")]
+    [SerializeField] GameObject playerObject;
 
     /// <summary>
     /// The steam IDs of all players currently in the lobby. Used to sync player buttons with clients
@@ -64,39 +62,33 @@ public class Setup : GamePhase
         }
     }
 
-    private void Start()
+    public override void OnStartClient()
     {
-        NetworkServer.RegisterHandler<PlayerReadyMsg>(OnPlayerReady);
-        NetworkServer.RegisterHandler<PlayerSelectedRoleMsg>(PlayerSelectedRole);
+        base.OnStartClient();
+        Debug.Log($"Client connection = {NetworkClient.connection}");
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        Debug.Log($"Local player connection = {NetworkClient.connection}");
     }
 
     /// <summary>
-    /// Called when a player loads into the game
+    /// Logic to execute when a player loads into the game
     /// </summary>
-    void OnPlayerReady(NetworkConnection conn, PlayerReadyMsg msg)
+    public void OnPlayerReady(NetworkConnection conn)
     {
-        Debug.Log($"{SteamFriends.GetFriendPersonaName(msg.playerID)} has loaded into the lobby");
         //If for whatever reason this is called twice on a client
-        if (playerIDs.Contains(msg.playerID)) return;
+        if (playersByNetworkConnection.Value.TryGetValue(conn, out HoLPlayer pl)) return;
 
-        playerIDs.Add(msg.playerID);
-        NetworkServer.SendToAll(new PlayerReadyMsg()
-        {
-            playerID = msg.playerID,
-            loadedPlayers = playerIDs
-        });
-
-        Debug.Log($"{SteamFriends.GetFriendPersonaName(msg.playerID)} loaded into the game");
-        HoLPlayer ply = new HoLPlayer(/*msg.playerID, conn*/);
+        GameObject playerObj = Instantiate(playerObject);
+        NetworkServer.Spawn(playerObj, conn);
+        HoLPlayer ply = playerObj.GetComponent<HoLPlayer>();
+        ply.DisplayName = "Testing 123";
 
         allPlayers.Add(ply);
-
-        //Begin the setup once all players are in.
-        if (allPlayers.Value.Count == playerCount)
-        {
-            Debug.Log("All players have entered the lobby. Beginning setup.");
-            BeginSetup();
-        }
+        playersByNetworkConnection.Value[conn] = ply;
     }
 
     /// <summary>
@@ -104,6 +96,8 @@ public class Setup : GamePhase
     /// </summary>
     public void BeginSetup()
     {
+        Debug.Log("All players have entered the game. Beginning setup.");
+
         Roles.Shuffle();
         //Shuffle the players so we can randomly assign teams
         allPlayers.Value.Shuffle();
@@ -113,6 +107,9 @@ public class Setup : GamePhase
         AssignTeams(allPlayers.Value);
 
         GiveRoleChoices(allPlayers, Roles);
+
+        setupFinished.Invoke();
+        Debug.Log("Setup Finished");
     }
 
     /// <summary>
@@ -128,12 +125,14 @@ public class Setup : GamePhase
             if (teamCounter >= 1)
             {
                 teamCounter--;
-                ply.Team = new TeamVariable() { Value = Team.Wasp};
+                ply.Team = ScriptableObject.CreateInstance<TeamVariable>();
+                ply.Team.Value = Team.Wasp;
                 waspPlayers.Add(ply);
             }
             else
             {
-                ply.Team = new TeamVariable() { Value = Team.Bee };
+                ply.Team = ScriptableObject.CreateInstance<TeamVariable>();
+                ply.Team.Value = Team.Bee;
                 beePlayers.Add(ply);
             }
         });
@@ -159,41 +158,6 @@ public class Setup : GamePhase
                 }
             }
         }
-
-        foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in playersByNetworkConnection.Value)
-        {
-            pair.Key.Send(new SendRoleInfoMsg
-            {
-                roleChoices = pair.Value.RoleChoices,
-            });
-        }
-    }
-
-    /// <summary>
-    /// Called when a player selects their role
-    /// </summary>
-    public void PlayerSelectedRole(NetworkConnection conn, PlayerSelectedRoleMsg msg)
-    {
-        if (!Active) return;
-
-        RoleData role = msg.role;
-        playersByNetworkConnection.Value.TryGetValue(conn, out HoLPlayer ply);
-        //If the role they selected is not one of their options
-        if (!ply.RoleChoices.Contains(role)) return;
-        GameObject abilityObject = Instantiate(role.Ability);
-        RoleAbility ability = abilityObject.GetComponent<RoleAbility>();
-        ability.Owner = ply;
-        ability.OwnerConnection = conn;
-        NetworkServer.Spawn(ability.gameObject, conn);
-        ply.Favour.Value = role.StartingFavour;
-
-        allRoles.Add(new Role()
-        {
-            Ability = ability,
-            Data = role
-        });
-
-        if (allRoles.Value.Count == playerCount) End();
     }
 
     /// <summary>
@@ -202,20 +166,4 @@ public class Setup : GamePhase
     public override void Begin()
     {
     }
-}
-
-public struct SendRoleInfoMsg : NetworkMessage
-{
-    public List<RoleData> roleChoices;
-}
-
-public struct PlayerReadyMsg : NetworkMessage
-{
-    public CSteamID playerID;
-    public List<CSteamID> loadedPlayers;
-}
-
-public struct PlayerSelectedRoleMsg : NetworkMessage
-{
-    public RoleData role;
 }

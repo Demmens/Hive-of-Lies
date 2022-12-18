@@ -5,40 +5,68 @@ using Mirror;
 using TMPro;
 using UnityEngine.UI;
 
-public class RoleUI : MonoBehaviour
+public class RoleUI : NetworkBehaviour
 {
+    #region CLIENT
     List<GameObject> cards;
 
     [SerializeField] TMP_Text RoleName;
     [SerializeField] FavourController Favour;
     [SerializeField] GameObject RoleCard;
-    [SerializeField] Transform OverlayCanvas;
     [SerializeField] Image RoleBackground;
-
-
     [SerializeField] Color WaspColour;
     [SerializeField] Color BeeColour;
- 
-    private void Start()
+    [SerializeField] Transform OverlayCanvas;
+    #endregion
+
+    [Space]
+    [Space]
+
+    #region SERVER
+    [Tooltip("All players by their network connection")]
+    [SerializeField] HoLPlayerDictionary playersByConnection;
+
+    [Tooltip("Runtime set of all the roles in the game")]
+    [SerializeField] RoleSet allRoles;
+
+    [Tooltip("The amount of players in the game")]
+    [SerializeField] IntVariable playerCount;
+
+    [Tooltip("The event to invoke when all players have chosen their roles")]
+    [SerializeField] GameEvent allPlayersChosenRoles;
+    #endregion
+
+    public override void OnStartClient()
     {
-        NetworkClient.RegisterHandler<SendRoleInfoMsg>(ReceiveRoleInfo);
+        base.OnStartClient();
         cards = new List<GameObject>();
     }
 
-    void ReceiveRoleInfo(SendRoleInfoMsg msg)
+    [Server]
+    public void OnSetupFinished()
     {
-        
-        for (int i = 0; i < msg.roleChoices.Count; i++)
+        foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in playersByConnection.Value)
         {
-            GameObject card = Instantiate(RoleCard, GetCardPositionOnScreen(i, msg.roleChoices.Count), new Quaternion());
+            ReceiveRoleInfo(pair.Key, pair.Value.RoleChoices);
+        }
+    }
+
+    [TargetRpc]
+    public void ReceiveRoleInfo(NetworkConnection conn, List<RoleData> roleChoices)
+    {
+        Debug.Log(roleChoices.Count);
+        for (int i = 0; i < roleChoices.Count; i++)
+        {
+            GameObject card = Instantiate(RoleCard, GetCardPositionOnScreen(i, roleChoices.Count), new Quaternion());
             card.transform.SetParent(OverlayCanvas);
             RoleCard cardScript = card.GetComponent<RoleCard>();
-            cardScript.SetData(msg.roleChoices[i]);
+            cardScript.SetData(roleChoices[i]);
             cardScript.OnRoleCardClicked += RoleCardClicked;
             cards.Add(card);
         }
     }
 
+    [Client]
     void RoleCardClicked(RoleData data)
     {
         foreach (GameObject card in cards)
@@ -49,13 +77,37 @@ public class RoleUI : MonoBehaviour
         RoleName.text = data.RoleName;
         Favour.Favour = data.StartingFavour;
 
-        NetworkClient.Send(new PlayerSelectedRoleMsg()
-        {
-            role = data
-        });
+        AssignPlayerRole(data);
     }
 
-    Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
+    [Command(requiresAuthority = false)]
+    void AssignPlayerRole(RoleData data, NetworkConnectionToClient conn = null)
+    {
+
+        //If the player doesn't exist
+        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        //If the player already has a role
+        if (ply.Role.Value != null) return;
+        //If the role selected isn't one of the players choices
+        if (!ply.RoleChoices.Contains(data)) return;
+
+        GameObject abilityObject = Instantiate(data.Ability);
+        RoleAbility ability = abilityObject.GetComponent<RoleAbility>();
+        ability.Owner = ply;
+        ability.OwnerConnection = conn;
+        NetworkServer.Spawn(ability.gameObject, conn);
+        ply.Favour.Value = data.StartingFavour;
+
+        allRoles.Add(new Role()
+        {
+            Ability = ability,
+            Data = data
+        });
+
+        if (allRoles.Value.Count == playerCount) allPlayersChosenRoles?.Invoke();
+    }
+
+    static Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
     {
         const float margin = 600;
 

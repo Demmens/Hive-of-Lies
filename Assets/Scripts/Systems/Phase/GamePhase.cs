@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 /// <summary>
 /// Represents a phase of the game, e.g. setup, mission vote, etc.
 /// </summary>
-public abstract class GamePhase : MonoBehaviour
+public abstract class GamePhase : NetworkBehaviour
 {
     /// <summary>
     /// Private counterpart of <see cref="Active"/>

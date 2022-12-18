@@ -4,23 +4,37 @@ using UnityEngine;
 using Steamworks;
 using Mirror;
 
-public class PlayerList : MonoBehaviour
+public class PlayerList : NetworkBehaviour
 {
     [SerializeField] GameObject playerList;
     [SerializeField] GameObject playerButton;
 
     List<ulong> playersLoaded;
+
+    [Tooltip("All players that are currently in the game")]
+    [SerializeField] HoLPlayerSet serverPlayersLoaded;
     void Start()
     {
         playersLoaded = new List<ulong>();
-        NetworkClient.RegisterHandler<PlayerReadyMsg>(OnClientLoaded);
     }
 
-    void OnClientLoaded(PlayerReadyMsg msg)
+    /// <summary>
+    /// Called on the server when any player connects to the game
+    /// </summary>
+    /// <param name="conn"></param>
+    public void ServerOnClientLoaded(NetworkConnection conn)
     {
-        for (int i = 0; i < msg.loadedPlayers.Count; i++)
+        List<ulong> loaded = new List<ulong>();
+        serverPlayersLoaded.Value.ForEach(ply => loaded.Add(ply.PlayerID));
+        OnClientLoaded(loaded);
+    }
+
+    [ClientRpc]
+    void OnClientLoaded(List<ulong> loadedPlayers)
+    {
+        for (int i = 0; i < loadedPlayers.Count; i++)
         {
-            ulong id = (ulong)msg.loadedPlayers[i];
+            ulong id = loadedPlayers[i];
             if (playersLoaded.Contains(id)) continue;
 
             GameObject button = Instantiate(playerButton);

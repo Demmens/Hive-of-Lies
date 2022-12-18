@@ -767,10 +767,11 @@ MonoBehaviour:
   - {fileID: 899694251160386601, guid: 15aa3f0230c2b3242b8d28e4d47bd514, type: 3}
   - {fileID: 6495601977097981214, guid: d0c28c3aa3ab1954cbdf1f4c11964e01, type: 3}
   - {fileID: 8587719178297419551, guid: 2a17acd1b5661b148a5127e265bc79bf, type: 3}
+  - {fileID: 5097434248664337755, guid: f9db59c738d4dad4cab58266e796f9a1, type: 3}
   GamePlayerPrefab: {fileID: 7818846157891585568, guid: 63ce2b03da1ac5749a3dc548765ea4cf, type: 3}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
-  playerLoaded: {fileID: 0}
-  allPlayersLoaded: {fileID: 0}
+  playerLoaded: {fileID: 11400000, guid: 9bc7e587cf368614fb629dfe1447a932, type: 2}
+  allPlayersLoaded: {fileID: 11400000, guid: 2a01389b5a31e4f43b833a7913dac777, type: 2}
   GameScene: Assets/Scenes/Game.unity
   LobbyScene: Assets/Scenes/Lobby.unity
 --- !u!4 &1344363389

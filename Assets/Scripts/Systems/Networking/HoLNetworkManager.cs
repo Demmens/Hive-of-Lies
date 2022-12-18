@@ -32,7 +32,7 @@ public class HoLNetworkManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
-        if (SceneManager.GetActiveScene().name == LobbyScene)
+        if (SceneManager.GetActiveScene().path == LobbyScene)
         {
             PlayerObjectController GamePlayerInstance = Instantiate(GamePlayerPrefab);
 
@@ -55,12 +55,11 @@ public class HoLNetworkManager : NetworkManager
     {
         base.OnServerReady(conn);
 
-        if (SceneManager.GetActiveScene().name == GameScene)
+        if (SceneManager.GetActiveScene().path == GameScene)
         {
             playerLoaded?.Invoke(conn);
             if (++playersLoaded == playerCount)
             {
-                Debug.Log("All players loaded");
                 StartCoroutine(Coroutines.Delay(0.5f, () =>
                 {
                     allPlayersLoaded.Invoke();
@@ -69,10 +68,4 @@ public class HoLNetworkManager : NetworkManager
         }
         
     }
-
-}
-
-public struct TellAllPlayersReadyMsg : NetworkMessage
-{
-
 }

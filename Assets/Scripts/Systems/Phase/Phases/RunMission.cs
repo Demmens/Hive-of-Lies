@@ -47,7 +47,7 @@ public class RunMission : GamePhase
 
     private void Start()
     {
-        mission.OnMissionEnded += OnMissionEnded;
+        //mission.OnMissionEnded += OnMissionEnded;
         singleton = this;
     }
     public override void Begin()
