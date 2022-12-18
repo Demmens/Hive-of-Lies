@@ -13,7 +13,7 @@ public abstract class RuntimeSet<T> : Variable<List<T>>
 
     public void Awake()
     {
-        Value = new List<T>();
+        if (Value == null) Value = new List<T>();
     }
 
     public void Add(T item) {
