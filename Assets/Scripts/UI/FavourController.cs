@@ -3,49 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class FavourController : MonoBehaviour
+public class FavourController : NetworkBehaviour
 {
-    public static FavourController singleton;
+    #region CLIENT
     [SerializeField] TMPro.TMP_Text FavourText;
-    private int favour;
+    #endregion
 
-    public int Favour
+    #region SERVER
+    [SerializeField] HoLPlayerDictionary playersByConnection;
+    [SerializeField] HoLPlayerSet allPlayers;
+    #endregion
+
+    public void AfterSetup()
     {
-        get
-        {
-            return favour;
-        }
-        set
-        {
-            favour = value;
-            FavourText.text = $"{value}f";
-        }
+        allPlayers.Value.ForEach(ply => ply.Favour.AfterVariableChanged += ChangeFavour);
     }
 
-    private void Start()
+    public void ChangeFavour(int change)
     {
-        singleton = this;
-        NetworkClient.RegisterHandler<ChangeFavourMsg>(ChangeFavour);
-        NetworkClient.RegisterHandler<SetFavourMsg>(SetFavour);
+        
     }
 
-    void ChangeFavour(ChangeFavourMsg msg)
+    [Command(requiresAuthority = false)]
+    void ServerChangeFavour()
     {
-        Favour += msg.favourIncrease;
+
     }
-
-    void SetFavour(SetFavourMsg msg)
-    {
-        Favour = msg.newFavour;
-    }
-}
-
-public struct ChangeFavourMsg : NetworkMessage
-{
-    public int favourIncrease;
-}
-
-public struct SetFavourMsg : NetworkMessage
-{
-    public int newFavour;
 }
