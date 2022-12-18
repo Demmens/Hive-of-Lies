@@ -32,37 +32,37 @@ public class HoLPlayer : NetworkBehaviour
     /// The team of this player. Whether they are a bee or a wasp.
     /// </summary>
     [HideInInspector]
-    public TeamVariable Team = ScriptableObject.CreateInstance<TeamVariable>();
+    public TeamVariable Team;
 
     /// <summary>
     /// The game's currency. Used for redrawing cards, placing extra votes, and running for team leader.
     /// </summary>
     [HideInInspector]
-    public IntVariable Favour = ScriptableObject.CreateInstance<IntVariable>();
+    public IntVariable Favour;
 
     /// <summary>
     /// The role that the player has. This determines their deck of cards, starting favour, and special ability.
     /// </summary>
     [HideInInspector]
-    public RoleVariable Role = ScriptableObject.CreateInstance<RoleVariable>();
+    public RoleVariable Role;
 
     /// <summary>
     /// How many missions the player has been on in a row. Each level reduces the value of the cards in their deck.
     /// </summary>
     [HideInInspector]
-    public IntVariable Exhaustion = ScriptableObject.CreateInstance<IntVariable>();
+    public IntVariable Exhaustion;
 
     /// <summary>
     /// How much favour it costs to draw another card
     /// </summary>
     [HideInInspector]
-    public IntVariable NextDrawCost = ScriptableObject.CreateInstance<IntVariable>();
+    public IntVariable NextDrawCost;
 
     /// <summary>
     /// How much favour it costs to place another vote
     /// </summary>
     [HideInInspector]
-    public IntVariable NextVoteCost = ScriptableObject.CreateInstance<IntVariable>();
+    public IntVariable NextVoteCost;
 
     /// <summary>
     /// List of the choices of roles the player will have at the start of the game
@@ -70,4 +70,14 @@ public class HoLPlayer : NetworkBehaviour
     [HideInInspector]
     public List<RoleData> RoleChoices = new List<RoleData>();
     #endregion
+
+    private void Awake()
+    {
+        Team = ScriptableObject.CreateInstance<TeamVariable>();
+        Favour = ScriptableObject.CreateInstance<IntVariable>();
+        Role = ScriptableObject.CreateInstance<RoleVariable>();
+        Exhaustion = ScriptableObject.CreateInstance<IntVariable>();
+        NextDrawCost = ScriptableObject.CreateInstance<IntVariable>();
+        NextVoteCost = ScriptableObject.CreateInstance<IntVariable>();
+    }
 }
