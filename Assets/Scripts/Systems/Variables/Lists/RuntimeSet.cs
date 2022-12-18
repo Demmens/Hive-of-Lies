@@ -11,6 +11,11 @@ public abstract class RuntimeSet<T> : Variable<List<T>>
     public event ListChanged BeforeItemRemoved;
     public event ListChanged AfterItemRemoved;
 
+    public void Awake()
+    {
+        Value = new List<T>();
+    }
+
     public void Add(T item) {
         if (Value.Contains(item)) return;
 
