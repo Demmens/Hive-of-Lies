@@ -144,6 +144,7 @@ public class GameInfo : MonoBehaviour
 /// <summary>
 /// All the information of a role. Contains RoleData and instantiated RoleAbility.
 /// </summary>
+[System.Serializable]
 public class Role
 {
     /// <summary>
