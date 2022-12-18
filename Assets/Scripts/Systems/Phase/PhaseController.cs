@@ -28,9 +28,6 @@ public class PhaseController : MonoBehaviour
     [Tooltip("All players")]
     [SerializeField] HoLPlayerSet players;
 
-    [Tooltip("Reset the round when this event is invoked")]
-    [SerializeField] GameEvent resetRound;
-
     void Start()
     {
         //Give all events a reference to the event system. Saves having to do a FindObjectOfType on each child class of GamePhase.
