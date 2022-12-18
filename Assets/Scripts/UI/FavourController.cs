@@ -6,27 +6,29 @@ using Mirror;
 public class FavourController : NetworkBehaviour
 {
     #region CLIENT
-    [SerializeField] TMPro.TMP_Text FavourText;
+    [SerializeField] TMPro.TMP_Text favourText;
+
+    [Tooltip("The favour of the local player")]
+    [SerializeField] IntVariable favour;
     #endregion
 
     #region SERVER
+    [Tooltip("Dictionary of all players by their NetworkConnection")]
     [SerializeField] HoLPlayerDictionary playersByConnection;
+
+    [Tooltip("Set of all players in the game")]
     [SerializeField] HoLPlayerSet allPlayers;
     #endregion
 
     public void AfterSetup()
     {
-        allPlayers.Value.ForEach(ply => ply.Favour.AfterVariableChanged += ChangeFavour);
+        allPlayers.Value.ForEach(ply => ply.OnFavourChanged += ChangeFavourUI);
     }
 
-    public void ChangeFavour(int change)
+    [TargetRpc]
+    public void ChangeFavourUI(NetworkConnection conn, int change)
     {
-        
-    }
-
-    [Command(requiresAuthority = false)]
-    void ServerChangeFavour()
-    {
-
+        favourText.text = change.ToString();
+        favour.Value = change;
     }
 }

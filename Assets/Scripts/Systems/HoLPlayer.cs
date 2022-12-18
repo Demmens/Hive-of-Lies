@@ -71,6 +71,8 @@ public class HoLPlayer : NetworkBehaviour
     public List<RoleData> RoleChoices = new List<RoleData>();
     #endregion
 
+    public event System.Action<NetworkConnection, int> OnFavourChanged;
+
     private void Awake()
     {
         Team = ScriptableObject.CreateInstance<TeamVariable>();
@@ -79,5 +81,9 @@ public class HoLPlayer : NetworkBehaviour
         Exhaustion = ScriptableObject.CreateInstance<IntVariable>();
         NextDrawCost = ScriptableObject.CreateInstance<IntVariable>();
         NextVoteCost = ScriptableObject.CreateInstance<IntVariable>();
+
+        Favour.AfterVariableChanged += (change) => OnFavourChanged?.Invoke(Connection, change);
     }
+
+
 }
