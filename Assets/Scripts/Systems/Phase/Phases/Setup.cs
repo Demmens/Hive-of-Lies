@@ -62,12 +62,6 @@ public class Setup : GamePhase
         }
     }
 
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        Debug.Log($"Client connection = {NetworkClient.connection}");
-    }
-
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
@@ -104,7 +98,7 @@ public class Setup : GamePhase
         //Shuffle the roles so we can randomly dish them out to players
         //Roles.Shuffle();
 
-        AssignTeams(allPlayers.Value);
+        AssignTeams(allPlayers);
 
         GiveRoleChoices(allPlayers, Roles);
 
