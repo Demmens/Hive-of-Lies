@@ -5,8 +5,9 @@ using TMPro;
 using Mirror;
 using Steamworks;
 
-public class MissionUI : MonoBehaviour
+public class MissionUI : NetworkBehaviour
 {
+    #region CLIENT
     [SerializeField] GameObject missionUI;
     [SerializeField] TMP_Text missionName;
     [SerializeField] TMP_Text missionFlavour;
@@ -22,31 +23,33 @@ public class MissionUI : MonoBehaviour
     [SerializeField] TMP_Text missionCost;
 
     List<GameObject> cards = new List<GameObject>();
+    #endregion
 
-    private void Start()
+    #region SERVER
+    [Tooltip("List of all the possible mission options")]
+    [SerializeField] MissionSet missionChoices;
+    #endregion
+
+    public void OnMissionChoicesDecided()
     {
-        // Listen for server sending us information
-        NetworkClient.RegisterHandler<SendMissionChoicesMsg>(CreateMissionCards);
-        NetworkClient.RegisterHandler<SendDecidedMissionMsg>(ChangeMission);
-
-        ClientEventProvider.singleton.OnTeamLeaderChangePartner += OnTeamLeaderChangePartner;
-        ClientEventProvider.singleton.OnTeamLeaderChanged += OnTeamLeaderDecided;
+        CreateMissionCards(missionChoices);
     }
 
     /// <summary>
     /// Creates the mission cards on the screen
     /// </summary>
     /// <param name="choices"></param>
-    void CreateMissionCards(SendMissionChoicesMsg msg)
+    [ClientRpc]
+    void CreateMissionCards(List<Mission> choices)
     {
         Debug.Log("Received mission choices");
-        for (int i = 0; i < msg.choices.Count; i++)
+        for (int i = 0; i < choices.Count; i++)
         {
-            GameObject card = Instantiate(missionCard, GetCardPositionOnScreen(i, msg.choices.Count), new Quaternion());
+            GameObject card = Instantiate(missionCard, GetCardPositionOnScreen(i, choices.Count), new Quaternion());
             card.transform.SetParent(OverlayCanvas);
 
             MissionCard cardScript = card.GetComponent<MissionCard>();
-            cardScript.SetData(msg.choices[i]);
+            cardScript.SetData(choices[i]);
             cardScript.OnMissionCardClicked += MissionCardClicked;
             cards.Add(card);
 
@@ -94,28 +97,24 @@ public class MissionUI : MonoBehaviour
         {
             Destroy(card);
         }
-
-        NetworkClient.Send(new PlayerVotedOnMissionMsg()
-        {
-            mission = data
-        });
     }
 
-    void ChangeMission(SendDecidedMissionMsg msg)
+    [ClientRpc]
+    void ChangeMission(Mission mission)
     {
         ClientGameInfo.singleton.CurrentlySelected = new List<ulong>();
         cards = new List<GameObject>();
         missionUI.SetActive(true);
-        missionName.text = msg.mission.MissionName;
-        missionFlavour.text = msg.mission.Description;
-        successFlavour.text = msg.mission.SuccessFlavour;
-        failFlavour.text = msg.mission.FailFlavour;
-        missionCost.text = $"Mission Cost: {msg.mission.FavourCost}f";
+        missionName.text = mission.MissionName;
+        missionFlavour.text = mission.Description;
+        successFlavour.text = mission.SuccessFlavour;
+        failFlavour.text = mission.FailFlavour;
+        missionCost.text = $"Mission Cost: {mission.FavourCost}f";
         teamLeaderName.text = "Undecided";
         missionPlayerList.text = "Undecided";
 
-        successEffect.text = CreateStringFromList(msg.mission.SuccessEffects);
-        failEffect.text = CreateStringFromList(msg.mission.FailEffects);
+        successEffect.text = CreateStringFromList(mission.SuccessEffects);
+        failEffect.text = CreateStringFromList(mission.FailEffects);
     }
 
     /// <summary>

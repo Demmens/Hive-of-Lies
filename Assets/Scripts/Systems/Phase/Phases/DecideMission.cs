@@ -42,7 +42,14 @@ public class DecideMission : GamePhase
     [Tooltip("The currently active mission")]
     [SerializeField] MissionVariable currentMission;
 
-    [HideInInspector] public List<Mission> CompletedMissions = new List<Mission>();
+    [Tooltip("The set of all completed missions")]
+    [HideInInspector] MissionSet completedMissions;
+
+    [Tooltip("The missions that players are choosing between")]
+    [HideInInspector] MissionSet decidedMissionChoices;
+
+    [Tooltip("Event to invoke when the mission choices have been picked")]
+    [HideInInspector] GameEvent onMissionChoicesDecided;
 
     /// <summary>
     /// Who has voted for which mission, and how many votes in total that mission has
@@ -62,9 +69,6 @@ public class DecideMission : GamePhase
 
     void Start()
     {
-        //Listen for player voting
-        NetworkServer.RegisterHandler<PlayerVotedOnMissionMsg>(PlayerVoted);
-
         //Keep track of all the lists we find that are valid for this game
         List<MissionList> possibleLists = new List<MissionList>();
 
@@ -98,11 +102,11 @@ public class DecideMission : GamePhase
         //Pure list of missions to send to clients
         List<Mission> choices = new List<Mission>();
 
-
-        // Find {MissionChoices} random missions from the list of missions given their particular weightings.
-        // Useful to imagine as taking balls out of a bag and each mission is a different colour of ball.
-        // The number of balls in the bag of any given colour is equal to the weighting of the mission.
-        
+        /*
+        * Find {MissionChoices} random missions from the list of missions given their particular weightings.
+        * Useful to imagine as taking balls out of a bag and each mission is a different colour of ball.
+        * The number of balls in the bag of any given colour is equal to the weighting of the mission.
+        */
 
         //Total Weight
         float total = 0;
@@ -158,10 +162,8 @@ public class DecideMission : GamePhase
             }
         }
 
-        NetworkServer.SendToAll(new SendMissionChoicesMsg
-        {
-            choices = choices
-        });
+        decidedMissionChoices.Value = choices;
+        onMissionChoicesDecided?.Invoke();
     }
 
     /// <summary>
@@ -169,7 +171,8 @@ public class DecideMission : GamePhase
     /// </summary>
     /// <param name="ply">The player that voted</param>
     /// <param name="mission">The mission they voted for</param>
-    public void PlayerVoted(NetworkConnection conn, PlayerVotedOnMissionMsg msg)
+    [Command(requiresAuthority = false)]
+    public void PlayerVoted(Mission vote, NetworkConnectionToClient conn = null)
     {
         if (!Active) return;
 
@@ -180,12 +183,12 @@ public class DecideMission : GamePhase
         if (TotalVotes.Contains(ply)) return;
 
         //Make sure they're voting on a valid mission.
-        if (!MissionVotes.TryGetValue(msg.mission, out Tuple)) return;
+        if (!MissionVotes.TryGetValue(vote, out Tuple)) return;
 
         Tuple.Item1.Add(ply);
         Tuple.Item2++;
 
-        MissionVotes[msg.mission] = Tuple;
+        MissionVotes[vote] = Tuple;
         TotalVotes.Add(ply);
 
         if (TotalVotes.Count >= playerCount)
@@ -215,26 +218,7 @@ public class DecideMission : GamePhase
         }
 
         currentMission.Value = DecidedMission;
-        NetworkServer.SendToAll(new SendDecidedMissionMsg()
-        {
-            mission = DecidedMission
-        });
 
         End();
     }
-}
-
-public struct PlayerVotedOnMissionMsg : NetworkMessage
-{
-    public Mission mission;
-}
-
-public struct SendMissionChoicesMsg : NetworkMessage
-{
-    public List<Mission> choices;
-}
-
-public struct SendDecidedMissionMsg : NetworkMessage
-{
-    public Mission mission;
 }
