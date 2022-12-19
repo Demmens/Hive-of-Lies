@@ -97,11 +97,13 @@ public class RoleUI : NetworkBehaviour
         NetworkServer.Spawn(ability.gameObject, conn);
         ply.Favour.Value = data.StartingFavour;
 
-        allRoles.Add(new Role()
+        Role role = new()
         {
             Ability = ability,
             Data = data
-        });
+        };
+
+        allRoles.Add(role);
 
         if (allRoles.Value.Count == playerCount) allPlayersChosenRoles?.Invoke();
     }
