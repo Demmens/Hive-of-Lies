@@ -87,6 +87,7 @@ public class DecideMission : GamePhase
     /// <summary>
     /// Determine what the mission choices given to the players should be
     /// </summary>
+    [Server]
     public override void Begin()
     {
         TotalVotes = new List<HoLPlayer>();
@@ -204,6 +205,7 @@ public class DecideMission : GamePhase
     /// <summary>
     /// Determine which mission won the vote. This becomes the active mission
     /// </summary>
+    [Server]
     void DetermineMission()
     {
         int maxVotes = int.MinValue;
