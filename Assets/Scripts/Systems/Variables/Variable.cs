@@ -67,7 +67,7 @@ public abstract class Variable<T> : ScriptableObject
 
     private void OnEnable()
     {
-        //Set _value to bypass all the code that runs from setting Value
+        //Set currentValue to bypass all the code that runs from setting Value
         currentValue = initialValue;
     }
 }
