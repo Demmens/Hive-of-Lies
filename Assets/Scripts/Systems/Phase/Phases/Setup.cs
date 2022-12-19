@@ -62,15 +62,10 @@ public class Setup : GamePhase
         }
     }
 
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
-        Debug.Log($"Local player connection = {NetworkClient.connection}");
-    }
-
     /// <summary>
     /// Logic to execute when a player loads into the game
     /// </summary>
+    [Server]
     public void OnPlayerReady(NetworkConnection conn)
     {
         //If for whatever reason this is called twice on a client
@@ -79,7 +74,7 @@ public class Setup : GamePhase
         GameObject playerObj = Instantiate(playerObject);
         NetworkServer.Spawn(playerObj, conn);
         HoLPlayer ply = playerObj.GetComponent<HoLPlayer>();
-        ply.DisplayName = "Testing 123";
+        ply.Connection = conn;
 
         allPlayers.Add(ply);
         playersByNetworkConnection.Value[conn] = ply;
@@ -88,6 +83,7 @@ public class Setup : GamePhase
     /// <summary>
     /// Run the game setup. This includes handing out roles and selecting teams.
     /// </summary>
+    [Server]
     public void BeginSetup()
     {
         Debug.Log("All players have entered the game. Beginning setup.");
@@ -109,6 +105,7 @@ public class Setup : GamePhase
     /// <summary>
     /// Assign a team to each player
     /// </summary>
+    [Server]
     void AssignTeams(List<HoLPlayer> plys)
     {
         //Increments to determine whether a player should be an innocent or a traitor
@@ -135,6 +132,7 @@ public class Setup : GamePhase
     /// <summary>
     /// Give players a selection of roles to choose from
     /// </summary>
+    [Server]
     void GiveRoleChoices(List<HoLPlayer> plys, List<RoleData> roles)
     {
         foreach (HoLPlayer ply in plys)

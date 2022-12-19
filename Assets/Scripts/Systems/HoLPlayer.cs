@@ -84,6 +84,4 @@ public class HoLPlayer : NetworkBehaviour
 
         Favour.AfterVariableChanged += (change) => OnFavourChanged?.Invoke(Connection, change);
     }
-
-
 }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 318260299599182695}
-  - component: {fileID: 1008451856635131553}
+  - component: {fileID: 4047084643895098614}
   - component: {fileID: 5117767626438882711}
   - component: {fileID: 4047983992099605835}
   - component: {fileID: 76766233332538370}
@@ -41,7 +41,7 @@ RectTransform:
   m_AnchoredPosition: {x: 122.828705, y: 95.39661}
   m_SizeDelta: {x: 250, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1008451856635131553
+--- !u!114 &4047084643895098614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,20 +50,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 205979621856117646}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56f86f537c9633846a56bb41dbd7acc1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Events: []
+  Events:
+  - {fileID: 11400000, guid: 78cfefec714f52749a9d7e5f2ac0fb22, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 205979621856117646}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 4047983992099605835}
+        m_TargetAssemblyTypeName: FavourController, Assembly-CSharp
+        m_MethodName: AfterSetup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -102,8 +103,7 @@ MonoBehaviour:
   syncInterval: 0.1
   favourText: {fileID: 3728589670518208065}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
-  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
-    type: 2}
+  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
 --- !u!222 &76766233332538370
 CanvasRenderer:
