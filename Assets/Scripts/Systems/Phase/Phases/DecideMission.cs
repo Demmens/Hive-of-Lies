@@ -115,7 +115,7 @@ public class DecideMission : GamePhase
         missionDataChoices.ForEach(miss =>
         {
             //Only add missions if we meet the condition
-            if (miss.Mission.Condition.Condition())
+            if (miss.Mission.Condition == null || miss.Mission.Condition.Condition())
             {
                 total += miss.Weight;
                 missionChoices.Add((miss.Mission, total)); //Set each weight to be cumulative so we can find actual probabilities later.
