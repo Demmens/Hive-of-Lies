@@ -42,7 +42,6 @@ public class MissionUI : NetworkBehaviour
     [ClientRpc]
     void CreateMissionCards(List<Mission> choices)
     {
-        Debug.Log("Received mission choices");
         for (int i = 0; i < choices.Count; i++)
         {
             GameObject card = Instantiate(missionCard, GetCardPositionOnScreen(i, choices.Count), new Quaternion());
