@@ -48,6 +48,7 @@ public class RoleUI : NetworkBehaviour
         foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in playersByConnection.Value)
         {
             ReceiveRoleInfo(pair.Key, pair.Value.RoleChoices);
+            allRoles.Value = new();
         }
     }
 
