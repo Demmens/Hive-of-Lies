@@ -8,7 +8,7 @@ using Mirror;
 /// </summary>
 public class DecideMission : GamePhase
 {
-
+    #region SERVER
     /// <summary>
     /// List of all possible mission lists for all possible player counts.
     /// </summary>
@@ -50,6 +50,13 @@ public class DecideMission : GamePhase
 
     [Tooltip("Event to invoke when the mission choices have been picked")]
     [SerializeField] GameEvent onMissionChoicesDecided;
+    #endregion
+
+    #region CLIENT
+    [SerializeField] GameObject missionCard;
+    List<GameObject> cards = new List<GameObject>();
+    [SerializeField] Transform OverlayCanvas;
+    #endregion
 
     /// <summary>
     /// Who has voted for which mission, and how many votes in total that mission has
@@ -165,6 +172,53 @@ public class DecideMission : GamePhase
 
         decidedMissionChoices.Value = choices;
         onMissionChoicesDecided?.Invoke();
+        CreateMissionCards(choices);
+    }
+
+    /// <summary>
+    /// Creates the mission cards on the screen
+    /// </summary>
+    /// <param name="choices"></param>
+    [ClientRpc]
+    void CreateMissionCards(List<Mission> choices)
+    {
+        cards = new List<GameObject>();
+        for (int i = 0; i < choices.Count; i++)
+        {
+            GameObject card = Instantiate(missionCard, GetCardPositionOnScreen(i, choices.Count), new Quaternion());
+            card.transform.SetParent(OverlayCanvas);
+
+            MissionCard cardScript = card.GetComponent<MissionCard>();
+            cardScript.SetData(choices[i]);
+            cardScript.OnMissionCardClicked += MissionCardClicked;
+            cards.Add(card);
+        }
+    }
+
+    static Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
+    {
+        const float margin = 600;
+
+        float adjustedWidth = Screen.width - (2 * margin);
+
+        float x = Screen.width / 2;
+        if (cardsTotal > 1)
+        {
+            x = margin + adjustedWidth * (index / (float)(cardsTotal - 1));
+        }
+
+        return new Vector3(x, Screen.height / 2, 0);
+    }
+
+    [Client]
+    void MissionCardClicked(Mission data)
+    {
+        foreach (GameObject card in cards)
+        {
+            Destroy(card);
+        }
+
+        PlayerVoted(data);
     }
 
     /// <summary>
@@ -177,14 +231,13 @@ public class DecideMission : GamePhase
     {
         if (!Active) return;
 
-        (List<HoLPlayer>, int) Tuple;
         players.Value.TryGetValue(conn, out HoLPlayer ply);
 
         //Make sure players don't vote twice.
         if (TotalVotes.Contains(ply)) return;
 
         //Make sure they're voting on a valid mission.
-        if (!MissionVotes.TryGetValue(vote, out Tuple)) return;
+        if (!MissionVotes.TryGetValue(vote, out (List<HoLPlayer>, int) Tuple)) return;
 
         Tuple.Item1.Add(ply);
         Tuple.Item2++;

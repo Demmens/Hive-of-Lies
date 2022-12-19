@@ -14735,6 +14735,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5162943507935562062, guid: 44cea30a81a410142a714005af3b4f32, type: 3}
+      propertyPath: OverlayCanvas
+      value: 
+      objectReference: {fileID: 929806512}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44cea30a81a410142a714005af3b4f32, type: 3}
 --- !u!4 &354825616361086706 stripped
@@ -14766,7 +14770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 318260299599182695, guid: baa1a277f0aaee34d9baa23cb606d3e0, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 318260299599182695, guid: baa1a277f0aaee34d9baa23cb606d3e0, type: 3}
       propertyPath: m_SizeDelta.x

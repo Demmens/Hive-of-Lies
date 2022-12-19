@@ -15,61 +15,11 @@ public class MissionUI : NetworkBehaviour
     [SerializeField] TMP_Text successEffect;
     [SerializeField] TMP_Text failFlavour;
     [SerializeField] TMP_Text failEffect;
-    [SerializeField] GameObject missionCard;
-    [SerializeField] Transform OverlayCanvas;
 
     [SerializeField] TMP_Text teamLeaderName;
     [SerializeField] TMP_Text missionPlayerList;
     [SerializeField] TMP_Text missionCost;
-
-    List<GameObject> cards = new List<GameObject>();
     #endregion
-
-    #region SERVER
-    [Tooltip("List of all the possible mission options")]
-    [SerializeField] MissionSet missionChoices;
-    #endregion
-
-    [Server]
-    public void OnMissionChoicesDecided()
-    {
-        CreateMissionCards(missionChoices);
-    }
-
-    /// <summary>
-    /// Creates the mission cards on the screen
-    /// </summary>
-    /// <param name="choices"></param>
-    [ClientRpc]
-    void CreateMissionCards(List<Mission> choices)
-    {
-        for (int i = 0; i < choices.Count; i++)
-        {
-            GameObject card = Instantiate(missionCard, GetCardPositionOnScreen(i, choices.Count), new Quaternion());
-            card.transform.SetParent(OverlayCanvas);
-
-            MissionCard cardScript = card.GetComponent<MissionCard>();
-            cardScript.SetData(choices[i]);
-            cardScript.OnMissionCardClicked += MissionCardClicked;
-            cards.Add(card);
-
-        }
-    }
-
-    static Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
-    {
-        const float margin = 600;
-
-        float adjustedWidth = Screen.width - (2 * margin);
-
-        float x = Screen.width / 2;
-        if (cardsTotal > 1)
-        {
-            x = margin + adjustedWidth * (index / (float)(cardsTotal - 1));
-        }
-
-        return new Vector3(x, Screen.height / 2, 0);
-    }
 
     /// <summary>
     /// Creates a string from a list of mission effects
@@ -91,20 +41,10 @@ public class MissionUI : NetworkBehaviour
         return res;
     }
 
-    [Client]
-    void MissionCardClicked(Mission data)
-    {
-        foreach (GameObject card in cards)
-        {
-            Destroy(card);
-        }
-    }
-
     [ClientRpc]
     void ChangeMission(Mission mission)
     {
         ClientGameInfo.singleton.CurrentlySelected = new List<ulong>();
-        cards = new List<GameObject>();
         missionUI.SetActive(true);
         missionName.text = mission.MissionName;
         missionFlavour.text = mission.Description;
