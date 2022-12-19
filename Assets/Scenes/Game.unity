@@ -7562,11 +7562,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015690571}
   m_CullTransparentMesh: 1
---- !u!1 &1046889840 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1869307729567203181, guid: 2c3edd72b5951814dbb915f5b4cbf2fc, type: 3}
-  m_PrefabInstance: {fileID: 6245532974065077571}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1056652303
 GameObject:
   m_ObjectHideFlags: 0
@@ -15332,10 +15327,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3375515600982180424, guid: 2c3edd72b5951814dbb915f5b4cbf2fc, type: 3}
-      propertyPath: missionUI
-      value: 
-      objectReference: {fileID: 1046889840}
     - target: {fileID: 3375515600982180424, guid: 2c3edd72b5951814dbb915f5b4cbf2fc, type: 3}
       propertyPath: OverlayCanvas
       value: 

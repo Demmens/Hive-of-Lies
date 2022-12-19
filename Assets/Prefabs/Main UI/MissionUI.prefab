@@ -1004,7 +1004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  missionUI: {fileID: 0}
+  missionUI: {fileID: 1869307729567203181}
   missionName: {fileID: 5063699847819664950}
   missionFlavour: {fileID: 3602609870228909872}
   successFlavour: {fileID: 6386940136141328603}
