@@ -54,7 +54,6 @@ public class RoleUI : NetworkBehaviour
     [TargetRpc]
     public void ReceiveRoleInfo(NetworkConnection conn, List<RoleData> roleChoices)
     {
-        Debug.Log(roleChoices.Count);
         for (int i = 0; i < roleChoices.Count; i++)
         {
             GameObject card = Instantiate(RoleCard, GetCardPositionOnScreen(i, roleChoices.Count), new Quaternion());
