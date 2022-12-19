@@ -56,7 +56,7 @@ public class MissionUI : NetworkBehaviour
         }
     }
 
-    Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
+    static Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
     {
         const float margin = 600;
 
