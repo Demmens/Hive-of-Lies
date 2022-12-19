@@ -21,7 +21,6 @@ public class MissionCard : MonoBehaviour
     public void SetData(Mission data)
     {
         Data = data;
-        Debug.Log(Data.MissionName);
         Name.text = Data.MissionName;
         FavourCost.text = $"{Data.FavourCost}f";
         SuccessEffect.text = MissionUI.CreateStringFromList(Data.SuccessEffects);
