@@ -21,6 +21,20 @@ public class MissionUI : NetworkBehaviour
     [SerializeField] TMP_Text missionCost;
     #endregion
 
+    #region SERVER
+    [Tooltip("The mission that is currently active")]
+    [SerializeField] MissionVariable currentMission;
+
+    [Tooltip("The current team leader")]
+    [SerializeField] HoLPlayerVariable teamLeader;
+    #endregion
+
+    public override void OnStartServer()
+    {
+        currentMission.AfterVariableChanged += ChangeMission;
+        teamLeader.AfterVariableChanged += OnTeamLeaderDecided;
+    }
+
     /// <summary>
     /// Creates a string from a list of mission effects
     /// </summary>
@@ -62,9 +76,10 @@ public class MissionUI : NetworkBehaviour
     /// Called when the team leader is decided
     /// </summary>
     /// <param name="msg"></param>
-    void OnTeamLeaderDecided(TeamLeaderChangedMsg msg)
+    [ClientRpc]
+    void OnTeamLeaderDecided(HoLPlayer ply)
     {
-        teamLeaderName.text = SteamFriends.GetFriendPersonaName(new CSteamID(msg.ID));
+        teamLeaderName.text = ply.DisplayName;
     }
 
     /// <summary>
