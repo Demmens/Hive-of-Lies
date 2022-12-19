@@ -28,9 +28,4 @@ public class RoleAbility : NetworkBehaviour
     public NetworkConnection OwnerConnection;
 
     #endregion
-
-    public override void OnStartAuthority()
-    {
-        Owner = new HoLPlayer();
-    }
 }
