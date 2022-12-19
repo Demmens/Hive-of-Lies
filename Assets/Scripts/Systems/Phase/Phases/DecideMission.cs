@@ -43,13 +43,13 @@ public class DecideMission : GamePhase
     [SerializeField] MissionVariable currentMission;
 
     [Tooltip("The set of all completed missions")]
-    [HideInInspector] MissionSet completedMissions;
+    [SerializeField] MissionSet completedMissions;
 
     [Tooltip("The missions that players are choosing between")]
-    [HideInInspector] MissionSet decidedMissionChoices;
+    [SerializeField] MissionSet decidedMissionChoices;
 
     [Tooltip("Event to invoke when the mission choices have been picked")]
-    [HideInInspector] GameEvent onMissionChoicesDecided;
+    [SerializeField] GameEvent onMissionChoicesDecided;
 
     /// <summary>
     /// Who has voted for which mission, and how many votes in total that mission has

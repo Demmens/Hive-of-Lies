@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cbc1afb2eb04744d8377a4611e56976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   phase: {fileID: 11400000, guid: 77e13a3d9db7ce244853ffae43679355, type: 2}
   missionLists:
   - {fileID: 11400000, guid: f8dc112327b73f54da42cfa3ab2e4412, type: 2}
@@ -54,7 +56,9 @@ MonoBehaviour:
   decidedMissionList: {fileID: 11400000, guid: f0007d2ca6098c649a90108114c7c3bf, type: 2}
   players: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
-  CompletedMissions: []
+  completedMissions: {fileID: 11400000, guid: 33c18e2444b9f1041947a9afb8a706d0, type: 2}
+  decidedMissionChoices: {fileID: 11400000, guid: fa8e39d75c2ce634fb05b9ac70d7cb55, type: 2}
+  onMissionChoicesDecided: {fileID: 11400000, guid: aba833fc5e4ef8c45badf2a1884ef732, type: 2}
 --- !u!114 &-4100112476582232011
 MonoBehaviour:
   m_ObjectHideFlags: 0
