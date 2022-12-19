@@ -30,6 +30,7 @@ public class MissionUI : NetworkBehaviour
     [SerializeField] MissionSet missionChoices;
     #endregion
 
+    [Server]
     public void OnMissionChoicesDecided()
     {
         CreateMissionCards(missionChoices);
@@ -90,6 +91,7 @@ public class MissionUI : NetworkBehaviour
         return res;
     }
 
+    [Client]
     void MissionCardClicked(Mission data)
     {
         foreach (GameObject card in cards)
