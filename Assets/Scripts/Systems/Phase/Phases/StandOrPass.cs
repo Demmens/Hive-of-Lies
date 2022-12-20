@@ -5,9 +5,9 @@ using Mirror;
 using Steamworks;
 
 /// <summary>
-/// All players have the choice to either stand for TeamLeader, or pass. Those who stand must have enough influence.
+/// All players have the choice to either stand for TeamLeader, or pass. Those who stand must have enough favour.
 /// <para></para>
-/// The player with the most influence becomes the TeamLeader.
+/// The player with the most favour becomes the TeamLeader.
 /// </summary>
 public class StandOrPass : GamePhase
 {
@@ -38,6 +38,9 @@ public class StandOrPass : GamePhase
     [Tooltip("All players by their NetworkConnection")]
     [SerializeField] HoLPlayerDictionary players;
 
+    [Tooltip("Invoked when this phase begins")]
+    [SerializeField] GameEvent standOrPassBegin;
+
     /// <summary>
     /// List of players to boost the influence of when deciding TeamLeader
     /// </summary>
@@ -59,21 +62,13 @@ public class StandOrPass : GamePhase
 
     #endregion
 
-    private void Start()
-    {
-        NetworkServer.RegisterHandler<PlayerStandOrPassMsg>(PlayerDecision);
-    }
-
     public override void Begin()
     {
         standingPlayers.Value = new List<HoLPlayer>();
         passedPlayers.Value = new List<HoLPlayer>();
         PlayerBoosts = new Dictionary<HoLPlayer, int>();
 
-        NetworkServer.SendToAll(new StartStandOrPassMsg()
-        {
-            favourCost = currentMission.Value.FavourCost
-        });
+        standOrPassBegin?.Invoke();
     }
 
     /// <summary>
@@ -81,7 +76,8 @@ public class StandOrPass : GamePhase
     /// </summary>
     /// <param name="ply">The player who made the decision</param>
     /// <param name="stood">True if they chose to stand</param>
-    public void PlayerDecision(NetworkConnection conn, PlayerStandOrPassMsg msg)
+    [Command(requiresAuthority = false)]
+    public void PlayerDecision(bool isStanding, NetworkConnectionToClient conn = null)
     {
         Debug.Log("Player has stood or passed");
         if (!Active) return;
@@ -159,20 +155,4 @@ public class StandOrPass : GamePhase
             return result == 0 ? Random.Range(-1, 1) : result;
         });
     }
-}
-
-public struct PlayerStandOrPassMsg : NetworkMessage
-{
-    public bool isStanding;
-}
-
-public struct StartStandOrPassMsg : NetworkMessage
-{
-    public int favourCost;
-}
-
-public struct TeamLeaderChangedMsg : NetworkMessage
-{
-    public ulong ID;
-    public int maxPartners;
 }

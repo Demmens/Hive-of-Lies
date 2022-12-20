@@ -20,12 +20,6 @@ public class ClientEventProvider : MonoBehaviour
     public event MissionResult OnMissionEnd;
 
     /// <summary>
-    /// Invoked when the team leader changes
-    /// </summary>
-    public event TeamLeaderChanged OnTeamLeaderChanged;
-    public delegate void TeamLeaderChanged(TeamLeaderChangedMsg msg);
-
-    /// <summary>
     /// Invoked when a client draws a card. Contains the draw result.
     /// </summary>
     public event PlayerDrew OnPlayerDrew;
@@ -50,7 +44,6 @@ public class ClientEventProvider : MonoBehaviour
         DontDestroyOnLoad(this);
 
         //Register events
-        NetworkClient.RegisterHandler((TeamLeaderChangedMsg msg) => { OnTeamLeaderChanged?.Invoke(msg); });
         NetworkClient.RegisterHandler((DrawCardMsg msg) => {OnPlayerDrew?.Invoke(msg); });
         NetworkClient.RegisterHandler((MissionEndMsg msg) => { OnMissionEnd?.Invoke(msg.result); });
         NetworkClient.RegisterHandler((TeamLeaderStartPickingMsg msg) => { OnTeamLeaderStartPicking?.Invoke(msg.teamLeaderID); });

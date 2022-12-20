@@ -4,55 +4,37 @@ using UnityEngine;
 using Mirror;
 using Steamworks;
 
-public class StandOrPassUI : MonoBehaviour
+public class StandOrPassUI : NetworkBehaviour
 {
+    #region CLIENT
     [SerializeField] GameObject UI;
-    [SerializeField] FavourController Favour;
     [SerializeField] TMPro.TMP_Text FavourCost;
     [SerializeField] GameObject StandButton;
 
-    int favourCost;
-    bool stood;
+    [Tooltip("How much favour the local player has")]
+    [SerializeField] IntVariable favour;
+    #endregion
+    #region SERVER
+    [Tooltip("The currently active mission")]
+    [SerializeField] MissionVariable currentMission;
+    #endregion
 
-    private void Start()
+    public void StandOrPassBegin()
     {
-        //Listen for server sending information over
-        NetworkClient.RegisterHandler<StartStandOrPassMsg>(CreateUI);
-        ClientEventProvider.singleton.OnTeamLeaderChanged += TeamLeaderDecided;
+        CreateUI(currentMission.Value.FavourCost);
     }
 
-    void CreateUI(StartStandOrPassMsg msg)
+    [ClientRpc]
+    void CreateUI(int standCost)
     {
-        favourCost = msg.favourCost;
-        FavourCost.text = $"{favourCost}f";
+        FavourCost.text = $"{standCost}f";
         //If we can't afford to stand, disable the button.
-        //if (favourCost > Favour.Favour) StandButton.SetActive(false);
+        if (standCost > favour) StandButton.SetActive(false);
         UI.SetActive(true);
     }
 
     public void ClickButton(bool standing)
     {
         UI.SetActive(false);
-
-        stood = standing;
-
-        //if (standing) Favour.Favour -= favourCost;
-
-        NetworkClient.Send(new PlayerStandOrPassMsg()
-        {
-            isStanding = standing
-        });
-    }
-
-    /// <summary>
-    /// If the team leader is decided and it wasn't you, refund the cost for standing.
-    /// </summary>
-    /// <param name="msg"></param>
-    void TeamLeaderDecided(TeamLeaderChangedMsg msg)
-    {
-        if (stood && msg.ID != SteamUser.GetSteamID().m_SteamID)
-        {
-            //Favour.Favour += favourCost;
-        }
     }
 }
