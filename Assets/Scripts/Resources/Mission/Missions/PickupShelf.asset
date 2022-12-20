@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51d24175a2938a4fbcb3a8814396e60, type: 3}
+  m_Name: PickupShelf
+  m_EditorClassIdentifier: 
+  missionName: Pickup Shelf
+  description: While trying to organise the library, we knocked over a shelf. Let's
+    spend some time trying to pick it back up again.
+  influenceCost: 0
+  successEffects:
+  - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}
+  successFlavour: The library is still a mess, but at least that shelf is back where
+    it should be.
+  failEffects:
+  - {fileID: 11400000, guid: 88ac73c2e59ffb144a8b2984851ef7c1, type: 2}
+  failFlavour: The shelf is too heavy to pick up. Looks like you'll have to give
+    up on this one.
+  condition: {fileID: 11400000, guid: 10c8a10fe3b048a4c83ea983d0b0b71d, type: 2}

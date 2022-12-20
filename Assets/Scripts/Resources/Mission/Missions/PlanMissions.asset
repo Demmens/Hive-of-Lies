@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51d24175a2938a4fbcb3a8814396e60, type: 3}
+  m_Name: PlanMissions
+  m_EditorClassIdentifier: 
+  missionName: Plan Missions
+  description: Create a detailed plan of all future missions
+  influenceCost: 0
+  successEffects:
+  - {fileID: 11400000, guid: 83c358885e7265e4794da7d77ad6ca12, type: 2}
+  successFlavour: Successfully create a plan, and understand all the potential options.
+  failEffects:
+  - {fileID: 11400000, guid: 0eb0458e3ea61794bbf437ab526ae557, type: 2}
+  failFlavour: There are too many options and you get confused.
+  condition: {fileID: 0}
