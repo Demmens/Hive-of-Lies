@@ -75,6 +75,7 @@ public class Setup : GamePhase
         NetworkServer.Spawn(playerObj, conn);
         HoLPlayer ply = playerObj.GetComponent<HoLPlayer>();
         ply.Connection = conn;
+        ply.DisplayName = "DemTest";
 
         allPlayers.Add(ply);
         playersByNetworkConnection.Value[conn] = ply;
