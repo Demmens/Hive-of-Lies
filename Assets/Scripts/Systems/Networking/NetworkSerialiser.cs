@@ -16,15 +16,29 @@ public static class NetworkSerialiser
     }
 
 
-    public static void WriteMissionData(this NetworkWriter writer, Mission value)
+    public static void WriteMission(this NetworkWriter writer, Mission value)
     {
-        writer.WriteString(value.name);
+        if (value == null)
+        {
+            Debug.LogError("Attempting to send a null mission to client");
+            writer.WriteString("");
+        }
+        else writer.WriteString(value.name);
     }
-    public static Mission ReadMissionData(this NetworkReader reader)
+    public static Mission ReadMission(this NetworkReader reader)
     {
-        return (Mission) Resources.Load($"Mission/Missions/{reader.ReadString()}");
-    }
+        string missionName = reader.ReadString();
+        if (missionName == "")
+        {
+            return null;
+        }
+        if ((Mission) Resources.Load($"Mission/Missions/{missionName}") == null) {
+            Debug.LogError("Cannot find the mission for some reason. Check it's in the correct folder.");
+            return ScriptableObject.CreateInstance<Mission>();
+        }
 
+        return (Mission) Resources.Load($"Mission/Missions/{missionName}");
+    }
 
     public static void WriteCSteamID(this NetworkWriter writer, CSteamID value)
     {
