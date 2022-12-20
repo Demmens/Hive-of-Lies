@@ -9,7 +9,7 @@ public class PlayerList : NetworkBehaviour
     [SerializeField] GameObject playerList;
     [SerializeField] GameObject playerButton;
 
-    List<ulong> playersLoaded;
+    List<ulong> playersLoaded = new List<ulong>();
 
     [Tooltip("All players that are currently in the game")]
     [SerializeField] HoLPlayerSet serverPlayersLoaded;
