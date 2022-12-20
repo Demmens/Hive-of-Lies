@@ -122,7 +122,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1639378814724390784}
         m_TargetAssemblyTypeName: StandOrPassUI, Assembly-CSharp
         m_MethodName: ClickButton
         m_Mode: 6
@@ -362,7 +362,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1639378814724390784}
         m_TargetAssemblyTypeName: StandOrPassUI, Assembly-CSharp
         m_MethodName: ClickButton
         m_Mode: 6

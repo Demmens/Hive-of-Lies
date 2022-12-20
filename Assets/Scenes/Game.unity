@@ -14043,13 +14043,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 719046154894091111, guid: 86cf3626a99236f4cbdc8f07f743a9b7,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickButton
       objectReference: {fileID: 0}
     - target: {fileID: 719046155352673413, guid: 86cf3626a99236f4cbdc8f07f743a9b7,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickButton
       objectReference: {fileID: 0}
     - target: {fileID: 1789097070559436694, guid: 86cf3626a99236f4cbdc8f07f743a9b7,
         type: 3}
