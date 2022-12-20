@@ -19,7 +19,14 @@ public class TeamLeaderPopup : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        teamLeader.AfterVariableChanged += (HoLPlayer leader) => LocalPlayerTeamLeaderPopup(leader.DisplayName);
+        teamLeader.AfterVariableChanged += leader => SetTeamLeader(leader.Connection);
+        teamLeader.AfterVariableChanged += leader => LocalPlayerTeamLeaderPopup(leader.DisplayName);
+    }
+
+    [TargetRpc]
+    void SetTeamLeader(NetworkConnection conn)
+    {
+        isTeamLeader.Value = true;
     }
 
     [ClientRpc]
