@@ -47,10 +47,6 @@ public class StandOrPass : GamePhase
     public Dictionary<HoLPlayer, int> PlayerBoosts;
 
     #region Events
-
-    [Tooltip("Invoked when a player decides to stand or pass")]
-    [SerializeField] GameEvent onPlayerStandOrPass;
-
     [Tooltip("Invoked once all players have decided to stand or pass")]
     [SerializeField] GameEvent onAllPlayersStandOrPass;
 
@@ -72,12 +68,32 @@ public class StandOrPass : GamePhase
     }
 
     /// <summary>
+    /// Called when a player stands for team leader
+    /// </summary>
+    /// <param name="conn"></param>
+    [Server]
+    public void PlayerStood(NetworkConnection conn)
+    {
+        PlayerDecision(conn, true);
+    }
+
+    /// <summary>
+    /// Called when a player passes the opportunity to stand for team leader
+    /// </summary>
+    /// <param name="conn"></param>
+    [Server]
+    public void PlayerPassed(NetworkConnection conn)
+    {
+        PlayerDecision(conn, false);
+    }
+
+    /// <summary>
     /// Called when a player decides to stand or pass
     /// </summary>
     /// <param name="ply">The player who made the decision</param>
     /// <param name="stood">True if they chose to stand</param>
-    [Command(requiresAuthority = false)]
-    public void PlayerDecision(bool isStanding, NetworkConnectionToClient conn = null)
+    [Server]
+    void PlayerDecision(NetworkConnection conn, bool isStanding)
     {
         Debug.Log("Player has stood or passed");
         if (!Active) return;
@@ -86,11 +102,12 @@ public class StandOrPass : GamePhase
         //Make sure they haven't already voted
         if (passedPlayers.Value.Contains(ply) || standingPlayers.Value.Contains(ply)) return;
 
-        if (msg.isStanding) standingPlayers.Add(ply);
+        if (isStanding)
+        {
+            standingPlayers.Add(ply);
+            ply.Favour.Value -= currentMission.Value.FavourCost;
+        }
         else passedPlayers.Add(ply);
-
-        //Invoke event for a player deciding to stand or pass
-        onPlayerStandOrPass?.Invoke();
 
         if (standingPlayers.Value.Count + passedPlayers.Value.Count == playerCount) ReceiveResults();
     }
@@ -98,6 +115,7 @@ public class StandOrPass : GamePhase
     /// <summary>
     /// Called once all players have decided to stand or pass
     /// </summary>
+    [Server]
     void ReceiveResults()
     {
         Debug.Log("All players have stood or passed");
@@ -132,18 +150,13 @@ public class StandOrPass : GamePhase
         //The Team Leader pays the favour cost of standing
         teamLeader.Value.Favour.Value -= currentMission.Value.FavourCost;
 
-        NetworkServer.SendToAll(new TeamLeaderChangedMsg()
-        {
-            ID = teamLeader.Value.PlayerID,
-            maxPartners = numPartners
-        });
-
         End();
     }
 
     /// <summary>
     /// Sort the list of standing players
     /// </summary>
+    [Server]
     void SortStandingList()
     {
         standingPlayers.Value.Sort((a, b) =>
@@ -152,6 +165,7 @@ public class StandOrPass : GamePhase
             PlayerBoosts.TryGetValue(b, out int bBoost);
 
             int result = (a.Favour + aBoost) - (b.Favour + bBoost);
+            //If both players have the same amount of favour, we should randomly pick between them
             return result == 0 ? Random.Range(-1, 1) : result;
         });
     }

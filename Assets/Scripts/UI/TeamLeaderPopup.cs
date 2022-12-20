@@ -4,28 +4,35 @@ using UnityEngine;
 using Mirror;
 using Steamworks;
 
-public class TeamLeaderPopup : MonoBehaviour
+public class TeamLeaderPopup : NetworkBehaviour
 {
+    #region CLIENT
     [SerializeField] TMPro.TMP_Text popupText;
     [SerializeField] GameObject popup;
+    [Tooltip("Whether the local player is the team leader")]
+    [SerializeField] BoolVariable isTeamLeader;
+    #endregion
+    #region SERVER
+    [Tooltip("The current team leader")]
+    [SerializeField] HoLPlayerVariable teamLeader;
+    #endregion
 
-    void Start()
+    public override void OnStartServer()
     {
-        ClientEventProvider.singleton.OnTeamLeaderChanged += Popup;
+        teamLeader.AfterVariableChanged += (HoLPlayer leader) => LocalPlayerTeamLeaderPopup(leader.DisplayName);
     }
 
-    void Popup(TeamLeaderChangedMsg msg)
+    [ClientRpc]
+    void LocalPlayerTeamLeaderPopup(string leaderName)
     {
-        ClientGameInfo.singleton.TeamLeaderID = new CSteamID(msg.ID);
-        ClientGameInfo.singleton.MaxPartners = msg.maxPartners;
 
-        if (msg.ID == SteamUser.GetSteamID().m_SteamID)
+        if (isTeamLeader)
         {
             popupText.text = "You are the team leader. Select the player you wish to take on the mission.";
         }
         else
         {
-            popupText.text = $"{SteamFriends.GetFriendPersonaName(new CSteamID(msg.ID))} is the team leader";
+            popupText.text = $"{leaderName} is the team leader";
         }
 
         popup.SetActive(true);

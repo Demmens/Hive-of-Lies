@@ -17,8 +17,13 @@ public class StandOrPassUI : NetworkBehaviour
     #region SERVER
     [Tooltip("The currently active mission")]
     [SerializeField] MissionVariable currentMission;
+    [Tooltip("Invoked when a client stands for team leader")]
+    [SerializeField] NetworkingEvent onPlayerStood;
+    [Tooltip("Invoked when a client passes on standing for team leader")]
+    [SerializeField] NetworkingEvent onPlayerPassed;
     #endregion
 
+    [Server]
     public void StandOrPassBegin()
     {
         CreateUI(currentMission.Value.FavourCost);
@@ -33,8 +38,23 @@ public class StandOrPassUI : NetworkBehaviour
         UI.SetActive(true);
     }
 
+    [Client]
     public void ClickButton(bool standing)
     {
         UI.SetActive(false);
+        PlayerStood(standing);
+    }
+
+    [Command(requiresAuthority = false)]
+    void PlayerStood(bool standing, NetworkConnectionToClient conn = null)
+    {
+        if (standing)
+        {
+            onPlayerStood?.Invoke(conn);
+        }
+        else
+        {
+            onPlayerPassed?.Invoke(conn);
+        }
     }
 }

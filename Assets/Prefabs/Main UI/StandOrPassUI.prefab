@@ -788,6 +788,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5204458143479867944}
+  - component: {fileID: 6599288322372114351}
   - component: {fileID: 1639378814724390784}
   - component: {fileID: 1789097070559436694}
   m_Layer: 0
@@ -813,6 +814,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6599288322372114351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3465947092293974072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: e1a950189e0e6b64cafebfb2014d840d, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1639378814724390784}
+        m_TargetAssemblyTypeName: StandOrPassUI, Assembly-CSharp
+        m_MethodName: StandOrPassBegin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1639378814724390784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -825,10 +855,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d1b780821e1b94c94c04b6c1e73324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   UI: {fileID: 719046155200256724}
-  Favour: {fileID: 0}
   FavourCost: {fileID: 719046156387484466}
   StandButton: {fileID: 719046155352673411}
+  favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
+  currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
+  onPlayerStood: {fileID: 11400000, guid: 1c0f947f8ad169c4e903f607891850d6, type: 2}
+  onPlayerPassed: {fileID: 11400000, guid: 54435d5eb0dfcd248a2238c548a205bb, type: 2}
 --- !u!114 &1789097070559436694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -844,5 +879,5 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId: 86cf3626a99236f4cbdc8f07f743a9b7
   hasSpawned: 0
