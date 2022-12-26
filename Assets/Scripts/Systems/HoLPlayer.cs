@@ -59,10 +59,16 @@ public class HoLPlayer : NetworkBehaviour
     public IntVariable NextDrawCost;
 
     /// <summary>
-    /// How much favour it costs to place another vote
+    /// How much favour it costs to place another upvote
     /// </summary>
     [HideInInspector]
-    public IntVariable NextVoteCost;
+    public IntVariable NextUpvoteCost;
+
+    /// <summary>
+    /// How much favour it costs to place another upvote
+    /// </summary>
+    [HideInInspector]
+    public IntVariable NextDownvoteCost;
 
     /// <summary>
     /// List of the choices of roles the player will have at the start of the game
@@ -80,7 +86,8 @@ public class HoLPlayer : NetworkBehaviour
         Role = ScriptableObject.CreateInstance<RoleVariable>();
         Exhaustion = ScriptableObject.CreateInstance<IntVariable>();
         NextDrawCost = ScriptableObject.CreateInstance<IntVariable>();
-        NextVoteCost = ScriptableObject.CreateInstance<IntVariable>();
+        NextUpvoteCost = ScriptableObject.CreateInstance<IntVariable>();
+        NextDownvoteCost = ScriptableObject.CreateInstance<IntVariable>();
 
         Favour.AfterVariableChanged += (change) => OnFavourChanged?.Invoke(Connection, change);
     }

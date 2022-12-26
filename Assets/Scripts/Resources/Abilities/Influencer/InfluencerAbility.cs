@@ -10,7 +10,8 @@ public class InfluencerAbility : RoleAbility
     void Start()
     {
         Owner.NextDrawCost.OnVariableChanged += ModifyDrawCost;
-        Owner.NextVoteCost.OnVariableChanged += ModifyVoteCost;
+        Owner.NextUpvoteCost.OnVariableChanged += ModifyVoteCost;
+        Owner.NextDownvoteCost.OnVariableChanged += ModifyVoteCost;
     }
 
     void ModifyDrawCost(int oldVal, ref int newVal)
