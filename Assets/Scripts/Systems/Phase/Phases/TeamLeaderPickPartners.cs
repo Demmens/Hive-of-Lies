@@ -41,11 +41,11 @@ public class TeamLeaderPickPartners : GamePhase
     [Tooltip("List of all players on the mission")]
     [SerializeField] HoLPlayerSet playersOnMission;
 
-    /// <summary>
-    /// Invoked when the Team Leader locks in their partner choices
-    /// </summary>
-    public event LockInPartners OnLockInChoices;
-    public delegate void LockInPartners();
+    [Tooltip("Invoked at the start of this game phase")]
+    [SerializeField] GameEvent teamLeaderCanPick;
+
+    [Tooltip("Invoked when the team leader has locked in their choices for partners")]
+    [SerializeField] GameEvent partnerChoicesLocked;
 
     void Start()
     {
@@ -54,82 +54,49 @@ public class TeamLeaderPickPartners : GamePhase
         {
             if (partnerPlayerCounts.TryGetValue(i, out int num)) numPartners.Value = num;
         }
-        NetworkServer.RegisterHandler<TeamLeaderChangePartnersMsg>(TeamLeaderSelectedPlayer);
-        NetworkServer.RegisterHandler<TeamLeaderLockInMsg>(LockInChoices);
     }
 
     public override void Begin()
     {
         playersSelected.Value = new List<HoLPlayer>();
-        NetworkServer.SendToAll(new TeamLeaderStartPickingMsg() { teamLeaderID = teamLeader.Value.PlayerID });
+        teamLeaderCanPick?.Invoke();
     }
 
     /// <summary>
     /// Called when the TeamLeader chooses a player to join them
     /// </summary>
-    /// <param name="ply">The player that the TeamLeader has selected</param>
-    void TeamLeaderSelectedPlayer(NetworkConnection conn, TeamLeaderChangePartnersMsg msg)
+    /// <param name="conn">The connection of the player that the TeamLeader has selected</param>
+    public void TeamLeaderSelectedPlayer(NetworkConnection conn)
     {
         if (!Active) return;
-        playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply);
-        if (ply != teamLeader) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (ply == teamLeader) return;
 
-        HoLPlayer target = null;
-        foreach (HoLPlayer ply2 in players.Value)
-        {
-            if (ply2.PlayerID == (ulong) msg.playerID)
-            {
-                target = ply2;
-            }
-        }
-
-        if (target == null) return;
-
-        if (msg.selected)
+        if (!playersOnMission.Value.Contains(ply))
         {
             if (playersSelected.Value.Count < numPartners)
             {
-                Debug.Log($"{ply.DisplayName} has selected {SteamFriends.GetFriendPersonaName(msg.playerID)}");
-                playersSelected.Add(target);
+                Debug.Log($"{teamLeader.Value.DisplayName} has selected {ply.DisplayName}");
+                playersSelected.Add(ply);
             }
         }
         else
         {
-            if (playersSelected.Value.Contains(target)) playersSelected.Remove(target);
+            playersSelected.Remove(ply);
         }
-
-        NetworkServer.SendToAll(new TeamLeaderChangePartnersMsg()
-        {
-            playerID = msg.playerID,
-            selected = msg.selected
-        });
     }
 
     /// <summary>
     /// Called when the TeamLeader locks in their choices of players for the mission.
     /// </summary>
-    public void LockInChoices(NetworkConnection conn, TeamLeaderLockInMsg msg)
+    public void LockInChoices()
     {
         if (!Active) return;
-        playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply);
-        if (ply != teamLeader) return;
 
         playersOnMission.Value = playersSelected.Value;
         Debug.Log("Team leader has locked in their partner choices");
-        OnLockInChoices?.Invoke();
+        partnerChoicesLocked?.Invoke();
 
         End();
     }
 }
-
-public struct TeamLeaderStartPickingMsg : NetworkMessage
-{
-    public ulong teamLeaderID;
-}
-
-public struct TeamLeaderChangePartnersMsg : NetworkMessage
-{
-    public CSteamID playerID;
-    public bool selected;
-}
-public struct TeamLeaderLockInMsg : NetworkMessage { }

@@ -51,7 +51,7 @@ public class InvestigatePlayer : MissionEffect
 
     private void OnEffectTriggered(InvestigateEffectTriggeredMsg msg)
     {
-        PlayerButtonDropdown.singleton.AddItem(investigateButton);
+        //PlayerButtonDropdown.singleton.AddItem(investigateButton);
         Notification.Singleton.CreateNotification($"Choose a player to investigate");
     }
 
@@ -61,7 +61,7 @@ public class InvestigatePlayer : MissionEffect
     /// <param name="playerID"></param>
     public void PlayerInvestigated(ulong playerID)
     {
-        PlayerButtonDropdown.singleton.RemoveItem(investigateButton);
+        //PlayerButtonDropdown.singleton.RemoveItem(investigateButton);
         InvestigateEffectTriggeredMsg msg = new InvestigateEffectTriggeredMsg()
         {
             playerID = playerID,

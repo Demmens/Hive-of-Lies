@@ -4,9 +4,9 @@ using UnityEngine;
 using Steamworks;
 using Mirror;
 
-public class ClientSelectPartners : MonoBehaviour
+public class ClientSelectPartners : NetworkBehaviour
 {
-    public static ClientSelectPartners singleton;
+    #region CLIENT
     [SerializeField] PlayerButtonDropdown dropDown;
     [SerializeField] GameObject pickPlayerButton;
     [SerializeField] GameObject unpickPlayerButton;
@@ -14,75 +14,89 @@ public class ClientSelectPartners : MonoBehaviour
 
     List<ulong> pickedPlayers;
     bool canPick;
+    #endregion
 
-    void Start()
+    #region SERVER
+    [Tooltip("The current team leader")]
+    [SerializeField] HoLPlayerVariable teamLeader;
+
+    [Tooltip("Invoked when the team leader locks their choices for partners in")]
+    [SerializeField] GameEvent onTeamLeaderLockedIn;
+    #endregion
+
+    [Client]
+    public override void OnStartClient()
     {
-        singleton = this;
-        ClientEventProvider.singleton.OnTeamLeaderStartPicking += CanStartPicking;
-        ClientEventProvider.singleton.OnPlayerClicked += PlayerClicked;
+        PlayerButtonDropdownItem item = dropDown.CreateItem(pickPlayerButton);
+        item.OnItemClicked += PlayerAdded;
+        item = dropDown.CreateItem(unpickPlayerButton);
+        item.OnItemClicked += PlayerRemoved;
     }
 
-    void CanStartPicking(ulong teamLeaderID)
+    [Server]
+    public void TeamLeaderCanPick()
     {
-        if (ClientGameInfo.singleton.TeamLeaderID == SteamUser.GetSteamID())
+        Debug.Log("Telling the team leader they can pick");
+        CanStartPicking(teamLeader.Value.Connection);
+    }
+
+    [TargetRpc]
+    void CanStartPicking(NetworkConnection conn)
+    {
+        Debug.Log("Can starty pcking now. :)");
+        pickedPlayers = new List<ulong>();
+        canPick = true;
+        dropDown.AddAll(pickPlayerButton);
+    }
+
+    [Client]
+    public void PlayerAdded(ulong playerID)
+    {
+        pickedPlayers.Add(playerID);
+        dropDown.AddItem(playerID, unpickPlayerButton);
+        dropDown.RemoveItem(playerID, pickPlayerButton);
+
+        if (pickedPlayers.Count == ClientGameInfo.singleton.MaxPartners)
         {
-            pickedPlayers = new List<ulong>();
-            canPick = true;
-            dropDown.AddItem(pickPlayerButton);
+            lockInButton.SetActive(true);
+            dropDown.RemoveAll(pickPlayerButton);
         }
     }
 
-    public void PlayerPicked(ulong playerID, bool added)
+    [Client]
+    void PlayerRemoved(ulong playerID)
     {
-        if (added)
-        {
-            pickedPlayers.Add(playerID);
-            dropDown.AddItem(unpickPlayerButton);
-            dropDown.RemoveItem(pickPlayerButton);
+        pickedPlayers.Remove(playerID);
+        dropDown.AddItem(playerID, pickPlayerButton);
+        dropDown.RemoveItem(playerID, unpickPlayerButton);
 
-            if (pickedPlayers.Count == ClientGameInfo.singleton.MaxPartners)
+        if (pickedPlayers.Count == ClientGameInfo.singleton.MaxPartners - 1)
+        {
+            lockInButton.SetActive(false);
+            dropDown.AddAll(pickPlayerButton);
+            for (int i = 0; i < pickedPlayers.Count; i++ )
             {
-                lockInButton.SetActive(true);
+                dropDown.RemoveItem(pickedPlayers[i], pickPlayerButton);
             }
         }
-        else
-        {
-            pickedPlayers.Remove(playerID);
-            dropDown.AddItem(pickPlayerButton);
-            dropDown.RemoveItem(unpickPlayerButton);
-            lockInButton.SetActive(false);
-        }
-
-        NetworkClient.Send(new TeamLeaderChangePartnersMsg()
-        {
-            selected = added,
-            playerID = new CSteamID(playerID)
-        });
     }
 
-    void PlayerClicked(ulong playerID)
-    {
-        if (!canPick) return;
-
-        if (pickedPlayers.Contains(playerID))
-        {
-            dropDown.AddItem(unpickPlayerButton);
-            dropDown.RemoveItem(pickPlayerButton);
-        }
-        else
-        {
-            if (pickedPlayers.Count < ClientGameInfo.singleton.MaxPartners) dropDown.AddItem(pickPlayerButton);
-            dropDown.RemoveItem(unpickPlayerButton);
-        }
-    }
-
+    [Client]
     public void LockIn()
     {
         lockInButton.SetActive(false);
         canPick = false;
-        dropDown.RemoveItem(pickPlayerButton);
-        dropDown.RemoveItem(unpickPlayerButton);
+        dropDown.RemoveAll(pickPlayerButton);
+        dropDown.RemoveAll(unpickPlayerButton);
 
-        NetworkClient.Send(new TeamLeaderLockInMsg() { });
+        ServerLockIn();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void ServerLockIn(NetworkConnectionToClient conn = null)
+    {
+        if (conn != teamLeader.Value.Connection) return;
+
+        onTeamLeaderLockedIn?.Invoke();
     }
 }

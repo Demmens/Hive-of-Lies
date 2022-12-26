@@ -32,12 +32,6 @@ public class ClientEventProvider : MonoBehaviour
 
     public event PlayerID OnTeamLeaderStartPicking;
 
-    /// <summary>
-    /// Invoked when the team leader changes their partner choice
-    /// </summary>
-    public event TeamLeaderChangedPartner OnTeamLeaderChangePartner;
-    public delegate void TeamLeaderChangedPartner(TeamLeaderChangePartnersMsg msg);
-
     void Start()
     {
         singleton = this;
@@ -46,8 +40,6 @@ public class ClientEventProvider : MonoBehaviour
         //Register events
         NetworkClient.RegisterHandler((DrawCardMsg msg) => {OnPlayerDrew?.Invoke(msg); });
         NetworkClient.RegisterHandler((MissionEndMsg msg) => { OnMissionEnd?.Invoke(msg.result); });
-        NetworkClient.RegisterHandler((TeamLeaderStartPickingMsg msg) => { OnTeamLeaderStartPicking?.Invoke(msg.teamLeaderID); });
-        NetworkClient.RegisterHandler((TeamLeaderChangePartnersMsg msg) => { OnTeamLeaderChangePartner?.Invoke(msg); });
     }
 
     public void ClickPlayer(ulong playerID)
