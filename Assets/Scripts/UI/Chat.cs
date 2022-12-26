@@ -5,49 +5,37 @@ using TMPro;
 using Mirror;
 using Steamworks;
 
-public class Chat : MonoBehaviour
+public class Chat : NetworkBehaviour
 {
     [SerializeField] TMP_InputField input;
 
     [SerializeField] TMP_Text chat;
 
-    private void Start()
-    {
-        NetworkServer.RegisterHandler<SendChatMessageMsg>(ServerGetMessage);
-        NetworkClient.RegisterHandler<SendChatMessageMsg>(ClientGetMessage);
-    }
-
     /// <summary>
     /// Player sent a chat message
     /// </summary>
+    [Client]
     public void SendMessage()
     {
         if (input.text == "") return;
-        NetworkClient.Send(new SendChatMessageMsg
-        {
-            userName = SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()),
-            message = input.text
-        });
+
+        ServerGetMessage(SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()), input.text);
 
         input.text = "";
         input.Select();
         input.ActivateInputField();
     }
 
-    void ServerGetMessage(NetworkConnection conn, SendChatMessageMsg msg)
+    [Command(requiresAuthority = false)]
+    void ServerGetMessage(string name, string message)
     {
-        if (msg.message == "") return;
-        NetworkServer.SendToAll(msg);
+        if (message == "") return;
+        ClientGetMessage(name, message);
     }
 
-    void ClientGetMessage(SendChatMessageMsg msg)
+    [ClientRpc]
+    void ClientGetMessage(string name, string message)
     {
-        chat.text += $"\n{msg.userName}: {msg.message}";
+        chat.text += $"\n{name}: {message}";
     }
-}
-
-public struct SendChatMessageMsg : NetworkMessage
-{
-    public string message;
-    public string userName;
 }
