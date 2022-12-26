@@ -1046,6 +1046,7 @@ MonoBehaviour:
   missionCost: {fileID: 5639888000037307406}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
+  playersSelected: {fileID: 11400000, guid: c5185c85b03957546b0a450841d2fd5f, type: 2}
 --- !u!1 &3927286375627415317
 GameObject:
   m_ObjectHideFlags: 0
