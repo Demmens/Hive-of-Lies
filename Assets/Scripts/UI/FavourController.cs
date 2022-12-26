@@ -13,9 +13,6 @@ public class FavourController : NetworkBehaviour
     #endregion
 
     #region SERVER
-    [Tooltip("Dictionary of all players by their NetworkConnection")]
-    [SerializeField] HoLPlayerDictionary playersByConnection;
-
     [Tooltip("Set of all players in the game")]
     [SerializeField] HoLPlayerSet allPlayers;
     #endregion
