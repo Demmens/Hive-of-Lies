@@ -14,11 +14,21 @@ public class ClientSelectPartners : NetworkBehaviour
 
     List<ulong> pickedPlayers;
     bool canPick;
+    int clientNumPartners;
     #endregion
 
     #region SERVER
     [Tooltip("The current team leader")]
     [SerializeField] HoLPlayerVariable teamLeader;
+
+    [Tooltip("All players in the game")]
+    [SerializeField] HoLPlayerSet allPlayers;
+
+    [Tooltip("The number of partners that are allowed on the mission")]
+    [SerializeField] IntVariable numPartners;
+
+    [Tooltip("Players that are currently selected")]
+    [SerializeField] HoLPlayerSet playersSelected;
 
     [Tooltip("Invoked when the team leader locks their choices for partners in")]
     [SerializeField] GameEvent onTeamLeaderLockedIn;
@@ -37,16 +47,17 @@ public class ClientSelectPartners : NetworkBehaviour
     public void TeamLeaderCanPick()
     {
         Debug.Log("Telling the team leader they can pick");
-        CanStartPicking(teamLeader.Value.Connection);
+        CanStartPicking(teamLeader.Value.Connection, numPartners);
     }
 
     [TargetRpc]
-    void CanStartPicking(NetworkConnection conn)
+    void CanStartPicking(NetworkConnection conn, int partners)
     {
         Debug.Log("Can starty pcking now. :)");
         pickedPlayers = new List<ulong>();
         canPick = true;
         dropDown.AddAll(pickPlayerButton);
+        clientNumPartners = partners;
     }
 
     [Client]
@@ -56,11 +67,31 @@ public class ClientSelectPartners : NetworkBehaviour
         dropDown.AddItem(playerID, unpickPlayerButton);
         dropDown.RemoveItem(playerID, pickPlayerButton);
 
-        if (pickedPlayers.Count == ClientGameInfo.singleton.MaxPartners)
+        if (pickedPlayers.Count == clientNumPartners)
         {
             lockInButton.SetActive(true);
             dropDown.RemoveAll(pickPlayerButton);
         }
+
+        ServerAddPlayer(playerID);
+    }
+
+    [Command(requiresAuthority = false)]
+    void ServerAddPlayer(ulong player, NetworkConnectionToClient conn = null)
+    {
+        //Ignore if called by a player that isn't the team leader
+        if (conn != teamLeader.Value.Connection) return;
+
+        if (playersSelected.Value.Count >= numPartners) return;
+
+        allPlayers.Value.ForEach(ply =>
+        {
+            if (ply.PlayerID == player && !playersSelected.Value.Contains(ply))
+            {
+                Debug.Log($"{teamLeader.Value.DisplayName} has selected {ply.DisplayName}");
+                playersSelected.Add(ply);
+            }
+        });
     }
 
     [Client]
@@ -70,7 +101,7 @@ public class ClientSelectPartners : NetworkBehaviour
         dropDown.AddItem(playerID, pickPlayerButton);
         dropDown.RemoveItem(playerID, unpickPlayerButton);
 
-        if (pickedPlayers.Count == ClientGameInfo.singleton.MaxPartners - 1)
+        if (pickedPlayers.Count == clientNumPartners - 1)
         {
             lockInButton.SetActive(false);
             dropDown.AddAll(pickPlayerButton);
@@ -79,6 +110,24 @@ public class ClientSelectPartners : NetworkBehaviour
                 dropDown.RemoveItem(pickedPlayers[i], pickPlayerButton);
             }
         }
+
+        ServerRemovePlayer(playerID);
+    }
+
+    [Command(requiresAuthority = false)]
+    void ServerRemovePlayer(ulong player, NetworkConnectionToClient conn = null)
+    {
+        //Ignore if called by a player that isn't the team leader
+        if (conn != teamLeader.Value.Connection) return;
+
+        allPlayers.Value.ForEach(ply =>
+        {
+            if (ply.PlayerID == player && playersSelected.Value.Contains(ply))
+            {
+                Debug.Log($"{teamLeader.Value.DisplayName} has deselected {ply.DisplayName}");
+                playersSelected.Remove(ply);
+            }
+        });
     }
 
     [Client]

@@ -401,5 +401,8 @@ MonoBehaviour:
     type: 3}
   lockInButton: {fileID: 4732979790908338372}
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
+  allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  numPartners: {fileID: 11400000, guid: c0f582f860a057b4184ee8a66885d1b0, type: 2}
+  playersSelected: {fileID: 11400000, guid: c5185c85b03957546b0a450841d2fd5f, type: 2}
   onTeamLeaderLockedIn: {fileID: 11400000, guid: 2ec4455b9dd56c84b8d12e7e321d0709,
     type: 2}
