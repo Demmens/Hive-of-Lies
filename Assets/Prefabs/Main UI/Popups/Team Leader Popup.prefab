@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 6902898914669468423}
   - component: {fileID: 6902898914669468420}
   m_Layer: 0
-  m_Name: TeamLeaderPopup
+  m_Name: Team Leader Popup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
