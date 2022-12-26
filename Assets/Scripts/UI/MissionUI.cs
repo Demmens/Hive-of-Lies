@@ -27,12 +27,17 @@ public class MissionUI : NetworkBehaviour
 
     [Tooltip("The current team leader")]
     [SerializeField] HoLPlayerVariable teamLeader;
+
+    [Tooltip("All players that have currently been selected to go on the mission")]
+    [SerializeField] HoLPlayerSet playersSelected;
     #endregion
 
     public override void OnStartServer()
     {
         currentMission.AfterVariableChanged += ChangeMission;
         teamLeader.AfterVariableChanged += OnTeamLeaderDecided;
+        playersSelected.AfterItemAdded += OnTeamLeaderAddPartner;
+        playersSelected.AfterItemRemoved += OnTeamLeaderRemovePartner;
     }
 
     /// <summary>
@@ -82,30 +87,21 @@ public class MissionUI : NetworkBehaviour
         teamLeaderName.text = ply.DisplayName;
     }
 
-    /// <summary>
-    /// Called when the team leader has added or removed a player from the mission.
-    /// </summary>
-    /// <param name="msg"></param>
-    void OnTeamLeaderChangePartner(TeamLeaderChangePartnersMsg msg)
+    [ClientRpc]
+    void OnTeamLeaderAddPartner(HoLPlayer ply)
     {
-        Debug.Log("Team Leader has changed partners");
-        string playerName = SteamFriends.GetFriendPersonaName(msg.playerID);
+        //If we haven't selected any players yet, clear the text, otherwise add a line break for the next player
+        missionPlayerList.text = (missionPlayerList.text == "Undecided") ? "" : missionPlayerList.text + "\n";
 
-        if (!ClientGameInfo.singleton.CurrentlySelected.Contains((ulong) msg.playerID)) ClientGameInfo.singleton.CurrentlySelected.Add((ulong) msg.playerID);
+        missionPlayerList.text += ply.DisplayName;
+    }
 
-        if (msg.selected)
-        {
-            //If we haven't selected any players yet, clear the text, otherwise add a line break for the next player
-            missionPlayerList.text = (missionPlayerList.text == "Undecided") ? "" : missionPlayerList.text + "\n";
-
-            missionPlayerList.text += playerName;
-        }
-        else
-        {
-            missionPlayerList.text = missionPlayerList.text.Replace(playerName, "");
-            //Make sure to remove duplicate line breaks
-            missionPlayerList.text = missionPlayerList.text.Replace("\n\n", "\n");
-            if (missionPlayerList.text == "" || missionPlayerList.text == "\n") missionPlayerList.text = "Undecided";
-        }
+    [ClientRpc]
+    void OnTeamLeaderRemovePartner(HoLPlayer ply)
+    {
+        missionPlayerList.text = missionPlayerList.text.Replace(ply.DisplayName, "");
+        //Make sure to remove duplicate line breaks
+        missionPlayerList.text = missionPlayerList.text.Replace("\n\n", "\n");
+        if (missionPlayerList.text == "" || missionPlayerList.text == "\n") missionPlayerList.text = "Undecided";
     }
 }
