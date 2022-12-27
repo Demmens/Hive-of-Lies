@@ -34,7 +34,10 @@ public class TeamLeaderVote : GamePhase
     [Tooltip("The number of players in the game.")]
     [SerializeField] IntVariable playerCount;
 
-    #region Events
+
+
+    [Tooltip("Invoked when the vote begins")]
+    [SerializeField] GameEvent voteBegin;
 
     [Tooltip("Invoked when a player votes")]
     [SerializeField] GameEvent onPlayerVoted;
@@ -42,45 +45,57 @@ public class TeamLeaderVote : GamePhase
     [Tooltip("Invoked when all players have voted")]
     [SerializeField] GameEvent onAllPlayersVoted;
 
-    #endregion
-
-    void Start()
-    {
-        NetworkServer.RegisterHandler<PlayerChangeVoteMsg>(ChangedVoteNumber);
-        NetworkServer.RegisterHandler<PlayerLockInMsg>(VoteLockedIn);
-        NetworkServer.RegisterHandler<VoteContinueClickedMsg>(VotePopupClosed);
-    }
-
     public override void Begin()
     {
         votes = new List<PlayerVote>();
         currentVotes = new Dictionary<HoLPlayer, int>();
         voteTotal.Value = 0;
         playersClosedPopup = new List<HoLPlayer>();
-        NetworkServer.SendToAll(new TeamLeaderVoteStartedMsg() { });
+        voteBegin?.Invoke();
     }
 
-    void ChangedVoteNumber(NetworkConnection conn, PlayerChangeVoteMsg msg)
+    [Server]
+    public void PlayerIncreasedVote(NetworkConnection conn)
+    {
+        ChangedVoteNumber(conn, true);
+    }
+
+    [Server]
+    public void PlayerDecreasedVote(NetworkConnection conn)
+    {
+        ChangedVoteNumber(conn, false);
+    }
+
+    [Server]
+    void ChangedVoteNumber(NetworkConnection conn, bool increased)
     {
         if (!Active) return;
+
         playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply);
 
-        bool exists = currentVotes.TryGetValue(ply, out int votes);
+        int cost = increased ? ply.NextUpvoteCost : ply.NextDownvoteCost;
 
-        bool refund = (votes > 0) != msg.increased;
+        //Whether we are refunding our previous vote or not
+        bool refund = (ply.NumVotes > 0) != increased;
 
-        int refundIndex = refund ? votes : Mathf.Abs(votes)+1;
-        int cost = costCalc.CalculateVoteCost(refundIndex);
+        //If the player doesn't have enough favour to change their vote
+        if (ply.Favour < cost && !refund) return;
 
-        votes += msg.increased ? 1 : -1;
-
-        //If we've removed a vote, refund the cost, otherwise pay it.
-        if (refund) cost *= -1;
-
-        //Don't remove favour if we can't afford it
-        if (cost > ply.Favour) return;
-        
         ply.Favour.Value -= cost;
+
+        if (increased)
+        {
+            ply.NextDownvoteCost.Value = -ply.NextUpvoteCost;
+        }
+        else
+        {
+            ply.NextUpvoteCost.Value = -ply.NextDownvoteCost;
+        }
+
+        int refundIndex = refund ? ply.NumVotes : Mathf.Abs(ply.NumVotes) +1;
+        cost = CalculateVoteCost(refundIndex);
+
+        ply.NumVotes.Value += increased ? 1 : -1;
 
         if (exists) currentVotes[ply] = votes;
         else currentVotes.Add(ply, votes);
@@ -91,7 +106,7 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     /// <param name="ply">The player that voted</param>
     /// <param name="vote">How many votes the player sent</param>
-    void VoteLockedIn(NetworkConnection conn, PlayerLockInMsg msg)
+    void VoteLockedIn(NetworkConnectionToClient conn = null)
     {
         if (!Active) return;
 
@@ -117,17 +132,12 @@ public class TeamLeaderVote : GamePhase
     {
         //Invoke the all players voted event
         onAllPlayersVoted?.Invoke();
-
-        NetworkServer.SendToAll(new SendVoteResultMsg()
-        {
-            votes = votes
-        });
     }
 
     /// <summary>
     /// Called when a player closes the vote result popup
     /// </summary>
-    void VotePopupClosed(NetworkConnection conn, VoteContinueClickedMsg msg)
+    void VotePopupClosed(NetworkConnectionToClient conn)
     {
         playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply);
         if (playersClosedPopup.Contains(ply)) return;
@@ -136,11 +146,6 @@ public class TeamLeaderVote : GamePhase
 
         bool lastPlayer = playersClosedPopup.Count == playerCount;
 
-        NetworkServer.SendToAll(new VoteContinueClickedMsg()
-        {
-            closedBy = ply.PlayerID,
-            lastPlayer = lastPlayer
-        });
 
         if (lastPlayer)
         {
@@ -165,6 +170,23 @@ public class TeamLeaderVote : GamePhase
             //Back to standing for TeamLeader
         }
     }
+
+    /// <summary>
+    /// Calculate the favour cost of the vote
+    /// </summary>
+    /// <param name="ply">The player who's voting</param>
+    /// <param name="numVotes">The number of votes</param>
+    public int CalculateVoteCost(int numVotes)
+    {
+        //Votes cost the same up and down
+        numVotes = Mathf.Abs(numVotes);
+        // Cost is 2(n-1) We can change this formula at any time for balance
+        // Gives us the costs: {0,0,2,4,6,8}
+        // Cumulatively: {0,2,6,12,20}
+        int cost = Mathf.Max(0, (numVotes - 1) * 2);
+
+        return cost;
+    }
 }
 
 /// <summary>
@@ -180,37 +202,4 @@ public struct PlayerVote
     /// How many votes the player sent
     /// </summary>
     public int votes; // int instead of bool in case we want to allow influence to be used for increasing number of votes.
-}
-
-public struct TeamLeaderVoteStartedMsg : NetworkMessage
-{
-
-}
-
-public struct PlayerChangeVoteMsg : NetworkMessage
-{
-    public bool increased;
-}
-
-public struct PlayerLockInMsg : NetworkMessage
-{
-
-}
-
-public struct SendVoteResultMsg : NetworkMessage
-{
-    public List<PlayerVote> votes;
-}
-
-public struct VoteContinueClickedMsg : NetworkMessage
-{
-    /// <summary>
-    /// The player that closed the popup
-    /// </summary>
-    public ulong closedBy;
-
-    /// <summary>
-    /// Whether this is the last player to close the popup
-    /// </summary>
-    public bool lastPlayer;
 }

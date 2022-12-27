@@ -5,8 +5,9 @@ using TMPro;
 using Mirror;
 using Steamworks;
 
-public class VoteUI : MonoBehaviour
+public class VoteUI : NetworkBehaviour
 {
+    #region CLIENT
     [SerializeField] TMP_Text voteNumber;
     [SerializeField] TMP_Text yesCost;
     [SerializeField] TMP_Text noCost;
@@ -15,88 +16,61 @@ public class VoteUI : MonoBehaviour
     [SerializeField] GameObject noVote;
  
     [SerializeField] GameObject voteUI;
-    [SerializeField] FavourController favourController;
     [SerializeField] CostCalculation costCalc;
 
-    int _numVotes = 0;
-    int _upVoteCost = 0;
-    int _downVoteCost = 0;
+    [Tooltip("The amount of favour the local player has")]
+    [SerializeField] IntVariable favour;
 
-    /// <summary>
-    /// The cost of the next upvote
-    /// </summary>
-    int upVoteCost
-    {
-        get
-        {
-            return _upVoteCost;
-        }
-        set
-        {
-            _upVoteCost = value;
-            yesCost.text = $"{-_upVoteCost}f";
-        }
-    }
+    [Tooltip("How many votes the local player has placed")]
+    [SerializeField] IntVariable numVotes;
 
-    /// <summary>
-    /// The cost of the next downvote
-    /// </summary>
-    int downVoteCost
-    {
-        get
-        {
-            return _downVoteCost;
-        }
-        set
-        {
-            _downVoteCost = value;
-            noCost.text = $"{-_downVoteCost}f";
-        }
-    }
+    int upVoteCost = 0;
+    int downVoteCost = 0;
+    #endregion
+    #region SERVER
+    [Tooltip("Invoked when a player increases their vote")]
+    [SerializeField] NetworkingEvent increasedVote;
 
-    /// <summary>
-    /// The number of votes the client has currently placed
-    /// </summary>
-    int numVotes
-    {
-        get
-        {
-            return _numVotes;
-        }
-        set
-        {
-            _numVotes = value;
-            RecalculateCost();
-            voteNumber.text = numVotes.ToString();
-        }
-    }
+    [Tooltip("Invoked when a player decreases their vote")]
+    [SerializeField] NetworkingEvent decreasedVote;
+    #endregion
 
-    void Start()
+    public override void OnStartClient()
     {
-        NetworkClient.RegisterHandler<TeamLeaderVoteStartedMsg>(VoteStarted);
+        numVotes.AfterVariableChanged += VoteNumberChanged;
     }
 
     /// <summary>
     /// Called when the vote starts
     /// </summary>
     /// <param name="msg"></param>
-    public void VoteStarted(TeamLeaderVoteStartedMsg msg)
+    public void VoteStarted()
     {
         voteUI.SetActive(true);
-        numVotes = 0;
+        numVotes.Value = 0;
     }
 
     /// <summary>
     /// Called when a player increases their vote (upvotes)
     /// </summary>
+    [Client]
     public void IncreaseVote()
     {
         numVotes++;
 
         noVote.SetActive(true);
-        //if (upVoteCost > favourController.Favour) yesVote.SetActive(false);
+        if (upVoteCost > favour) yesVote.SetActive(false);
 
-        NetworkClient.Send(new PlayerChangeVoteMsg() {increased = true});
+        noCost.text = yesCost.text;
+        yesCost.text = "~f";
+
+        PlayerIncreasedVote();
+    }
+
+    [Command(requiresAuthority = false)]
+    void PlayerIncreasedVote(NetworkConnectionToClient conn = null)
+    {
+        increasedVote?.Invoke(conn);
     }
 
     /// <summary>
@@ -104,39 +78,55 @@ public class VoteUI : MonoBehaviour
     /// </summary>
     public void DecreaseVote()
     {
-        //favourController.Favour -= downVoteCost;
         numVotes--;
 
+        yesCost.text = noCost.text;
+        noCost.text = "~f";
         yesVote.SetActive(true);
-        //if (downVoteCost > favourController.Favour) noVote.SetActive(false);
+        if (downVoteCost > favour) noVote.SetActive(false);
+        PlayerDecreasedVote();
+    }
 
-        NetworkClient.Send(new PlayerChangeVoteMsg() { increased = false });
+    [Command(requiresAuthority = false)]
+    void PlayerDecreasedVote(NetworkConnectionToClient conn = null)
+    {
+        decreasedVote?.Invoke(conn);
     }
 
     /// <summary>
     /// Recalculates the cost of increasing or decreasing your vote
     /// </summary>
-    void RecalculateCost()
+    [Client]
+    void VoteNumberChanged(int newValue)
     {
         if (numVotes > 0)
         {
-            upVoteCost = costCalc.CalculateVoteCost(numVotes + 1);
-            downVoteCost = costCalc.CalculateVoteCost(numVotes);
 
             downVoteCost *= -1;
+
+            noCost.text = $"{-downVoteCost}f";
+            yesCost.text = $"{-upVoteCost}f";
         }
         else
         {
-            upVoteCost = costCalc.CalculateVoteCost(numVotes);
-            downVoteCost = costCalc.CalculateVoteCost(numVotes - 1);
+
+            noCost.text = $"{-downVoteCost}f";
+            yesCost.text = $"{-upVoteCost}f";
 
             upVoteCost *= -1;
         }
     }
 
+    [Client]
     public void LockInVote()
     {
         voteUI.SetActive(false);
-        NetworkClient.Send(new PlayerLockInMsg() { });
+        OnPlayerLockedIn();
+    }
+
+    [Command(requiresAuthority = false)]
+    void OnPlayerLockedIn(NetworkConnectionToClient conn = null)
+    {
+
     }
 }

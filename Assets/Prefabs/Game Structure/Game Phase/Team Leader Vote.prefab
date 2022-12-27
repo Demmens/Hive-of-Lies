@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1703015002368437276}
+  - component: {fileID: 7888988741390731452}
+  - component: {fileID: 9178752238623791864}
   - component: {fileID: 3496305075509418341}
   - component: {fileID: -1594521549910843087}
   m_Layer: 0
@@ -33,6 +35,64 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7888988741390731452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144939445568799286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: f97f1e565fae7af46baf19eb2bb091e1, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3496305075509418341}
+        m_TargetAssemblyTypeName: TeamLeaderVote, Assembly-CSharp
+        m_MethodName: PlayerIncreasedVote
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9178752238623791864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144939445568799286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: b9c3e00cd7bbfe74db489b5ab4a5463b, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3496305075509418341}
+        m_TargetAssemblyTypeName: TeamLeaderVote, Assembly-CSharp
+        m_MethodName: PlayerDecreasedVote
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3496305075509418341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,11 +105,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 377990d5e42e178428bd2384f0f2d166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   phase: {fileID: 11400000, guid: 289d0b5f6752c24418120b93802bba58, type: 2}
   costCalc: {fileID: 0}
   voteTotal: {fileID: 11400000, guid: 4399733511110f0499d5096ea4587862, type: 2}
-  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
+    type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
+  voteBegin: {fileID: 11400000, guid: 4d32b573270e9344ca1e9c136d1c12ba, type: 2}
   onPlayerVoted: {fileID: 0}
   onAllPlayersVoted: {fileID: 0}
 --- !u!114 &-1594521549910843087

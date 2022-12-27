@@ -71,13 +71,32 @@ public class HoLPlayer : NetworkBehaviour
     public IntVariable NextDownvoteCost;
 
     /// <summary>
+    /// How many votes this player is currently deciding to give
+    /// </summary>
+    [HideInInspector]
+    public IntVariable NumVotes;
+
+    /// <summary>
     /// List of the choices of roles the player will have at the start of the game
     /// </summary>
     [HideInInspector]
     public List<RoleData> RoleChoices = new List<RoleData>();
     #endregion
 
+    /// <summary>
+    /// Invoked when the players favour changes
+    /// </summary>
     public event System.Action<NetworkConnection, int> OnFavourChanged;
+
+    /// <summary>
+    /// Invoked when the players upvote cost changes
+    /// </summary>
+    public event System.Action<NetworkConnection, int> OnUpvoteCostChanged;
+
+    /// <summary>
+    /// Invoked when the players downvote cost changes
+    /// </summary>
+    public event System.Action<NetworkConnection, int> OnDownvoteCostChanged;
 
     private void Awake()
     {
@@ -89,6 +108,8 @@ public class HoLPlayer : NetworkBehaviour
         NextUpvoteCost = ScriptableObject.CreateInstance<IntVariable>();
         NextDownvoteCost = ScriptableObject.CreateInstance<IntVariable>();
 
-        Favour.AfterVariableChanged += (change) => OnFavourChanged?.Invoke(Connection, change);
+        Favour.AfterVariableChanged += change => OnFavourChanged?.Invoke(Connection, change);
+        NextUpvoteCost.AfterVariableChanged += change => OnUpvoteCostChanged?.Invoke(Connection, change);
+        NextDownvoteCost.AfterVariableChanged += change => OnDownvoteCostChanged?.Invoke(Connection, change);
     }
 }

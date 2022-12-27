@@ -22,11 +22,9 @@ public class VoteResultPopup : MonoBehaviour
     Dictionary<ulong, PlayerVoteGameObject> playerVotes;
     void Start()
     {
-        NetworkClient.RegisterHandler<SendVoteResultMsg>(ReceiveVoteResults);
-        NetworkClient.RegisterHandler<VoteContinueClickedMsg>(OnPlayerClosedPopup);
     }
 
-    void ReceiveVoteResults(SendVoteResultMsg msg)
+    /*void ReceiveVoteResults()
     {
         continueButton.SetActive(true);
         playerVotes = new Dictionary<ulong, PlayerVoteGameObject>();
@@ -47,7 +45,7 @@ public class VoteResultPopup : MonoBehaviour
         voteTotal.text = total.ToString();
 
         popup.SetActive(true);
-    }
+    }*/
 
     /// <summary>
     /// Called when the continue button is clicked on this client
@@ -55,15 +53,14 @@ public class VoteResultPopup : MonoBehaviour
     public void ContinueClicked()
     {
         continueButton.SetActive(false);
-        NetworkClient.Send(new VoteContinueClickedMsg() { });
     }
 
     /// <summary>
     /// Called when any client closes the popup
     /// </summary>
-    void OnPlayerClosedPopup(VoteContinueClickedMsg msg)
+    void OnPlayerClosedPopup()
     {
-        if (!msg.lastPlayer)
+        /*if (!msg.lastPlayer)
         {
             playerVotes.TryGetValue(msg.closedBy, out PlayerVoteGameObject obj);
             obj.continued.color = readyColour;
@@ -71,7 +68,7 @@ public class VoteResultPopup : MonoBehaviour
         else
         {
             popup.SetActive(false);
-        }
+        }*/
     }
 }
 
