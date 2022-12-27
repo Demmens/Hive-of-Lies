@@ -99,7 +99,7 @@ public class Setup : GamePhase
 
         GiveRoleChoices(allPlayers, Roles);
 
-        setupFinished.Invoke();
+        setupFinished?.Invoke();
         Debug.Log("Setup Finished");
     }
 

@@ -1047,6 +1047,8 @@ MonoBehaviour:
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
   playersSelected: {fileID: 11400000, guid: c5185c85b03957546b0a450841d2fd5f, type: 2}
+  isOnMission: {fileID: 11400000, guid: b9f406dffbe4a27409cd0aa785114640, type: 2}
+  id: {fileID: 11400000, guid: 1784e4f840f36c44f90242892bdac90a, type: 2}
 --- !u!1 &3927286375627415317
 GameObject:
   m_ObjectHideFlags: 0

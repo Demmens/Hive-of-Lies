@@ -5,10 +5,6 @@ using UnityEngine;
 public class Deck
 {
     /// <summary>
-    /// The player that owns this deck
-    /// </summary>
-    public Player Owner;
-    /// <summary>
     /// The cards in the draw pile
     /// </summary>
     public List<Card> DrawPile = new List<Card>();
@@ -27,6 +23,11 @@ public class Deck
     /// The cards the player has played
     /// </summary>
     public List<Card> Played = new List<Card>();
+
+    /// <summary>
+    /// Invoked when a card is drawn
+    /// </summary>
+    public event System.Action<Card> OnDraw;
 
     /// <summary>
     /// Add a card to the deck
@@ -64,7 +65,11 @@ public class Deck
         {
             if (DrawPile.Count == 0)
             {
-                if (DiscardPile.Count == 0) return;
+                if (DiscardPile.Count == 0)
+                {
+                    Debug.LogError("Tried to draw from a deck with no cards");
+                    return;
+                }
                 Shuffle();
             }
 
@@ -74,10 +79,17 @@ public class Deck
                 return;
             }
 
-            DrawPile[0].DrawEffects.ForEach(effect => effect());
+            Card card = DrawPile[0];
 
-            Hand.Add(DrawPile[0]);
+            card.DrawEffects.ForEach(effect => effect());
+
+            Hand.Add(card);
+
+            OnDraw?.Invoke(card);
+            Debug.Log("Invoked card draw event");
+
             DrawPile.RemoveAt(0);
+
         }
     }
 
@@ -113,16 +125,8 @@ public class Deck
         return card;
     }
 
-    public Deck(List<Card> starting)
+    public Deck()
     {
-        DrawPile = starting;
-    }
 
-    public Deck(List<int> starting)
-    {
-        for (int i = 0; i < starting.Count; i++)
-        {
-            DrawPile.Add(new Card(starting[i]));
-        }
     }
 }

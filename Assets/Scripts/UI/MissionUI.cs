@@ -30,6 +30,12 @@ public class MissionUI : NetworkBehaviour
 
     [Tooltip("All players that have currently been selected to go on the mission")]
     [SerializeField] HoLPlayerSet playersSelected;
+
+    [Tooltip("Returns true if the player is on the mission")]
+    [SerializeField] BoolVariable isOnMission;
+
+    [Tooltip("The ID of the local player")]
+    [SerializeField] UlongVariable id;
     #endregion
 
     public override void OnStartServer()
@@ -94,6 +100,8 @@ public class MissionUI : NetworkBehaviour
         missionPlayerList.text = (missionPlayerList.text == "Undecided") ? "" : missionPlayerList.text + "\n";
 
         missionPlayerList.text += ply.DisplayName;
+
+        if (ply.PlayerID == id) isOnMission.Value = true;
     }
 
     [ClientRpc]

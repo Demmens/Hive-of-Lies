@@ -77,6 +77,18 @@ public class HoLPlayer : NetworkBehaviour
     public IntVariable NumVotes;
 
     /// <summary>
+    /// The players deck of cards
+    /// </summary>
+    [HideInInspector]
+    public DeckVariable Deck;
+
+    /// <summary>
+    /// How many times this player has drawn cards
+    /// </summary>
+    [HideInInspector]
+    public IntVariable NumDraws;
+
+    /// <summary>
     /// List of the choices of roles the player will have at the start of the game
     /// </summary>
     [HideInInspector]
@@ -113,6 +125,9 @@ public class HoLPlayer : NetworkBehaviour
         NextUpvoteCost = ScriptableObject.CreateInstance<IntVariable>();
         NextDownvoteCost = ScriptableObject.CreateInstance<IntVariable>();
         NumVotes = ScriptableObject.CreateInstance<IntVariable>();
+        Deck = ScriptableObject.CreateInstance<DeckVariable>();
+        NumDraws = ScriptableObject.CreateInstance<IntVariable>();
+        Deck.Value = new();
 
         Favour.AfterVariableChanged += change => OnFavourChanged?.Invoke(Connection, change);
         NextUpvoteCost.AfterVariableChanged += change => OnUpvoteCostChanged?.Invoke(Connection, change);

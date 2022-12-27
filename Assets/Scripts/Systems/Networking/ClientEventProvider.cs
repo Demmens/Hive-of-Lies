@@ -41,9 +41,4 @@ public class ClientEventProvider : MonoBehaviour
         NetworkClient.RegisterHandler((DrawCardMsg msg) => {OnPlayerDrew?.Invoke(msg); });
         NetworkClient.RegisterHandler((MissionEndMsg msg) => { OnMissionEnd?.Invoke(msg.result); });
     }
-
-    public void ClickPlayer(ulong playerID)
-    {
-        OnPlayerClicked?.Invoke(playerID);
-    }
 }

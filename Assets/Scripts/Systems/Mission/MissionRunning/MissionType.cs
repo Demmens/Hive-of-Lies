@@ -6,7 +6,7 @@ using Mirror;
 /// <summary>
 /// Contains information on how the mission will be played (with a deck of cards, rolling dice etc.)
 /// </summary>
-public abstract class MissionType : MonoBehaviour
+public abstract class MissionType : NetworkBehaviour
 {
 
     /// <summary>
@@ -36,6 +36,9 @@ public abstract class MissionType : MonoBehaviour
     [SerializeField] BoolVariable cancelNextSuccess;
     [SerializeField] BoolVariable cancelNextFail;
 
+    [Tooltip("Invoked when the mission starts")]
+    [SerializeField] GameEvent missionStarted;
+
     protected virtual void Start()
     {
         NetworkServer.RegisterHandler<ClosedMissionResultPopupMsg>(PlayerClosedPopup);
@@ -47,6 +50,7 @@ public abstract class MissionType : MonoBehaviour
     public virtual void StartMission()
     {
         popupsClosed = new List<NetworkConnection>();
+        missionStarted?.Invoke();
     }
 
     /// <summary>

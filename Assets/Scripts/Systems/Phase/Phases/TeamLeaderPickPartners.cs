@@ -94,7 +94,6 @@ public class TeamLeaderPickPartners : GamePhase
         if (!Active) return;
 
         playersOnMission.Value = playersSelected.Value;
-        Debug.Log("Team leader has locked in their partner choices");
 
         End();
     }

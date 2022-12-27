@@ -13,7 +13,6 @@ public class ClientSelectPartners : NetworkBehaviour
     [SerializeField] GameObject lockInButton;
 
     List<ulong> pickedPlayers;
-    bool canPick;
     int clientNumPartners;
     #endregion
 
@@ -55,7 +54,6 @@ public class ClientSelectPartners : NetworkBehaviour
     {
         Debug.Log("Can starty pcking now. :)");
         pickedPlayers = new List<ulong>();
-        canPick = true;
         dropDown.AddAll(pickPlayerButton);
         clientNumPartners = partners;
     }
@@ -134,7 +132,6 @@ public class ClientSelectPartners : NetworkBehaviour
     public void LockIn()
     {
         lockInButton.SetActive(false);
-        canPick = false;
         dropDown.RemoveAll(pickPlayerButton);
         dropDown.RemoveAll(unpickPlayerButton);
 

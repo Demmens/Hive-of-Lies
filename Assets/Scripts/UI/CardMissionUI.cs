@@ -4,8 +4,10 @@ using UnityEngine;
 using TMPro;
 using Mirror;
 
-public class CardMissionUI : MonoBehaviour
+public class CardMissionUI : NetworkBehaviour
 {
+    #region CLIENT
+
     [SerializeField] GameObject UI;
     [SerializeField] TMP_Text drawResult;
     [SerializeField] TMP_Text drawButtonText;
@@ -13,13 +15,25 @@ public class CardMissionUI : MonoBehaviour
     [SerializeField] GameObject drawButton;
     [SerializeField] GameObject submitButton;
 
-    [SerializeField] CostCalculation costCalc;
-    [SerializeField] FavourController favourController;
+    [Tooltip("Returns true if the player is on the mission")]
+    [SerializeField] BoolVariable isOnMission;
 
-    /// <summary>
-    /// The number of rolls we've used so far
-    /// </summary>
-    int numDraws;
+    #endregion
+    #region SERVER
+
+    [Tooltip("Invoked when a player draws a card")]
+    [SerializeField] NetworkingEvent playerDrew;
+
+    [Tooltip("Invoked when a player plays a card")]
+    [SerializeField] NetworkingEvent playerPlayed;
+
+    [Tooltip("Invoked when all players have played their cards")]
+    [SerializeField] GameEvent allPlayersPlayed;
+
+    [Tooltip("All players in the game")]
+    [SerializeField] HoLPlayerSet allPlayers;
+
+    #endregion
 
     int _nextRerollCost;
     /// <summary>
@@ -38,67 +52,72 @@ public class CardMissionUI : MonoBehaviour
         }
     }
 
-    private void Start()
+    [Server]
+    public void SetupFinished()
     {
-        NetworkClient.RegisterHandler<CardMissionStartedMsg>(MissionStarted);
-        ClientEventProvider.singleton.OnPlayerDrew += ReceiveDrawResultFromServer;
-        NetworkClient.RegisterHandler<PlayerPlayedMsg>(PlayerSubmitted);
+        allPlayers.Value.ForEach(ply => ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.Connection, card.Value, ply.NextDrawCost));
     }
 
     /// <summary>
     /// Called when the cards mission starts
     /// </summary>
-    void MissionStarted(CardMissionStartedMsg msg)
+    [ClientRpc]
+    public void MissionStarted()
     {
         Debug.Log("Mission started on client");
-        if (ClientGameInfo.singleton.CurrentlySelected.Contains(ClientGameInfo.singleton.PlayerID))
-        {
-            Debug.Log("Mission started. Player is on mission.");
-            drawResult.text = "0";
-            numDraws = 0;
-            nextDrawCost = 0;
-            submitButton.SetActive(false);
-            drawButton.SetActive(true);
-            UI.SetActive(true);
-        }
+
+        if (!isOnMission) return;
+
+        Debug.Log("Mission started. Player is on mission.");
+        drawResult.text = "0";
+        nextDrawCost = 0;
+        submitButton.SetActive(false);
+        drawButton.SetActive(true);
+        UI.SetActive(true);
     }
 
     /// <summary>
     /// Called when the draw button is clicked on this client
     /// </summary>
+    [Client]
     public void DrawNewCard()
     {
-        //favourController.Favour -= nextDrawCost;
-        drawResult.text = "-";
-        numDraws++;
-        drawButton.SetActive(false);
-        submitButton.SetActive(false);
+        PlayerDrewCard();
+    }
 
-        NetworkClient.Send(new DrawCardMsg() { });
+    [Command(requiresAuthority = false)]
+    void PlayerDrewCard(NetworkConnectionToClient conn = null)
+    {
+        playerDrew?.Invoke(conn);
     }
 
     /// <summary>
     /// The server tells us what we drew
     /// </summary>
-    void ReceiveDrawResultFromServer(DrawCardMsg msg)
+    [TargetRpc]
+    void ReceiveDrawResultFromServer(NetworkConnection conn, int value, int nextCost)
     {
-        Debug.Log("Received draw result from the server");
-        drawResult.text = msg.drawnCard.Value.ToString();
+        drawResult.text = value.ToString();
         submitButton.SetActive(true);
         drawButton.SetActive(true);
-
-        nextDrawCost = costCalc.CalculateDrawCost(numDraws);
-        //if (favourController.Favour < nextDrawCost) drawButton.SetActive(false);
+        drawButtonText.text = $"Redraw ({nextCost}f)";
     }
 
     /// <summary>
     /// Called when the submit button is clicked on this client
     /// </summary>
+    [Client]
     public void PlayCard()
     {
         submitButton.SetActive(false);
         drawButton.SetActive(false);
-        NetworkClient.Send(new PlayerPlayedMsg() { });
+        PlayerPlayedCard();
+    }
+
+    [Command(requiresAuthority = false)]
+    void PlayerPlayedCard(NetworkConnectionToClient conn = null)
+    {
+        playerPlayed?.Invoke(conn);
     }
 
     /// <summary>

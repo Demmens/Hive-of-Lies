@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1132620724603639033}
   - component: {fileID: 8935070084298747935}
+  - component: {fileID: 4520438252007715486}
+  - component: {fileID: 8256270414804623087}
   - component: {fileID: 7588506163348034751}
   - component: {fileID: -1901129887911759640}
   m_Layer: 0
@@ -47,14 +49,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Events:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 603aff459b2ef6241994e8c09260a582, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7588506163348034751}
         m_TargetAssemblyTypeName: CardsMission, Assembly-CSharp
-        m_MethodName: OnSetupFinished
+        m_MethodName: AfterRolesChosen
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4520438252007715486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834205190614587359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: eb7e86d991c53f24bbf5e1d391fb2ff0, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7588506163348034751}
+        m_TargetAssemblyTypeName: CardsMission, Assembly-CSharp
+        m_MethodName: PlayerClickedDraw
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8256270414804623087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834205190614587359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 37674e625c13ad242929fdef74dd804d, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7588506163348034751}
+        m_TargetAssemblyTypeName: CardsMission, Assembly-CSharp
+        m_MethodName: PlayerClickedSubmit
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -75,14 +135,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e0117e7a8d4b1f4090c4b85c8b06a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   Active: 0
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   cancelNextSuccess: {fileID: 11400000, guid: d1271430eb78c6843a940fcf684e0e41, type: 2}
   cancelNextFail: {fileID: 11400000, guid: ff4a3b04733a0ce4ab097c3eecbb8ac1, type: 2}
-  cardInfo: {fileID: 11400000, guid: c6ac75f6bf50fd342bf4c1af7b85c11e, type: 2}
+  missionStarted: {fileID: 11400000, guid: 84bfa7269e26ce64280be9e1b752ac5b, type: 2}
   allRoles: {fileID: 11400000, guid: 7aecc6004a4878546b7578a75f4e4b79, type: 2}
+  allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
+  freeDraws: {fileID: 11400000, guid: 6748b01369dc2d94fbf6dd9449def0a6, type: 2}
+  firstDrawCost: {fileID: 11400000, guid: 8dde2b8d9eb6dff4a83853849c4de3a4, type: 2}
+  globalDrawCostMod: {fileID: 11400000, guid: 993e07413f0ea2c4d9144dcce475ef6a, type: 2}
 --- !u!114 &-1901129887911759640
 MonoBehaviour:
   m_ObjectHideFlags: 0

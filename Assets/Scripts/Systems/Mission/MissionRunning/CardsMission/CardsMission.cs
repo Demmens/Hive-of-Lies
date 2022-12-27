@@ -5,11 +5,6 @@ using Mirror;
 
 public class CardsMission : MissionType
 {
-    public static CardsMission singleton;
-
-    [Tooltip("The decks of all players")]
-    [SerializeField] CardInfo cardInfo;
-
     /// <summary>
     /// The difficulty of the mission
     /// </summary>
@@ -33,11 +28,23 @@ public class CardsMission : MissionType
     [Tooltip("All the roles in the game")]
     [SerializeField] RoleSet allRoles;
 
+    [Tooltip("All the players in the game")]
+    [SerializeField] HoLPlayerSet allPlayers;
+
     [Tooltip("All players by their NetworkConnection")]
     [SerializeField] HoLPlayerDictionary playersByConnection;
 
     [Tooltip("Set of all players on the mission")]
     [SerializeField] HoLPlayerSet playersOnMission;
+
+    [Tooltip("Number of draws the player gets to make for free. Should always be at least 1.")]
+    [SerializeField] IntVariable freeDraws;
+
+    [Tooltip("Cost of the first paid draw.")]
+    [SerializeField] IntVariable firstDrawCost;
+
+    [Tooltip("How much to increase all draw costs by")]
+    [SerializeField] IntVariable globalDrawCostMod;
 
     /// <summary>
     /// Invokes when any player draws a card
@@ -48,45 +55,35 @@ public class CardsMission : MissionType
     public event DrawnCardDelegate OnPlayCard;
     public delegate void DrawnCardDelegate(HoLPlayer ply, ref Card card, ref int value);
 
-    protected override void Start()
-    {
-        singleton = this;
-        base.Start();
-        cardInfo.Value = new Dictionary<HoLPlayer, Deck>();
-        NetworkServer.RegisterHandler<DrawCardMsg>(PlayerClickedDraw);
-        NetworkServer.RegisterHandler<PlayerPlayedMsg>(PlayerClickedSubmit);
-    }
-
-    public void OnSetupFinished()
+    public void AfterRolesChosen()
     {
         foreach (Role role in allRoles.Value)
         {
-            List<Card> playerDeck = new List<Card>();
+            HoLPlayer ply = role.Ability.Owner;
             for (int i = 0; i < role.Data.StartingDeck.Count; i++)
             {
-                playerDeck.Add(new Card(role.Data.StartingDeck[i]));
+                ply.Deck.Value.DrawPile.Add(new Card(role.Data.StartingDeck[i]));
             }
-            Deck deck = new Deck(playerDeck);
-            deck.Shuffle();
-
-            cardInfo.Value.Add(role.Ability.Owner, deck);
+            ply.Deck.Value.Shuffle();
         }
     }
 
     public override void StartMission()
     {
-        base.StartMission();
         playedTotal = 0;
         playersPlayed = new List<HoLPlayer>();
-        NetworkServer.SendToAll(new CardMissionStartedMsg() { });
+        base.StartMission();
     }
 
-    private void PlayerClickedDraw(NetworkConnection conn, DrawCardMsg msg)
+    public void PlayerClickedDraw(NetworkConnection conn)
     {
-        if (playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
         //If the player isn't on the mission
         if (!playersOnMission.Value.Contains(ply)) return;
-        cardInfo.Value.TryGetValue(ply, out Deck deck);
+
+        if (ply.Favour < ply.NextDrawCost && ply.NextDrawCost > 0) return;
+
+        Deck deck = ply.Deck;
 
         if (deck.Hand.Count > 0)
         {
@@ -94,28 +91,22 @@ public class CardsMission : MissionType
             deck.Discard(handCard);
         }
 
+        ply.Favour.Value -= ply.NextDrawCost;
+
+        ply.NumDraws++;
+        ply.NextDrawCost.Value = CalculateDrawCost(ply.NumDraws);
+
         deck.Draw();
-
-        if (deck.Hand.Count == 0) return;
-
-        Card drawnCard = deck.Hand[0];
-
-        OnDrawCard?.Invoke(ply, ref drawnCard);
-
-        conn.Send(new DrawCardMsg()
-        {
-            drawnCard = deck.Hand[0]
-        });
     }
 
-    private void PlayerClickedSubmit(NetworkConnection conn, PlayerPlayedMsg msg)
+    public void PlayerClickedSubmit(NetworkConnection conn)
     {
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
         //If the player isn't on the mission
         if (!playersOnMission.Value.Contains(ply)) return;
         //If the player has already played a card
         if (playersPlayed.Contains(ply)) return;
-        cardInfo.Value.TryGetValue(ply, out Deck deck);
+        Deck deck = ply.Deck;
 
         Card card = deck.Play();
 
@@ -149,13 +140,13 @@ public class CardsMission : MissionType
         result = playedTotal >= Difficulty ? MissionResult.Success : MissionResult.Fail;
 
         List<int> finalCards = new List<int>();
-        foreach (KeyValuePair<HoLPlayer, Deck> deck in cardInfo.Value)
+        foreach (HoLPlayer ply in allPlayers.Value)
         {
             int result = 0;
             //Only display the total of all cards played, not how many they've played
-            for (int i = 0; i < deck.Value.Played.Count; i++)
+            for (int i = 0; i < ply.Deck.Value.Played.Count; i++)
             {
-                result += deck.Value.Played[i].Value;
+                result += ply.Deck.Value.Played[i].Value;
             }
             finalCards.Add(result);
         }
@@ -172,6 +163,30 @@ public class CardsMission : MissionType
 
             pair.Key.Send(msg);
         }
+    }
+
+    /// <summary>
+    /// Calculates the cost of the draw
+    /// </summary>
+    /// <param name="ply">The player drawing a card</param>
+    /// <param name="numRerolls">The number of cards they have drawn so far</param>
+    /// <returns></returns>
+    [Server]
+    public int CalculateDrawCost(int numDraws)
+    {
+        //Make sure the correct number of rerolls are free
+        if (numDraws < freeDraws) return 0;
+
+        //Calculate how many rerolls we have used that aren't free.
+        numDraws -= freeDraws;
+
+        //Formula. Can edit this however we like for balance.
+        int cost = firstDrawCost * (numDraws + 1);
+
+        //Currently deciding to put this before roles tinker with it. Might change later, who knows.
+        cost += globalDrawCostMod;
+
+        return Mathf.Max(cost, 0);
     }
 }
 
