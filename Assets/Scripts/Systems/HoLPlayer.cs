@@ -98,6 +98,11 @@ public class HoLPlayer : NetworkBehaviour
     /// </summary>
     public event System.Action<NetworkConnection, int> OnDownvoteCostChanged;
 
+    /// <summary>
+    /// Invoked when the players downvote cost changes
+    /// </summary>
+    public event System.Action<NetworkConnection, int> OnNumVotesChanged;
+
     private void Awake()
     {
         Team = ScriptableObject.CreateInstance<TeamVariable>();
@@ -107,9 +112,11 @@ public class HoLPlayer : NetworkBehaviour
         NextDrawCost = ScriptableObject.CreateInstance<IntVariable>();
         NextUpvoteCost = ScriptableObject.CreateInstance<IntVariable>();
         NextDownvoteCost = ScriptableObject.CreateInstance<IntVariable>();
+        NumVotes = ScriptableObject.CreateInstance<IntVariable>();
 
         Favour.AfterVariableChanged += change => OnFavourChanged?.Invoke(Connection, change);
         NextUpvoteCost.AfterVariableChanged += change => OnUpvoteCostChanged?.Invoke(Connection, change);
         NextDownvoteCost.AfterVariableChanged += change => OnDownvoteCostChanged?.Invoke(Connection, change);
+        NumVotes.AfterVariableChanged += change => OnNumVotesChanged?.Invoke(Connection, change);
     }
 }

@@ -12,38 +12,49 @@ public class VoteUI : NetworkBehaviour
     [SerializeField] TMP_Text yesCost;
     [SerializeField] TMP_Text noCost;
 
+    //For the disabled button
+    [SerializeField] TMP_Text yesCost2;
+    [SerializeField] TMP_Text noCost2;
+
     [SerializeField] GameObject yesVote;
     [SerializeField] GameObject noVote;
- 
+
     [SerializeField] GameObject voteUI;
-    [SerializeField] CostCalculation costCalc;
 
     [Tooltip("The amount of favour the local player has")]
     [SerializeField] IntVariable favour;
 
     [Tooltip("How many votes the local player has placed")]
     [SerializeField] IntVariable numVotes;
-
-    int upVoteCost = 0;
-    int downVoteCost = 0;
     #endregion
+
     #region SERVER
     [Tooltip("Invoked when a player increases their vote")]
     [SerializeField] NetworkingEvent increasedVote;
 
     [Tooltip("Invoked when a player decreases their vote")]
     [SerializeField] NetworkingEvent decreasedVote;
+
+    [Tooltip("Invoked when a player locks in their vote")]
+    [SerializeField] NetworkingEvent lockedIn;
+
+    [Tooltip("All players in the game")]
+    [SerializeField] HoLPlayerSet allPlayers;
     #endregion
 
-    public override void OnStartClient()
+    [Server]
+    public void AfterSetup()
     {
-        numVotes.AfterVariableChanged += VoteNumberChanged;
+        allPlayers.Value.ForEach(ply => ply.OnUpvoteCostChanged += ReceiveUpvoteCost);
+        allPlayers.Value.ForEach(ply => ply.OnDownvoteCostChanged += ReceiveDownvoteCost);
+        allPlayers.Value.ForEach(ply => ply.OnNumVotesChanged += ReceiveNumVotes);
     }
 
     /// <summary>
     /// Called when the vote starts
     /// </summary>
     /// <param name="msg"></param>
+    [Client]
     public void VoteStarted()
     {
         voteUI.SetActive(true);
@@ -56,14 +67,6 @@ public class VoteUI : NetworkBehaviour
     [Client]
     public void IncreaseVote()
     {
-        numVotes++;
-
-        noVote.SetActive(true);
-        if (upVoteCost > favour) yesVote.SetActive(false);
-
-        noCost.text = yesCost.text;
-        yesCost.text = "~f";
-
         PlayerIncreasedVote();
     }
 
@@ -73,17 +76,23 @@ public class VoteUI : NetworkBehaviour
         increasedVote?.Invoke(conn);
     }
 
+    [TargetRpc]
+    void ReceiveUpvoteCost(NetworkConnection conn, int cost)
+    {
+        yesCost.text = $"{-cost}f";
+        yesCost2.text = yesCost.text;
+        if (cost > favour && cost > 0) yesVote.SetActive(false);
+        else yesVote.SetActive(true);
+    }
+
     /// <summary>
     /// Called when a player deceases their vote (downvotes)
     /// </summary>
+    [Client]
     public void DecreaseVote()
     {
-        numVotes--;
-
-        yesCost.text = noCost.text;
-        noCost.text = "~f";
         yesVote.SetActive(true);
-        if (downVoteCost > favour) noVote.SetActive(false);
+
         PlayerDecreasedVote();
     }
 
@@ -93,28 +102,19 @@ public class VoteUI : NetworkBehaviour
         decreasedVote?.Invoke(conn);
     }
 
-    /// <summary>
-    /// Recalculates the cost of increasing or decreasing your vote
-    /// </summary>
-    [Client]
-    void VoteNumberChanged(int newValue)
+    [TargetRpc]
+    void ReceiveDownvoteCost(NetworkConnection conn, int cost)
     {
-        if (numVotes > 0)
-        {
+        noCost.text = $"{-cost}f";
+        noCost2.text = noCost.text;
+        if (cost > favour && cost > 0) noVote.SetActive(false);
+        else noVote.SetActive(true);
+    }
 
-            downVoteCost *= -1;
-
-            noCost.text = $"{-downVoteCost}f";
-            yesCost.text = $"{-upVoteCost}f";
-        }
-        else
-        {
-
-            noCost.text = $"{-downVoteCost}f";
-            yesCost.text = $"{-upVoteCost}f";
-
-            upVoteCost *= -1;
-        }
+    [TargetRpc]
+    void ReceiveNumVotes(NetworkConnection conn, int num)
+    {
+        voteNumber.text = num.ToString();
     }
 
     [Client]
@@ -127,6 +127,6 @@ public class VoteUI : NetworkBehaviour
     [Command(requiresAuthority = false)]
     void OnPlayerLockedIn(NetworkConnectionToClient conn = null)
     {
-
+        lockedIn?.Invoke(conn);
     }
 }

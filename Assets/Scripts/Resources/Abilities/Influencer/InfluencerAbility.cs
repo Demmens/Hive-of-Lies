@@ -23,8 +23,6 @@ public class InfluencerAbility : RoleAbility
 
     void ModifyVoteCost(int oldVal, ref int newVal)
     {
-        float change = newVal - oldVal;
-        change *= voteCostMod;
-        newVal = oldVal + Mathf.FloorToInt(change);
+        newVal = Mathf.FloorToInt(newVal * voteCostMod);
     }
 }
