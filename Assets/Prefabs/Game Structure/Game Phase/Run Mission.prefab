@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6469246254804295995}
+  - component: {fileID: 5787385125935573225}
   - component: {fileID: 8541603504321663892}
   - component: {fileID: -4355925669750816561}
   m_Layer: 0
@@ -33,6 +34,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5787385125935573225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3005365250139253029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 5cdccd4d07df1c34592d0c8d3ac8098c, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8541603504321663892}
+        m_TargetAssemblyTypeName: RunMission, Assembly-CSharp
+        m_MethodName: EndMission
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8541603504321663892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,6 +75,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05501818820feac4f9824cd78e587c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   phase: {fileID: 11400000, guid: 7281edf4b1599704e9f7af1fc8bc503c, type: 2}
   mission: {fileID: 0}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
@@ -53,6 +85,11 @@ MonoBehaviour:
   failedMissions: {fileID: 11400000, guid: 3607a819c6730274eb3a1bdd526803db, type: 2}
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
   players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  missionResult: {fileID: 11400000, guid: cb86549c1c6b60d438b18bc2ca2877a1, type: 2}
+  cancelNextSuccess: {fileID: 11400000, guid: d1271430eb78c6843a940fcf684e0e41, type: 2}
+  cancelNextFail: {fileID: 11400000, guid: ff4a3b04733a0ce4ab097c3eecbb8ac1, type: 2}
+  missionStarted: {fileID: 11400000, guid: 84bfa7269e26ce64280be9e1b752ac5b, type: 2}
+  missionEnded: {fileID: 11400000, guid: 914730a4f1ae32e48a805cac0393c615, type: 2}
 --- !u!114 &-4355925669750816561
 MonoBehaviour:
   m_ObjectHideFlags: 0

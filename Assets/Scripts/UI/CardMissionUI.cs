@@ -27,9 +27,6 @@ public class CardMissionUI : NetworkBehaviour
     [Tooltip("Invoked when a player plays a card")]
     [SerializeField] NetworkingEvent playerPlayed;
 
-    [Tooltip("Invoked when all players have played their cards")]
-    [SerializeField] GameEvent allPlayersPlayed;
-
     [Tooltip("All players in the game")]
     [SerializeField] HoLPlayerSet allPlayers;
 
@@ -109,8 +106,7 @@ public class CardMissionUI : NetworkBehaviour
     [Client]
     public void PlayCard()
     {
-        submitButton.SetActive(false);
-        drawButton.SetActive(false);
+        UI.SetActive(false);
         PlayerPlayedCard();
     }
 
@@ -118,16 +114,5 @@ public class CardMissionUI : NetworkBehaviour
     void PlayerPlayedCard(NetworkConnectionToClient conn = null)
     {
         playerPlayed?.Invoke(conn);
-    }
-
-    /// <summary>
-    /// Called from the server when any client locks in their draw
-    /// </summary>
-    private void PlayerSubmitted(PlayerPlayedMsg msg)
-    {
-        if (msg.lastPlayer)
-        {
-            UI.SetActive(false);
-        }
     }
 }

@@ -2955,13 +2955,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 929806512}
     m_Modifications:
+    - target: {fileID: 123982232540086843, guid: 3be19418799c2c043b9cf9f4aec5d8ae, type: 3}
+      propertyPath: sceneId
+      value: 2275552871
+      objectReference: {fileID: 0}
     - target: {fileID: 1295893608629904139, guid: 3be19418799c2c043b9cf9f4aec5d8ae, type: 3}
       propertyPath: m_Name
       value: Mission Result Popup
-      objectReference: {fileID: 0}
-    - target: {fileID: 2120885820029236301, guid: 3be19418799c2c043b9cf9f4aec5d8ae, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7754135281452097574, guid: 3be19418799c2c043b9cf9f4aec5d8ae, type: 3}
       propertyPath: m_Pivot.x

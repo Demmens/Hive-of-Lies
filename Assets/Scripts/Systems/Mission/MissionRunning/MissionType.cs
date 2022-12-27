@@ -15,71 +15,19 @@ public abstract class MissionType : NetworkBehaviour
     public bool Active;
 
     /// <summary>
-    /// Who the current TeamLeader of the mission is
-    /// </summary>
-    protected Player General;
-
-    /// <summary>
-    /// List of connections that have closed the mission result popup
-    /// </summary>
-    List<NetworkConnection> popupsClosed;
-
-    /// <summary>
-    /// The result of the mission
-    /// </summary>
-    protected MissionResult result;
-
-    public delegate void MissionEnded(MissionResult result, bool triggerEffects = true);
-    public event MissionEnded OnMissionEnded;
-
-    [SerializeField] IntVariable playerCount;
-    [SerializeField] BoolVariable cancelNextSuccess;
-    [SerializeField] BoolVariable cancelNextFail;
-
-    [Tooltip("Invoked when the mission starts")]
-    [SerializeField] GameEvent missionStarted;
-
-    protected virtual void Start()
-    {
-        NetworkServer.RegisterHandler<ClosedMissionResultPopupMsg>(PlayerClosedPopup);
-    }
-
-    /// <summary>
     /// Called when the mission begins (after TeamLeader is successfully voted in)
     /// </summary>
     public virtual void StartMission()
     {
-        popupsClosed = new List<NetworkConnection>();
-        missionStarted?.Invoke();
     }
 
     /// <summary>
-    /// Call to end the mission
+    /// Called when the mission ends
     /// </summary>
     /// <param name="res">The result of the mission</param>
     /// <param name="triggerEffects">Whether the mission should trigger the success or fail effect</param>
-    protected void EndMission(MissionResult res, bool triggerEffects = true)
+    public virtual void EndMission()
     {
-        if (!triggerEffects) 
-        {
-            OnMissionEnded?.Invoke(result, triggerEffects);
-            return;
-        }
-
-        if (cancelNextFail && res == MissionResult.Fail || cancelNextSuccess && res == MissionResult.Success)
-        {
-            cancelNextFail.Value = false;
-            cancelNextSuccess.Value = false;
-            OnMissionEnded?.Invoke(res, false);
-        }        
-    }
-
-    void PlayerClosedPopup(NetworkConnection conn, ClosedMissionResultPopupMsg msg)
-    {
-        if (popupsClosed.Contains(conn)) return;
-
-        popupsClosed.Add(conn);
-        if (popupsClosed.Count == playerCount) EndMission(result);
     }
 }
 

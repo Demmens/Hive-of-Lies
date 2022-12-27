@@ -37,6 +37,9 @@ public class CardsMission : MissionType
     [Tooltip("Set of all players on the mission")]
     [SerializeField] HoLPlayerSet playersOnMission;
 
+    [Tooltip("Set of all played cards")]
+    [SerializeField] CardSet playedCards;
+
     [Tooltip("Number of draws the player gets to make for free. Should always be at least 1.")]
     [SerializeField] IntVariable freeDraws;
 
@@ -46,15 +49,13 @@ public class CardsMission : MissionType
     [Tooltip("How much to increase all draw costs by")]
     [SerializeField] IntVariable globalDrawCostMod;
 
-    /// <summary>
-    /// Invokes when any player draws a card
-    /// </summary>
-    public event CardDelegate OnDrawCard;
-    public delegate void CardDelegate(HoLPlayer ply, ref Card card);
+    [Tooltip("The result of the mission")]
+    [SerializeField] MissionResultVariable missionResult;
 
-    public event DrawnCardDelegate OnPlayCard;
-    public delegate void DrawnCardDelegate(HoLPlayer ply, ref Card card, ref int value);
+    [Tooltip("Invoked when all players have played their cards")]
+    [SerializeField] GameEvent allPlayersPlayed;
 
+    [Server]
     public void AfterRolesChosen()
     {
         foreach (Role role in allRoles.Value)
@@ -68,13 +69,15 @@ public class CardsMission : MissionType
         }
     }
 
+    [Server]
     public override void StartMission()
     {
         playedTotal = 0;
-        playersPlayed = new List<HoLPlayer>();
-        base.StartMission();
+        playersPlayed = new();
+        playedCards.Value = new();
     }
 
+    [Server]
     public void PlayerClickedDraw(NetworkConnection conn)
     {
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
@@ -93,12 +96,14 @@ public class CardsMission : MissionType
 
         ply.Favour.Value -= ply.NextDrawCost;
 
-        ply.NumDraws++;
         ply.NextDrawCost.Value = CalculateDrawCost(ply.NumDraws);
+
+        ply.NumDraws++;
 
         deck.Draw();
     }
 
+    [Server]
     public void PlayerClickedSubmit(NetworkConnection conn)
     {
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
@@ -110,34 +115,20 @@ public class CardsMission : MissionType
 
         Card card = deck.Play();
 
-        int value = card.Value;
-
-        OnPlayCard?.Invoke(ply, ref card, ref value);
-
         playedTotal += card.Value;
 
         playersPlayed.Add(ply);
 
-        if (playersPlayed.Count >= playersOnMission.Value.Count)
-        {
-            AllPlayersPlayed();
-            NetworkServer.SendToAll(new PlayerPlayedMsg()
-            {
-                lastPlayer = true
-            });
-        }
-        else
-        {
-            NetworkServer.SendToAll(new PlayerPlayedMsg()
-            {
-            });
-        }
+        playedCards.Add(card);
+
+        if (playersPlayed.Count >= playersOnMission.Value.Count) AllPlayersPlayed();
     }
 
     private void AllPlayersPlayed()
     {
         Debug.Log("All players have submitted");
-        result = playedTotal >= Difficulty ? MissionResult.Success : MissionResult.Fail;
+        allPlayersPlayed?.Invoke();
+        missionResult.Value = playedTotal >= Difficulty ? MissionResult.Success : MissionResult.Fail;
 
         List<int> finalCards = new List<int>();
         foreach (HoLPlayer ply in allPlayers.Value)
@@ -149,19 +140,6 @@ public class CardsMission : MissionType
                 result += ply.Deck.Value.Played[i].Value;
             }
             finalCards.Add(result);
-        }
-
-
-        foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in playersByConnection.Value)
-        {
-            CreateMissionResultPopupMsg msg = new CreateMissionResultPopupMsg()
-            {
-                result = result,
-            };
-
-            if (playersPlayed.Contains(pair.Value)) msg.finalCards = finalCards;
-
-            pair.Key.Send(msg);
         }
     }
 

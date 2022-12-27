@@ -5,8 +5,6 @@ using Mirror;
 
 public class RunMission : GamePhase
 {
-    public static RunMission singleton;
-
     /// <summary>
     /// The specific type of mission we want to run (e.g. cards, dice, etc.)
     /// </summary>
@@ -39,26 +37,38 @@ public class RunMission : GamePhase
     [Tooltip("Set of all failed missions")]
     [SerializeField] MissionSet failedMissions;
 
-    [Tooltip("All players on the mission")]
+    [Tooltip("Set of all players on the mission")]
     [SerializeField] HoLPlayerSet playersOnMission;
 
-    [Tooltip("All players")]
+    [Tooltip("Set of all players")]
     [SerializeField] HoLPlayerSet players;
 
-    private void Start()
-    {
-        //mission.OnMissionEnded += OnMissionEnded;
-        singleton = this;
-    }
+    [Tooltip("The result of the mission")]
+    [SerializeField] MissionResultVariable missionResult;
+
+    [Tooltip("Whether the next missions success effect should be cancelled")]
+    [SerializeField] BoolVariable cancelNextSuccess;
+
+    [Tooltip("Whether the next missions fail effect should be cancelled")]
+    [SerializeField] BoolVariable cancelNextFail;
+
+    [Tooltip("Invoked when the mission begins")]
+    [SerializeField] GameEvent missionStarted;
+
+    [Tooltip("Invoked when the mission end")]
+    [SerializeField] GameEvent missionEnded;
+
     public override void Begin()
     {
         mission.Active = true;
         mission.StartMission();
+        missionStarted?.Invoke();
     }
 
-    void OnMissionEnded(MissionResult result, bool triggerEffects = true)
+    public void EndMission()
     {
-        if (result == MissionResult.Success)
+        Debug.Log("Mission should be ending now");
+        if (missionResult == MissionResult.Success)
         {
             succeededMissions.Add(currentMission.Value);
         } 
@@ -68,15 +78,6 @@ public class RunMission : GamePhase
         }
         completedMissions.Add(currentMission.Value);
         mission.Active = false;
-        NetworkServer.SendToAll(new MissionEndMsg()
-        {
-            result = result,
-        });
-
-        foreach (HoLPlayer ply in playersOnMission.Value)
-        {
-            ply.Exhaustion++;
-        }
 
         foreach (HoLPlayer ply in players.Value)
         {
@@ -90,27 +91,22 @@ public class RunMission : GamePhase
             }
         }
 
-        OnMissionEnd?.Invoke(result);
+        missionEnded?.Invoke();
 
-        if (triggerEffects)
-        {
-            List<MissionEffect> effects = (result == MissionResult.Success) ?
-                currentMission.Value.SuccessEffects :
-                currentMission.Value.FailEffects;
+        List<MissionEffect> effects = (missionResult == MissionResult.Success) ?
+            currentMission.Value.SuccessEffects :
+            currentMission.Value.FailEffects;
 
-            numEffects = effects.Count;
-            effectsTriggered = 0;
-            //Trigger all effects
-            foreach (MissionEffect effect in effects)
-            {
-                effect.OnMissionEffectFinished += OnEffectEnded;
-                effect.TriggerEffect();
-            }
-        }
-        else
+        numEffects = effects.Count;
+        effectsTriggered = 0;
+        //Trigger all effects
+        foreach (MissionEffect effect in effects)
         {
-            End();
+            effect.OnMissionEffectFinished += OnEffectEnded;
+            effect.TriggerEffect();
         }
+            
+        End();
     }
 
     private void OnEffectEnded()

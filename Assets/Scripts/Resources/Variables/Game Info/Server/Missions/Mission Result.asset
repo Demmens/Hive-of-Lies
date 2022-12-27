@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b13e388f2a55dd418696aef105b7a65, type: 3}
-  m_Name: CardInfo
+  m_Script: {fileID: 11500000, guid: 0b03e4a39a8df9343b3321619aeb2c8e, type: 3}
+  m_Name: Mission Result
   m_EditorClassIdentifier: 
+  initialValue: 0
+  currentValue: 0
   server: 0
   client: 0
   tooltip: 
