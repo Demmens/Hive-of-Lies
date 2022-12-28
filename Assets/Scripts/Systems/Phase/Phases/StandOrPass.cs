@@ -105,6 +105,7 @@ public class StandOrPass : GamePhase
         if (isStanding)
         {
             standingPlayers.Add(ply);
+            //Lose favour when you stand
             ply.Favour.Value -= currentMission.Value.FavourCost;
         }
         else passedPlayers.Add(ply);
@@ -147,8 +148,14 @@ public class StandOrPass : GamePhase
         teamLeader.Value = standingPlayers.Value[0];
         Debug.Log($"The team leader has been set to {teamLeader.Value.DisplayName}");
 
-        //The Team Leader pays the favour cost of standing
-        teamLeader.Value.Favour.Value -= currentMission.Value.FavourCost;
+        //All unsuccessful players get their favour back
+        standingPlayers.Value.ForEach(ply =>
+        {
+            if (ply != teamLeader.Value)
+            {
+                ply.Favour.Value += currentMission.Value.FavourCost;
+            }
+        });
 
         End();
     }
