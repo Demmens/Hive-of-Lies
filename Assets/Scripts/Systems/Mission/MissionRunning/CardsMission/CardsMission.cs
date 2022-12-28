@@ -167,29 +167,3 @@ public class CardsMission : MissionType
         return Mathf.Max(cost, 0);
     }
 }
-
-public struct DrawCardMsg : NetworkMessage
-{
-    public Card drawnCard;
-}
-
-public struct PlayerPlayedMsg : NetworkMessage
-{
-    public bool lastPlayer;
-}
-
-public struct AllPlayersPlayedMsg : NetworkMessage
-{
-    
-}
-
-public struct CardMissionStartedMsg : NetworkMessage
-{
-
-}
-
-public struct CreateMissionResultPopupMsg : NetworkMessage
-{
-    public MissionResult result;
-    public List<int> finalCards;
-}
