@@ -168,9 +168,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   Active: 0
+  difficulty: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
+  exhaustionPenalty: {fileID: 11400000, guid: 324d0b2c264c77c4aa06399b7301de42, type: 2}
   allRoles: {fileID: 11400000, guid: 7aecc6004a4878546b7578a75f4e4b79, type: 2}
   allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
-  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
+    type: 2}
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
   playedCards: {fileID: 11400000, guid: 2e986bf54c1fd454993a598a36f4f1f5, type: 2}
   freeDraws: {fileID: 11400000, guid: 6748b01369dc2d94fbf6dd9449def0a6, type: 2}

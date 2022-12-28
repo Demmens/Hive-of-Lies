@@ -5,15 +5,11 @@ using Mirror;
 
 public class CardsMission : MissionType
 {
-    /// <summary>
-    /// The difficulty of the mission
-    /// </summary>
-    public static int Difficulty = 25;
+    [Tooltip("The difficulty of the mission")]
+    [SerializeField] IntVariable difficulty;
 
-    /// <summary>
-    /// The penalty given to a players card result when they're exhausted
-    /// </summary>
-    public static int ExhaustionPenalty = 5;
+    [Tooltip("The difficulty of the mission")]
+    [SerializeField] IntVariable exhaustionPenalty;
 
     /// <summary>
     /// Total value of all played cards
@@ -128,7 +124,7 @@ public class CardsMission : MissionType
     {
         Debug.Log("All players have submitted");
         allPlayersPlayed?.Invoke();
-        missionResult.Value = playedTotal >= Difficulty ? MissionResult.Success : MissionResult.Fail;
+        missionResult.Value = playedTotal >= difficulty ? MissionResult.Success : MissionResult.Fail;
 
         List<int> finalCards = new List<int>();
         foreach (HoLPlayer ply in allPlayers.Value)
