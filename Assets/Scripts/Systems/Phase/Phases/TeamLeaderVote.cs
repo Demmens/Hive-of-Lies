@@ -132,6 +132,10 @@ public class TeamLeaderVote : GamePhase
         //Invoke the player voted event
         onPlayerVoted?.Invoke();
 
+        ply.NumVotes.Value = 0;
+        ply.NextDownvoteCost.Value = 0;
+        ply.NextUpvoteCost.Value = 0;
+
         //If we have received a vote from everyone
         if (allVotes.Value.Count == playerCount) AllVotesReceived();
     }
@@ -140,6 +144,7 @@ public class TeamLeaderVote : GamePhase
     {
         //Invoke the all players voted event
         onAllPlayersVoted?.Invoke();
+        allVotes.Value = new();
     }
 
     /// <summary>
