@@ -123,8 +123,8 @@ public class CardsMission : MissionType
     private void AllPlayersPlayed()
     {
         Debug.Log("All players have submitted");
-        allPlayersPlayed?.Invoke();
         missionResult.Value = playedTotal >= difficulty ? MissionResult.Success : MissionResult.Fail;
+        allPlayersPlayed?.Invoke();
 
         List<int> finalCards = new List<int>();
         foreach (HoLPlayer ply in allPlayers.Value)
