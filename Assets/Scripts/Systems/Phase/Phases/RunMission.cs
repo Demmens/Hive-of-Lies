@@ -105,8 +105,6 @@ public class RunMission : GamePhase
             effect.OnMissionEffectFinished += OnEffectEnded;
             effect.TriggerEffect();
         }
-            
-        End();
     }
 
     private void OnEffectEnded()
