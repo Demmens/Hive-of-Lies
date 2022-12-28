@@ -65,7 +65,7 @@ public class VoteResultPopup : NetworkBehaviour
     public void ReceiveVoteResults()
     {
         continueButton.SetActive(true);
-        playerVotes = new Dictionary<ulong, PlayerVoteGameObject>();
+        playerVotes = new();
         votesReceived.Sort((a, b) => { return a.votes - b.votes; });
 
         int total = 0;
@@ -109,7 +109,11 @@ public class VoteResultPopup : NetworkBehaviour
 
         OnPlayerClosedPopup(ply.PlayerID, isLastPlayer);
 
-        if (isLastPlayer) allPlayersClosedPopup?.Invoke();
+        if (isLastPlayer)
+        {
+            allPlayersClosedPopup?.Invoke();
+            playersClosedPopup = new();
+        }
     }
 
     /// <summary>
@@ -126,6 +130,7 @@ public class VoteResultPopup : NetworkBehaviour
         else
         {
             popup.SetActive(false);
+            votesReceived = new();
         }
     }
 
