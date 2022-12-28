@@ -36,6 +36,9 @@ public class MissionResultPopup : NetworkBehaviour
     [Tooltip("The playercount of the game")]
     [SerializeField] IntVariable playerCount;
 
+    [Tooltip("The current mission")]
+    [SerializeField] MissionVariable currentMission;
+
     [Tooltip("Invoked when all players have closed the popup")]
     [SerializeField] GameEvent allPlayersClosed;
     #endregion
@@ -50,13 +53,15 @@ public class MissionResultPopup : NetworkBehaviour
 
             //Show players on the mission what everyone played. Nobody else gets to see.
             if (playersOnMission.Value.Contains(ply)) played = playedCards;
-            
-            CreatePopup(ply.Connection, missionResult, played);
+
+            string flavour = missionResult == MissionResult.Success ? currentMission.Value.SuccessFlavour : currentMission.Value.FailFlavour;
+
+            CreatePopup(ply.Connection, missionResult, flavour, played);
         });
     }
 
     [TargetRpc]
-    public void CreatePopup(NetworkConnection conn, MissionResult result, List<Card> contributions)
+    public void CreatePopup(NetworkConnection conn, MissionResult result, string flavour, List<Card> contributions)
     {
         string cardResultsText = "";
 
@@ -71,7 +76,7 @@ public class MissionResultPopup : NetworkBehaviour
 
         missionResultText.text = success ? "Mission Succeeded" : "Mission Failed";
 
-        outcomeFlavour.text = success ? "[Success Flavour]" : "[Fail Flavour]";
+        outcomeFlavour.text = flavour;
 
         popup.SetActive(true);
     }

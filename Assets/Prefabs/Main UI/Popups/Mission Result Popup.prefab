@@ -93,6 +93,7 @@ MonoBehaviour:
   playedCards: {fileID: 11400000, guid: 2e986bf54c1fd454993a598a36f4f1f5, type: 2}
   missionResult: {fileID: 11400000, guid: cb86549c1c6b60d438b18bc2ca2877a1, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
+  currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
   allPlayersClosed: {fileID: 11400000, guid: 5cdccd4d07df1c34592d0c8d3ac8098c, type: 2}
 --- !u!114 &123982232540086843
 MonoBehaviour:
