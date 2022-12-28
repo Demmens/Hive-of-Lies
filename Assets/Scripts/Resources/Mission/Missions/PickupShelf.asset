@@ -15,13 +15,13 @@ MonoBehaviour:
   missionName: Pickup Shelf
   description: While trying to organise the library, we knocked over a shelf. Let's
     spend some time trying to pick it back up again.
-  influenceCost: 0
-  successEffects:
-  - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}
+  favourCost: 6
   successFlavour: The library is still a mess, but at least that shelf is back where
     it should be.
-  failEffects:
-  - {fileID: 11400000, guid: 88ac73c2e59ffb144a8b2984851ef7c1, type: 2}
+  successEffects:
+  - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}
   failFlavour: The shelf is too heavy to pick up. Looks like you'll have to give
     up on this one.
+  failEffects:
+  - {fileID: 11400000, guid: 88ac73c2e59ffb144a8b2984851ef7c1, type: 2}
   condition: {fileID: 11400000, guid: 10c8a10fe3b048a4c83ea983d0b0b71d, type: 2}

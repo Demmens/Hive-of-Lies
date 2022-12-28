@@ -15,11 +15,11 @@ MonoBehaviour:
   missionName: Final Research Push
   description: Spend the last of your resources searching the final threads in the
     hive library in a last ditch effort to weed out the wasps.
-  influenceCost: 12
+  favourCost: 6
+  successFlavour: Find the information you need and finally oust the wasps
   successEffects:
   - {fileID: 11400000, guid: c20462baca7fd364b857081d92087c9e, type: 2}
-  successFlavour: Find the information you need and finally oust the wasps
+  failFlavour: The library comes up empty. There is no more hope.
   failEffects:
   - {fileID: 11400000, guid: 34235a5eb24d62e4086243ed8787bdc4, type: 2}
-  failFlavour: The library comes up empty. There is no more hope.
   condition: {fileID: 0}

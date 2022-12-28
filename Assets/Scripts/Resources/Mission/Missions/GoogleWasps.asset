@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionName: Research Wasps
   description: Send out a team to look up the definition of the word "Wasp" online
-  influenceCost: 6
+  favourCost: 6
+  successFlavour: Find a helpful forum thread
   successEffects:
   - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
-  successFlavour: Find a helpful forum thread
+  failFlavour: '"Accidentally" download a virus'
   failEffects:
   - {fileID: 11400000, guid: 0eb0458e3ea61794bbf437ab526ae557, type: 2}
-  failFlavour: '"Accidentally" download a virus'
   condition: {fileID: 0}

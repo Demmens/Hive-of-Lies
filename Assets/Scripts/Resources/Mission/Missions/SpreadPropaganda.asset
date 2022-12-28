@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionName: Create Propaganda
   description: Spend time designing promotional posters for the Bee political campaign.
-  influenceCost: 0
+  favourCost: 6
+  successFlavour: Create a simple and effective poster design.
   successEffects:
   - {fileID: 11400000, guid: 35b2a171ec6d8c34c807ab1866fa09fb, type: 2}
-  successFlavour: Create a simple and effective poster design.
+  failFlavour: Accidentally promote fascist imagery
   failEffects:
   - {fileID: 11400000, guid: b6d89fb161e8f5b44a3beee712f688a5, type: 2}
-  failFlavour: Accidentally promote fascist imagery
   condition: {fileID: 0}

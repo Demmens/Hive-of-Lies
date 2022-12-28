@@ -15,13 +15,13 @@ MonoBehaviour:
   missionName: Preparations
   description: Prepare for the worst-case scenarios, and build backup plans to mitigate
     the risks.
-  influenceCost: 0
-  successEffects:
-  - {fileID: 11400000, guid: 9840bfe71caa76f4bb351aebb702f7d2, type: 2}
+  favourCost: 6
   successFlavour: Successfully determine the risks associated with the next mission,
     and prepare accordingly.
-  failEffects:
-  - {fileID: 11400000, guid: f3e62efb6045c334db7c23cc14b3203e, type: 2}
+  successEffects:
+  - {fileID: 11400000, guid: 9840bfe71caa76f4bb351aebb702f7d2, type: 2}
   failFlavour: Accidentally prepare for the wrong outcome, and mitigate any chance
     of success.
+  failEffects:
+  - {fileID: 11400000, guid: f3e62efb6045c334db7c23cc14b3203e, type: 2}
   condition: {fileID: 0}
