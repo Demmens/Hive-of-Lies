@@ -20,7 +20,7 @@ public class Mission : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="FavourCost"/>
     /// </summary>
-    [SerializeField] int influenceCost;
+    [SerializeField] int favourCost;
 
     [Space]
     [Space]
@@ -89,7 +89,7 @@ public class Mission : ScriptableObject
     {
         get
         {
-            return influenceCost;
+            return favourCost;
         }
     }
 
