@@ -11,6 +11,7 @@ public class InvestigatePlayer : MissionEffect
     GameObject notification;
 
     PlayerButtonDropdown dropDown;
+    bool isResult = false;
 
     [Tooltip("All players in the game")]
     [SerializeField] HoLPlayerSet allPlayers;
@@ -23,6 +24,7 @@ public class InvestigatePlayer : MissionEffect
         NetworkClient.RegisterHandler<InvestigateEffectTriggeredMsg>(OnEffectTriggered);
         NetworkClient.RegisterHandler<InvestigateResultMsg>(GetResults);
         NetworkServer.RegisterHandler<InvestigateEffectTriggeredMsg>(OnInvestigated);
+        NetworkServer.RegisterHandler<ClosedInvestigatePopupMsg>(ClientClosedPopup);
     }
 
     #region SERVER
@@ -51,11 +53,18 @@ public class InvestigatePlayer : MissionEffect
                     team = ply.Team,
                     playerName = ply.DisplayName,
                 });
-                //Now we have received the result, we can end the effect of the mission and continue with the game.
-                EndEffect();
                 return;
             }
         }
+    }
+
+    [Server]
+    private void ClientClosedPopup(NetworkConnection conn, ClosedInvestigatePopupMsg msg)
+    {
+        if (conn != teamLeader.Value.Connection) return;
+        //Only continue with the game when the team leader has closed the result popup
+        EndEffect();
+
     }
     #endregion
 
@@ -64,7 +73,6 @@ public class InvestigatePlayer : MissionEffect
     [Client]
     private void OnEffectTriggered(InvestigateEffectTriggeredMsg msg)
     {
-        Debug.Log("Effect triggered on client");
         //This is really bad and we shouldn't be doing this. It's currently midnight and I'm too tired to think of a better way.
         dropDown = FindObjectOfType<PlayerButtonDropdown>();
         PlayerButtonDropdownItem item = dropDown.AddAll(investigateButton);
@@ -74,7 +82,6 @@ public class InvestigatePlayer : MissionEffect
 
         notification.SetActive(true);
         notification.GetComponent<InvestigatePopup>().SetText("Choose a player to investigate");
-        Debug.Log("Notification created");
     }
 
     /// <summary>
@@ -100,19 +107,29 @@ public class InvestigatePlayer : MissionEffect
     private void GetResults(InvestigateResultMsg msg)
     {
         notification.SetActive(true);
+        isResult = true;
         notification.GetComponent<InvestigatePopup>().SetText($"{msg.playerName} is a {msg.team}");
     }
 
+    [Client]
+    public void OnClosedPopup()
+    {
+        if (!isResult) return;
+        NetworkClient.Send(new ClosedInvestigatePopupMsg());
+        isResult = false;
+    }
     #endregion
-}
 
-public struct InvestigateEffectTriggeredMsg : NetworkMessage
-{
-    public ulong playerID;
-}
+    struct InvestigateEffectTriggeredMsg : NetworkMessage
+    {
+        public ulong playerID;
+    }
 
-public struct InvestigateResultMsg : NetworkMessage
-{
-    public Team team;
-    public string playerName;
+    struct InvestigateResultMsg : NetworkMessage
+    {
+        public Team team;
+        public string playerName;
+    }
+
+    struct ClosedInvestigatePopupMsg : NetworkMessage { }
 }
