@@ -14,6 +14,6 @@ public class BuzzedBeeAbility : RoleAbility
 
     public void ExhaustionChanged(int oldVal, ref int newVal)
     {
-        newVal = oldVal;
+        newVal = 0;
     }
 }
