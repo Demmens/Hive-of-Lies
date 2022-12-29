@@ -45,14 +45,12 @@ public class ClientSelectPartners : NetworkBehaviour
     [Server]
     public void TeamLeaderCanPick()
     {
-        Debug.Log("Telling the team leader they can pick");
         CanStartPicking(teamLeader.Value.Connection, numPartners);
     }
 
     [TargetRpc]
     void CanStartPicking(NetworkConnection conn, int partners)
     {
-        Debug.Log("Can starty pcking now. :)");
         pickedPlayers = new List<ulong>();
         dropDown.AddAll(pickPlayerButton);
         clientNumPartners = partners;

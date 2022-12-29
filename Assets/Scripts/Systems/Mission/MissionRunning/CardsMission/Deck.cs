@@ -86,7 +86,6 @@ public class Deck
             Hand.Add(card);
 
             OnDraw?.Invoke(card);
-            Debug.Log("Invoked card draw event");
 
             DrawPile.RemoveAt(0);
 

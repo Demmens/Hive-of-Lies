@@ -170,7 +170,6 @@ public class DecideMission : GamePhase
         }
 
         decidedMissionChoices.Value = choices;
-        Debug.Log(choices.Count);
         onMissionChoicesDecided?.Invoke();
         CreateMissionCards(choices);
     }
