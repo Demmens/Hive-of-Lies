@@ -50,7 +50,7 @@ public class CardMissionUI : NetworkBehaviour
     }
 
     [Server]
-    public void SetupFinished()
+    public void AfterRolesGiven()
     {
         allPlayers.Value.ForEach(ply => ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.Connection, card.Value, ply.NextDrawCost));
     }

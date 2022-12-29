@@ -83,13 +83,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Events:
-  - {fileID: 11400000, guid: 78cfefec714f52749a9d7e5f2ac0fb22, type: 2}
+  - {fileID: 11400000, guid: 603aff459b2ef6241994e8c09260a582, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7037346933011592580}
         m_TargetAssemblyTypeName: CardMissionUI, Assembly-CSharp
-        m_MethodName: SetupFinished
+        m_MethodName: AfterRolesGiven
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -122,7 +122,6 @@ MonoBehaviour:
   isOnMission: {fileID: 11400000, guid: b9f406dffbe4a27409cd0aa785114640, type: 2}
   playerDrew: {fileID: 11400000, guid: eb7e86d991c53f24bbf5e1d391fb2ff0, type: 2}
   playerPlayed: {fileID: 11400000, guid: 37674e625c13ad242929fdef74dd804d, type: 2}
-  allPlayersPlayed: {fileID: 11400000, guid: 12992b83150649a40b0b24a5c8950cc8, type: 2}
   allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
 --- !u!114 &3301702688902783271
 MonoBehaviour:
