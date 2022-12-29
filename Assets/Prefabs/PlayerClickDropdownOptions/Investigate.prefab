@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8328079627341047083}
   - component: {fileID: 5617782047764520766}
   - component: {fileID: 2404507862692150519}
-  - component: {fileID: 577325752121633108}
+  - component: {fileID: 3612496781181645361}
   m_Layer: 5
   m_Name: Investigate
   m_TagString: Untagged
@@ -123,9 +123,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 577325752121633108}
-        m_TargetAssemblyTypeName: ClientInvestigate, Assembly-CSharp
-        m_MethodName: Investigate
+      - m_Target: {fileID: 3612496781181645361}
+        m_TargetAssemblyTypeName: PlayerButtonDropdownItem, Assembly-CSharp
+        m_MethodName: Click
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &577325752121633108
+--- !u!114 &3612496781181645361
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8102290754876271477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec187e8dd20946242a830cf5c49810b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 077e54739078f784ea1bceee83d29573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerClicked: 0

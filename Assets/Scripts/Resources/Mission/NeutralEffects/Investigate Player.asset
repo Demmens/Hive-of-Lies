@@ -14,4 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Investigate Player
   type: 2
-  investigateButton: {fileID: 8102290754876271477, guid: d7c6ccd1631b7df4b84bd6951d5d32a3, type: 3}
+  investigateButton: {fileID: 8102290754876271477, guid: d7c6ccd1631b7df4b84bd6951d5d32a3,
+    type: 3}
+  notificationPrefab: {fileID: 1480763678404451254, guid: b77e5ab89d0e587469b2a09129129445,
+    type: 3}
+  allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}

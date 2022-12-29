@@ -7,20 +7,31 @@ using Mirror;
 public class InvestigatePlayer : MissionEffect
 {
     [SerializeField] GameObject investigateButton;
+    [SerializeField] GameObject notificationPrefab;
+    GameObject notification;
 
-    public static InvestigatePlayer Singleton;
-    void Start()
+    PlayerButtonDropdown dropDown;
+
+    [Tooltip("All players in the game")]
+    [SerializeField] HoLPlayerSet allPlayers;
+
+    [Tooltip("The current team leader")]
+    [SerializeField] HoLPlayerVariable teamLeader;
+
+    void Awake()
     {
-        Singleton = this;
         NetworkClient.RegisterHandler<InvestigateEffectTriggeredMsg>(OnEffectTriggered);
         NetworkClient.RegisterHandler<InvestigateResultMsg>(GetResults);
         NetworkServer.RegisterHandler<InvestigateEffectTriggeredMsg>(OnInvestigated);
     }
 
     #region SERVER
+    [Server]
     public override void TriggerEffect()
     {
-        GameInfo.singleton.TeamLeader.Connection.Send(new InvestigateEffectTriggeredMsg() { });
+        Debug.Log("Effect triggered");
+
+        teamLeader.Value.Connection.Send(new InvestigateEffectTriggeredMsg() { });
     }
 
     /// <summary>
@@ -28,16 +39,17 @@ public class InvestigatePlayer : MissionEffect
     /// </summary>
     /// <param name="conn"></param>
     /// <param name="msg"></param>
+    [Server]
     private void OnInvestigated(NetworkConnection conn, InvestigateEffectTriggeredMsg msg)
     {
-        foreach (KeyValuePair<NetworkConnection, Player> pair in GameInfo.singleton.Players)
+        foreach (HoLPlayer ply in allPlayers.Value)
         {
-            if (pair.Value.ID == msg.playerID)
+            if (ply.PlayerID == msg.playerID)
             {
-                GameInfo.singleton.TeamLeader.Connection.Send(new InvestigateResultMsg()
+                teamLeader.Value.Connection.Send(new InvestigateResultMsg()
                 {
-                    team = pair.Value.Team,
-                    playerName = pair.Value.DisplayName,
+                    team = ply.Team,
+                    playerName = ply.DisplayName,
                 });
                 //Now we have received the result, we can end the effect of the mission and continue with the game.
                 EndEffect();
@@ -49,19 +61,30 @@ public class InvestigatePlayer : MissionEffect
 
     #region CLIENT
 
+    [Client]
     private void OnEffectTriggered(InvestigateEffectTriggeredMsg msg)
     {
-        //PlayerButtonDropdown.singleton.AddItem(investigateButton);
-        Notification.Singleton.CreateNotification($"Choose a player to investigate");
+        Debug.Log("Effect triggered on client");
+        //This is really bad and we shouldn't be doing this. It's currently midnight and I'm too tired to think of a better way.
+        dropDown = FindObjectOfType<PlayerButtonDropdown>();
+        PlayerButtonDropdownItem item = dropDown.AddAll(investigateButton);
+        item.OnItemClicked += PlayerInvestigated;
+
+        if (notification == null) notification = Instantiate(notificationPrefab);
+
+        notification.SetActive(true);
+        notification.GetComponent<InvestigatePopup>().SetText("Choose a player to investigate");
+        Debug.Log("Notification created");
     }
 
     /// <summary>
     /// Called on the client when the player chooses who to investigate
     /// </summary>
     /// <param name="playerID"></param>
+    [Client]
     public void PlayerInvestigated(ulong playerID)
     {
-        //PlayerButtonDropdown.singleton.RemoveItem(investigateButton);
+        dropDown.RemoveAll(investigateButton);
         InvestigateEffectTriggeredMsg msg = new InvestigateEffectTriggeredMsg()
         {
             playerID = playerID,
@@ -73,9 +96,11 @@ public class InvestigatePlayer : MissionEffect
     /// Called by the server to send the team of the investigated player over to the client.
     /// </summary>
     /// <param name="msg"></param>
+    [Client]
     private void GetResults(InvestigateResultMsg msg)
     {
-        Notification.Singleton.CreateNotification($"{msg.playerName} is a {msg.team}");
+        notification.SetActive(true);
+        notification.GetComponent<InvestigatePopup>().SetText($"{msg.playerName} is a {msg.team}");
     }
 
     #endregion
