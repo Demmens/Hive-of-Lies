@@ -15,6 +15,8 @@ public class MissionCard : MonoBehaviour
 
     [SerializeField] TMP_Text FavourCost;
 
+    [SerializeField] RectTransform cardPos;
+
     public delegate void MissionCardClicked(Mission data);
     public event MissionCardClicked OnMissionCardClicked;
 
@@ -25,6 +27,11 @@ public class MissionCard : MonoBehaviour
         FavourCost.text = $"{Data.FavourCost}f";
         SuccessEffect.text = MissionUI.CreateStringFromList(Data.SuccessEffects);
         FailEffect.text = MissionUI.CreateStringFromList(Data.FailEffects);
+    }
+
+    public void SetPos(Vector3 pos)
+    {
+        cardPos.SetPositionAndRotation(pos, new());
     }
 
     public void OnClicked()

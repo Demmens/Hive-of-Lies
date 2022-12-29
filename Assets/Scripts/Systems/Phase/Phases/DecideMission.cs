@@ -55,7 +55,6 @@ public class DecideMission : GamePhase
     #region CLIENT
     [SerializeField] GameObject missionCard;
     List<GameObject> cards = new List<GameObject>();
-    [SerializeField] Transform OverlayCanvas;
     #endregion
 
     /// <summary>
@@ -186,10 +185,10 @@ public class DecideMission : GamePhase
         cards = new List<GameObject>();
         for (int i = 0; i < choices.Count; i++)
         {
-            GameObject card = Instantiate(missionCard, GetCardPositionOnScreen(i, choices.Count), new Quaternion());
-            card.transform.SetParent(OverlayCanvas);
+            GameObject card = Instantiate(missionCard);
 
             MissionCard cardScript = card.GetComponent<MissionCard>();
+            cardScript.SetPos(GetCardPositionOnScreen(i, choices.Count));
             cardScript.SetData(choices[i]);
             cardScript.OnMissionCardClicked += MissionCardClicked;
             cards.Add(card);

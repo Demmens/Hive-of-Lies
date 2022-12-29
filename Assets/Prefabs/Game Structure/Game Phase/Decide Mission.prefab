@@ -57,10 +57,12 @@ MonoBehaviour:
   players: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
   completedMissions: {fileID: 11400000, guid: 33c18e2444b9f1041947a9afb8a706d0, type: 2}
-  decidedMissionChoices: {fileID: 11400000, guid: fa8e39d75c2ce634fb05b9ac70d7cb55, type: 2}
-  onMissionChoicesDecided: {fileID: 11400000, guid: aba833fc5e4ef8c45badf2a1884ef732, type: 2}
-  missionCard: {fileID: 6643550700278473917, guid: fc67cc91397293548aa6517b7756d350, type: 3}
-  OverlayCanvas: {fileID: 0}
+  decidedMissionChoices: {fileID: 11400000, guid: fa8e39d75c2ce634fb05b9ac70d7cb55,
+    type: 2}
+  onMissionChoicesDecided: {fileID: 11400000, guid: aba833fc5e4ef8c45badf2a1884ef732,
+    type: 2}
+  missionCard: {fileID: 3518710814571722700, guid: 28ace0b806b865c4c922868163c8102d,
+    type: 3}
 --- !u!114 &-4100112476582232011
 MonoBehaviour:
   m_ObjectHideFlags: 0
