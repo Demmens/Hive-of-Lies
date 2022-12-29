@@ -7,22 +7,22 @@ public class Deck
     /// <summary>
     /// The cards in the draw pile
     /// </summary>
-    public List<Card> DrawPile = new List<Card>();
+    public List<Card> DrawPile = new();
 
     /// <summary>
     /// The cards in the discard pile
     /// </summary>
-    public List<Card> DiscardPile = new List<Card>();
+    public List<Card> DiscardPile = new();
 
     /// <summary>
     /// The cards in a players hand
     /// </summary>
-    public List<Card> Hand = new List<Card>();
+    public List<Card> Hand = new();
 
     /// <summary>
     /// The cards the player has played
     /// </summary>
-    public List<Card> Played = new List<Card>();
+    public List<Card> Played = new();
 
     /// <summary>
     /// Invoked when a card is drawn
