@@ -81,7 +81,7 @@ public class HoLPlayer : NetworkBehaviour
     /// <summary>
     /// List of the choices of roles the player will have at the start of the game
     /// </summary>
-    public List<RoleData> RoleChoices = new List<RoleData>();
+    public List<RoleData> RoleChoices = new();
     #endregion
 
     /// <summary>
