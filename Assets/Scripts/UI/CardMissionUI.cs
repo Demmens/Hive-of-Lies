@@ -32,23 +32,6 @@ public class CardMissionUI : NetworkBehaviour
 
     #endregion
 
-    int _nextRerollCost;
-    /// <summary>
-    /// The cost of the next reroll
-    /// </summary>
-    int nextDrawCost
-    {
-        get
-        {
-            return _nextRerollCost;
-        }
-        set
-        {
-            _nextRerollCost = value;
-            drawButtonText.text = $"Redraw ({value}f)";
-        }
-    }
-
     [Server]
     public void AfterRolesGiven()
     {
@@ -67,7 +50,6 @@ public class CardMissionUI : NetworkBehaviour
 
         Debug.Log("Mission started. Player is on mission.");
         drawResult.text = "0";
-        nextDrawCost = 0;
         submitButton.SetActive(false);
         drawButton.SetActive(true);
         UI.SetActive(true);
