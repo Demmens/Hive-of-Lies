@@ -138,6 +138,7 @@ public class Setup : GamePhase
     {
         foreach (HoLPlayer ply in plys)
         {
+            ply.RoleChoices = new();
             RoleChoices.TryGetValue(ply.Team, out int choices);
             for (int i = 0; i < roles.Count; i++)
             {
