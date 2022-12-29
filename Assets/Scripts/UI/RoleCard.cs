@@ -8,6 +8,7 @@ public class RoleCard : MonoBehaviour
     [SerializeField] TMP_Text Name;
     [SerializeField] TMP_Text Description;
     [SerializeField] TMP_Text Favour;
+    [SerializeField] RectTransform cardPos;
 
     RoleData Data;
 
@@ -19,6 +20,11 @@ public class RoleCard : MonoBehaviour
         Name.text = Data.RoleName;
         Description.text = Data.Description;
         Favour.text = $"{Data.StartingFavour}f";
+    }
+
+    public void SetPos(Vector3 pos)
+    {
+        cardPos.SetPositionAndRotation(pos, new Quaternion());
     }
 
     public void OnClicked()

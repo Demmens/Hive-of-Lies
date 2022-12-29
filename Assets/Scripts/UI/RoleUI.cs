@@ -11,12 +11,9 @@ public class RoleUI : NetworkBehaviour
     List<GameObject> cards;
 
     [SerializeField] TMP_Text RoleName;
-    [SerializeField] FavourController Favour;
     [SerializeField] GameObject RoleCard;
-    [SerializeField] Image RoleBackground;
     [SerializeField] Color WaspColour;
     [SerializeField] Color BeeColour;
-    [SerializeField] Transform OverlayCanvas;
     #endregion
 
     [Space]
@@ -57,9 +54,9 @@ public class RoleUI : NetworkBehaviour
     {
         for (int i = 0; i < roleChoices.Count; i++)
         {
-            GameObject card = Instantiate(RoleCard, GetCardPositionOnScreen(i, roleChoices.Count), new Quaternion());
-            card.transform.SetParent(OverlayCanvas);
+            GameObject card = Instantiate(RoleCard);
             RoleCard cardScript = card.GetComponent<RoleCard>();
+            cardScript.SetPos(GetCardPositionOnScreen(i, roleChoices.Count));
             cardScript.SetData(roleChoices[i]);
             cardScript.OnRoleCardClicked += RoleCardClicked;
             cards.Add(card);

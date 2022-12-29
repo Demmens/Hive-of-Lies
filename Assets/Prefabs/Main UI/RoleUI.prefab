@@ -214,16 +214,17 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   RoleName: {fileID: 7740181647189593091}
-  Favour: {fileID: 0}
-  RoleCard: {fileID: 6331558722751170962, guid: 72d1b9289b9756e4fa6fb9f537ab69a4, type: 3}
+  RoleCard: {fileID: 2931512615657598136, guid: f3c249f8de9c4384880f64a7640b36af,
+    type: 3}
   RoleBackground: {fileID: 0}
   WaspColour: {r: 0, g: 0, b: 0, a: 0}
   BeeColour: {r: 0, g: 0, b: 0, a: 0}
-  OverlayCanvas: {fileID: 0}
-  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
+    type: 2}
   allRoles: {fileID: 11400000, guid: 7aecc6004a4878546b7578a75f4e4b79, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
-  allPlayersChosenRoles: {fileID: 11400000, guid: 603aff459b2ef6241994e8c09260a582, type: 2}
+  allPlayersChosenRoles: {fileID: 11400000, guid: 603aff459b2ef6241994e8c09260a582,
+    type: 2}
 --- !u!114 &1142462870349915608
 MonoBehaviour:
   m_ObjectHideFlags: 0
