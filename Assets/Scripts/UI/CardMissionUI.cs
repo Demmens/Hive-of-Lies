@@ -33,8 +33,9 @@ public class CardMissionUI : NetworkBehaviour
     #endregion
 
     [Server]
-    public void AfterRolesGiven()
+    public void ServerMissionStarted()
     {
+        Debug.Log(allPlayers.Value[0].Deck);
         allPlayers.Value.ForEach(ply => ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.Connection, card.Value, ply.NextDrawCost));
     }
 
@@ -42,7 +43,7 @@ public class CardMissionUI : NetworkBehaviour
     /// Called when the cards mission starts
     /// </summary>
     [ClientRpc]
-    public void MissionStarted()
+    public void ClientMissionStarted()
     {
         Debug.Log("Mission started on client");
 
