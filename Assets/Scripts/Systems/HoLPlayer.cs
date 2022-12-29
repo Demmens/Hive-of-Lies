@@ -31,67 +31,56 @@ public class HoLPlayer : NetworkBehaviour
     /// <summary>
     /// The team of this player. Whether they are a bee or a wasp.
     /// </summary>
-    [HideInInspector]
     public TeamVariable Team;
 
     /// <summary>
     /// The game's currency. Used for redrawing cards, placing extra votes, and running for team leader.
     /// </summary>
-    [HideInInspector]
     public IntVariable Favour;
 
     /// <summary>
     /// The role that the player has. This determines their deck of cards, starting favour, and special ability.
     /// </summary>
-    [HideInInspector]
     public RoleVariable Role;
 
     /// <summary>
     /// How many missions the player has been on in a row. Each level reduces the value of the cards in their deck.
     /// </summary>
-    [HideInInspector]
     public IntVariable Exhaustion;
 
     /// <summary>
     /// How much favour it costs to draw another card
     /// </summary>
-    [HideInInspector]
     public IntVariable NextDrawCost;
 
     /// <summary>
     /// How much favour it costs to place another upvote
     /// </summary>
-    [HideInInspector]
     public IntVariable NextUpvoteCost;
 
     /// <summary>
     /// How much favour it costs to place another upvote
     /// </summary>
-    [HideInInspector]
     public IntVariable NextDownvoteCost;
 
     /// <summary>
     /// How many votes this player is currently deciding to give
     /// </summary>
-    [HideInInspector]
     public IntVariable NumVotes;
 
     /// <summary>
     /// The players deck of cards
     /// </summary>
-    [HideInInspector]
     public DeckVariable Deck;
 
     /// <summary>
     /// How many times this player has drawn cards
     /// </summary>
-    [HideInInspector]
     public IntVariable NumDraws;
 
     /// <summary>
     /// List of the choices of roles the player will have at the start of the game
     /// </summary>
-    [HideInInspector]
     public List<RoleData> RoleChoices = new List<RoleData>();
     #endregion
 
