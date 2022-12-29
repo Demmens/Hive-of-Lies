@@ -51,7 +51,7 @@ public class ClientSelectPartners : NetworkBehaviour
     [TargetRpc]
     void CanStartPicking(NetworkConnection conn, int partners)
     {
-        pickedPlayers = new List<ulong>();
+        pickedPlayers = new();
         dropDown.AddAll(pickPlayerButton);
         clientNumPartners = partners;
     }
