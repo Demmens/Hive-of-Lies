@@ -119,6 +119,7 @@ public class HoLPlayer : NetworkBehaviour
         Deck.Value = new();
 
         Favour.AfterVariableChanged += change => OnFavourChanged?.Invoke(Connection, change);
+        Favour.OnVariableChanged += (int oldVal, ref int newVal) => newVal = Mathf.Max(0, newVal);
         NextUpvoteCost.AfterVariableChanged += change => OnUpvoteCostChanged?.Invoke(Connection, change);
         NextDownvoteCost.AfterVariableChanged += change => OnDownvoteCostChanged?.Invoke(Connection, change);
         NumVotes.AfterVariableChanged += change => OnNumVotesChanged?.Invoke(Connection, change);
