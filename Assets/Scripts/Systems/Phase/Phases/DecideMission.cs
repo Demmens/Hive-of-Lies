@@ -62,17 +62,6 @@ public class DecideMission : GamePhase
     /// </summary>
     public Dictionary<Mission, (List<HoLPlayer>, int)> MissionVotes;
 
-    #region Events
-
-    /// <summary>
-    /// Delegate for <see cref="BeforeMissionResult"/>
-    /// </summary>
-    /// <param name="missionVotes"></param>
-    public delegate void BeforeMissionResultDelegate();
-    public event BeforeMissionResultDelegate BeforeMissionResult;
-
-    #endregion
-
     void Start()
     {
         //Keep track of all the lists we find that are valid for this game
@@ -244,14 +233,7 @@ public class DecideMission : GamePhase
         MissionVotes[vote] = Tuple;
         TotalVotes.Add(ply);
 
-        if (TotalVotes.Count >= playerCount)
-        {
-            //Let everyone know we're just about to determine the mission result.
-            //Allows other classes to quickly change the info
-            BeforeMissionResult?.Invoke();
-
-            DetermineMission();
-        }
+        if (TotalVotes.Count >= playerCount) DetermineMission();
     }
 
     /// <summary>
