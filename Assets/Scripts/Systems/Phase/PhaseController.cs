@@ -28,6 +28,9 @@ public class PhaseController : MonoBehaviour
     [Tooltip("All players")]
     [SerializeField] HoLPlayerSet players;
 
+    [Tooltip("Invoked when a new round begins")]
+    [SerializeField] GameEvent roundBegun;
+
     void Start()
     {
         //Give all events a reference to the event system. Saves having to do a FindObjectOfType on each child class of GamePhase.
@@ -51,6 +54,10 @@ public class PhaseController : MonoBehaviour
     {
         //Move to the next phase
         currentPhase++;
+
+        //At the start of each new round, invoke this event. We do it here to catch the first round as well (after the setup)
+        if (currentPhase == 0) roundBegun?.Invoke();
+
         //Make sure to loop back to the beginning again once we reach the last phase
         if (currentPhase >= phases.Count)
         {
