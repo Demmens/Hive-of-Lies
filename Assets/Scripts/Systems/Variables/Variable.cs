@@ -11,7 +11,7 @@ public abstract class Variable<T> : ScriptableObject
     [SerializeField] private T initialValue;
 
     [Tooltip("The current value of this variable")]
-    [SerializeField] private T currentValue;
+    [SerializeField] protected T currentValue;
 
     [Space]
     [Space]
@@ -65,8 +65,9 @@ public abstract class Variable<T> : ScriptableObject
     /// </summary>
     public event System.Action<T> AfterVariableChanged;
 
-    private void OnEnable()
+    private void OnValidate()
     {
+        if (Application.isPlaying) return;
         //Set currentValue to bypass all the code that runs from setting Value
         currentValue = initialValue;
     }
