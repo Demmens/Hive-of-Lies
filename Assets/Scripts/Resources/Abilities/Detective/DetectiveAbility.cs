@@ -16,37 +16,30 @@ public class DetectiveAbility : RoleAbility
     /// </summary>
     [SerializeField] GameObject popup;
 
-    [SerializeField] TMP_Text text;
+    [SerializeField] IntVariable roundNum;
 
-    RunMission mission;
+    [SerializeField] HoLPlayerSet beePlayers;
 
-    void Start()
+    [Server]
+    public void OnMissionEnd()
     {
-        /*if (!Active) return;
-        mission = FindObjectOfType<RunMission>();
-        mission.OnGamePhaseEnd += () =>
+        if (roundNum != abilityTriggerRound) return;
+
+        string txt = "";
+        beePlayers.Value.Shuffle();
+        foreach (HoLPlayer ply in beePlayers.Value)
         {
-            if (GameInfo.singleton.RoundNum == abilityTriggerRound)
-            {
-                string txt = "";
-                GameInfo.singleton.Roles.Shuffle();
-                foreach (Role role in GameInfo.singleton.Roles)
-                {
-                    if (role.Data.Team == Team.Bee && !(role.Ability is DetectiveAbility))
-                    {
-                        txt = $"{role.Ability.Owner.DisplayName} is the {role.Data.RoleName}";
-                        break;
-                    }
-                }
-                text.text = txt;
-                SpawnPopup(Owner.Connection);
-            }
-        };*/
+            //if (ply == Owner) continue;
+            txt = $"{ply.DisplayName} is the {ply.Role.Value.Data.RoleName}";
+            break;
+        }
+        SpawnPopup(txt);
     }
 
     [TargetRpc]
-    void SpawnPopup(NetworkConnection target)
+    void SpawnPopup(string txt)
     {
-        popup.SetActive(true);
+        popup.GetComponent<Notification>().SetText(txt);
+        Instantiate(popup);
     }
 }
