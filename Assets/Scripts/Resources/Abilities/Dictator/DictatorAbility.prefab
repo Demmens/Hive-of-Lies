@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2454335121980495101}
+  - component: {fileID: -3006754933125219678}
   - component: {fileID: -1607248352258975617}
   - component: {fileID: -7949129676774537637}
   - component: {fileID: 4275332455057942453}
@@ -34,6 +35,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3006754933125219678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899694251160386601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 4d32b573270e9344ca1e9c136d1c12ba, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7949129676774537637}
+        m_TargetAssemblyTypeName: DictatorAbility, Assembly-CSharp
+        m_MethodName: AfterVoteBegin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-1607248352258975617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,9 +95,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  active: 1
   Owner: {fileID: 0}
-  teamLeader: {fileID: 11400000, guid: 39a012ebecb342e45a1a4ba6814e1e95, type: 2}
-  teamLeaderVoteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
+  teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
+  teamLeaderVoteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e,
+    type: 2}
 --- !u!114 &4275332455057942453
 MonoBehaviour:
   m_ObjectHideFlags: 0

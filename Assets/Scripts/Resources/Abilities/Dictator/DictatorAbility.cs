@@ -6,9 +6,10 @@ public class DictatorAbility : RoleAbility
 {
     [SerializeField] HoLPlayerVariable teamLeader;
     [SerializeField] IntVariable teamLeaderVoteTotal;
-    public void OnAllPlayersVoted()
+
+    public void AfterVoteBegin()
     {
         //If the team leader is the owner of this role, guarantee that they can't be voted out of team leader
-        if (teamLeader == Owner) teamLeaderVoteTotal.Value += 1000;
+        if (teamLeader.Value == Owner) teamLeaderVoteTotal.Value += 1000;
     }
 }
