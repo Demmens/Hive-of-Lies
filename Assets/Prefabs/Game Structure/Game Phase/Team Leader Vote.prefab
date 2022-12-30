@@ -140,8 +140,9 @@ MonoBehaviour:
   syncInterval: 0.1
   phase: {fileID: 11400000, guid: 289d0b5f6752c24418120b93802bba58, type: 2}
   allVotes: {fileID: 11400000, guid: 8868811ef70de684c9f1d84675d4950c, type: 2}
-  voteTotal: {fileID: 11400000, guid: 4399733511110f0499d5096ea4587862, type: 2}
-  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
+  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
+    type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   voteBegin: {fileID: 11400000, guid: 4d32b573270e9344ca1e9c136d1c12ba, type: 2}
   onPlayerVoted: {fileID: 11400000, guid: 30f264fc8a5a61240b32eca05bab564e, type: 2}
