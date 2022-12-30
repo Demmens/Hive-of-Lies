@@ -101,6 +101,7 @@ public class RoleUI : NetworkBehaviour
         };
 
         allRoles.Add(role);
+        ply.Role.Value = role;
 
         if (allRoles.Value.Count == playerCount) allPlayersChosenRoles?.Invoke();
     }
