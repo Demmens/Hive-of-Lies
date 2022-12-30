@@ -32,7 +32,8 @@ public class InvestigatePlayer : MissionEffect
     public override void TriggerEffect()
     {
         Debug.Log("Effect triggered");
-
+        //If there's no team leader, quit early
+        if (teamLeader.Value == null) EndEffect();
         teamLeader.Value.Connection.Send(new InvestigateEffectTriggeredMsg() { });
     }
 
