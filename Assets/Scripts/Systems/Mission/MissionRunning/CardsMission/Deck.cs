@@ -30,6 +30,12 @@ public class Deck
     public event System.Action<Card> OnDraw;
 
     /// <summary>
+    /// Invoked when a card is drawn
+    /// </summary>
+    public event DrawDelegate BeforeDraw;
+    public delegate void DrawDelegate(ref Card card);
+
+    /// <summary>
     /// Add a card to the deck
     /// </summary>
     public void Add(Card card)
@@ -83,12 +89,13 @@ public class Deck
 
             card.DrawEffects.ForEach(effect => effect());
 
+            BeforeDraw?.Invoke(ref card);
+
             Hand.Add(card);
 
+            DrawPile.Remove(card);
+
             OnDraw?.Invoke(card);
-
-            DrawPile.RemoveAt(0);
-
         }
     }
 
