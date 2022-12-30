@@ -69,7 +69,6 @@ public class MissionUI : NetworkBehaviour
     [ClientRpc]
     void ChangeMission(Mission mission)
     {
-        ClientGameInfo.singleton.CurrentlySelected = new List<ulong>();
         missionUI.SetActive(true);
         missionName.text = mission.MissionName;
         missionFlavour.text = mission.Description;
