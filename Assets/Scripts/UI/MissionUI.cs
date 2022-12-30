@@ -75,7 +75,6 @@ public class MissionUI : NetworkBehaviour
         successFlavour.text = mission.SuccessFlavour;
         failFlavour.text = mission.FailFlavour;
         missionCost.text = $"Mission Cost: {mission.FavourCost}f";
-        teamLeaderName.text = "Undecided";
         missionPlayerList.text = "Undecided";
 
         successEffect.text = CreateStringFromList(mission.SuccessEffects);
