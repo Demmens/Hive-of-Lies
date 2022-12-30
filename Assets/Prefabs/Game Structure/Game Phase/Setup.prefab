@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1903172484302541235}
-  - component: {fileID: 3171634462795149938}
   - component: {fileID: 5366578028593055209}
   - component: {fileID: 2418823819741192525}
   - component: {fileID: 7323658707468256372}
@@ -36,35 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3171634462795149938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805870746189362716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Events:
-  - {fileID: 11400000, guid: 9bc7e587cf368614fb629dfe1447a932, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7323658707468256372}
-        m_TargetAssemblyTypeName: Setup, Assembly-CSharp
-        m_MethodName: OnPlayerReady
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &5366578028593055209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d646c31b681adf48a6a2c86efe75e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   phase: {fileID: 11400000, guid: 0878ed57b9981b443b62dab369adb201, type: 2}
   traitorRatio: {fileID: 11400000, guid: 345666eca88bcda4ba738d6fa2fb1795, type: 2}
   roles:
@@ -152,9 +124,9 @@ MonoBehaviour:
   waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
   beePlayers: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
-  playersByNetworkConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  playersByNetworkConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
+    type: 2}
   setupFinished: {fileID: 11400000, guid: 78cfefec714f52749a9d7e5f2ac0fb22, type: 2}
-  playerObject: {fileID: 1475903555409176729, guid: d92fac9098a66254c8f625071f5921b3, type: 3}
 --- !u!114 &4473885344014706271
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -100,7 +100,8 @@ public class MissionUI : NetworkBehaviour
 
         missionPlayerList.text += ply.DisplayName;
 
-        if (ply.PlayerID == id) isOnMission.Value = true;
+        Debug.Log($"Player ID = {ply.PlayerID}, button ID = {id}");
+        if (ply.PlayerID == (ulong) SteamUser.GetSteamID()) isOnMission.Value = true;
     }
 
     [ClientRpc]

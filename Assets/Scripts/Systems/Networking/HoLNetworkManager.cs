@@ -8,8 +8,13 @@ using UnityEngine.Events;
 
 public class HoLNetworkManager : NetworkManager
 {
-    [SerializeField] private PlayerObjectController GamePlayerPrefab;
-    public List<PlayerObjectController> GamePlayers { get; } = new List<PlayerObjectController>();
+    [SerializeField] private HoLPlayer GamePlayerPrefab;
+
+    [Tooltip("All players by their network connection")]
+    [SerializeField] HoLPlayerDictionary playersByConnection;
+
+    [Tooltip("All players in the game")]
+    [SerializeField] HoLPlayerSet allPlayers;
 
     int playersLoaded = 0;
 
@@ -30,17 +35,27 @@ public class HoLNetworkManager : NetworkManager
     [Scene]
     public string LobbyScene;
 
+    /// <summary>
+    /// Called when a player joins the server for the first time
+    /// </summary>
+    /// <param name="conn"></param>
+    [Server]
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         if (SceneManager.GetActiveScene().path == LobbyScene)
         {
-            PlayerObjectController GamePlayerInstance = Instantiate(GamePlayerPrefab);
+            HoLPlayer ply = Instantiate(GamePlayerPrefab);
+            ply.Connection = conn;
 
-            GamePlayerInstance.ConnectionID = conn.connectionId;
-            GamePlayerInstance.PlayerIdNumber = GamePlayers.Count + 1;
-            GamePlayerInstance.PlayerSteamID = (ulong) SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, GamePlayers.Count);
+            ply.PlayerID = (ulong) SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, playersByConnection.Value.Count);
+            ply.DisplayName = SteamFriends.GetFriendPersonaName(new CSteamID(ply.PlayerID));
 
-            NetworkServer.AddPlayerForConnection(conn, GamePlayerInstance.gameObject);
+            playersByConnection.Value[conn] = ply;
+            allPlayers.Add(ply);
+
+            DontDestroyOnLoad(ply.gameObject);
+
+            NetworkServer.AddPlayerForConnection(conn, ply.gameObject);
         }
     }
 

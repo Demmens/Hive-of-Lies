@@ -20,7 +20,6 @@ public class LobbyController : MonoBehaviour
     public ulong CurrentLobbyID;
     public bool PlayerItemCreated = false;
     private List<PlayerListItem> playerListItems = new List<PlayerListItem>();
-    public PlayerObjectController LocalPlayerController;
 
     HoLNetworkManager manager;
     public HoLNetworkManager Manager
@@ -43,18 +42,12 @@ public class LobbyController : MonoBehaviour
         LobbyNameText.text = SteamMatchmaking.GetLobbyData(SteamLobby.LobbyID, "name");
     }
 
-    public void UpdatePlayerList()
+    /*public void UpdatePlayerList()
     {
         if (!PlayerItemCreated) { CreateHostPlayerItem(); }
         if (playerListItems.Count < Manager.GamePlayers.Count) { CreateClientPlayerItem(); }
         if (playerListItems.Count > Manager.GamePlayers.Count) { RemovePlayerItem(); }
         if (playerListItems.Count == Manager.GamePlayers.Count) { UpdatePlayerItem(); }
-    }
-
-    public void FindLocalPlayer()
-    {
-        LocalPlayerObject = GameObject.Find("LocalGamePlayer");
-        LocalPlayerController = LocalPlayerObject.GetComponent<PlayerObjectController>();
     }
 
     public void CreateHostPlayerItem()
@@ -135,5 +128,5 @@ public class LobbyController : MonoBehaviour
                 objectToRemove = null;
             }
         }
-    }
+    }*/
 }

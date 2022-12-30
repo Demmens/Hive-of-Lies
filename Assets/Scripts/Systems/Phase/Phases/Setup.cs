@@ -43,9 +43,6 @@ public class Setup : GamePhase
     [Tooltip("Invoked when all the setup logic is completed")]
     [SerializeField] GameEvent setupFinished;
 
-    [Tooltip("Must be a prefab containing a HoLPlayer script")]
-    [SerializeField] GameObject playerObject;
-
     /// <summary>
     /// The steam IDs of all players currently in the lobby. Used to sync player buttons with clients
     /// </summary>
@@ -60,25 +57,6 @@ public class Setup : GamePhase
         {
             return roles;
         }
-    }
-
-    /// <summary>
-    /// Logic to execute when a player loads into the game
-    /// </summary>
-    [Server]
-    public void OnPlayerReady(NetworkConnection conn)
-    {
-        //If for whatever reason this is called twice on a client
-        if (playersByNetworkConnection.Value.TryGetValue(conn, out HoLPlayer pl)) return;
-
-        GameObject playerObj = Instantiate(playerObject);
-        NetworkServer.Spawn(playerObj, conn);
-        HoLPlayer ply = playerObj.GetComponent<HoLPlayer>();
-        ply.Connection = conn;
-        ply.DisplayName = "DemTest";
-
-        allPlayers.Add(ply);
-        playersByNetworkConnection.Value[conn] = ply;
     }
 
     /// <summary>

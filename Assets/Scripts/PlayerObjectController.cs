@@ -34,21 +34,21 @@ public class PlayerObjectController : NetworkBehaviour
     {
         CmdSetPlayerName(SteamFriends.GetPersonaName().ToString());
         gameObject.name = "LocalGamePlayer";
-        LobbyController.singleton.FindLocalPlayer();
+        //LobbyController.singleton.FindLocalPlayer();
         LobbyController.singleton.UpdateLobbyName();
     }
 
     public override void OnStartClient()
     {
-        Manager.GamePlayers.Add(this);
+        //Manager.GamePlayers.Add(this);
         LobbyController.singleton.UpdateLobbyName();
-        LobbyController.singleton.UpdatePlayerList();
+        //sLobbyController.singleton.UpdatePlayerList();
     }
 
     public override void OnStopClient()
     {
-        Manager.GamePlayers.Remove(this);
-        LobbyController.singleton.UpdatePlayerList();
+        //Manager.GamePlayers.Remove(this);
+        //LobbyController.singleton.UpdatePlayerList();
     }
 
     [Command]
@@ -65,7 +65,7 @@ public class PlayerObjectController : NetworkBehaviour
         }
         if (isClient)
         {
-            LobbyController.singleton.UpdatePlayerList();
+            //LobbyController.singleton.UpdatePlayerList();
         }
     }
 }
