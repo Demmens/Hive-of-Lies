@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Bee Players
   m_EditorClassIdentifier: 
   initialValue: []
-  currentValue: []
+  currentValue:
+  - {fileID: 0}
   server: 0
   client: 0
+  tooltip: 

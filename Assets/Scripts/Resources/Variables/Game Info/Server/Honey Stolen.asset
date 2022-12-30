@@ -16,3 +16,4 @@ MonoBehaviour:
   currentValue: 0
   server: 0
   client: 0
+  tooltip: 
