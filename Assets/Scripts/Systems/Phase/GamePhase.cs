@@ -36,18 +36,7 @@ public abstract class GamePhase : NetworkBehaviour
         }
     }
 
-    /// <summary>
-    /// Empty Delegate
-    /// </summary>
-    public delegate void BasicDelegate();
-    /// <summary>
-    /// Invoked when this game phases ends
-    /// </summary>
-    public event BasicDelegate OnGamePhaseEnd;
-    /// <summary>
-    /// Invoked when this game phase starts
-    /// </summary>
-    public event BasicDelegate OnGamePhaseStart;
+    public event System.Action OnGamePhaseEnd;
 
     /// <summary>
     /// Call to start this phase
@@ -55,8 +44,6 @@ public abstract class GamePhase : NetworkBehaviour
     public void ChangePhase()
     {
         active = true;
-        GameInfo.singleton.GamePhase = Phase;
-        OnGamePhaseStart?.Invoke();
         Begin();
     }
 
