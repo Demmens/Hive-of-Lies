@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6c08705e9c67534ab29dce7a5d387b5, type: 3}
-  m_Name: No Players Voted
+  m_Name: Vote failed
   m_EditorClassIdentifier: 
