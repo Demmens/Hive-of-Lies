@@ -39,7 +39,7 @@ public class CardMissionUI : NetworkBehaviour
     public void ServerMissionStarted()
     {
         if (roundNum == 0)
-            allPlayers.Value.ForEach(ply => ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.Connection, card.Value, ply.NextDrawCost));
+            allPlayers.Value.ForEach(ply => ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.Connection, card.TempValue, ply.NextDrawCost));
     }
 
     /// <summary>

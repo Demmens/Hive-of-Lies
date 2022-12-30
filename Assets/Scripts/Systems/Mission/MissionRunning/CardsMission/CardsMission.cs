@@ -62,6 +62,8 @@ public class CardsMission : MissionType
                 ply.Deck.Value.DrawPile.Add(new Card(role.Data.StartingDeck[i]));
             }
             ply.Deck.Value.Shuffle();
+
+            ply.Deck.Value.BeforeDraw += (ref Card card) => card.TempValue = Mathf.Max(1, card.TempValue - (ply.Exhaustion * exhaustionPenalty));
         }
     }
 
@@ -111,7 +113,7 @@ public class CardsMission : MissionType
 
         Card card = deck.Play();
 
-        playedTotal += card.Value;
+        playedTotal += card.TempValue;
 
         playersPlayed.Add(ply);
 

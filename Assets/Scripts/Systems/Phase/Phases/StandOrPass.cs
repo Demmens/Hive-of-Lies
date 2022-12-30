@@ -55,9 +55,9 @@ public class StandOrPass : GamePhase
 
     public override void Begin()
     {
-        standingPlayers.Value = new List<HoLPlayer>();
-        passedPlayers.Value = new List<HoLPlayer>();
-        PlayerBoosts = new Dictionary<HoLPlayer, int>();
+        standingPlayers.Value = new();
+        passedPlayers.Value = new();
+        PlayerBoosts = new();
 
         standOrPassBegin?.Invoke();
     }
@@ -118,15 +118,24 @@ public class StandOrPass : GamePhase
         //Invoke event for all players having made a decision
         onAllPlayersStandOrPass?.Invoke();
 
-        //If nobody stood for the position of team leader
+        
         if (standingPlayers.Value.Count == 0)
         {
-            currentMission.Value.FailEffects.ForEach(effect =>
+            //If nobody stood for the position of team leader, and we don't currently have a team leader
+            if (teamLeader.Value == null)
             {
-                effect.OnMissionEffectFinished += OnMissionEffectFinished;
-                effect.TriggerEffect();
-            });
-            return;
+                currentMission.Value.FailEffects.ForEach(effect =>
+                {
+                    effect.OnMissionEffectFinished += OnMissionEffectFinished;
+                    effect.TriggerEffect();
+                });
+                return;
+            }
+        }
+        else
+        {
+            //Now, since we've sorted, the player at the top of the list will be the Team Leader
+            teamLeader.Value = standingPlayers.Value[0];
         }
 
         //Find the highest influence players who stood.
@@ -138,9 +147,7 @@ public class StandOrPass : GamePhase
         //If this has been subscribed to, there's a good chance the standings have changed, so we need to resort
         if (onTeamLeaderVoteCounted != null)
             SortStandingList();
-
-        //Now, since we've sorted, the player at the top of the list will be the Team Leader
-        teamLeader.Value = standingPlayers.Value[0];
+        
         Debug.Log($"The team leader has been set to {teamLeader.Value.DisplayName}");
 
         //All unsuccessful players get their favour back
