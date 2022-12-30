@@ -11,12 +11,6 @@ using Steamworks;
 /// </summary>
 public class StandOrPass : GamePhase
 {
-
-    /// <summary>
-    /// The amount of favour all players lose if nobody stands for the position of team leader.
-    /// </summary>
-    [SerializeField] int favourLostForNobodyStanding;
-
     [Tooltip("The playercount")]
     [SerializeField] IntVariable playerCount;
 
@@ -56,6 +50,7 @@ public class StandOrPass : GamePhase
     [Tooltip("Invoked if nobody stands for the position of team leader.")]
     [SerializeField] GameEvent onNobodyStood;
 
+    private int missionEffectsTriggered = 0;
     #endregion
 
     public override void Begin()
@@ -126,11 +121,11 @@ public class StandOrPass : GamePhase
         //If nobody stood for the position of team leader
         if (standingPlayers.Value.Count == 0)
         {
-            foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in players.Value)
+            currentMission.Value.FailEffects.ForEach(effect =>
             {
-                pair.Value.Favour.Value -= favourLostForNobodyStanding;
-            }
-            onNobodyStood?.Invoke();
+                effect.OnMissionEffectFinished += OnMissionEffectFinished;
+                effect.TriggerEffect();
+            });
             return;
         }
 
@@ -175,5 +170,12 @@ public class StandOrPass : GamePhase
             //If both players have the same amount of favour, we should randomly pick between them
             return result == 0 ? Random.Range(-1, 1) : result;
         });
+    }
+
+    void OnMissionEffectFinished()
+    {
+        if (++missionEffectsTriggered < currentMission.Value.FailEffects.Count) return;
+
+        onNobodyStood?.Invoke();
     }
 }
