@@ -59,7 +59,7 @@ public static class NetworkSerialiser
         }
 
         writer.WriteString(value.Name);
-        writer.WriteInt(value.DisplayValue);
+        writer.WriteInt(value.TempValue);
     }
 
     public static Card ReadCard(this NetworkReader reader)

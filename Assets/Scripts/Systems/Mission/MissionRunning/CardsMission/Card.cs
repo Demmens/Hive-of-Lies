@@ -14,9 +14,9 @@ public class Card
     /// </summary>
     public int Value;
     /// <summary>
-    /// The value of the card as seen on clients. Has no bearing on the actual value, but most of the time will be the same.
+    /// The value of the card after all modifiers are applied. Resets back to the default value when discarded.
     /// </summary>
-    public int DisplayValue;
+    public int TempValue;
     
     /// <summary>
     /// Delegates to run when the card is drawn
@@ -37,13 +37,13 @@ public class Card
     public Card(int value)
     {
         Value = value;
-        DisplayValue = value;
+        TempValue = value;
     }
 
     public Card(string name, int value)
     {
         Name = name;
         Value = value;
-        DisplayValue = value;
+        TempValue = value;
     }
 }

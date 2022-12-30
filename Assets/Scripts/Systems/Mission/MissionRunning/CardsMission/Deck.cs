@@ -58,7 +58,11 @@ public class Deck
     public void Reshuffle()
     {
         DrawPile.AddRange(Hand);
-        DrawPile.AddRange(Played);
+        foreach (Card card in Played)
+        {
+            card.TempValue = card.Value;
+            DrawPile.Add(card);
+        }
         Shuffle();
     }
 
@@ -110,6 +114,7 @@ public class Deck
         if (!Hand.Contains(card)) return;
 
         card.DiscardEffects.ForEach(effect => effect());
+        card.TempValue = card.Value;
 
         DiscardPile.Add(card);
         Hand.Remove(card);
