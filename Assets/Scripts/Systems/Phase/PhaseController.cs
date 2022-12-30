@@ -31,6 +31,9 @@ public class PhaseController : MonoBehaviour
     [Tooltip("Invoked when a new round begins")]
     [SerializeField] GameEvent roundBegun;
 
+    [Tooltip("What game phase should we reset to if the vote doesn't succeed")]
+    [SerializeField] GamePhase downVoteReset;
+
     void Start()
     {
         //Give all events a reference to the event system. Saves having to do a FindObjectOfType on each child class of GamePhase.
@@ -91,5 +94,23 @@ public class PhaseController : MonoBehaviour
         }
 
         phases[0].ChangePhase();
+    }
+
+    /// <summary>
+    /// Call when the vote for the team leader is unsuccessful
+    /// </summary>
+    public void UnsuccessfulVote()
+    {
+        phases[currentPhase].End(true);
+
+        for (int i = 0; i < phases.Count; i++) 
+        {
+            GamePhase phase = phases[i];
+            if (downVoteReset == phase)
+            {
+                currentPhase = i;
+                phase.ChangePhase();
+            }
+        }
     }
 }

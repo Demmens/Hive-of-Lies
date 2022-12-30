@@ -3158,6 +3158,11 @@ PrefabInstance:
       objectReference: {fileID: 399537764}
     - target: {fileID: 2340413517240385022, guid: 405a08d216e5c914dbf6dee7722086d9,
         type: 3}
+      propertyPath: downVoteReset
+      value: 
+      objectReference: {fileID: 5956907877016820779}
+    - target: {fileID: 2340413517240385022, guid: 405a08d216e5c914dbf6dee7722086d9,
+        type: 3}
       propertyPath: phases.Array.size
       value: 5
       objectReference: {fileID: 0}

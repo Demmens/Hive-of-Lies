@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2340413517240385016}
   - component: {fileID: 2340413517240385023}
+  - component: {fileID: 7592450672212666426}
   - component: {fileID: 2340413517240385022}
   - component: {fileID: -6295889642112760574}
   m_Layer: 0
@@ -63,6 +64,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7592450672212666426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2340413517240385021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 9125915b3815a0740b511fb1b40ce95f, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2340413517240385022}
+        m_TargetAssemblyTypeName: PhaseController, Assembly-CSharp
+        m_MethodName: UnsuccessfulVote
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2340413517240385022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +111,7 @@ MonoBehaviour:
   roundNum: {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
   players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   roundBegun: {fileID: 11400000, guid: 0467309d9d93ff84a9ef78acba99aca8, type: 2}
+  downVoteReset: {fileID: 0}
 --- !u!114 &-6295889642112760574
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -81,6 +81,12 @@ public class MissionUI : NetworkBehaviour
         failEffect.text = CreateStringFromList(mission.FailEffects);
     }
 
+    [ClientRpc]
+    public void StandOrPassBegin()
+    {
+        missionPlayerList.text = "Undecided";
+    }
+
     /// <summary>
     /// Called when the team leader is decided
     /// </summary>

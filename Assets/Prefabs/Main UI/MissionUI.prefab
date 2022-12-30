@@ -948,7 +948,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7133843003242836766}
-  - component: {fileID: 1695341145867844110}
+  - component: {fileID: 1381902561791064687}
   - component: {fileID: 4091960679387166467}
   - component: {fileID: 3375515600982180424}
   m_Layer: 0
@@ -974,7 +974,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1695341145867844110
+--- !u!114 &1381902561791064687
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -987,13 +987,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Events:
-  - {fileID: 11400000, guid: aba833fc5e4ef8c45badf2a1884ef732, type: 2}
+  - {fileID: 11400000, guid: e1a950189e0e6b64cafebfb2014d840d, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3375515600982180424}
         m_TargetAssemblyTypeName: MissionUI, Assembly-CSharp
-        m_MethodName: OnMissionChoicesDecided
+        m_MethodName: StandOrPassBegin
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

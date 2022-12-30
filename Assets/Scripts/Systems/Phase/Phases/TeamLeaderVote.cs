@@ -41,6 +41,9 @@ public class TeamLeaderVote : GamePhase
     [Tooltip("Invoked when all players have voted")]
     [SerializeField] GameEvent onAllPlayersVoted;
 
+    [Tooltip("Invoked when there are more downvotes than upvotes")]
+    [SerializeField] GameEvent voteFailed;
+
     public override void Begin()
     {
         allVotes.Value = new();
@@ -48,6 +51,7 @@ public class TeamLeaderVote : GamePhase
         voteTotal.Value = 0;
         playersClosedPopup = new();
         voteBegin?.Invoke();
+        Debug.Log("Vote has begun");
     }
 
     [Server]
@@ -181,6 +185,7 @@ public class TeamLeaderVote : GamePhase
         else
         {
             //Back to standing for TeamLeader
+            voteFailed?.Invoke();
         }
     }
 
