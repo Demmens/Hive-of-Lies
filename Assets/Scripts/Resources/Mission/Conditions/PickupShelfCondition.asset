@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: PickupShelfCondition
   m_EditorClassIdentifier: 
   requiredMissions:
-  - mission: {fileID: 11400000, guid: cc778781c651e684f9bba22270a234b7, type: 2}
-    ignoreResult: 0
-    result: 1
+  - {fileID: 11400000, guid: cc778781c651e684f9bba22270a234b7, type: 2}
+  missionSet: {fileID: 11400000, guid: 3607a819c6730274eb3a1bdd526803db, type: 2}
