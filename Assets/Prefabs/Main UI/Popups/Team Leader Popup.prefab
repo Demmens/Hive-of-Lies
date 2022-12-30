@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2c2ccc84dea16478f53bd9b6a5d7ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  text: {fileID: 0}
 --- !u!1 &6902898914555599378
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +249,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6902898914669468422}
+  - component: {fileID: 3906467874496663317}
   - component: {fileID: 6902898914669468423}
   - component: {fileID: 6902898914669468420}
   m_Layer: 0
@@ -273,6 +275,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3906467874496663317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902898914669468421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 75a00421409c93846b2cbb0a2bf008de, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6902898914669468420}
+        m_TargetAssemblyTypeName: TeamLeaderPopup, Assembly-CSharp
+        m_MethodName: AfterStandOrPass
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6902898914669468423
 MonoBehaviour:
   m_ObjectHideFlags: 0

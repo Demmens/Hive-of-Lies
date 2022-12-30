@@ -29,6 +29,11 @@ public class TeamLeaderPopup : NetworkBehaviour
         isTeamLeader.Value = true;
     }
 
+    public void AfterStandOrPass()
+    {
+        LocalPlayerTeamLeaderPopup(teamLeader.Value.DisplayName);
+    }
+
     [ClientRpc]
     void LocalPlayerTeamLeaderPopup(string leaderName)
     {
