@@ -79,6 +79,11 @@ public class HoLPlayer : NetworkBehaviour
     public IntVariable NumDraws;
 
     /// <summary>
+    /// Whether this player is alive or not
+    /// </summary>
+    public BoolVariable isAlive;
+
+    /// <summary>
     /// List of the choices of roles the player will have at the start of the game
     /// </summary>
     public List<RoleData> RoleChoices = new();
@@ -116,6 +121,7 @@ public class HoLPlayer : NetworkBehaviour
         NumVotes = ScriptableObject.CreateInstance<IntVariable>();
         Deck = ScriptableObject.CreateInstance<DeckVariable>();
         NumDraws = ScriptableObject.CreateInstance<IntVariable>();
+        isAlive = ScriptableObject.CreateInstance<BoolVariable>();
         Deck.Value = new();
 
         Favour.AfterVariableChanged += change => OnFavourChanged?.Invoke(Connection, change);
