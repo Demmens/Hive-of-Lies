@@ -113,4 +113,10 @@ public class PhaseController : MonoBehaviour
             }
         }
     }
+
+    public void ResetGame()
+    {
+        HoLNetworkManager manager = NetworkManager.singleton as HoLNetworkManager;
+        manager.ServerChangeScene(manager.GameScene);
+    }
 }
