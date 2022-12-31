@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c35d1534354e83749ba466bb40c37fe1, type: 3}
+  m_Script: {fileID: 11500000, guid: 755f06aec000cf3458e580f946604200, type: 3}
   m_Name: Bees Win
   m_EditorClassIdentifier: 
-  description: Bees win
-  Team: 1
+  description: Bees win the game
+  type: 0
+  _event: {fileID: 11400000, guid: b2fea23a7715fbc409169f8863b71fc5, type: 2}
