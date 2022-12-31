@@ -13,6 +13,9 @@ public class HoLNetworkManager : NetworkManager
     [Tooltip("All players by their network connection")]
     [SerializeField] HoLPlayerDictionary playersByConnection;
 
+    [Tooltip("All alive players in the game")]
+    [SerializeField] HoLPlayerSet alivePlayers;
+
     [Tooltip("All players in the game")]
     [SerializeField] HoLPlayerSet allPlayers;
 
@@ -51,6 +54,7 @@ public class HoLNetworkManager : NetworkManager
             ply.DisplayName = SteamFriends.GetFriendPersonaName(new CSteamID(ply.PlayerID));
 
             playersByConnection.Value[conn] = ply;
+            alivePlayers.Add(ply);
             allPlayers.Add(ply);
 
             DontDestroyOnLoad(ply.gameObject);
@@ -77,6 +81,7 @@ public class HoLNetworkManager : NetworkManager
             {
                 StartCoroutine(Coroutines.Delay(0.5f, () =>
                 {
+                    alivePlayers.Value = allPlayers.Value;
                     allPlayersLoaded.Invoke();
                     //For if we want to reset the game
                     playersLoaded = 0;
