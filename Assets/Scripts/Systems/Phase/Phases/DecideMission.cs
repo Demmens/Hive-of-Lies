@@ -205,6 +205,7 @@ public class DecideMission : GamePhase
         {
             Destroy(card);
         }
+        cards = new();
 
         PlayerVoted(data);
     }
@@ -255,6 +256,21 @@ public class DecideMission : GamePhase
 
         currentMission.Value = DecidedMission;
 
+        DestroyRemnantCards();
         End();
+    }
+
+    /// <summary>
+    /// Make sure to destroy any lingering cards.
+    /// This is mostly important for dead players who can't click cards
+    /// </summary>
+    [ClientRpc]
+    void DestroyRemnantCards()
+    {
+        foreach (GameObject card in cards)
+        {
+            Destroy(card);
+        }
+        cards = new();
     }
 }
