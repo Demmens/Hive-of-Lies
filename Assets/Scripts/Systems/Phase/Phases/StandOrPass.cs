@@ -92,7 +92,7 @@ public class StandOrPass : GamePhase
     {
         Debug.Log("Player has stood or passed");
         if (!Active) return;
-        players.Value.TryGetValue(conn, out HoLPlayer ply);
+        if (!players.Value.TryGetValue(conn, out HoLPlayer ply)) return;
 
         //Make sure they haven't already voted
         if (passedPlayers.Value.Contains(ply) || standingPlayers.Value.Contains(ply)) return;
