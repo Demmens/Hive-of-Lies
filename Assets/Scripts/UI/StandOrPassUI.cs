@@ -13,6 +13,8 @@ public class StandOrPassUI : NetworkBehaviour
 
     [Tooltip("How much favour the local player has")]
     [SerializeField] IntVariable favour;
+    [Tooltip("Whether the local player is alive or not")]
+    [SerializeField] BoolVariable alive;
     #endregion
     #region SERVER
     [Tooltip("The currently active mission")]
@@ -32,6 +34,7 @@ public class StandOrPassUI : NetworkBehaviour
     [ClientRpc]
     void CreateUI(int standCost)
     {
+        if (!alive) return;
         FavourCost.text = $"{standCost}f";
         //If we can't afford to stand, disable the button.
         if (standCost > favour) StandButton.SetActive(false);
