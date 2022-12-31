@@ -42,10 +42,10 @@ public class RoleUI : NetworkBehaviour
     [Server]
     public void OnSetupFinished()
     {
+        allRoles.Value = new();
         foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in playersByConnection.Value)
         {
             ReceiveRoleInfo(pair.Key, pair.Value.RoleChoices);
-            allRoles.Value = new();
         }
     }
 
