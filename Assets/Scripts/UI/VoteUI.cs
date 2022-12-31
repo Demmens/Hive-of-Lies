@@ -26,6 +26,9 @@ public class VoteUI : NetworkBehaviour
 
     [Tooltip("How many votes the local player has placed")]
     [SerializeField] IntVariable numVotes;
+
+    [Tooltip("Whether this player is alive")]
+    [SerializeField] BoolVariable alive;
     #endregion
 
     #region SERVER
@@ -57,6 +60,7 @@ public class VoteUI : NetworkBehaviour
     [Client]
     public void VoteStarted()
     {
+        if (!alive) return;
         voteUI.SetActive(true);
         numVotes.Value = 0;
     }
