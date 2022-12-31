@@ -82,6 +82,8 @@ public class Setup : GamePhase
     [Server]
     void AssignTeams(List<HoLPlayer> plys)
     {
+        beePlayers.Value = new();
+        waspPlayers.Value = new();
         //Increments to determine whether a player should be an innocent or a traitor
         float teamCounter = 0;
         plys.ForEach(ply =>
@@ -112,6 +114,7 @@ public class Setup : GamePhase
         foreach (HoLPlayer ply in plys)
         {
             ply.RoleChoices = new();
+            ply.Role.Value = null;
             RoleChoices.TryGetValue(ply.Team, out int choices);
             for (int i = 0; i < roles.Count; i++)
             {
