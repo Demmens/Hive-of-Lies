@@ -78,6 +78,8 @@ public class HoLNetworkManager : NetworkManager
                 StartCoroutine(Coroutines.Delay(0.5f, () =>
                 {
                     allPlayersLoaded.Invoke();
+                    //For if we want to reset the game
+                    playersLoaded = 0;
                 }));
             }
         }
