@@ -44,14 +44,9 @@ public class Setup : GamePhase
     [SerializeField] GameEvent setupFinished;
 
     /// <summary>
-    /// The steam IDs of all players currently in the lobby. Used to sync player buttons with clients
-    /// </summary>
-    List<CSteamID> playerIDs = new List<CSteamID>();
-
-    /// <summary>
     /// List of all roles that can appear in the game
     /// </summary>
-    public List<RoleData> Roles
+    [SerializeField] List<RoleData> Roles
     {
         get
         {
