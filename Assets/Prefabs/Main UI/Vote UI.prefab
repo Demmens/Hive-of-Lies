@@ -1373,6 +1373,7 @@ MonoBehaviour:
   voteUI: {fileID: 4426223278403595100}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
   numVotes: {fileID: 11400000, guid: 6e01caa6eb9205641851dbb062cb415f, type: 2}
+  alive: {fileID: 11400000, guid: 3650ca7e2039a914fbfedaf1fcf718b1, type: 2}
   increasedVote: {fileID: 11400000, guid: f97f1e565fae7af46baf19eb2bb091e1, type: 2}
   decreasedVote: {fileID: 11400000, guid: b9c3e00cd7bbfe74db489b5ab4a5463b, type: 2}
   lockedIn: {fileID: 11400000, guid: f6faac11e580ea7408c9cbcaacd77876, type: 2}
