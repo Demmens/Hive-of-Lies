@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3150264247266567185}
+  - component: {fileID: 3100799200789842676}
+  - component: {fileID: 5215957117012090474}
+  - component: {fileID: 3195959915119173472}
   - component: {fileID: 3150264247266567184}
   - component: {fileID: 3150264247266567190}
   m_Layer: 0
@@ -33,6 +36,93 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3100799200789842676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150264247266567199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: b2fea23a7715fbc409169f8863b71fc5, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3150264247266567184}
+        m_TargetAssemblyTypeName: GameEnd, Assembly-CSharp
+        m_MethodName: BeesWin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5215957117012090474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150264247266567199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 5e4f5c6b4ef1b36409d1906eeb12971c, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3150264247266567184}
+        m_TargetAssemblyTypeName: GameEnd, Assembly-CSharp
+        m_MethodName: WaspsWin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3195959915119173472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150264247266567199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 99fa395cf1c847d4595b1fd05bec6690, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3150264247266567184}
+        m_TargetAssemblyTypeName: GameEnd, Assembly-CSharp
+        m_MethodName: PlayerWins
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3150264247266567184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,8 +135,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1e370e7480a8849af9e063382fe6b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   ResearchNeededForWin: 3
   HoneyNeededForWin: 3
+  HoneyStolen: {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
+  ResearchProgress: {fileID: 11400000, guid: dfe9cf79ab308fa4590bcb660471cac3, type: 2}
+  playersByConnection: {fileID: 0}
+  gameEndScreen: {fileID: 7185780510350613299, guid: 46326bca61ec2b74bb5f9c738d09b61e,
+    type: 3}
 --- !u!114 &3150264247266567190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,5 +159,5 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 1
   visible: 0
-  m_AssetId: 
+  m_AssetId: 974755d2f8e297e41a7920aeb82fefb7
   hasSpawned: 0

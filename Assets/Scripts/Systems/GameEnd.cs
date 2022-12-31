@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class GameEnd : MonoBehaviour
+public class GameEnd : NetworkBehaviour
 {
-    public static GameEnd singleton;
-
+    #region SERVER
     /// <summary>
     /// Amount of research needed for the Bees to win the game
     /// </summary>
@@ -16,32 +16,56 @@ public class GameEnd : MonoBehaviour
     /// </summary>
     public int HoneyNeededForWin = 3;
 
-    #region Events
+    [SerializeField] IntVariable HoneyStolen;
 
-    /// <summary>
-    /// Delegate for <see cref="OnGameEnded"/>
-    /// </summary>
-    /// <param name="winningTeam">The team that won the game</param>
-    public delegate void GameEnded(Team winningTeam);
-    /// <summary>
-    /// Invoked just before the game ends
-    /// </summary>
-    public event GameEnded OnGameEnded;
+    [SerializeField] IntVariable ResearchProgress;
 
+    [SerializeField] HoLPlayerDictionary playersByConnection;
     #endregion
+    #region CLIENT
+    [SerializeField] GameObject gameEndScreen;
+    #endregion
+
+    public override void OnStartServer()
+    {
+        HoneyStolen.AfterVariableChanged += change =>
+        {
+            if (change >= HoneyNeededForWin) WaspsWin();
+        };
+
+        ResearchProgress.AfterVariableChanged += change =>
+        {
+            if (change >= ResearchNeededForWin) BeesWin();
+        };
+    }
 
     /// <summary>
     /// Call to end the game
     /// </summary>
     /// <param name="WinningTeam">The team that won the game</param>
-    public void EndGame(Team winningTeam)
+    public void BeesWin()
     {
-        OnGameEnded?.Invoke(winningTeam);
-        Debug.Log($"{winningTeam}s won the game");
+        Debug.Log($"Bees won the game");
+        GameObject screen = Instantiate(gameEndScreen);
+        screen.GetComponent<PlayAgainButton>().SetText("Bees Win");
+        NetworkServer.Spawn(screen);
     }
 
-    private void Start()
+    public void WaspsWin()
     {
-        singleton = this;
+        Debug.Log($"Wasps won the game");
+        GameObject screen = Instantiate(gameEndScreen);
+        screen.GetComponent<PlayAgainButton>().SetText("Wasps Win");
+        NetworkServer.Spawn(screen);
+    }
+
+    public void PlayerWins(NetworkConnection conn)
+    {
+        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+
+        Debug.Log($"{ply.DisplayName} won the game");
+        GameObject screen = Instantiate(gameEndScreen);
+        screen.GetComponent<PlayAgainButton>().SetText("Wasps Win");
+        NetworkServer.Spawn(screen);
     }
 }
