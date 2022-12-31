@@ -17,6 +17,9 @@ public class MissionCard : MonoBehaviour
 
     [SerializeField] RectTransform cardPos;
 
+    [Tooltip("Whether the local player is alive")]
+    [SerializeField] BoolVariable alive;
+
     public delegate void MissionCardClicked(Mission data);
     public event MissionCardClicked OnMissionCardClicked;
 
@@ -36,6 +39,7 @@ public class MissionCard : MonoBehaviour
 
     public void OnClicked()
     {
+        if (!alive) return;
         OnMissionCardClicked?.Invoke(Data);
     }
 }

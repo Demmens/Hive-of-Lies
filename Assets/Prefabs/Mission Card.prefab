@@ -736,7 +736,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
@@ -774,6 +774,7 @@ MonoBehaviour:
   FailEffect: {fileID: 4760246500257570200}
   FavourCost: {fileID: 7753091835184217089}
   cardPos: {fileID: 2034123229809791711}
+  alive: {fileID: 11400000, guid: 3650ca7e2039a914fbfedaf1fcf718b1, type: 2}
 --- !u!1 &3769956441643350723
 GameObject:
   m_ObjectHideFlags: 0
