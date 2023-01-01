@@ -81,7 +81,12 @@ public class HoLPlayer : NetworkBehaviour
     /// <summary>
     /// Whether this player is alive or not
     /// </summary>
-    public BoolVariable isAlive;
+    public BoolVariable IsAlive;
+
+    /// <summary>
+    /// The target of this player. Always null if the player is a bee.
+    /// </summary>
+    public HoLPlayerVariable Target;
 
     /// <summary>
     /// List of the choices of roles the player will have at the start of the game
@@ -121,7 +126,8 @@ public class HoLPlayer : NetworkBehaviour
         NumVotes = ScriptableObject.CreateInstance<IntVariable>();
         Deck = ScriptableObject.CreateInstance<DeckVariable>();
         NumDraws = ScriptableObject.CreateInstance<IntVariable>();
-        isAlive = ScriptableObject.CreateInstance<BoolVariable>();
+        IsAlive = ScriptableObject.CreateInstance<BoolVariable>();
+        Target = ScriptableObject.CreateInstance<HoLPlayerVariable>();
         Deck.Value = new();
 
         Favour.AfterVariableChanged += change => OnFavourChanged?.Invoke(Connection, change);
