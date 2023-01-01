@@ -29,6 +29,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
     {
         dropdown.SetActive(false);
         serverPlayersLoaded.AfterItemAdded += ServerOnClientLoaded;
+        serverPlayersLoaded.AfterItemRemoved += PlayerDied;
         //Call in case we're the last client to join
         //(server updates the list of connected players before we have a change to listen to the event)
         ServerOnClientLoaded();
@@ -71,6 +72,20 @@ public class PlayerButtonDropdown : NetworkBehaviour
             plButton.ID = id;
             buttons.Add(id, plButton);
         }
+    }
+
+    [Server]
+    void PlayerDied(HoLPlayer ply)
+    {
+        ClientPlayerDied(ply.PlayerID);
+    }
+
+    void ClientPlayerDied(ulong ply)
+    {
+        if (!buttons.TryGetValue(ply, out PlayerButton button)) return;
+
+        buttons.Remove(ply);
+        Destroy(button.gameObject);
     }
 
     /// <summary>
