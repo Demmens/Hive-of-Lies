@@ -51,6 +51,25 @@ public static class Randomness
     }
 
     /// <summary>
+    /// Returns a random item from the list that meets the given criteria. Returns default if no item is found.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    public static T GetRandom<T>(this List<T> list, System.Func<T,bool> criteria)
+    {
+        List<T> tempList = new();
+        tempList.AddRange(list);
+        tempList.Shuffle();
+        foreach (T item in tempList)
+        {
+            if (criteria(item)) return item;
+        }
+
+        return default;
+    }
+
+    /// <summary>
     /// Returns a random item from the array
     /// </summary>
     /// <typeparam name="T"></typeparam>
