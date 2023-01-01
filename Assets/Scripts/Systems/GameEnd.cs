@@ -65,7 +65,7 @@ public class GameEnd : NetworkBehaviour
 
         Debug.Log($"{ply.DisplayName} won the game");
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText("Wasps Win");
+        screen.GetComponent<PlayAgainButton>().SetText($"{ply.DisplayName} won the game");
         NetworkServer.Spawn(screen);
     }
 }
