@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb48363fe2fb7d44b67da704a7454d5, type: 3}
   m_Name: Wasp Ratio
   m_EditorClassIdentifier: 
-  initialValue: 1
-  currentValue: 0.49
+  initialValue: 0.49
+  currentValue: 1
   server: 0
   client: 0
   tooltip: 
