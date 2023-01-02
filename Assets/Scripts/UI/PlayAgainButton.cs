@@ -15,7 +15,9 @@ public class PlayAgainButton : NetworkBehaviour
     [SerializeField] GameObject buttonObject;
 
     [Tooltip("The text displaying the winners")]
-    [SerializeField] TMPro.TMP_Text winText;
+    [SerializeField] TMPro.TMP_Text winTextObject;
+
+    [SyncVar(hook = nameof(SetTextObject))] string winText;
 
     List<NetworkConnection> playersClicked = new();
 
@@ -26,6 +28,7 @@ public class PlayAgainButton : NetworkBehaviour
     public void Click()
     {
         OnClientClicked();
+        buttonObject.SetActive(false);
     }
 
     [Command(requiresAuthority = false)]
@@ -40,6 +43,11 @@ public class PlayAgainButton : NetworkBehaviour
     [Server]
     public void SetText(string text)
     {
-        winText.text = text;
+        winText = text;
+    }
+
+    void SetTextObject(string oldText, string newText)
+    {
+        winTextObject.text = newText;
     }
 }

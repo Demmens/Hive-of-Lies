@@ -632,5 +632,5 @@ MonoBehaviour:
   resetRound: {fileID: 11400000, guid: fe5cd7e7dee80d646acbe9411af7d2f9, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   buttonObject: {fileID: 619404093099414627}
-  winTextObject: {fileID: 0}
+  winTextObject: {fileID: 3863735527157366947}
   waitingFor: {fileID: 0}
