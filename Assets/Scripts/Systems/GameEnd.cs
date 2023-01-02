@@ -39,33 +39,31 @@ public class GameEnd : NetworkBehaviour
         };
     }
 
-    /// <summary>
-    /// Call to end the game
-    /// </summary>
-    /// <param name="WinningTeam">The team that won the game</param>
+    [ClientRpc]
     public void BeesWin()
     {
-        Debug.Log($"Bees won the game");
         GameObject screen = Instantiate(gameEndScreen);
         screen.GetComponent<PlayAgainButton>().SetText("Bees Win");
-        NetworkServer.Spawn(screen);
     }
 
+    [ClientRpc]
     public void WaspsWin()
     {
-        Debug.Log($"Wasps won the game");
         GameObject screen = Instantiate(gameEndScreen);
         screen.GetComponent<PlayAgainButton>().SetText("Wasps Win");
-        NetworkServer.Spawn(screen);
     }
 
     public void PlayerWins(NetworkConnection conn)
     {
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
 
-        Debug.Log($"{ply.DisplayName} won the game");
+        ClientPlayerWins(ply.DisplayName);
+    }
+
+    [ClientRpc]
+    public void ClientPlayerWins(string playerName)
+    {
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText($"{ply.DisplayName} won the game");
-        NetworkServer.Spawn(screen);
+        screen.GetComponent<PlayAgainButton>().SetText($"{playerName} won the game");
     }
 }

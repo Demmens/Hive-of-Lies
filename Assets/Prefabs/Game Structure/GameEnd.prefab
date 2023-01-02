@@ -141,10 +141,8 @@ MonoBehaviour:
   HoneyNeededForWin: 3
   HoneyStolen: {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
   ResearchProgress: {fileID: 11400000, guid: dfe9cf79ab308fa4590bcb660471cac3, type: 2}
-  playersByConnection: {fileID: 11400000, guid: 727a441cdc88fb94daccad50d343bbc9,
-    type: 2}
-  gameEndScreen: {fileID: 7185780510350613299, guid: 46326bca61ec2b74bb5f9c738d09b61e,
-    type: 3}
+  playersByConnection: {fileID: 11400000, guid: 727a441cdc88fb94daccad50d343bbc9, type: 2}
+  gameEndScreen: {fileID: 7185780510350613299, guid: 46326bca61ec2b74bb5f9c738d09b61e, type: 3}
 --- !u!114 &3150264247266567190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  serverOnly: 1
+  serverOnly: 0
   visible: 0
   m_AssetId: 974755d2f8e297e41a7920aeb82fefb7
   hasSpawned: 0
