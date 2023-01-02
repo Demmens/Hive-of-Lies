@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4592422982642611654}
   - component: {fileID: 3948402345785353191}
   - component: {fileID: 8178722199840054769}
-  - component: {fileID: 7271163454099574274}
   m_Layer: 0
   m_Name: Play Again Button
   m_TagString: Untagged
@@ -135,23 +134,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7271163454099574274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619404093099414627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 46326bca61ec2b74bb5f9c738d09b61e
-  hasSpawned: 0
 --- !u!1 &2463893099446105692
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,5 +632,5 @@ MonoBehaviour:
   resetRound: {fileID: 11400000, guid: fe5cd7e7dee80d646acbe9411af7d2f9, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   buttonObject: {fileID: 619404093099414627}
-  winText: {fileID: 3863735527157366947}
+  winTextObject: {fileID: 0}
   waitingFor: {fileID: 0}
