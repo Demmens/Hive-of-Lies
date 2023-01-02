@@ -19,7 +19,7 @@ public class PoisonerAbility : RoleAbility
 
     public override void OnStartClient()
     {
-        Instantiate(button);
+        button = Instantiate(button);
         button.SetActive(false);
     }
 
@@ -28,6 +28,7 @@ public class PoisonerAbility : RoleAbility
     {
         //Only display the button if they actually got voted in
         if (voteTotal <= 0) return;
+        Debug.Log("Setting button active");
         SetButtonActive();
     }
 
@@ -65,7 +66,7 @@ public class PoisonerAbility : RoleAbility
         GenericButton btn = button.GetComponent<GenericButton>();
         btn.OnClicked += ClickedButton;
         btn.SetText($"{cost}f: Poison");
-        btn.SetPos(new Vector3(Screen.width / 2, 20, 0));
+        btn.SetPos(new Vector3(Screen.width / 2, 80, 0));
     }
 
     [Client]
