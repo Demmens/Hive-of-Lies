@@ -7,12 +7,6 @@ using Steamworks;
 
 public class TeamLeaderVote : GamePhase
 {
-
-    /// <summary>
-    /// How many votes each player has currently placed
-    /// </summary>
-    Dictionary<HoLPlayer, int> currentVotes;
-
     /// <summary>
     /// The players that have closed the vote popup
     /// </summary>
@@ -47,7 +41,6 @@ public class TeamLeaderVote : GamePhase
     public override void Begin()
     {
         allVotes.Value = new();
-        currentVotes = new();
         voteTotal.Value = 0;
         playersClosedPopup = new();
         voteBegin?.Invoke();
