@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Events:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 2ec4455b9dd56c84b8d12e7e321d0709, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
