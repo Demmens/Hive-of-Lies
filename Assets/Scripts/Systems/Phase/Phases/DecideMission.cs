@@ -219,9 +219,8 @@ public class DecideMission : GamePhase
     public void PlayerVoted(Mission vote, NetworkConnectionToClient conn = null)
     {
         if (!Active) return;
-
-        players.Value.TryGetValue(conn, out HoLPlayer ply);
-
+        //Make sure they're alive
+        if (!players.Value.TryGetValue(conn, out HoLPlayer ply)) return;
         //Make sure players don't vote twice.
         if (TotalVotes.Contains(ply)) return;
 
