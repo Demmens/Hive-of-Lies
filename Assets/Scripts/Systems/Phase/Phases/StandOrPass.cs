@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using Steamworks;
 
 /// <summary>
 /// All players have the choice to either stand for TeamLeader, or pass. Those who stand must have enough favour.
@@ -142,10 +141,6 @@ public class StandOrPass : GamePhase
 
         //Invoke event before determining the Team Leader
         onTeamLeaderVoteCounted?.Invoke();
-
-        //If this has been subscribed to, there's a good chance the standings have changed, so we need to resort
-        if (onTeamLeaderVoteCounted != null)
-            SortStandingList();
         
         Debug.Log($"The team leader has been set to {teamLeader.Value.DisplayName}");
 
@@ -172,7 +167,8 @@ public class StandOrPass : GamePhase
             PlayerBoosts.TryGetValue(a, out int aBoost);
             PlayerBoosts.TryGetValue(b, out int bBoost);
 
-            int result = (a.Favour + aBoost) - (b.Favour + bBoost);
+            int result = (a.Favour + aBoost).CompareTo(b.Favour + bBoost);
+            result *= -1;
             //If both players have the same amount of favour, we should randomly pick between them
             return result == 0 ? (2*Random.Range(0, 2))-1 : result;
         });
