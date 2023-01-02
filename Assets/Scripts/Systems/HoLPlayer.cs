@@ -128,6 +128,7 @@ public class HoLPlayer : NetworkBehaviour
         NumDraws = ScriptableObject.CreateInstance<IntVariable>();
         IsAlive = ScriptableObject.CreateInstance<BoolVariable>();
         Target = ScriptableObject.CreateInstance<HoLPlayerVariable>();
+        IsAlive.Value = true;
         Deck.Value = new();
 
         Favour.AfterVariableChanged += change => OnFavourChanged?.Invoke(Connection, change);
