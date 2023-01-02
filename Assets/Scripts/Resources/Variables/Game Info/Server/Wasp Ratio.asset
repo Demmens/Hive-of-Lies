@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wasp Ratio
   m_EditorClassIdentifier: 
   initialValue: 0.49
-  currentValue: 1
+  currentValue: 0.49
   server: 0
   client: 0
   tooltip: 
