@@ -88,6 +88,7 @@ public class Setup : GamePhase
         float teamCounter = 0;
         plys.ForEach(ply =>
         {
+            ply.IsAlive.Value = true;
             teamCounter += traitorRatio;
             if (teamCounter >= 1)
             {
