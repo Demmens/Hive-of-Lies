@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -2456713078374529920}
   - component: {fileID: 5505833265382521805}
   - component: {fileID: 5572742708158016159}
+  - component: {fileID: 1845065423173804132}
   m_Layer: 0
   m_Name: PoisonerAbility
   m_TagString: Untagged
@@ -109,6 +110,35 @@ MonoBehaviour:
       - m_Target: {fileID: -2456713078374529920}
         m_TargetAssemblyTypeName: PoisonerAbility, Assembly-CSharp
         m_MethodName: OnVoteResult
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1845065423173804132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7908551812632945143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 456dfbe3331dade4d9a3443cbefd9b9c, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -2456713078374529920}
+        m_TargetAssemblyTypeName: PoisonerAbility, Assembly-CSharp
+        m_MethodName: VotePopupClosed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

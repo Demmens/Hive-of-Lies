@@ -32,6 +32,12 @@ public class PoisonerAbility : RoleAbility
         SetButtonActive();
     }
 
+    [Client]
+    public void VotePopupClosed()
+    {
+        button.SetActive(false);
+    }
+
     [Command(requiresAuthority = false)]
     public void OnPoison(NetworkConnectionToClient conn = null)
     {
