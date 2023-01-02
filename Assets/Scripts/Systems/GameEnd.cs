@@ -39,6 +39,7 @@ public class GameEnd : NetworkBehaviour
         };
     }
 
+    [Server]
     public void BeesWin()
     {
         GameObject screen = Instantiate(gameEndScreen);
@@ -46,6 +47,7 @@ public class GameEnd : NetworkBehaviour
         NetworkServer.Spawn(screen);
     }
 
+    [Server]
     public void WaspsWin()
     {
         GameObject screen = Instantiate(gameEndScreen);
@@ -53,6 +55,7 @@ public class GameEnd : NetworkBehaviour
         NetworkServer.Spawn(screen);
     }
 
+    [Server]
     public void PlayerWins(NetworkConnection conn)
     {
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
