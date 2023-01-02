@@ -41,9 +41,9 @@ public class MissionUI : NetworkBehaviour
     public override void OnStartServer()
     {
         currentMission.AfterVariableChanged += ChangeMission;
-        teamLeader.AfterVariableChanged += OnTeamLeaderDecided;
-        playersSelected.AfterItemAdded += OnTeamLeaderAddPartner;
-        playersSelected.AfterItemRemoved += OnTeamLeaderRemovePartner;
+        teamLeader.AfterVariableChanged += ply => OnTeamLeaderDecided(ply.DisplayName);
+        playersSelected.AfterItemAdded += ply => OnTeamLeaderAddPartner(ply.DisplayName, ply.PlayerID);
+        playersSelected.AfterItemRemoved += ply => OnTeamLeaderRemovePartner(ply.DisplayName, ply.PlayerID);
     }
 
     /// <summary>
@@ -92,28 +92,30 @@ public class MissionUI : NetworkBehaviour
     /// </summary>
     /// <param name="msg"></param>
     [ClientRpc]
-    void OnTeamLeaderDecided(HoLPlayer ply)
+    void OnTeamLeaderDecided(string name)
     {
-        teamLeaderName.text = ply.DisplayName;
+        teamLeaderName.text = name;
     }
 
     [ClientRpc]
-    void OnTeamLeaderAddPartner(HoLPlayer ply)
+    void OnTeamLeaderAddPartner(string name, ulong ID)
     {
         //If we haven't selected any players yet, clear the text, otherwise add a line break for the next player
         missionPlayerList.text = (missionPlayerList.text == "Undecided") ? "" : missionPlayerList.text + "\n";
 
-        missionPlayerList.text += ply.DisplayName;
+        missionPlayerList.text += name;
 
-        if (ply.PlayerID == (ulong) SteamUser.GetSteamID()) isOnMission.Value = true;
+        if (ID == (ulong) SteamUser.GetSteamID()) isOnMission.Value = true;
     }
 
     [ClientRpc]
-    void OnTeamLeaderRemovePartner(HoLPlayer ply)
+    void OnTeamLeaderRemovePartner(string name, ulong ID)
     {
-        missionPlayerList.text = missionPlayerList.text.Replace(ply.DisplayName, "");
+        missionPlayerList.text = missionPlayerList.text.Replace(name, "");
         //Make sure to remove duplicate line breaks
         missionPlayerList.text = missionPlayerList.text.Replace("\n\n", "\n");
         if (missionPlayerList.text == "" || missionPlayerList.text == "\n") missionPlayerList.text = "Undecided";
+
+        if (ID == (ulong)SteamUser.GetSteamID()) isOnMission.Value = false;
     }
 }
