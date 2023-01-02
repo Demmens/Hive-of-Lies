@@ -76,15 +76,14 @@ MonoBehaviour:
   alivePlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   beePlayers: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
   waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
-  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
-    type: 2}
+  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   playerWins: {fileID: 11400000, guid: 99fa395cf1c847d4595b1fd05bec6690, type: 2}
   isAlive: {fileID: 11400000, guid: 3650ca7e2039a914fbfedaf1fcf718b1, type: 2}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
-  stingPopup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb,
-    type: 3}
+  stingPopup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
   targetText: {fileID: 0}
   stingButton: {fileID: 8693786616748591385}
+  button: {fileID: 8693786616748591383}
   stingCost: 10
 --- !u!114 &1614399783026997193
 MonoBehaviour:
