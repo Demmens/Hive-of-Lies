@@ -109,7 +109,7 @@ public class Sting : NetworkBehaviour
         playersByConnection.Value.Remove(ply.Connection);
         ply.IsAlive.Value = false;
         playerCount--;
-        ClientStingIncorrect();
+        ClientStingIncorrect(ply.Connection);
     }
 
     [Server]
@@ -118,8 +118,8 @@ public class Sting : NetworkBehaviour
         playerWins?.Invoke(ply.Connection);
     }
 
-    [ClientRpc]
-    void ClientStingIncorrect()
+    [TargetRpc]
+    void ClientStingIncorrect(NetworkConnection conn)
     {
         isAlive.Value = false;
     }
