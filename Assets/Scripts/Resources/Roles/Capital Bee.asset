@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: Capital Bee
   m_EditorClassIdentifier: 
-  roleName: Big Bee
+  roleName: Capital Bee
   description: No ability
   sprite: 
   startingFavour: 20
