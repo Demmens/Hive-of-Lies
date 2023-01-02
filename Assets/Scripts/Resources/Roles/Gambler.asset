@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gambler
   m_EditorClassIdentifier: 
   roleName: Gambler
-  description: 'You can place bets on the result of the mission. '
+  description: Predict the mission result to gain favour.
   sprite: 
   startingFavour: 7
   startingDeck: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000

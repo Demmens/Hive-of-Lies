@@ -6,109 +6,77 @@ using Mirror;
 
 public class GamblerAbility : RoleAbility
 {
-    /*
-    DiceMission dice;
-    CostCalculation costCalc;
+    #region CLIENT
+    [SerializeField] GameObject successButton;
+    [SerializeField] GameObject failButton;
+    #endregion
+    #region SERVER
+    bool votedForSuccess;
+    bool votedForFail;
 
-    List<int> previousRolls;
-    bool goneBust = false;
+    [SerializeField] MissionResultVariable result;
+    [SerializeField] int favourGain;
+    #endregion
 
-    void Start()
+    [Client]
+    public override void OnStartClient()
     {
-        previousRolls = new List<int>();
-        dice = FindObjectOfType<DiceMission>();
-        costCalc = FindObjectOfType<CostCalculation>();
+        successButton = Instantiate(successButton);
+        GenericButton button = successButton.GetComponent<GenericButton>();
+        button.SetText("Next mission will succeed");
+        button.SetPos(new Vector3((Screen.width / 2) - 200, 80, 0));
+        button.OnClicked += () => OnClicked(true);
+        successButton.SetActive(false);
 
-        dice.OnPlayerRolled += PlayerRolled;
-        costCalc.OnRerollCalculation += ModifyRerollCost;
-        dice.OnMissionEnded += MissionEnd;
-
-        NetworkClient.RegisterHandler<GoneBustMsg>(ClientGoneBust);
-        NetworkServer.RegisterHandler<TestNetworkingMsg>(TestNetworking);
+        failButton = Instantiate(failButton);
+        button = failButton.GetComponent<GenericButton>();
+        button.SetText("Next mission will fail");
+        button.SetPos(new Vector3((Screen.width / 2) + 200, 80, 0));
+        button.OnClicked += () => OnClicked(false);
+        failButton.SetActive(false);
     }
 
-    public override void OnStartLocalPlayer()
+    [Server]
+    public void AfterVoteResult()
     {
-        NetworkClient.Send(new TestNetworkingMsg() { authority = hasAuthority });
+        votedForSuccess = false;
+        votedForFail = false;
+        SetButtonsActive();
     }
 
-    void TestNetworking(NetworkConnection conn, TestNetworkingMsg msg)
+    [TargetRpc]
+    void SetButtonsActive()
     {
-        Debug.Log($"player has authority: {msg.authority}");
+        successButton.SetActive(true);
+        failButton.SetActive(true);
     }
 
-    /// <summary>
-    /// If bust, the next reroll costs 99 favour
-    /// </summary>
-    /// <param name="ply">Player rerolling</param>
-    /// <param name="cost">Cost of the reroll</param>
-    void ModifyRerollCost(CSteamID ply, ref int cost)
+    [Command]
+    void OnClicked(bool success)
     {
-        if (ply != Owner.SteamID || !hasAuthority) return;
-
-        cost = goneBust ? 999 : 0;
+        votedForSuccess = success;
+        votedForFail = !success;
+        successButton.SetActive(false);
+        failButton.SetActive(false);
     }
 
-    /// <summary>
-    /// Server version of player rolled
-    /// </summary>
-    /// <param name="ply">The player that rolled</param>
-    /// <param name="roll">The roll information</param>
-    void PlayerRolled(Player ply, ref PlayerRollInfo roll)
+    [Client]
+    public void VotePopupClosed()
     {
-        if (ply != Owner) return;
-        CheckForBust(roll.currentRoll);
+        successButton.SetActive(false);
+        failButton.SetActive(false);
     }
 
-    /// <summary>
-    /// Check if the roll makes the player go bust
-    /// </summary>
-    /// <param name="roll">The new roll</param>
-    void CheckForBust(int roll)
+    [Server]
+    public void AfterMissionComplete()
     {
-        if (previousRolls.Contains(roll))
+        if (result == MissionResult.Success && votedForSuccess)
         {
-            GoBust();
-            OwnerConnection.Send(new GoneBustMsg { });
-            return;
+            Owner.Favour.Value += favourGain;
         }
-
-        previousRolls.Add(roll);
+        if (result == MissionResult.Fail && votedForFail)
+        {
+            Owner.Favour.Value += favourGain;
+        }
     }
-
-    /// <summary>
-    /// Server tells the client they've gone bust
-    /// </summary>
-    void ClientGoneBust(GoneBustMsg msg)
-    {
-        GoBust();
-    }
-
-    /// <summary>
-    /// Logic for what immediately happens on going bust
-    /// </summary>
-    void GoBust()
-    {
-        goneBust = true;
-    }
-
-    /// <summary>
-    /// Reset previous rolls on mission end
-    /// </summary>
-    void MissionEnd(MissionResult result)
-    {
-        previousRolls = new List<int>();
-        goneBust = false;
-    }
-    */
-}
-
-struct GoneBustMsg : NetworkMessage
-{
-
-}
-
-struct TestNetworkingMsg : NetworkMessage 
-{
-    public bool authority;
 }
