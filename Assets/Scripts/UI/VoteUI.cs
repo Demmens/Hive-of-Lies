@@ -57,7 +57,7 @@ public class VoteUI : NetworkBehaviour
     /// Called when the vote starts
     /// </summary>
     /// <param name="msg"></param>
-    [Client]
+    [ClientRpc]
     public void VoteStarted()
     {
         if (!alive) return;
