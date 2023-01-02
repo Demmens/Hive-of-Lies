@@ -68,8 +68,11 @@ public class MissionResultPopup : NetworkBehaviour
         for (int i = 0; i < contributions.Count; i++)
         {
             if (i != 0) cardResultsText += ", ";
-            cardResultsText += isOnMission ? contributions[i].Value.ToString() : "??";
+            cardResultsText += contributions[i].Value.ToString();
         }
+
+        if (!isOnMission) cardResultsText = "??";
+
         rollResults.text = cardResultsText;
 
         bool success = result == MissionResult.Success;
