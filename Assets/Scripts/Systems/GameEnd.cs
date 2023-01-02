@@ -39,31 +39,26 @@ public class GameEnd : NetworkBehaviour
         };
     }
 
-    [ClientRpc]
     public void BeesWin()
     {
         GameObject screen = Instantiate(gameEndScreen);
         screen.GetComponent<PlayAgainButton>().SetText("Bees Win");
+        NetworkServer.Spawn(screen);
     }
 
-    [ClientRpc]
     public void WaspsWin()
     {
         GameObject screen = Instantiate(gameEndScreen);
         screen.GetComponent<PlayAgainButton>().SetText("Wasps Win");
+        NetworkServer.Spawn(screen);
     }
 
     public void PlayerWins(NetworkConnection conn)
     {
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
 
-        ClientPlayerWins(ply.DisplayName);
-    }
-
-    [ClientRpc]
-    public void ClientPlayerWins(string playerName)
-    {
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText($"{playerName} won the game");
+        screen.GetComponent<PlayAgainButton>().SetText($"{ply.DisplayName} won the game");
+        NetworkServer.Spawn(screen);
     }
 }
