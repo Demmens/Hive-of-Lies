@@ -11,6 +11,8 @@ public class TeamLeaderPopup : NetworkBehaviour
     [SerializeField] GameObject popup;
     [Tooltip("Whether the local player is the team leader")]
     [SerializeField] BoolVariable isTeamLeader;
+    [Tooltip("Whether the local player is on the mission")]
+    [SerializeField] BoolVariable isOnMission;
     #endregion
     #region SERVER
     [Tooltip("The current team leader")]
@@ -19,16 +21,26 @@ public class TeamLeaderPopup : NetworkBehaviour
 
     public override void OnStartServer()
     {
+        teamLeader.AfterVariableChanged += leader => UnsetTeamLeader();
         teamLeader.AfterVariableChanged += leader => SetTeamLeader(leader.Connection);
         teamLeader.AfterVariableChanged += leader => LocalPlayerTeamLeaderPopup(leader.DisplayName);
+    }
+
+    [ClientRpc]
+    void UnsetTeamLeader()
+    {
+        isTeamLeader.Value = false;
+        isOnMission.Value = false;
     }
 
     [TargetRpc]
     void SetTeamLeader(NetworkConnection conn)
     {
         isTeamLeader.Value = true;
+        isOnMission.Value = true;
     }
 
+    [Server]
     public void AfterStandOrPass()
     {
         LocalPlayerTeamLeaderPopup(teamLeader.Value.DisplayName);
