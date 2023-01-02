@@ -35,7 +35,7 @@ public class Sting : NetworkBehaviour
     [Client]
     void AfterFavourChanged(int favour)
     {
-        stingButton.GetComponent<UnityEngine.UI.Button>().interactable = favour >= stingCost;
+        stingButton.GetComponentInChildren<UnityEngine.UI.Button>().interactable = favour >= stingCost;
     }
 
     [Server]
