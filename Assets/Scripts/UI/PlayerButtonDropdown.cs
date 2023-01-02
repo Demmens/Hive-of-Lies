@@ -27,12 +27,17 @@ public class PlayerButtonDropdown : NetworkBehaviour
 
     void Start()
     {
-        dropdown.SetActive(false);
-        serverPlayersLoaded.AfterItemAdded += ServerOnClientLoaded;
+        
+    }
+
+    public override void OnStartServer()
+    {
         serverPlayersLoaded.AfterItemRemoved += PlayerDied;
-        //Call in case we're the last client to join
-        //(server updates the list of connected players before we have a change to listen to the event)
-        ServerOnClientLoaded();
+    }
+
+    public override void OnStartClient()
+    {
+        dropdown.SetActive(false);
     }
 
     void Update()
@@ -46,20 +51,16 @@ public class PlayerButtonDropdown : NetworkBehaviour
     public void OnMouseEnter() { isMouseOver = true; }
     public void OnMouseExit() { isMouseOver = false; }
 
-    /// <summary>
-    /// Called on the server when any player connects to the game
-    /// </summary>
-    /// <param name="conn"></param>
     [Server]
-    void ServerOnClientLoaded(HoLPlayer pl = null)
+    public void AfterSetup()
     {
-        List<ulong> loaded = new List<ulong>();
+        List<ulong> loaded = new();
         serverPlayersLoaded.Value.ForEach(ply => loaded.Add(ply.PlayerID));
-        OnClientLoaded(loaded);
+        CreateButtons(loaded);
     }
 
     [ClientRpc]
-    void OnClientLoaded(List<ulong> loadedPlayers)
+    void CreateButtons(List<ulong> loadedPlayers)
     {
         for (int i = 0; i < loadedPlayers.Count; i++)
         {
@@ -80,6 +81,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
         ClientPlayerDied(ply.PlayerID);
     }
 
+    [ClientRpc]
     void ClientPlayerDied(ulong ply)
     {
         if (!buttons.TryGetValue(ply, out PlayerButton button)) return;
@@ -93,6 +95,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
     /// </summary>
     /// <param name="prefab"></param>
     /// <returns></returns>
+    [Client]
     public PlayerButtonDropdownItem CreateItem(GameObject prefab)
     {
         //Make sure this item doesn't exist already
@@ -115,6 +118,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
     /// <param name="player">The player button to add this object to</param>
     /// <param name="prefab">Prefab of the item to add</param>
     /// <returns>The instantiated item</returns>
+    [Client]
     public PlayerButtonDropdownItem AddItem(ulong player, GameObject prefab)
     {
         //If this is the first time we're ever adding this dropdown item to any player
@@ -147,6 +151,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
     /// Adds a new item to the dropdown of all players
     /// </summary>
     /// <param name="prefab"></param>
+    [Client]
     public PlayerButtonDropdownItem AddAll(GameObject prefab)
     {
         PlayerButtonDropdownItem item = null;
@@ -161,6 +166,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
     /// Removes an item from the dropdown
     /// </summary>
     /// <param name="prefab">The prefab of the item to remove</param>
+    [Client]
     public void RemoveItem(ulong player, GameObject prefab)
     {
         if (!itemsInDropdown.TryGetValue(prefab, out PlayerButtonDropdownItem spawned)) return;
@@ -174,6 +180,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
         }
     }
 
+    [Client]
     public void RemoveAll(GameObject prefab)
     {
         if (!itemsInDropdown.TryGetValue(prefab, out PlayerButtonDropdownItem spawned)) return;
@@ -189,6 +196,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
     /// Creates the dropdown when clicking on a player
     /// </summary>
     /// <param name="plyID">The player id of the clicked player</param>
+    [Client]
     public void CreateDropdown(ulong plyID)
     {
         if (!buttons.TryGetValue(plyID, out PlayerButton button)) return;
@@ -217,6 +225,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
         }
     }
 
+    [Client]
     void CloseDropdown()
     {
         activeItems.ForEach(item => item.gameObject.SetActive(false));
