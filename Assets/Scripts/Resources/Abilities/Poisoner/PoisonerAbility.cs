@@ -28,7 +28,6 @@ public class PoisonerAbility : RoleAbility
     {
         //Only display the button if they actually got voted in
         if (voteTotal <= 0) return;
-        Debug.Log("Setting button active");
         SetButtonActive();
     }
 
