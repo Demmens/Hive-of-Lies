@@ -93,6 +93,8 @@ public class TeamLeaderPickPartners : GamePhase
         if (!Active) return;
 
         playersOnMission.Value = playersSelected.Value;
+        //Make sure to add the team leader if they are not already added
+        if (!playersOnMission.Value.Contains(teamLeader.Value)) playersOnMission.Value.Add(teamLeader.Value);
 
         End();
     }
