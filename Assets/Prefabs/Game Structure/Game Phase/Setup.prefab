@@ -122,6 +122,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5bc19e90e7c1ebc4d9d9be1348904de9, type: 2}
   - {fileID: 11400000, guid: 5f46d1642fd51ae4d8e4b89e65a5c7b6, type: 2}
   - {fileID: 11400000, guid: 6cad7c1c8e63c6541937cdf2f432d53f, type: 2}
+  - {fileID: 11400000, guid: c8d7c02d6eea7e64989f43246d204b4c, type: 2}
   allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
   beePlayers: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
