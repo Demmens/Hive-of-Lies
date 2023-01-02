@@ -118,7 +118,9 @@ public class StandOrPass : GamePhase
         //Invoke event for all players having made a decision
         onAllPlayersStandOrPass?.Invoke();
 
-        
+        //Find the highest influence players who stood.
+        SortStandingList();
+
         if (standingPlayers.Value.Count == 0)
         {
             //If nobody stood for the position of team leader, and we don't currently have a team leader
@@ -137,9 +139,6 @@ public class StandOrPass : GamePhase
             //Now, since we've sorted, the player at the top of the list will be the Team Leader
             teamLeader.Value = standingPlayers.Value[0];
         }
-
-        //Find the highest influence players who stood.
-        SortStandingList();
 
         //Invoke event before determining the Team Leader
         onTeamLeaderVoteCounted?.Invoke();
@@ -175,7 +174,7 @@ public class StandOrPass : GamePhase
 
             int result = (a.Favour + aBoost) - (b.Favour + bBoost);
             //If both players have the same amount of favour, we should randomly pick between them
-            return result == 0 ? Random.Range(-1, 1) : result;
+            return result == 0 ? (2*Random.Range(0, 2))-1 : result;
         });
     }
 
