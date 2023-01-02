@@ -20,6 +20,7 @@ public class Sting : NetworkBehaviour
     [SerializeField] GameObject stingPopup;
     [SerializeField] TMPro.TMP_Text targetText;
     [SerializeField] GameObject stingButton;
+    [SerializeField] UnityEngine.UI.Button button;
     bool isStinging;
     #endregion
     #region SHARED
@@ -35,7 +36,7 @@ public class Sting : NetworkBehaviour
     [Client]
     void AfterFavourChanged(int favour)
     {
-        stingButton.GetComponentInChildren<UnityEngine.UI.Button>().interactable = favour >= stingCost;
+        button.interactable = favour >= stingCost;
     }
 
     [Server]
@@ -44,16 +45,17 @@ public class Sting : NetworkBehaviour
         waspPlayers.Value.ForEach(ply =>
         {
             ply.Target.Value = beePlayers.Value.GetRandom();
-            SetClientTarget(ply.Connection, ply.Role.Value.Data.RoleName);
+            RoleData role = ply.Target.Value.Role.Value.Data;
+            SetClientTarget(ply.Connection, role.RoleName, role.Description);
         });    
     }
 
     [TargetRpc]
-    void SetClientTarget(NetworkConnection conn, string targetName)
+    void SetClientTarget(NetworkConnection conn, string targetName, string targetDescription)
     {
         stingButton.SetActive(true);
         GameObject popup = Instantiate(stingPopup);
-        popup.GetComponent<Notification>().SetText($"Your target is the {targetName}");
+        popup.GetComponent<Notification>().SetText($"Your target is the {targetName}:\n{targetDescription}");
     }
 
     [Client]
@@ -88,12 +90,15 @@ public class Sting : NetworkBehaviour
     {
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer stinger)) return;
 
-        foreach (HoLPlayer ply in alivePlayers.Value)
+        for (int i = 0; i < alivePlayers.Value.Count; i++)
         {
+            HoLPlayer ply = alivePlayers.Value[i];
             if (ply.PlayerID != id) continue;
 
             if (stinger.Target.Value == ply) StingCorrect(stinger);
             else StingIncorrect(stinger);
+
+            break;
         }
     }
 
@@ -117,5 +122,10 @@ public class Sting : NetworkBehaviour
     void ClientStingIncorrect()
     {
         isAlive.Value = false;
+    }
+
+    private void OnDestroy()
+    {
+        favour.AfterVariableChanged -= AfterFavourChanged;
     }
 }
