@@ -8,7 +8,7 @@ public abstract class Variable<T> : ScriptableObject
     public static implicit operator T(Variable<T> a) => a.Value;
 
     [Tooltip("The initial value of this variable")]
-    [SerializeField] public readonly T initialValue;
+    [SerializeField] private T initialValue;
 
     [Tooltip("The current value of this variable")]
     [SerializeField] private T currentValue;
