@@ -1730,6 +1730,7 @@ GameObject:
   - component: {fileID: 608503072}
   - component: {fileID: 608503071}
   - component: {fileID: 608503070}
+  - component: {fileID: 608503074}
   m_Layer: 5
   m_Name: Wasp Research Progress
   m_TagString: Untagged
@@ -1773,7 +1774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  var: {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
+  var: {fileID: 11400000, guid: dfe9cf79ab308fa4590bcb660471cac3, type: 2}
   text: {fileID: 1355795638}
 --- !u!114 &608503071
 MonoBehaviour:
@@ -1830,6 +1831,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608503068}
   m_CullTransparentMesh: 1
+--- !u!114 &608503074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608503068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80a2aa513574b14d84865ae8f2b2cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  var: {fileID: 11400000, guid: 1699329a910b70b49a5d013e5622c77c, type: 2}
+  text: {fileID: 914507083}
 --- !u!1 &782000533
 GameObject:
   m_ObjectHideFlags: 0
@@ -3090,6 +3107,7 @@ GameObject:
   - component: {fileID: 1756709244}
   - component: {fileID: 1756709243}
   - component: {fileID: 1756709242}
+  - component: {fileID: 1756709246}
   m_Layer: 5
   m_Name: Honey Stolen
   m_TagString: Untagged
@@ -3190,6 +3208,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1756709240}
   m_CullTransparentMesh: 1
+--- !u!114 &1756709246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756709240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80a2aa513574b14d84865ae8f2b2cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  var: {fileID: 11400000, guid: 06d80601b7e94364b92473ed6e4aa185, type: 2}
+  text: {fileID: 172087118}
 --- !u!1 &1788645344
 GameObject:
   m_ObjectHideFlags: 0

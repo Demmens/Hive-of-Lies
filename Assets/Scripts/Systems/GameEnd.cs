@@ -9,12 +9,12 @@ public class GameEnd : NetworkBehaviour
     /// <summary>
     /// Amount of research needed for the Bees to win the game
     /// </summary>
-    public int ResearchNeededForWin = 3;
+    [SerializeField] IntVariable ResearchNeededForWin;
 
     /// <summary>
     /// How much honey has to be stolen before the wasps win
     /// </summary>
-    public int HoneyNeededForWin = 3;
+    [SerializeField] IntVariable HoneyNeededForWin;
 
     [SerializeField] IntVariable HoneyStolen;
 
