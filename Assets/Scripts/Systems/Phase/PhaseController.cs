@@ -108,7 +108,7 @@ public class PhaseController : MonoBehaviour
             GamePhase phase = phases[i];
             if (downVoteReset == phase)
             {
-                currentPhase = i;
+                currentPhase = i - 1;
                 phase.ChangePhase();
             }
         }
