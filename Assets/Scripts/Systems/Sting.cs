@@ -45,6 +45,8 @@ public class Sting : NetworkBehaviour
         waspPlayers.Value.ForEach(ply =>
         {
             ply.Target.Value = beePlayers.Value.GetRandom();
+            //This is only here for debugging purposes
+            if (beePlayers.Value.Count == 0) ply.Target.Value = waspPlayers.Value.GetRandom(); 
             RoleData role = ply.Target.Value.Role.Value.Data;
             SetClientTarget(ply.Connection, role.RoleName, role.Description);
         });    
