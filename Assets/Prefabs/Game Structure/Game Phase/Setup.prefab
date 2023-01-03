@@ -128,6 +128,16 @@ MonoBehaviour:
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   playersByNetworkConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   setupFinished: {fileID: 11400000, guid: 78cfefec714f52749a9d7e5f2ac0fb22, type: 2}
+  intVariablesToReset:
+  - {fileID: 11400000, guid: dfe9cf79ab308fa4590bcb660471cac3, type: 2}
+  - {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
+  - {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
+  - {fileID: 11400000, guid: 324d0b2c264c77c4aa06399b7301de42, type: 2}
+  - {fileID: 11400000, guid: 8dde2b8d9eb6dff4a83853849c4de3a4, type: 2}
+  - {fileID: 11400000, guid: 6748b01369dc2d94fbf6dd9449def0a6, type: 2}
+  - {fileID: 11400000, guid: 993e07413f0ea2c4d9144dcce475ef6a, type: 2}
+  - {fileID: 11400000, guid: 1939b9c64f1f30b4fa771aff5b5e9ec8, type: 2}
+  - {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
 --- !u!114 &4473885344014706271
 MonoBehaviour:
   m_ObjectHideFlags: 0
