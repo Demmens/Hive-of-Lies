@@ -15,7 +15,7 @@ MonoBehaviour:
   missionName: Organise the Hive Library
   description: Tidy up all the lose papers and put them back on the shelves where
     they belong.
-  favourCost: 6
+  favourCost: 5
   successFlavour: The library is a lot cleaner than it used to be!
   successEffects:
   - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}

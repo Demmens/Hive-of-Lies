@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
-  m_Name: SpreadPropaganda
+  m_Name: Set Honey Trap
   m_EditorClassIdentifier: 
-  missionName: Create Propaganda
-  description: Spend time designing promotional posters for the Bee political campaign.
+  missionName: Set Honey Trap
+  description: Forfeit some of our honey as bait to learn about wasp behaviour
   favourCost: 4
-  successFlavour: Create a simple and effective poster design.
+  successFlavour: Capture a real wasp!
   successEffects:
-  - {fileID: 11400000, guid: 4e99fa1b857ea484db964217a354bfa9, type: 2}
-  failFlavour: Accidentally promote fascist imagery
+  - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+  - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
+  failFlavour: Fall asleep on watch
   failEffects:
-  - {fileID: 11400000, guid: b6d89fb161e8f5b44a3beee712f688a5, type: 2}
+  - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
   condition: {fileID: 0}

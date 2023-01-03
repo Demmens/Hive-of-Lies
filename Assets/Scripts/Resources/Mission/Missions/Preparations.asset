@@ -23,5 +23,5 @@ MonoBehaviour:
   failFlavour: Accidentally prepare for the wrong outcome, and mitigate any chance
     of success.
   failEffects:
-  - {fileID: 11400000, guid: f3e62efb6045c334db7c23cc14b3203e, type: 2}
+  - {fileID: 11400000, guid: 3acecbdf726900f46ae006e480de2178, type: 2}
   condition: {fileID: 0}

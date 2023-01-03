@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
-  m_Name: OpenBook
+  m_Name: Defend the Honey
   m_EditorClassIdentifier: 
-  missionName: Open Book
-  description: Send a team of top bees to open a large book on wasps
+  missionName: Defend the Honey!
+  description: Send all our forces to defend the honey from an imminent raid!
   favourCost: 8
-  successFlavour: Manage to read one page
-  successEffects:
-  - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
-  failFlavour: Can't get the book open (too heavy)
-  failEffects: []
+  successFlavour: Scare away any potential wasp attacks
+  successEffects: []
+  failFlavour: Arrive too late...
+  failEffects:
+  - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
   condition: {fileID: 0}
