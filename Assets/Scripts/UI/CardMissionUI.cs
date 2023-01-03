@@ -18,11 +18,14 @@ public class CardMissionUI : NetworkBehaviour
     [Tooltip("Returns true if the player is on the mission")]
     [SerializeField] BoolVariable isOnMission;
 
+    #endregion
+    #region SERVER
+
     [Tooltip("The current round of the game")]
     [SerializeField] IntVariable roundNum;
 
-    #endregion
-    #region SERVER
+    [Tooltip("What draws are required to succeed the mission")]
+    [SerializeField] IntVariable missionDifficulty;
 
     [Tooltip("Invoked when a player draws a card")]
     [SerializeField] NetworkingEvent playerDrew;
@@ -40,18 +43,21 @@ public class CardMissionUI : NetworkBehaviour
     {
         if (roundNum == 0)
             allPlayers.Value.ForEach(ply => ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.Connection, card.TempValue, ply.NextDrawCost));
+
+        ClientMissionStarted(missionDifficulty);
     }
 
     /// <summary>
     /// Called when the cards mission starts
     /// </summary>
     [ClientRpc]
-    public void ClientMissionStarted()
+    public void ClientMissionStarted(int difficulty)
     {
         if (!isOnMission) return;
 
         drawResult.text = "0";
         drawButtonText.text = $"Redraw (0f)";
+        needed.text = $"Success: {difficulty}";
         submitButton.SetActive(false);
         drawButton.SetActive(true);
         UI.SetActive(true);
