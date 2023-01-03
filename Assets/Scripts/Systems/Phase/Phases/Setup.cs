@@ -43,6 +43,8 @@ public class Setup : GamePhase
     [Tooltip("Invoked when all the setup logic is completed")]
     [SerializeField] GameEvent setupFinished;
 
+    [SerializeField] List<IntVariable> intVariablesToReset;
+
     /// <summary>
     /// List of all roles that can appear in the game
     /// </summary>
@@ -60,6 +62,7 @@ public class Setup : GamePhase
     [Server]
     public void BeginSetup()
     {
+        intVariablesToReset.ForEach(var => var.OnEnable());
         Debug.Log("All players have entered the game. Beginning setup.");
 
         Roles.Shuffle();
