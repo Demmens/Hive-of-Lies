@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f0decc40e2fbe4d80bfcc0321205e3, type: 3}
   m_Name: Bees Gain Slight Favour
   m_EditorClassIdentifier: 
-  description: Bees gain slight favour
+  description: Bees gain 2 favour
   type: 0
   players: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
   favourGain: 2
