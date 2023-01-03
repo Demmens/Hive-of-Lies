@@ -65,7 +65,7 @@ public abstract class Variable<T> : ScriptableObject
     /// </summary>
     public event System.Action<T> AfterVariableChanged;
 
-    private void OnEnable()
+    public void OnEnable()
     {
         //Set currentValue to bypass all the code that runs from setting Value
         currentValue = initialValue;
