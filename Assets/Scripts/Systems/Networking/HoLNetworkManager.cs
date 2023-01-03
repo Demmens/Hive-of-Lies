@@ -85,8 +85,13 @@ public class HoLNetworkManager : NetworkManager
             {
                 StartCoroutine(Coroutines.Delay(0.5f, () =>
                 {
-                    alivePlayers.Value = allPlayers.Value;
-                    alivePlayersByConnection.Value = playersByConnection.Value;
+                    alivePlayers.Value = new();
+                    alivePlayers.Value.AddRange(allPlayers.Value);
+                    alivePlayersByConnection.Value = new();
+                    foreach(HoLPlayer ply in allPlayers.Value)
+                    {
+                        alivePlayersByConnection.Value[ply.Connection] = ply;
+                    }
                     allPlayersLoaded.Invoke();
                     //For if we want to reset the game
                     playersLoaded = 0;
