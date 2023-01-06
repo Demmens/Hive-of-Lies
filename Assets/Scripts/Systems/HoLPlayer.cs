@@ -138,3 +138,10 @@ public class HoLPlayer : NetworkBehaviour
         NumVotes.AfterVariableChanged += change => OnNumVotesChanged?.Invoke(Connection, change);
     }
 }
+
+public enum Team
+{
+    Bee,
+    Wasp,
+    None,
+}

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2454335121980495101}
   - component: {fileID: -3006754933125219678}
-  - component: {fileID: -1607248352258975617}
   - component: {fileID: -7949129676774537637}
   - component: {fileID: 4275332455057942453}
   m_Layer: 0
@@ -64,23 +63,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-1607248352258975617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899694251160386601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead680dd0068ce345823b36364e1bd48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Dictator
-  description: If you successfully become the General, all votes against you will
-    be ignored
-  canGiveTwoBees: 0
-  instantiateOnClient: 0
 --- !u!114 &-7949129676774537637
 MonoBehaviour:
   m_ObjectHideFlags: 0
