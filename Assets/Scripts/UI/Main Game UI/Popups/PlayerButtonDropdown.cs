@@ -208,6 +208,9 @@ public class PlayerButtonDropdown : NetworkBehaviour
     {
         if (!buttons.TryGetValue(plyID, out PlayerButton button)) return;
 
+        //If the dropdown is currently open, close it so we can reset the dropdown items
+        if (dropdown.activeInHierarchy) CloseDropdown();
+
         activePlayer = plyID;
 
         for (int i = 0; i < button.listItems.Count; i++)
