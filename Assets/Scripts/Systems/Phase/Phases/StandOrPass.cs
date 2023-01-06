@@ -63,6 +63,7 @@ public class StandOrPass : GamePhase
     {
         standingPlayers.Value = new();
         passedPlayers.Value = new();
+        totalFavourOfStanding = 0;
 
         standOrPassBegin?.Invoke();
     }
