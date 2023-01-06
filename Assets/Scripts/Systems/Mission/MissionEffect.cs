@@ -9,7 +9,7 @@ public abstract class MissionEffect : ScriptableObject
     /// </summary>
     [SerializeField] string description;
 
-    public delegate void MissionEffectOver();
+    public delegate void MissionEffectOver(MissionEffect effect);
     /// <summary>
     /// Invoked when the mission effect has finished. Important for effects that aren't instantaneous (e.g. investigation)
     /// </summary>
@@ -50,7 +50,7 @@ public abstract class MissionEffect : ScriptableObject
     /// </summary>
     protected void EndEffect()
     {
-        OnMissionEffectFinished?.Invoke();
+        OnMissionEffectFinished?.Invoke(this);
     }
 
     public enum EffectType

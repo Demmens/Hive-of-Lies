@@ -111,9 +111,10 @@ public class RunMission : GamePhase
         }
     }
 
-    private void OnEffectEnded()
+    private void OnEffectEnded(MissionEffect effect)
     {
         effectsTriggered++;
+        effect.OnMissionEffectFinished -= OnEffectEnded;
         if (effectsTriggered >= numEffects)
         {
             End();

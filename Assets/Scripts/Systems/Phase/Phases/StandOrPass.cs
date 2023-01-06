@@ -194,8 +194,9 @@ public class StandOrPass : GamePhase
         });
     }
 
-    void OnMissionEffectFinished()
+    void OnMissionEffectFinished(MissionEffect effect)
     {
+        effect.OnMissionEffectFinished -= OnMissionEffectFinished;
         if (++missionEffectsTriggered < currentMission.Value.FailEffects.Count) return;
 
         onNobodyStood?.Invoke();
