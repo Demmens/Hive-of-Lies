@@ -7,126 +7,68 @@ using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 
-public class LobbyController : MonoBehaviour
+public class LobbyController : NetworkBehaviour
 {
-    public static LobbyController singleton;
-
+    #region CLIENT
     public TMP_Text LobbyNameText;
 
     public GameObject PlayerListViewContent;
     public GameObject PlayerListItemPrefab;
-    public GameObject LocalPlayerObject;
 
     public ulong CurrentLobbyID;
-    public bool PlayerItemCreated = false;
-    private List<PlayerListItem> playerListItems = new List<PlayerListItem>();
-
-    HoLNetworkManager manager;
-    public HoLNetworkManager Manager
+    private Dictionary<int, PlayerListItem> playerListItems = new();
+    #endregion
+    #region SERVER
+    [SerializeField] HoLPlayerDictionary playersByConnection;
+    [SerializeField] HoLPlayerSet allPlayers;
+    #endregion
+    [Server]
+    public void OnPlayerJoinedLobby(NetworkConnection conn)
     {
-        get
+        allPlayers.Value.ForEach(ply =>
         {
-            if (manager != null) return manager;
-            return manager = HoLNetworkManager.singleton as HoLNetworkManager;
-        }
+            CreateClientPlayerItem(ply.DisplayName, ply.Connection.connectionId, ply.PlayerID);
+        });
     }
 
-    void Awake()
+    public void OnPlayerLeftLobby(NetworkConnection conn)
     {
-        if (singleton == null) singleton = this;
+        RemovePlayerItem(conn.connectionId);
     }
 
+    [ClientRpc]
     public void UpdateLobbyName()
     {
         CurrentLobbyID = (ulong) SteamLobby.LobbyID;
         LobbyNameText.text = SteamMatchmaking.GetLobbyData(SteamLobby.LobbyID, "name");
     }
 
-    /*public void UpdatePlayerList()
+    [ClientRpc]
+    public void CreateClientPlayerItem(string name, int connID, ulong steamID)
     {
-        if (!PlayerItemCreated) { CreateHostPlayerItem(); }
-        if (playerListItems.Count < Manager.GamePlayers.Count) { CreateClientPlayerItem(); }
-        if (playerListItems.Count > Manager.GamePlayers.Count) { RemovePlayerItem(); }
-        if (playerListItems.Count == Manager.GamePlayers.Count) { UpdatePlayerItem(); }
+        //If the item already exists, back out now
+        if (playerListItems.TryGetValue(connID, out PlayerListItem _)) return;
+
+        GameObject item = Instantiate(PlayerListItemPrefab);
+        PlayerListItem itemScript = item.GetComponent<PlayerListItem>();
+
+        itemScript.PlayerName = name;
+        itemScript.ConnectionID = connID;
+        itemScript.PlayerSteamID = steamID;
+        itemScript.SetPlayerValues();
+
+        item.transform.SetParent(PlayerListViewContent.transform);
+        item.transform.localScale = Vector3.one;
+
+        playerListItems.TryAdd(connID, itemScript);
     }
 
-    public void CreateHostPlayerItem()
+    [ClientRpc]
+    public void RemovePlayerItem(int connID)
     {
-        foreach(PlayerObjectController player in Manager.GamePlayers)
-        {
-            GameObject newPlayerItem = Instantiate(PlayerListItemPrefab);
-            PlayerListItem newPlayerItemScript = newPlayerItem.GetComponent<PlayerListItem>();
+        if (!playerListItems.TryGetValue(connID, out PlayerListItem item)) return;
 
-            newPlayerItemScript.PlayerName = player.PlayerName;
-            newPlayerItemScript.ConnectionID = player.ConnectionID;
-            newPlayerItemScript.PlayerSteamID = player.PlayerSteamID;
-            newPlayerItemScript.SetPlayerValues();
-
-            newPlayerItem.transform.SetParent(PlayerListViewContent.transform);
-            newPlayerItem.transform.localScale = Vector3.one;
-
-            playerListItems.Add(newPlayerItemScript);
-        }
-        PlayerItemCreated = true;
+        playerListItems[connID] = null;
+        Destroy(item.gameObject);
     }
-
-    public void CreateClientPlayerItem()
-    {
-        foreach (PlayerObjectController player in Manager.GamePlayers)
-        {
-            if (!playerListItems.Any(b => b.ConnectionID == player.ConnectionID))
-            {
-                GameObject newPlayerItem = Instantiate(PlayerListItemPrefab);
-                PlayerListItem newPlayerItemScript = newPlayerItem.GetComponent<PlayerListItem>();
-
-                newPlayerItemScript.PlayerName = player.PlayerName;
-                newPlayerItemScript.ConnectionID = player.ConnectionID;
-                newPlayerItemScript.PlayerSteamID = player.PlayerSteamID;
-                newPlayerItemScript.SetPlayerValues();
-
-                newPlayerItem.transform.SetParent(PlayerListViewContent.transform);
-                newPlayerItem.transform.localScale = Vector3.one;
-
-                playerListItems.Add(newPlayerItemScript);
-            }
-        }
-    }
-
-    public void UpdatePlayerItem()
-    {
-        foreach (PlayerObjectController player in Manager.GamePlayers)
-        {
-            foreach (PlayerListItem playerListItemScript in playerListItems)
-            {
-                if (playerListItemScript.ConnectionID == player.ConnectionID)
-                {
-                    playerListItemScript.PlayerName = player.PlayerName;
-                    playerListItemScript.SetPlayerValues();
-                }
-            }
-        }
-    }
-
-    public void RemovePlayerItem()
-    {
-        List<PlayerListItem> playerListItemToRemove = new List<PlayerListItem>();
-
-        foreach (PlayerListItem playerListItem in playerListItems)
-        {
-            if (!Manager.GamePlayers.Any(b => b.ConnectionID == playerListItem.ConnectionID))
-            {
-                playerListItemToRemove.Add(playerListItem);
-            }
-        }
-        if (playerListItemToRemove.Count > 0)
-        {
-            foreach(PlayerListItem playerListItem in playerListItemToRemove)
-            {
-                GameObject objectToRemove = playerListItem.gameObject;
-                playerListItems.Remove(playerListItem);
-                Destroy(objectToRemove);
-                objectToRemove = null;
-            }
-        }
-    }*/
 }

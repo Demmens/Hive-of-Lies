@@ -1299,7 +1299,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1002554558}
+  - component: {fileID: 1002554560}
+  - component: {fileID: 1002554561}
   - component: {fileID: 1002554557}
+  - component: {fileID: 1002554559}
   m_Layer: 0
   m_Name: LobbyController
   m_TagString: Untagged
@@ -1319,13 +1322,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e291df383a2180748ac90b90163b732d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   LobbyNameText: {fileID: 850585764}
   PlayerListViewContent: {fileID: 990967863}
   PlayerListItemPrefab: {fileID: 4115598154536217432, guid: d351d398a15658d428f5799b20d0ebc9,
     type: 3}
-  LocalPlayerObject: {fileID: 0}
   CurrentLobbyID: 0
-  PlayerItemCreated: 0
+  playersByConnection: {fileID: 11400000, guid: 727a441cdc88fb94daccad50d343bbc9,
+    type: 2}
+  allPlayers: {fileID: 11400000, guid: 4b94e810f13e0194982148a52bcc24c2, type: 2}
 --- !u!4 &1002554558
 Transform:
   m_ObjectHideFlags: 0
@@ -1341,6 +1347,81 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1002554559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002554556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1906106302
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &1002554560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002554556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 26e05efea1cf88e4fa19abd86adff6b1, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1002554557}
+        m_TargetAssemblyTypeName: LobbyController, Assembly-CSharp
+        m_MethodName: OnPlayerJoinedLobby
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1002554561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002554556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: cf8e8a55187051647bd73c56284caa06, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1002554557}
+        m_TargetAssemblyTypeName: LobbyController, Assembly-CSharp
+        m_MethodName: OnPlayerLeftLobby
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1306712097
 GameObject:
   m_ObjectHideFlags: 0
