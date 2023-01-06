@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionName: Gather Resources
   description: Spend time gathering as many helpful resources as posible
-  favourCost: 0
+  favourCost: 6
   successFlavour: Lots of useful equipment was found!
   successEffects:
   - {fileID: 11400000, guid: 35b2a171ec6d8c34c807ab1866fa09fb, type: 2}
