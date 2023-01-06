@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dictator
   m_EditorClassIdentifier: 
   roleName: Dictator
-  description: Always wins if they stand for the position of General.
+  description: When you are on the mission, ignore downvotes.
   sprite: 
   startingFavour: 10
   startingDeck: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
