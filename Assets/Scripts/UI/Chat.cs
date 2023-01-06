@@ -11,6 +11,8 @@ public class Chat : NetworkBehaviour
 
     [SerializeField] TMP_Text chat;
 
+    [SerializeField] HoLPlayerDictionary playersByNetworkConnection;
+
     /// <summary>
     /// Player sent a chat message
     /// </summary>
@@ -19,7 +21,7 @@ public class Chat : NetworkBehaviour
     {
         if (input.text == "") return;
 
-        ServerGetMessage(SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()), input.text);
+        ServerGetMessage(input.text);
 
         input.text = "";
         input.Select();
@@ -27,15 +29,23 @@ public class Chat : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    void ServerGetMessage(string name, string message)
+    void ServerGetMessage(string message, NetworkConnectionToClient conn = null)
     {
+        if (!playersByNetworkConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
         if (message == "") return;
-        ClientGetMessage(name, message);
+
+        ClientGetMessage(ply.DisplayName, message);
     }
 
     [ClientRpc]
     void ClientGetMessage(string name, string message)
     {
         chat.text += $"\n{name}: {message}";
+    }
+
+    [ClientRpc]
+    public void ClientGetServerMessage(string message)
+    {
+        chat.text += $"\n{message}";
     }
 }

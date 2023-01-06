@@ -731,8 +731,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf7321d48b93fbf43a254828100262ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   input: {fileID: 98639054}
   chat: {fileID: 1733269558}
+  playersByNetworkConnection: {fileID: 11400000, guid: 727a441cdc88fb94daccad50d343bbc9,
+    type: 2}
 --- !u!114 &514239779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1381,11 +1385,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LobbyNameText: {fileID: 850585764}
   PlayerListViewContent: {fileID: 990967863}
-  PlayerListItemPrefab: {fileID: 4115598154536217432, guid: d351d398a15658d428f5799b20d0ebc9, type: 3}
+  PlayerListItemPrefab: {fileID: 4115598154536217432, guid: d351d398a15658d428f5799b20d0ebc9,
+    type: 3}
   LocalPlayerObject: {fileID: 0}
   CurrentLobbyID: 0
   PlayerItemCreated: 0
-  LocalPlayerController: {fileID: 0}
 --- !u!4 &1002554558
 Transform:
   m_ObjectHideFlags: 0
