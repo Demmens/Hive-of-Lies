@@ -30,14 +30,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2147957997685937213}
+  m_Father: {fileID: 5312686801996673352}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -866.95447, y: -481.33112}
-  m_SizeDelta: {x: 247.16, y: 50}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3640113252483851227
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -143,7 +143,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2147957997685937213}
+  - component: {fileID: 5312686801996673352}
   - component: {fileID: 4524124119037346229}
   - component: {fileID: 1283116289378796303}
   - component: {fileID: 1142462870349915608}
@@ -154,15 +154,15 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2147957997685937213
-Transform:
+--- !u!224 &5312686801996673352
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5097434248664337755}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -198.25337}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -170,6 +170,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 122.682495, y: 32.092712}
+  m_SizeDelta: {x: 245.3652, y: 64.1854}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4524124119037346229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +221,6 @@ MonoBehaviour:
   RoleName: {fileID: 7740181647189593091}
   RoleCard: {fileID: 2931512615657598136, guid: f3c249f8de9c4384880f64a7640b36af,
     type: 3}
-  RoleBackground: {fileID: 0}
   WaspColour: {r: 0, g: 0, b: 0, a: 0}
   BeeColour: {r: 0, g: 0, b: 0, a: 0}
   playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
