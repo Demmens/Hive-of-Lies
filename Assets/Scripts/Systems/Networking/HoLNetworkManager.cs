@@ -27,7 +27,13 @@ public class HoLNetworkManager : NetworkManager
     [Tooltip("The number of players in the game")]
     [SerializeField] IntVariable playerCount;
 
-    [Tooltip("The event to invoke when a player loads into the game")]
+    [Tooltip("The event to invoke when a player joins the server")]
+    [SerializeField] NetworkingEvent playerJoinedServer;
+
+    [Tooltip("The event to invoke when a player leaves the server")]
+    [SerializeField] NetworkingEvent playerLeavesServer;
+
+    [Tooltip("The event to invoke when a player loads into the game scene")]
     [SerializeField] NetworkingEvent playerLoaded;
 
     [Tooltip("The event to invoke when all players have loaded into the game")]
@@ -64,7 +70,15 @@ public class HoLNetworkManager : NetworkManager
             DontDestroyOnLoad(ply.gameObject);
 
             NetworkServer.AddPlayerForConnection(conn, ply.gameObject);
+
+            playerJoinedServer?.Invoke(conn);
         }
+    }
+
+    public override void OnServerDisconnect(NetworkConnection conn)
+    {
+        base.OnServerDisconnect(conn);
+        playerLeavesServer?.Invoke(conn);
     }
 
     public void StartGame()

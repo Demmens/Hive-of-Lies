@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Num Partners
   m_EditorClassIdentifier: 
   initialValue: 0
-  currentValue: 0
-  server: 0
+  currentValue: 1
+  server: 1
   client: 0
+  tooltip: How many people the Team Leader chooses to go on the mission with

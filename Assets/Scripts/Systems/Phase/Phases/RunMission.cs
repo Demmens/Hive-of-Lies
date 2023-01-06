@@ -98,6 +98,10 @@ public class RunMission : GamePhase
             currentMission.Value.FailEffects;
 
         numEffects = effects.Count;
+
+        //Early out if there are no mission effects.
+        if (numEffects == 0) End();
+
         effectsTriggered = 0;
         //Trigger all effects
         foreach (MissionEffect effect in effects)
@@ -107,9 +111,10 @@ public class RunMission : GamePhase
         }
     }
 
-    private void OnEffectEnded()
+    private void OnEffectEnded(MissionEffect effect)
     {
         effectsTriggered++;
+        effect.OnMissionEffectFinished -= OnEffectEnded;
         if (effectsTriggered >= numEffects)
         {
             End();

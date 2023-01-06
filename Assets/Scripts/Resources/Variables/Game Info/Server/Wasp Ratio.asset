@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: 0.49
   currentValue: 0.49
-  server: 0
+  server: 1
   client: 0
-  tooltip: 
+  tooltip: The ratio of Wasps to Bees

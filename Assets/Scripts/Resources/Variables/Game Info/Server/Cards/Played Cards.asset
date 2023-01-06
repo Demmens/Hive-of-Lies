@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102277fdf32b82b4d9198047f627a18a, type: 3}
   m_Name: Played Cards
   m_EditorClassIdentifier: 
-  server: 0
+  server: 1
   client: 0
-  tooltip: 
+  tooltip: A set of all cards that have been played this mission

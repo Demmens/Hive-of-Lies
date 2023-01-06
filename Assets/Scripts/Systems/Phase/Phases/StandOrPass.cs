@@ -35,9 +35,16 @@ public class StandOrPass : GamePhase
     [SerializeField] GameEvent standOrPassBegin;
 
     /// <summary>
-    /// List of players to boost the influence of when deciding TeamLeader
+    /// The total amount of favour shared by the players standing for team leader. Used to determine probability of them being team leader
     /// </summary>
-    public Dictionary<HoLPlayer, int> PlayerBoosts;
+    int totalFavourOfStanding;
+
+    /// <summary>
+    /// This + the players remaining favour is how many draws they have of being team leader.
+    /// <para></para>
+    /// The higher this number, the less impactful their actual favour is.
+    /// </summary>
+    const int favourWeightMod = 3;
 
     #region Events
     [Tooltip("Invoked once all players have decided to stand or pass")]
@@ -56,7 +63,7 @@ public class StandOrPass : GamePhase
     {
         standingPlayers.Value = new();
         passedPlayers.Value = new();
-        PlayerBoosts = new();
+        totalFavourOfStanding = 0;
 
         standOrPassBegin?.Invoke();
     }
@@ -101,6 +108,7 @@ public class StandOrPass : GamePhase
             standingPlayers.Add(ply);
             //Lose favour when you stand
             ply.Favour.Value -= currentMission.Value.FavourCost;
+            totalFavourOfStanding += ply.Favour.Value + favourWeightMod;
         }
         else passedPlayers.Add(ply);
 
@@ -135,8 +143,23 @@ public class StandOrPass : GamePhase
         }
         else
         {
-            //Now, since we've sorted, the player at the top of the list will be the Team Leader
-            teamLeader.Value = standingPlayers.Value[0];
+            bool newTeamLeader = false;
+            //Team leader is decided randomly, but heavily weighted towards players with more remaining favour
+            for (int i = 0; i < standingPlayers.Value.Count; i++)
+            {
+                HoLPlayer ply = standingPlayers.Value[i];
+
+                if (Random.Range(0, 1f) <= (ply.Favour.Value + favourWeightMod) / (float) totalFavourOfStanding)
+                {
+                    teamLeader.Value = ply;
+                    newTeamLeader = true;
+                    break;
+                }
+
+                totalFavourOfStanding -= ply.Favour.Value + favourWeightMod;
+            }
+
+            if (!newTeamLeader) Debug.LogError("No team leader was picked");
         }
 
         //Invoke event before determining the Team Leader
@@ -164,18 +187,16 @@ public class StandOrPass : GamePhase
     {
         standingPlayers.Value.Sort((a, b) =>
         {
-            PlayerBoosts.TryGetValue(a, out int aBoost);
-            PlayerBoosts.TryGetValue(b, out int bBoost);
-
-            int result = (a.Favour + aBoost).CompareTo(b.Favour + bBoost);
+            int result = a.Favour.Value.CompareTo(b.Favour);
             result *= -1;
             //If both players have the same amount of favour, we should randomly pick between them
             return result == 0 ? (2*Random.Range(0, 2))-1 : result;
         });
     }
 
-    void OnMissionEffectFinished()
+    void OnMissionEffectFinished(MissionEffect effect)
     {
+        effect.OnMissionEffectFinished -= OnMissionEffectFinished;
         if (++missionEffectsTriggered < currentMission.Value.FailEffects.Count) return;
 
         onNobodyStood?.Invoke();

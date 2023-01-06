@@ -15,5 +15,5 @@ MonoBehaviour:
   initialValue: 0
   currentValue: 0
   server: 0
-  client: 0
-  tooltip: 
+  client: 1
+  tooltip: True if the local player is the team leader

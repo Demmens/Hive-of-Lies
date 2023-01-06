@@ -16,4 +16,4 @@ MonoBehaviour:
   currentValue: 1
   server: 0
   client: 1
-  tooltip: 
+  tooltip: True if the local player is alive

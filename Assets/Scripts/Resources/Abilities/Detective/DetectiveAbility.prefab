@@ -84,7 +84,7 @@ MonoBehaviour:
   syncInterval: 0.1
   active: 1
   Owner: {fileID: 0}
-  abilityTriggerRound: 4
+  abilityTriggerRound: 3
   popup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
   roundNum: {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
   beePlayers: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}

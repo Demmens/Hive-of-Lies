@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Research Needed to Win
   m_EditorClassIdentifier: 
   initialValue: 3
-  currentValue: 0
+  currentValue: 3
   server: 1
   client: 0
-  tooltip: 
+  tooltip: How much research the Bees need to win the game

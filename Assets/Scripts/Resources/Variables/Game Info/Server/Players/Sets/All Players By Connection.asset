@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0da68dcd1f47b4d8f94293a7ab2a71, type: 3}
   m_Name: All Players By Connection
   m_EditorClassIdentifier: 
-  server: 0
+  server: 1
   client: 0
+  tooltip: All players by their NetworkConnection

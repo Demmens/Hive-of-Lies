@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   server: 1
   client: 0
-  tooltip: 
+  tooltip: The set of all votes placed on the team leader so far

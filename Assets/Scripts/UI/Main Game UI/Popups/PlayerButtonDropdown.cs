@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Mirror;
 
 public class PlayerButtonDropdown : NetworkBehaviour
@@ -25,31 +26,37 @@ public class PlayerButtonDropdown : NetworkBehaviour
     private List<PlayerButtonDropdownItem> activeItems = new();
     private ulong activePlayer;
 
-    void Start()
+    /// <summary>
+    /// Really didn't want to have to use Update, but cannot figure out any other way. Might come back to this later
+    /// </summary>
+    void Update()
     {
-        
+        if (!Input.GetMouseButtonDown(0)) return;
+        if (isMouseOver) return;
+        if (!dropdown.activeInHierarchy) return;
+        CloseDropdown();
     }
 
+    [Client]
     public override void OnStartServer()
     {
         serverPlayersLoaded.AfterItemRemoved += PlayerDied;
     }
 
+    [Client]
     public override void OnStartClient()
     {
         dropdown.SetActive(false);
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            CloseDropdown();
-        }
+    [Client]
+    public void MouseEnter() {
+        isMouseOver = true;
     }
-
-    public void OnMouseEnter() { isMouseOver = true; }
-    public void OnMouseExit() { isMouseOver = false; }
+    [Client]
+    public void MouseExit() {
+        isMouseOver = false; 
+    }
 
     [Server]
     public void AfterSetup()
@@ -230,7 +237,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
     {
         activeItems.ForEach(item => item.gameObject.SetActive(false));
         activeItems = new();
-        //Don't set to 0 bc in testing we will have a ulong id of 1 and this will break it.
+        //Don't set to 0 because the default id is 0.
         //We want this number to be an ID that NO PLAYER will have, ever.
         activePlayer = 1;
 

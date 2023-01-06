@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5456751052208035144}
   - component: {fileID: -6538570738969819875}
   - component: {fileID: -2456713078374529920}
-  - component: {fileID: 5505833265382521805}
   - component: {fileID: 5572742708158016159}
   - component: {fileID: 1845065423173804132}
   m_Layer: 0
@@ -74,22 +73,6 @@ MonoBehaviour:
   voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
   button: {fileID: 1107423568599795120, guid: 636febd51049eaf408fc7d1172356028, type: 3}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
---- !u!114 &5505833265382521805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7908551812632945143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead680dd0068ce345823b36364e1bd48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Poisoner
-  description: 
-  canGiveTwoBees: 0
-  instantiateOnClient: 1
 --- !u!114 &5572742708158016159
 MonoBehaviour:
   m_ObjectHideFlags: 0

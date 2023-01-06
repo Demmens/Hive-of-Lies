@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: First Draw Cost
   m_EditorClassIdentifier: 
   initialValue: 2
-  currentValue: 0
-  server: 0
+  currentValue: 2
+  server: 1
   client: 0
+  tooltip: How much favour the first non 0 cost card costs to draw

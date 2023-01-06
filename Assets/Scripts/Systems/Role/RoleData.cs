@@ -128,17 +128,6 @@ public class RoleData : ScriptableObject
     }
 
     /// <summary>
-    /// The data for the roles ability
-    /// </summary>
-    public RoleAbilityData AbilityData
-    {
-        get
-        {
-            return ability.GetComponent<RoleAbilityData>();
-        }
-    }
-
-    /// <summary>
     /// The logic for the roles ability
     /// </summary>
     public GameObject Ability

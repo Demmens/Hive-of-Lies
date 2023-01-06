@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Free Draws
   m_EditorClassIdentifier: 
   initialValue: 1
-  currentValue: 0
-  server: 0
+  currentValue: 1
+  server: 1
   client: 0
+  tooltip: The number of free redraws the player makes before they have to start
+    paying

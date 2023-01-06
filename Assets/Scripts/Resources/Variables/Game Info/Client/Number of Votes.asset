@@ -15,5 +15,5 @@ MonoBehaviour:
   initialValue: 0
   currentValue: 0
   server: 0
-  client: 0
-  tooltip: 
+  client: 1
+  tooltip: How many votes the local player has placed so far

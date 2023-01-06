@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Honey Needed to Win
   m_EditorClassIdentifier: 
   initialValue: 3
-  currentValue: 0
+  currentValue: 3
   server: 1
   client: 0
-  tooltip: 
+  tooltip: How much honey needs to be stolen for the Wasps to win the game
