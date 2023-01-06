@@ -31,6 +31,7 @@ public class LobbyController : NetworkBehaviour
         });
     }
 
+    [Server]
     public void OnPlayerLeftLobby(NetworkConnection conn)
     {
         RemovePlayerItem(conn.connectionId);
