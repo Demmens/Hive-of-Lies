@@ -15,6 +15,7 @@ public class GamblerAbility : RoleAbility
     bool votedForFail;
 
     [SerializeField] MissionResultVariable result;
+    [SerializeField] IntVariable voteTotal;
     [SerializeField] int favourGain;
     #endregion
 
@@ -39,6 +40,8 @@ public class GamblerAbility : RoleAbility
     [Server]
     public void AfterVoteResult()
     {
+        //If the vote didn't go through, don't display buttons
+        if (voteTotal <= 0) return;
         votedForSuccess = false;
         votedForFail = false;
         SetButtonsActive();

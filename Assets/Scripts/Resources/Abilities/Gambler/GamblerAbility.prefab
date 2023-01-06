@@ -55,6 +55,7 @@ MonoBehaviour:
   successButton: {fileID: 1107423568599795120, guid: 636febd51049eaf408fc7d1172356028, type: 3}
   failButton: {fileID: 1107423568599795120, guid: 636febd51049eaf408fc7d1172356028, type: 3}
   result: {fileID: 11400000, guid: cb86549c1c6b60d438b18bc2ca2877a1, type: 2}
+  voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
   favourGain: 3
 --- !u!114 &1815243031172248836
 MonoBehaviour:
