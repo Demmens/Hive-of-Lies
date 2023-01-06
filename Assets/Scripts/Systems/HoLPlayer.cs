@@ -141,7 +141,7 @@ public class HoLPlayer : NetworkBehaviour
 
 public enum Team
 {
+    None,
     Bee,
     Wasp,
-    None,
 }
