@@ -58,7 +58,7 @@ public class TeamLeaderPickPartners : GamePhase
 
     public override void Begin()
     {
-        playersSelected.Value = new List<HoLPlayer>();
+        playersSelected.Value = new();
         teamLeaderCanPick?.Invoke();
     }
 
@@ -72,7 +72,7 @@ public class TeamLeaderPickPartners : GamePhase
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
         if (ply == teamLeader) return;
 
-        if (!playersOnMission.Value.Contains(ply))
+        if (!playersSelected.Value.Contains(ply))
         {
             if (playersSelected.Value.Count < numPartners)
             {
@@ -93,9 +93,10 @@ public class TeamLeaderPickPartners : GamePhase
     {
         if (!Active) return;
 
-        playersOnMission.Value = playersSelected.Value;
-        //Make sure to add the team leader if they are not already added
-        if (!playersOnMission.Value.Contains(teamLeader.Value)) playersOnMission.Value.Add(teamLeader.Value);
+        playersSelected.Value.ForEach(ply =>
+        {
+            if (!playersOnMission.Value.Contains(ply)) playersOnMission.Value.Add(ply);
+        });
 
         End();
     }

@@ -108,19 +108,17 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   phase: {fileID: 11400000, guid: 57b9e1291ccdec847a354002758d949a, type: 2}
-  favourLostForNobodyStanding: 5
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   numPartners: {fileID: 11400000, guid: c0f582f860a057b4184ee8a66885d1b0, type: 2}
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
   standingPlayers: {fileID: 11400000, guid: a3de5e14b60be0140ab5d73a3395c956, type: 2}
   passedPlayers: {fileID: 11400000, guid: 42b4f9a265ac4ee418c6333d92cd515c, type: 2}
+  playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
   players: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   standOrPassBegin: {fileID: 11400000, guid: e1a950189e0e6b64cafebfb2014d840d, type: 2}
-  onAllPlayersStandOrPass: {fileID: 11400000, guid: 2c47f8474cfc9714fb6ed377ed951283,
-    type: 2}
-  onTeamLeaderVoteCounted: {fileID: 11400000, guid: 3b5ecf0abc4c75548b6e8979de4a094b,
-    type: 2}
+  onAllPlayersStandOrPass: {fileID: 11400000, guid: 2c47f8474cfc9714fb6ed377ed951283, type: 2}
+  onTeamLeaderVoteCounted: {fileID: 11400000, guid: 3b5ecf0abc4c75548b6e8979de4a094b, type: 2}
   onNobodyStood: {fileID: 11400000, guid: 9e185bd2bad3eab4682c4e9966f84820, type: 2}
 --- !u!114 &2258164925166796951
 MonoBehaviour:

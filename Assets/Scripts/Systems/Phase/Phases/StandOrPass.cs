@@ -28,6 +28,9 @@ public class StandOrPass : GamePhase
     [Tooltip("The players that chose to pass")]
     [SerializeField] HoLPlayerSet passedPlayers;
 
+    [Tooltip("The players that are on the mission")]
+    [SerializeField] HoLPlayerSet playersOnMission;
+
     [Tooltip("All players by their NetworkConnection")]
     [SerializeField] HoLPlayerDictionary players;
 
@@ -63,6 +66,7 @@ public class StandOrPass : GamePhase
     {
         standingPlayers.Value = new();
         passedPlayers.Value = new();
+        playersOnMission.Value = new();
         totalFavourOfStanding = 0;
 
         standOrPassBegin?.Invoke();
@@ -152,6 +156,7 @@ public class StandOrPass : GamePhase
                 if (Random.Range(0, 1f) <= (ply.Favour.Value + favourWeightMod) / (float) totalFavourOfStanding)
                 {
                     teamLeader.Value = ply;
+                    playersOnMission.Add(teamLeader);
                     newTeamLeader = true;
                     break;
                 }
