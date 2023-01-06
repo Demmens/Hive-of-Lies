@@ -11,9 +11,9 @@ public class Chat : NetworkBehaviour
 
     [SerializeField] TMP_Text chat;
 
-    [SerializeField] HoLPlayerDictionary playersByNetworkConnection;
+    [SerializeField] protected HoLPlayerDictionary playersByNetworkConnection;
 
-    [SyncVar(hook = nameof(OnTextChanged))] string text;
+    [SyncVar(hook = nameof(OnTextChanged))] protected string text;
 
     /// <summary>
     /// Player sent a chat message
@@ -46,7 +46,7 @@ public class Chat : NetworkBehaviour
     }
 
     [Client]
-    public void OnTextChanged(string oldVal, string newVal)
+    void OnTextChanged(string oldVal, string newVal)
     {
         chat.text = newVal;
     }
