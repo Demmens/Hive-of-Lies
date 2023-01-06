@@ -87,6 +87,7 @@ public class PhaseController : MonoBehaviour
     {
         currentPhase = 0;
         roundNum++;
+        roundBegun?.Invoke();
 
         foreach (HoLPlayer ply in players.Value)
         {
