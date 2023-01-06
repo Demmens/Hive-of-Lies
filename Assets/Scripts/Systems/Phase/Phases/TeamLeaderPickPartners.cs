@@ -14,7 +14,8 @@ public class TeamLeaderPickPartners : GamePhase
     /// </summary>
     readonly Dictionary<int, int> partnerPlayerCounts = new Dictionary<int, int>()
     {
-        {0,2},
+        {0,1},
+        {2,2},
         {6,3},
         {9,4}
     };
