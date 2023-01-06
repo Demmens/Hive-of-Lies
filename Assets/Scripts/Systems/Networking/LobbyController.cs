@@ -29,6 +29,7 @@ public class LobbyController : NetworkBehaviour
         {
             CreateClientPlayerItem(ply.DisplayName, ply.Connection.connectionId, ply.PlayerID);
         });
+        UpdateLobbyName();
     }
 
     [Server]
