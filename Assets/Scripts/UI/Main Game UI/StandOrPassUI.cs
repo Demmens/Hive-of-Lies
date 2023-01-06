@@ -36,6 +36,7 @@ public class StandOrPassUI : NetworkBehaviour
     {
         if (!alive) return;
         FavourCost.text = $"{standCost}f";
+        StandButton.SetActive(true);
         //If we can't afford to stand, disable the button.
         if (standCost > favour) StandButton.SetActive(false);
         UI.SetActive(true);
