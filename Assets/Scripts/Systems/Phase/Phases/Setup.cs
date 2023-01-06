@@ -13,8 +13,8 @@ public class Setup : GamePhase
     [SerializeField]
     Dictionary<Team, int> RoleChoices = new Dictionary<Team, int>()
     {
-        {Team.Bee, 3},
-        {Team.Wasp, 3}
+        {Team.Bee, 2},
+        {Team.Wasp, 2}
     };
 
     [Tooltip("The ratio of traitors to innocents")]
