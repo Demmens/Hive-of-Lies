@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: 0
   currentValue: 0
-  server: 0
+  server: 1
   client: 0
+  tooltip: If true, the next mission success effect will not trigger

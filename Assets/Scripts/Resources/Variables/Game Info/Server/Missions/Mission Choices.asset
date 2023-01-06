@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mission Choices
   m_EditorClassIdentifier: 
   initialValue: 2
-  currentValue: 0
-  server: 0
+  currentValue: 2
+  server: 1
   client: 0
-  tooltip: 
+  tooltip: How many missions the players can pick from each round

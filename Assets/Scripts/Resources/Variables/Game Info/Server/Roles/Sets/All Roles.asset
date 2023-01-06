@@ -16,4 +16,4 @@ MonoBehaviour:
   currentValue: []
   server: 1
   client: 0
-  tooltip: 
+  tooltip: The set of all roles in the game

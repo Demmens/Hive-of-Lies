@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: []
   currentValue: []
-  server: 0
+  server: 1
   client: 0
+  tooltip: The missions the players are currently choosing between

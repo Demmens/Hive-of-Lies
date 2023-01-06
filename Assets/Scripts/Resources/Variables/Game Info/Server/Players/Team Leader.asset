@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: {fileID: 0}
   currentValue: {fileID: 0}
-  server: 0
+  server: 1
   client: 0
+  tooltip: The team leader of the current mission.

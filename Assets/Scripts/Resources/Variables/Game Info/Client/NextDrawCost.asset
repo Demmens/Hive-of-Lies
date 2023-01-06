@@ -16,4 +16,5 @@ MonoBehaviour:
   currentValue: 0
   server: 0
   client: 1
-  tooltip: The amount of favour the local player has
+  tooltip: How much favour drawing the next card from the local players deck will
+    cost
