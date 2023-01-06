@@ -13,6 +13,8 @@ public class Chat : NetworkBehaviour
 
     [SerializeField] HoLPlayerDictionary playersByNetworkConnection;
 
+    [SyncVar(hook = nameof(OnTextChanged))] string text;
+
     /// <summary>
     /// Player sent a chat message
     /// </summary>
@@ -40,12 +42,12 @@ public class Chat : NetworkBehaviour
     [ClientRpc]
     void ClientGetMessage(string name, string message)
     {
-        chat.text += $"\n{name}: {message}";
+        text += $"\n{name}: {message}";
     }
 
-    [ClientRpc]
-    public void ClientGetServerMessage(string message)
+    [Client]
+    public void OnTextChanged(string oldVal, string newVal)
     {
-        chat.text += $"\n{message}";
+        chat.text = newVal;
     }
 }
