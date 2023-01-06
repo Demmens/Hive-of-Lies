@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d999dbdde9bed8458229c463c9972c8, type: 3}
   m_Name: Global Draw Cost Mod
   m_EditorClassIdentifier: 
-  initialValue: 0
-  currentValue: 0
+  initialValue: 2
+  currentValue: 2
   server: 0
   client: 0
-  tooltip: 
+  tooltip: How much extra each non 0 cost card costs to draw from the deck
