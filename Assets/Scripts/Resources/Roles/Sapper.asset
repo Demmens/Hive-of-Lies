@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
+  m_Name: Sapper
+  m_EditorClassIdentifier: 
+  roleName: Sapper
+  description: Shuffle a bomb into a players deck. When drawn, the mission automatically
+    fails
+  sprite: 
+  startingFavour: 11
+  startingDeck: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
+  team: 2
+  playersRequired: 0
+  ability: {fileID: 2570528568398496050, guid: 4b8a5a4687d60b94aae468ea67054884, type: 3}
+  enabled: 1
