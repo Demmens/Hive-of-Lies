@@ -181,6 +181,7 @@ MonoBehaviour:
   globalDrawCostMod: {fileID: 11400000, guid: 993e07413f0ea2c4d9144dcce475ef6a, type: 2}
   missionResult: {fileID: 11400000, guid: cb86549c1c6b60d438b18bc2ca2877a1, type: 2}
   allPlayersPlayed: {fileID: 11400000, guid: 12992b83150649a40b0b24a5c8950cc8, type: 2}
+  afterDeckCreated: {fileID: 11400000, guid: 043b4861c64dcae45ab6222f65a8b680, type: 2}
 --- !u!114 &-1901129887911759640
 MonoBehaviour:
   m_ObjectHideFlags: 0

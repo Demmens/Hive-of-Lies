@@ -51,6 +51,9 @@ public class CardsMission : MissionType
     [Tooltip("Invoked when all players have played their cards")]
     [SerializeField] GameEvent allPlayersPlayed;
 
+    [Tooltip("Invoked when all players decks have been created")]
+    [SerializeField] GameEvent afterDeckCreated;
+
     [Server]
     public void AfterRolesChosen()
     {
@@ -65,6 +68,8 @@ public class CardsMission : MissionType
 
             ply.Deck.Value.BeforeDraw += (ref Card card) => card.TempValue = Mathf.Max(1, card.TempValue - (ply.Exhaustion * exhaustionPenalty));
         }
+
+        afterDeckCreated?.Invoke();
     }
 
     [Server]
