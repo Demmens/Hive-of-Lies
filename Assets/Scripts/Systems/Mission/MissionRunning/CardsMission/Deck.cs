@@ -97,7 +97,7 @@ public class Deck
 
             Hand.Add(card);
 
-            DrawPile.Remove(card);
+            if (DrawPile.Contains(card)) DrawPile.Remove(card);
 
             OnDraw?.Invoke(card);
         }
