@@ -100,6 +100,12 @@ public class CardMissionUI : NetworkBehaviour
         PlayerPlayedCard();
     }
 
+    [ClientRpc]
+    public void CloseUI()
+    {
+        UI.SetActive(false);
+    }
+
     [Command(requiresAuthority = false)]
     void PlayerPlayedCard(NetworkConnectionToClient conn = null)
     {
