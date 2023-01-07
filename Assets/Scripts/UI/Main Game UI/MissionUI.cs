@@ -19,6 +19,8 @@ public class MissionUI : NetworkBehaviour
     [SerializeField] TMP_Text teamLeaderName;
     [SerializeField] TMP_Text missionPlayerList;
     [SerializeField] TMP_Text missionCost;
+
+    List<string> pickedPlayers = new();
     #endregion
 
     #region SERVER
@@ -69,6 +71,7 @@ public class MissionUI : NetworkBehaviour
     [ClientRpc]
     void ChangeMission(Mission mission)
     {
+        pickedPlayers = new();
         missionUI.SetActive(true);
         missionName.text = mission.MissionName;
         missionFlavour.text = mission.Description;
@@ -100,10 +103,9 @@ public class MissionUI : NetworkBehaviour
     [ClientRpc]
     void OnTeamLeaderAddPartner(string name, ulong ID)
     {
-        //If we haven't selected any players yet, clear the text, otherwise add a line break for the next player
-        missionPlayerList.text = (missionPlayerList.text == "Undecided") ? "" : missionPlayerList.text + "\n";
+        pickedPlayers.Add(name);
 
-        missionPlayerList.text += name;
+        RemakePlayerList();
 
         if (ID == (ulong) SteamUser.GetSteamID()) isOnMission.Value = true;
     }
@@ -111,11 +113,25 @@ public class MissionUI : NetworkBehaviour
     [ClientRpc]
     void OnTeamLeaderRemovePartner(string name, ulong ID)
     {
-        missionPlayerList.text = missionPlayerList.text.Replace(name, "");
-        //Make sure to remove duplicate line breaks
-        missionPlayerList.text = missionPlayerList.text.Replace("\n\n", "\n");
-        if (missionPlayerList.text == "" || missionPlayerList.text == "\n") missionPlayerList.text = "Undecided";
+        pickedPlayers.Remove(name);
+
+        RemakePlayerList();
+
+        if (missionPlayerList.text == "") missionPlayerList.text = "Undecided";
 
         if (ID == (ulong)SteamUser.GetSteamID()) isOnMission.Value = false;
+    }
+
+    [Client]
+    void RemakePlayerList()
+    {
+        missionPlayerList.text = "";
+
+        for (int i = 0; i < pickedPlayers.Count; i++)
+        {
+            missionPlayerList.text += pickedPlayers[i];
+            if (i == pickedPlayers.Count - 1) continue;
+            missionPlayerList.text += "\n";
+        }
     }
 }
