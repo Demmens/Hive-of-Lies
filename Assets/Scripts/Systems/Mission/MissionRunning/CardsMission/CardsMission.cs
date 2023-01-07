@@ -127,14 +127,16 @@ public class CardsMission : MissionType
         ply.NumDraws.Value = 0;
         ply.NextDrawCost.Value = 0;
 
-        if (playersPlayed.Count >= playersOnMission.Value.Count) AllPlayersPlayed();
+        if (playersPlayed.Count >= playersOnMission.Value.Count)
+        {
+            missionResult.Value = playedTotal >= difficulty ? MissionResult.Success : MissionResult.Fail;
+            allPlayersPlayed?.Invoke();
+        }
     }
 
-    private void AllPlayersPlayed()
+    public void AllPlayersPlayed()
     {
         Debug.Log("All players have submitted");
-        missionResult.Value = playedTotal >= difficulty ? MissionResult.Success : MissionResult.Fail;
-        allPlayersPlayed?.Invoke();
 
         List<int> finalCards = new List<int>();
         foreach (HoLPlayer ply in allPlayers.Value)

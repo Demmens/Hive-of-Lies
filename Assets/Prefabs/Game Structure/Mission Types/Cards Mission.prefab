@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8935070084298747935}
   - component: {fileID: 4520438252007715486}
   - component: {fileID: 8256270414804623087}
+  - component: {fileID: 4676171168136508017}
   - component: {fileID: 6082555807006562204}
   - component: {fileID: 7588506163348034751}
   - component: {fileID: -1901129887911759640}
@@ -116,6 +117,35 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: CardsMission, Assembly-CSharp
         m_MethodName: PlayerClickedSubmit
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4676171168136508017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834205190614587359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 12992b83150649a40b0b24a5c8950cc8, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7588506163348034751}
+        m_TargetAssemblyTypeName: CardsMission, Assembly-CSharp
+        m_MethodName: AllPlayersPlayed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
