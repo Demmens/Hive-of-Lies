@@ -16,10 +16,11 @@ MonoBehaviour:
   description: 'Extra votes cost you half as much favour.
 
 
-    Extra rerolls cost
+    Extra draws cost
     you twice as much favour.'
   sprite: 
   startingFavour: 15
+  startingDeck: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
   team: 1
   playersRequired: 0
   ability: {fileID: 8587719178297419551, guid: 2a17acd1b5661b148a5127e265bc79bf, type: 3}

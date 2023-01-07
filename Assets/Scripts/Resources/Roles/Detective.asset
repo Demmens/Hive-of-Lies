@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Detective
   m_EditorClassIdentifier: 
   roleName: Detective
-  description: After the third round, learn the identity of a random innocent
+  description: After the third round, learn the identity of a random bee
   sprite: 
   startingFavour: 10
+  startingDeck: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
   team: 1
   playersRequired: 5
   ability: {fileID: 6644010579822107672, guid: 8498c6ee8832eae4dae0d6517e874cf2, type: 3}
