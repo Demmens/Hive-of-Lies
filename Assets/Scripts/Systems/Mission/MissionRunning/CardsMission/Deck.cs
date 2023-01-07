@@ -48,7 +48,11 @@ public class Deck
     /// </summary>
     public void Shuffle()
     {
-        DrawPile.AddRange(DiscardPile);
+        foreach (Card card in DiscardPile)
+        {
+            if (card.DestroyOnDraw) continue;
+            DrawPile.Add(card);
+        }
         DrawPile.Shuffle();
     }
 
@@ -60,9 +64,11 @@ public class Deck
         DrawPile.AddRange(Hand);
         foreach (Card card in Played)
         {
+            if (card.DestroyOnDraw || card.DestroyOnPlay) continue;
             card.TempValue = card.Value;
             DrawPile.Add(card);
         }
+        Played = new();
         Shuffle();
     }
 

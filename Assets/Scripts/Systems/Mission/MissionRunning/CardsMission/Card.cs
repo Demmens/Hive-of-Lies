@@ -17,7 +17,17 @@ public class Card
     /// The value of the card after all modifiers are applied. Resets back to the default value when discarded.
     /// </summary>
     public int TempValue;
-    
+
+    /// <summary>
+    /// Whether this card should be destroyed once it has been played
+    /// </summary>
+    public bool DestroyOnPlay;
+
+    /// <summary>
+    /// Whether this card should be destroyed once it has been drawn
+    /// </summary>
+    public bool DestroyOnDraw;
+
     /// <summary>
     /// Delegates to run when the card is drawn
     /// </summary>
