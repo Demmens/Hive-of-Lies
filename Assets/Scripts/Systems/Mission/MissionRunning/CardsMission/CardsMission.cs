@@ -11,10 +11,8 @@ public class CardsMission : MissionType
     [Tooltip("The difficulty of the mission")]
     [SerializeField] IntVariable exhaustionPenalty;
 
-    /// <summary>
-    /// Total value of all played cards
-    /// </summary>
-    private int playedTotal = 0;
+    [Tooltip("Total value of all played cards")]
+    [SerializeField] IntVariable playedTotal;
 
     /// <summary>
     /// List of all players who have played cards
@@ -75,7 +73,7 @@ public class CardsMission : MissionType
     [Server]
     public override void StartMission()
     {
-        playedTotal = 0;
+        playedTotal.Value = 0;
         playersPlayed = new();
         playedCards.Value = new();
     }
@@ -118,7 +116,7 @@ public class CardsMission : MissionType
 
         Card card = deck.Play();
 
-        playedTotal += card.TempValue;
+        playedTotal.Value += card.TempValue;
 
         playersPlayed.Add(ply);
 
@@ -131,23 +129,6 @@ public class CardsMission : MissionType
         {
             missionResult.Value = playedTotal >= difficulty ? MissionResult.Success : MissionResult.Fail;
             allPlayersPlayed?.Invoke();
-        }
-    }
-
-    public void AllPlayersPlayed()
-    {
-        Debug.Log("All players have submitted");
-
-        List<int> finalCards = new List<int>();
-        foreach (HoLPlayer ply in allPlayers.Value)
-        {
-            int result = 0;
-            //Only display the total of all cards played, not how many they've played
-            for (int i = 0; i < ply.Deck.Value.Played.Count; i++)
-            {
-                result += ply.Deck.Value.Played[i].Value;
-            }
-            finalCards.Add(result);
         }
     }
 
