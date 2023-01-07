@@ -45,6 +45,8 @@ public class Setup : GamePhase
 
     [SerializeField] List<IntVariable> intVariablesToReset;
 
+    [SerializeField] GameObject teamPopup;
+
     /// <summary>
     /// List of all roles that can appear in the game
     /// </summary>
@@ -106,7 +108,16 @@ public class Setup : GamePhase
                 ply.Team.Value = Team.Bee;
                 beePlayers.Add(ply);
             }
+
+            DisplayTeamPopup(ply.Connection, ply.Team);
         });
+    }
+
+    [TargetRpc]
+    void DisplayTeamPopup(NetworkConnection conn, Team team)
+    {
+        teamPopup = Instantiate(teamPopup);
+        teamPopup.GetComponent<Notification>().SetText($"You are a {team}");
     }
 
     /// <summary>
