@@ -40,6 +40,9 @@ public class RunMission : GamePhase
     [Tooltip("The total of all played cards")]
     [SerializeField] IntVariable cardsTotal;
 
+    [Tooltip("The total of all played cards")]
+    [SerializeField] IntVariable missionDifficultyMod;
+
     [Tooltip("Invoked when the mission begins")]
     [SerializeField] GameEvent missionStarted;
 
@@ -83,7 +86,7 @@ public class RunMission : GamePhase
 
         currentMission.Value.AfterAllEffectsTriggered += OnEffectEnded;
         //Trigger all effects
-        currentMission.Value.TriggerValidEffects(cardsTotal);
+        currentMission.Value.TriggerValidEffects(cardsTotal - missionDifficultyMod);
     }
 
     private void OnEffectEnded()
