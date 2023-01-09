@@ -42,15 +42,13 @@ public class CardMissionUI : NetworkBehaviour
     {
         if (roundNum == 0)
             allPlayers.Value.ForEach(ply => ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.Connection, card.TempValue, ply.NextDrawCost));
-
-        ClientMissionStarted(missionDifficulty);
     }
 
     /// <summary>
     /// Called when the cards mission starts
     /// </summary>
     [ClientRpc]
-    public void ClientMissionStarted(int difficulty)
+    public void ClientMissionStarted()
     {
         if (!isOnMission) return;
 

@@ -128,7 +128,6 @@ MonoBehaviour:
   UI: {fileID: 4085610580516949728}
   drawResult: {fileID: 4085610580427693108}
   drawButtonText: {fileID: 4085610581428641791}
-  needed: {fileID: 0}
   drawButton: {fileID: 4085610580250013912}
   submitButton: {fileID: 4085610581528504281}
   isOnMission: {fileID: 11400000, guid: b9f406dffbe4a27409cd0aa785114640, type: 2}
