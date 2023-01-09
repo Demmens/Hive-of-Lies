@@ -6,9 +6,6 @@ using Mirror;
 public class CardsMission : MissionType
 {
     [Tooltip("The difficulty of the mission")]
-    [SerializeField] IntVariable difficulty;
-
-    [Tooltip("The difficulty of the mission")]
     [SerializeField] IntVariable exhaustionPenalty;
 
     [Tooltip("Total value of all played cards")]
@@ -42,9 +39,6 @@ public class CardsMission : MissionType
 
     [Tooltip("How much to increase all draw costs by")]
     [SerializeField] IntVariable globalDrawCostMod;
-
-    [Tooltip("The result of the mission")]
-    [SerializeField] MissionResultVariable missionResult;
 
     [Tooltip("Invoked when all players have played their cards")]
     [SerializeField] GameEvent allPlayersPlayed;
@@ -127,7 +121,6 @@ public class CardsMission : MissionType
 
         if (playersPlayed.Count >= playersOnMission.Value.Count)
         {
-            missionResult.Value = playedTotal >= difficulty ? MissionResult.Success : MissionResult.Fail;
             allPlayersPlayed?.Invoke();
         }
     }
