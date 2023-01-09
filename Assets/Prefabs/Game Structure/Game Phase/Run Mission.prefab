@@ -86,8 +86,7 @@ MonoBehaviour:
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
   players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   missionResult: {fileID: 11400000, guid: cb86549c1c6b60d438b18bc2ca2877a1, type: 2}
-  cancelNextSuccess: {fileID: 11400000, guid: d1271430eb78c6843a940fcf684e0e41, type: 2}
-  cancelNextFail: {fileID: 11400000, guid: ff4a3b04733a0ce4ab097c3eecbb8ac1, type: 2}
+  cardsTotal: {fileID: 11400000, guid: 83624ceb4515efa42b174ca87b24d83f, type: 2}
   missionStarted: {fileID: 11400000, guid: 84bfa7269e26ce64280be9e1b752ac5b, type: 2}
   missionEnded: {fileID: 11400000, guid: 914730a4f1ae32e48a805cac0393c615, type: 2}
 --- !u!114 &-4355925669750816561
