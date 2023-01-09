@@ -54,9 +54,9 @@ public class MissionResultPopup : NetworkBehaviour
             //Show players on the mission what everyone played. Nobody else gets to see.
             if (playersOnMission.Value.Contains(ply)) played = playedCards;
 
-            string flavour = missionResult == MissionResult.Success ? currentMission.Value.SuccessFlavour : currentMission.Value.FailFlavour;
+            //string flavour = missionResult == MissionResult.Success ? currentMission.Value.SuccessFlavour : currentMission.Value.FailFlavour;
 
-            CreatePopup(ply.Connection, missionResult, flavour, played);
+            CreatePopup(ply.Connection, missionResult, "", played);
         });
     }
 

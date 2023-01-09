@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "Mission", menuName = "Missions/Create mission")]
 public class Mission : ScriptableObject
@@ -25,30 +26,7 @@ public class Mission : ScriptableObject
     [Space]
     [Space]
 
-    /// <summary>
-    /// Private counterpart to <see cref="SuccessFlavour"/>
-    /// </summary>
-    [Multiline]
-    [SerializeField] string successFlavour;
-
-    /// <summary>
-    /// Private counterpart to <see cref="SuccessEffect"/>
-    /// </summary>
-    [SerializeField] List<MissionEffect> successEffects;
-
-    [Space]
-    [Space]
-
-    /// <summary>
-    /// Private counterpart to <see cref="FailFlavour"/>
-    /// </summary>
-    [Multiline]
-    [SerializeField] string failFlavour;
-
-    /// <summary>
-    /// Private counterpart to <see cref="FailEffect"/>
-    /// </summary>
-    [SerializeField] List<MissionEffect> failEffects;
+    [SerializeField] public List<MissionEffectTier> effects;
 
     [Space]
     [Space]
@@ -57,6 +35,8 @@ public class Mission : ScriptableObject
     /// Private counterpart to <see cref="Condition"/>
     /// </summary>
     [SerializeField] MissionCondition condition;
+
+    //int tiersTriggered;
     #endregion
 
     #region Properties
@@ -94,50 +74,6 @@ public class Mission : ScriptableObject
     }
 
     /// <summary>
-    /// What happens on a mission success
-    /// </summary>
-    public List<MissionEffect> SuccessEffects
-    {
-        get
-        {
-            return successEffects;
-        }
-    }
-
-    /// <summary>
-    /// The flavour text for the success effect
-    /// </summary>
-    public string SuccessFlavour
-    {
-        get
-        {
-            return successFlavour;
-        }
-    }
-
-    /// <summary>
-    /// What happens on a mission fail
-    /// </summary>
-    public List<MissionEffect> FailEffects
-    {
-        get
-        {
-            return failEffects;
-        }
-    }
-
-    /// <summary>
-    /// The flavour text for the fail effect
-    /// </summary>
-    public string FailFlavour
-    {
-        get
-        {
-            return failFlavour;
-        }
-    }
-
-    /// <summary>
     /// The condition under which this mission will appear
     /// </summary>
     public MissionCondition Condition
@@ -148,4 +84,76 @@ public class Mission : ScriptableObject
         }
     }
     #endregion
+
+    public event System.Action AfterAllEffectsTriggered;
+
+    public void TriggerValidEffects(int cardsTotal)
+    {
+        int tiersTriggered = 0;
+        int applicableTiers = effects.Count(tier => tier.Applicable(cardsTotal));
+
+        foreach (MissionEffectTier tier in effects)
+        {
+            if (!tier.Applicable(cardsTotal)) return;
+
+            tier.AfterEffectsTriggered += () =>
+            {
+                if (++tiersTriggered >= applicableTiers) AfterAllEffectsTriggered?.Invoke();
+            };
+
+            tier.ApplyEffects(cardsTotal);
+        }
+    }
+}
+
+[System.Serializable]
+public class MissionEffectTier
+{
+    public Comparator comparator;
+    public int value;
+    public string effectFlavour;
+    public List<MissionEffect> effects;
+    [Multiline]
+
+    int effectsTriggered;
+
+    public event System.Action AfterEffectsTriggered;
+
+    public bool Applicable(int cardsTotal)
+    {
+        if (comparator == Comparator.GreaterThan) return cardsTotal > value;
+
+        if (comparator == Comparator.EqualTo) return cardsTotal == value;
+
+        if (comparator == Comparator.LessThan) return cardsTotal < value;
+
+        Debug.LogError("Mission effect tier has an unknown comparator");
+        return false;
+    }
+
+    public void ApplyEffects(int cardsTotal)
+    {
+        if (!Applicable(cardsTotal)) return;
+
+        effects.ForEach(effect => {
+            effect.OnMissionEffectFinished += EffectTriggered;
+            effect.TriggerEffect();
+        });
+    }
+
+    public void EffectTriggered(MissionEffect effect)
+    {
+        effect.OnMissionEffectFinished -= EffectTriggered;
+        if (++effectsTriggered >= effects.Count)
+        {
+            AfterEffectsTriggered?.Invoke();
+        }
+    }
+}
+
+public enum Comparator
+{
+    GreaterThan,
+    EqualTo,
+    LessThan
 }

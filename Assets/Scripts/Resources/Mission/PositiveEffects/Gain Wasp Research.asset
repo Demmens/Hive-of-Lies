@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
   m_Name: Gain Wasp Research
   m_EditorClassIdentifier: 
-  description: Gain research progress on the wasps
+  description: Learn a wasp fact
   type: 0
   intVar: {fileID: 11400000, guid: dfe9cf79ab308fa4590bcb660471cac3, type: 2}
   incrementAmount: 1

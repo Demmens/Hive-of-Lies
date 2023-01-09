@@ -7,13 +7,13 @@ public class MissionCard : MonoBehaviour
 {
     Mission Data;
 
-    [SerializeField] TMP_Text Name;
+    [SerializeField] TMP_Text missionName;
 
-    [SerializeField] TMP_Text SuccessEffect;
+    [SerializeField] TMP_Text favourCost;
 
-    [SerializeField] TMP_Text FailEffect;
+    [SerializeField] GameObject missionEffectPrefab;
 
-    [SerializeField] TMP_Text FavourCost;
+    [SerializeField] Transform missionEffectParent;
 
     [SerializeField] RectTransform cardPos;
 
@@ -26,10 +26,15 @@ public class MissionCard : MonoBehaviour
     public void SetData(Mission data)
     {
         Data = data;
-        Name.text = Data.MissionName;
-        FavourCost.text = $"{Data.FavourCost}f";
-        SuccessEffect.text = MissionUI.CreateStringFromList(Data.SuccessEffects);
-        FailEffect.text = MissionUI.CreateStringFromList(Data.FailEffects);
+        missionName.text = Data.MissionName;
+        favourCost.text = $"{Data.FavourCost}f";
+        foreach (MissionEffectTier tier in data.effects)
+        {
+            GameObject effect = Instantiate(missionEffectPrefab);
+            effect.transform.SetParent(missionEffectParent);
+
+            effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value, tier.effects);
+        }
     }
 
     public void SetPos(Vector3 pos)

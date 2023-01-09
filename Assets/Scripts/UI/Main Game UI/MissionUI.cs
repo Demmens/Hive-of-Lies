@@ -11,14 +11,13 @@ public class MissionUI : NetworkBehaviour
     [SerializeField] GameObject missionUI;
     [SerializeField] TMP_Text missionName;
     [SerializeField] TMP_Text missionFlavour;
-    [SerializeField] TMP_Text successFlavour;
-    [SerializeField] TMP_Text successEffect;
-    [SerializeField] TMP_Text failFlavour;
-    [SerializeField] TMP_Text failEffect;
 
     [SerializeField] TMP_Text teamLeaderName;
     [SerializeField] TMP_Text missionPlayerList;
     [SerializeField] TMP_Text missionCost;
+
+    [SerializeField] GameObject effectPrefab;
+    [SerializeField] Transform effectParent;
 
     List<string> pickedPlayers = new();
     #endregion
@@ -75,13 +74,14 @@ public class MissionUI : NetworkBehaviour
         missionUI.SetActive(true);
         missionName.text = mission.MissionName;
         missionFlavour.text = mission.Description;
-        successFlavour.text = mission.SuccessFlavour;
-        failFlavour.text = mission.FailFlavour;
         missionCost.text = $"Mission Cost: {mission.FavourCost}f";
         missionPlayerList.text = "Undecided";
+        foreach (MissionEffectTier tier in mission.effects) {
+            GameObject effect = Instantiate(effectPrefab);
+            effect.transform.SetParent(effectParent);
 
-        successEffect.text = CreateStringFromList(mission.SuccessEffects);
-        failEffect.text = CreateStringFromList(mission.FailEffects);
+            effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value, tier.effects);
+        }
     }
 
     [ClientRpc]

@@ -137,11 +137,8 @@ public class StandOrPass : GamePhase
             //If nobody stood for the position of team leader, and we don't currently have a team leader
             if (teamLeader.Value == null)
             {
-                currentMission.Value.FailEffects.ForEach(effect =>
-                {
-                    effect.OnMissionEffectFinished += OnMissionEffectFinished;
-                    effect.TriggerEffect();
-                });
+                currentMission.Value.AfterAllEffectsTriggered += OnMissionEffectFinished;
+                currentMission.Value.TriggerValidEffects(0);
                 return;
             }
         }
@@ -199,10 +196,9 @@ public class StandOrPass : GamePhase
         });
     }
 
-    void OnMissionEffectFinished(MissionEffect effect)
+    void OnMissionEffectFinished()
     {
-        effect.OnMissionEffectFinished -= OnMissionEffectFinished;
-        if (++missionEffectsTriggered < currentMission.Value.FailEffects.Count) return;
+        currentMission.Value.AfterAllEffectsTriggered -= OnMissionEffectFinished;
 
         onNobodyStood?.Invoke();
     }
