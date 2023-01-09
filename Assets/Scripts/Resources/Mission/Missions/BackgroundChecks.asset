@@ -16,12 +16,15 @@ MonoBehaviour:
   description: Thoroughly look into the history of one board member, looking for
     any clues that might identify their loyalty.
   favourCost: 6
-  successFlavour: Perform a successful background check.
-  successEffects:
-  - {fileID: 11400000, guid: 2381eed0cf403e84891a61b5da3e92f6, type: 2}
-  failFlavour: Become distracted by the background checks, and forget your shift
-    at the honey vault.
-  failEffects:
-  - {fileID: 11400000, guid: 2381eed0cf403e84891a61b5da3e92f6, type: 2}
-  - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+  effects:
+  - comparator: 0
+    value: 15
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 2381eed0cf403e84891a61b5da3e92f6, type: 2}
+  - comparator: 2
+    value: 25
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
   condition: {fileID: 0}
