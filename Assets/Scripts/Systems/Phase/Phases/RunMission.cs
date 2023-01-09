@@ -16,15 +16,6 @@ public class RunMission : GamePhase
     /// </summary>
     public event MissionEnded OnMissionEnd;
 
-    /// <summary>
-    /// The total number of mission effects that are going to trigger
-    /// </summary>
-    private int numEffects;
-    /// <summary>
-    /// How many of the mission effects have triggered so far
-    /// </summary>
-    private int effectsTriggered;
-
     [Tooltip("The currently active mission")]
     [SerializeField] MissionVariable currentMission;
 
