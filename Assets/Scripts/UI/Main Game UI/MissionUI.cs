@@ -75,13 +75,13 @@ public class MissionUI : NetworkBehaviour
         missionUI.SetActive(true);
         missionName.text = mission.MissionName;
         missionFlavour.text = mission.Description;
-        //successFlavour.text = mission.SuccessFlavour;
-        //failFlavour.text = mission.FailFlavour;
+        successFlavour.text = mission.SuccessFlavour;
+        failFlavour.text = mission.FailFlavour;
         missionCost.text = $"Mission Cost: {mission.FavourCost}f";
         missionPlayerList.text = "Undecided";
 
-        //successEffect.text = CreateStringFromList(mission.SuccessEffects);
-        //failEffect.text = CreateStringFromList(mission.FailEffects);
+        successEffect.text = CreateStringFromList(mission.SuccessEffects);
+        failEffect.text = CreateStringFromList(mission.FailEffects);
     }
 
     [ClientRpc]

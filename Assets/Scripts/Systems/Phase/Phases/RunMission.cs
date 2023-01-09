@@ -46,8 +46,11 @@ public class RunMission : GamePhase
     [Tooltip("The result of the mission")]
     [SerializeField] MissionResultVariable missionResult;
 
-    [Tooltip("The total of all played cards")]
-    [SerializeField] IntVariable cardsTotal;
+    [Tooltip("Whether the next missions success effect should be cancelled")]
+    [SerializeField] BoolVariable cancelNextSuccess;
+
+    [Tooltip("Whether the next missions fail effect should be cancelled")]
+    [SerializeField] BoolVariable cancelNextFail;
 
     [Tooltip("Invoked when the mission begins")]
     [SerializeField] GameEvent missionStarted;
@@ -90,15 +93,32 @@ public class RunMission : GamePhase
 
         missionEnded?.Invoke();
 
-        currentMission.Value.AfterAllEffectsTriggered += OnEffectEnded;
+        List<MissionEffect> effects = (missionResult == MissionResult.Success) ?
+            currentMission.Value.SuccessEffects :
+            currentMission.Value.FailEffects;
+
+        numEffects = effects.Count;
+
+        //Early out if there are no mission effects.
+        if (numEffects == 0) End();
+
+        effectsTriggered = 0;
         //Trigger all effects
-        currentMission.Value.TriggerValidEffects(cardsTotal);
+        foreach (MissionEffect effect in effects)
+        {
+            effect.OnMissionEffectFinished += OnEffectEnded;
+            effect.TriggerEffect();
+        }
     }
 
-    private void OnEffectEnded()
+    private void OnEffectEnded(MissionEffect effect)
     {
-        currentMission.Value.AfterAllEffectsTriggered -= OnEffectEnded;
-        End();
+        effectsTriggered++;
+        effect.OnMissionEffectFinished -= OnEffectEnded;
+        if (effectsTriggered >= numEffects)
+        {
+            End();
+        }
     }
 }
 
