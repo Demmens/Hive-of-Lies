@@ -77,6 +77,7 @@ public class RunMission : GamePhase
 
     private void OnEffectEnded()
     {
+        Debug.Log("All mission effects have finished. Starting the next round");
         currentMission.Value.AfterAllEffectsTriggered -= OnEffectEnded;
         End();
     }
