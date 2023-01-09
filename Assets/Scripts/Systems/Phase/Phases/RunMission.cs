@@ -95,8 +95,3 @@ public class RunMission : GamePhase
         End();
     }
 }
-
-public struct MissionEndMsg : NetworkMessage
-{
-    public MissionResult result;
-}
