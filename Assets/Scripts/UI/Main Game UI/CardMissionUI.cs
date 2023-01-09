@@ -11,7 +11,6 @@ public class CardMissionUI : NetworkBehaviour
     [SerializeField] GameObject UI;
     [SerializeField] TMP_Text drawResult;
     [SerializeField] TMP_Text drawButtonText;
-    [SerializeField] TMP_Text needed;
     [SerializeField] GameObject drawButton;
     [SerializeField] GameObject submitButton;
 
@@ -57,7 +56,6 @@ public class CardMissionUI : NetworkBehaviour
 
         drawResult.text = "0";
         drawButtonText.text = $"Redraw (0f)";
-        needed.text = $"Success: {difficulty}";
         submitButton.SetActive(false);
         drawButton.SetActive(true);
         UI.SetActive(true);
