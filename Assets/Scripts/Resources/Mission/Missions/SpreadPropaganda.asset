@@ -15,10 +15,20 @@ MonoBehaviour:
   missionName: Create Propaganda
   description: Spend time designing promotional posters for the Bee political campaign.
   favourCost: 4
-  successFlavour: Create a simple and effective poster design.
-  successEffects:
-  - {fileID: 11400000, guid: 4e99fa1b857ea484db964217a354bfa9, type: 2}
-  failFlavour: '"Accidentally" promote fascist imagery'
-  failEffects:
-  - {fileID: 11400000, guid: b6d89fb161e8f5b44a3beee712f688a5, type: 2}
+  effects:
+  - comparator: 0
+    value: 30
+    effectFlavour: Created a weirdly hypnotic advert
+    effects:
+    - {fileID: 11400000, guid: 4e99fa1b857ea484db964217a354bfa9, type: 2}
+  - comparator: 0
+    value: 25
+    effectFlavour: Created an effective advert
+    effects:
+    - {fileID: 11400000, guid: c5038fef9d1ccb146a0d6f1c0a8ed349, type: 2}
+  - comparator: 2
+    value: 25
+    effectFlavour: '"Accidentally" promoted fascist imigary'
+    effects:
+    - {fileID: 11400000, guid: b6d89fb161e8f5b44a3beee712f688a5, type: 2}
   condition: {fileID: 0}
