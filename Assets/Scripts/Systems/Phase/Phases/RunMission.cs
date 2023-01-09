@@ -22,12 +22,6 @@ public class RunMission : GamePhase
     [Tooltip("Set of all completed missions")]
     [SerializeField] MissionSet completedMissions;
 
-    [Tooltip("Set of all succeeded missions")]
-    [SerializeField] MissionSet succeededMissions;
-
-    [Tooltip("Set of all failed missions")]
-    [SerializeField] MissionSet failedMissions;
-
     [Tooltip("Set of all players on the mission")]
     [SerializeField] HoLPlayerSet playersOnMission;
 
@@ -59,14 +53,6 @@ public class RunMission : GamePhase
     public void EndMission()
     {
         Debug.Log("Mission should be ending now");
-        if (missionResult == MissionResult.Success)
-        {
-            succeededMissions.Add(currentMission.Value);
-        } 
-        else 
-        {
-            failedMissions.Add(currentMission.Value);
-        }
         completedMissions.Add(currentMission.Value);
         mission.Active = false;
 
