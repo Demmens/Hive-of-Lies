@@ -750,7 +750,6 @@ GameObject:
   - component: {fileID: 1381902561791064687}
   - component: {fileID: 4091960679387166467}
   - component: {fileID: 3375515600982180424}
-  - component: {fileID: 5124574589355276852}
   m_Layer: 0
   m_Name: MissionUI
   m_TagString: Untagged
@@ -847,22 +846,6 @@ MonoBehaviour:
   playersSelected: {fileID: 11400000, guid: c5185c85b03957546b0a450841d2fd5f, type: 2}
   isOnMission: {fileID: 11400000, guid: b9f406dffbe4a27409cd0aa785114640, type: 2}
   id: {fileID: 11400000, guid: 1784e4f840f36c44f90242892bdac90a, type: 2}
---- !u!114 &5124574589355276852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3586085674499400816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e80a2aa513574b14d84865ae8f2b2cc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  var: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
-  text: {fileID: 0}
 --- !u!1 &4438710571383096312
 GameObject:
   m_ObjectHideFlags: 0
