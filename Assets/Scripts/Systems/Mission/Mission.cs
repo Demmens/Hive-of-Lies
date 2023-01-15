@@ -94,8 +94,7 @@ public class Mission : ScriptableObject
 
         foreach (MissionEffectTier tier in effects)
         {
-            if (!tier.Applicable(cardsTotal)) return;
-
+            if (!tier.Applicable(cardsTotal)) continue;
             tier.AfterEffectsTriggered += () =>
             {
                 if (++tiersTriggered >= applicableTiers) AfterAllEffectsTriggered?.Invoke();
