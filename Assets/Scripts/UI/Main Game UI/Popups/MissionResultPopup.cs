@@ -43,6 +43,8 @@ public class MissionResultPopup : NetworkBehaviour
 
     [Tooltip("Invoked when all players have closed the popup")]
     [SerializeField] GameEvent allPlayersClosed;
+
+    List<GameObject> effectTiers = new();
     #endregion
 
     [Server]
@@ -61,8 +63,10 @@ public class MissionResultPopup : NetworkBehaviour
     }
 
     [TargetRpc]
-    public void CreatePopup(NetworkConnection conn, string flavour, List<Card> contributions, Mission currentMission, int cardsTotal)
+    public void CreatePopup(NetworkConnection conn, string flavour, List<Card> contributions, Mission currentMission, int cardsTotal) 
     {
+        foreach (GameObject obj in effectTiers) Destroy(obj);
+        effectTiers = new ();
         string cardResultsText = "";
 
         for (int i = 0; i < contributions.Count; i++)
@@ -79,6 +83,7 @@ public class MissionResultPopup : NetworkBehaviour
             if (!tier.Applicable(cardsTotal)) continue;
 
             GameObject effect = Instantiate(effectPrefab);
+            effectTiers.Add(effect);
             effect.transform.SetParent(effectParent);
 
             effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value, tier.effects);

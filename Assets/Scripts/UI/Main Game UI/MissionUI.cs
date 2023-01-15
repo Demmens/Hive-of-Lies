@@ -20,6 +20,7 @@ public class MissionUI : NetworkBehaviour
     [SerializeField] Transform effectParent;
 
     List<string> pickedPlayers = new();
+    List<GameObject> effectTiers = new();
     #endregion
 
     #region SERVER
@@ -76,8 +77,11 @@ public class MissionUI : NetworkBehaviour
         missionFlavour.text = mission.Description;
         missionCost.text = $"Mission Cost: {mission.FavourCost}f";
         missionPlayerList.text = "Undecided";
+        foreach (GameObject obj in effectTiers) Destroy(obj);
+        effectTiers = new();
         foreach (MissionEffectTier tier in mission.effects) {
             GameObject effect = Instantiate(effectPrefab);
+            effectTiers.Add(effect);
             effect.transform.SetParent(effectParent);
 
             effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value, tier.effects);
