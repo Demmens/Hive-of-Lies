@@ -15,11 +15,15 @@ MonoBehaviour:
   missionName: Set Honey Trap
   description: Forfeit some of our honey as bait to learn about wasp behaviour
   favourCost: 4
-  successFlavour: Capture a real wasp!
-  successEffects:
-  - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
-  - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
-  failFlavour: Fall asleep on watch
-  failEffects:
-  - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+  effects:
+  - comparator: 0
+    value: 28
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
+  - comparator: 2
+    value: 40
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
   condition: {fileID: 0}
