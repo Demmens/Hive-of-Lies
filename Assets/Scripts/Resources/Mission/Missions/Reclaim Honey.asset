@@ -16,10 +16,15 @@ MonoBehaviour:
   description: Send an expedition of our best recruits to reclaim some stolen honey
     from the wasps
   favourCost: 12
-  successFlavour: Track down the honey and get it back
-  successEffects:
-  - {fileID: 11400000, guid: d616065035baacc49a9bdf06cc89bc40, type: 2}
-  failFlavour: Expedition goes MIA
-  failEffects:
-  - {fileID: 11400000, guid: a92f4b5d158b87d498d97c2f343ac217, type: 2}
+  effects:
+  - comparator: 0
+    value: 30
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: d616065035baacc49a9bdf06cc89bc40, type: 2}
+  - comparator: 2
+    value: 28
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
   condition: {fileID: 11400000, guid: 710e2d5c7e628da46945271f689f88e5, type: 2}
