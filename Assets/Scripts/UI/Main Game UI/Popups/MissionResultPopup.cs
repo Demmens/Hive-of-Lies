@@ -10,8 +10,10 @@ public class MissionResultPopup : NetworkBehaviour
     #region CLIENT
     [SerializeField] GameObject popup;
     [SerializeField] TMP_Text missionResultText;
-    [SerializeField] TMP_Text outcomeFlavour;
     [SerializeField] TMP_Text rollResults;
+
+    [SerializeField] GameObject effectPrefab;
+    [SerializeField] Transform effectParent;
 
     [Tooltip("Whether the local player is on the mission")]
     [SerializeField] BoolVariable isOnMission;
@@ -27,14 +29,14 @@ public class MissionResultPopup : NetworkBehaviour
     [Tooltip("Set of all played cards this mission")]
     [SerializeField] CardSet playedCards;
 
-    [Tooltip("The result of the last completed mission")]
-    [SerializeField] MissionResultVariable missionResult;
-
     [Tooltip("All players that have closed the popup so far")]
     List<NetworkConnection> playersClosed;
 
     [Tooltip("The playercount of the game")]
     [SerializeField] IntVariable playerCount;
+
+    [Tooltip("The total value of played cards")]
+    [SerializeField] IntVariable cardsTotal;
 
     [Tooltip("The current mission")]
     [SerializeField] MissionVariable currentMission;
@@ -54,14 +56,12 @@ public class MissionResultPopup : NetworkBehaviour
             //Show players on the mission what everyone played. Nobody else gets to see.
             if (playersOnMission.Value.Contains(ply)) played = playedCards;
 
-            //string flavour = missionResult == MissionResult.Success ? currentMission.Value.SuccessFlavour : currentMission.Value.FailFlavour;
-
-            CreatePopup(ply.Connection, missionResult, "", played);
+            CreatePopup(ply.Connection, "", played, currentMission, cardsTotal);
         });
     }
 
     [TargetRpc]
-    public void CreatePopup(NetworkConnection conn, MissionResult result, string flavour, List<Card> contributions)
+    public void CreatePopup(NetworkConnection conn, string flavour, List<Card> contributions, Mission currentMission, int cardsTotal)
     {
         string cardResultsText = "";
 
@@ -75,11 +75,14 @@ public class MissionResultPopup : NetworkBehaviour
 
         rollResults.text = cardResultsText;
 
-        bool success = result == MissionResult.Success;
+        foreach (MissionEffectTier tier in currentMission.effects) {
+            if (!tier.Applicable(cardsTotal)) continue;
 
-        missionResultText.text = success ? "Mission Succeeded" : "Mission Failed";
+            GameObject effect = Instantiate(effectPrefab);
+            effect.transform.SetParent(effectParent);
 
-        outcomeFlavour.text = flavour;
+            effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value, tier.effects);
+        }
 
         popup.SetActive(true);
     }
