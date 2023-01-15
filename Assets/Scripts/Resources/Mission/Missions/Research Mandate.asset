@@ -15,10 +15,20 @@ MonoBehaviour:
   missionName: Send all our best bees to do as much research as we can
   description: 
   favourCost: 0
-  successFlavour: Learn a lot about wasps
-  successEffects:
-  - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
-  failFlavour: Honey guard gets distracted
-  failEffects:
-  - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+  effects:
+  - comparator: 0
+    value: 35
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
+  - comparator: 0
+    value: 30
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
+  - comparator: 2
+    value: 35
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
   condition: {fileID: 0}
