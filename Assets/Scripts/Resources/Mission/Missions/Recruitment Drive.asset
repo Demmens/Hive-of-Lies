@@ -15,11 +15,15 @@ MonoBehaviour:
   missionName: Recruitment Drive
   description: Increase productivity by hiring new employees!
   favourCost: 6
-  successFlavour: The new recruits are happy to help!
-  successEffects:
-  - {fileID: 11400000, guid: 1e4482e15e8c9114291472f9f621a56b, type: 2}
-  failFlavour: The working conditions lead to strikes. During the chaos, some honey
-    disappears.
-  failEffects:
-  - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+  effects:
+  - comparator: 0
+    value: 30
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 1e4482e15e8c9114291472f9f621a56b, type: 2}
+  - comparator: 2
+    value: 25
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
   condition: {fileID: 0}
