@@ -15,4 +15,4 @@ MonoBehaviour:
   description: Future missions become slightly harder
   type: 1
   intVar: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
-  incrementAmount: 2
+  incrementAmount: 1
