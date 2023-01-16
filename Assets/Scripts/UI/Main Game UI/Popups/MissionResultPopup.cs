@@ -38,6 +38,9 @@ public class MissionResultPopup : NetworkBehaviour
     [Tooltip("The total value of played cards")]
     [SerializeField] IntVariable cardsTotal;
 
+    [Tooltip("How much more difficult all missions are")]
+    [SerializeField] IntVariable missionDifficulty;
+
     [Tooltip("The current mission")]
     [SerializeField] MissionVariable currentMission;
 
@@ -58,12 +61,12 @@ public class MissionResultPopup : NetworkBehaviour
             //Show players on the mission what everyone played. Nobody else gets to see.
             if (playersOnMission.Value.Contains(ply)) played = playedCards;
 
-            CreatePopup(ply.Connection, "", played, currentMission, cardsTotal);
+            CreatePopup(ply.Connection, "", played, currentMission, cardsTotal, missionDifficulty);
         });
     }
 
     [TargetRpc]
-    public void CreatePopup(NetworkConnection conn, string flavour, List<Card> contributions, Mission currentMission, int cardsTotal) 
+    public void CreatePopup(NetworkConnection conn, string flavour, List<Card> contributions, Mission currentMission, int cardsTotal, int difficulty) 
     {
         foreach (GameObject obj in effectTiers) Destroy(obj);
         effectTiers = new ();
@@ -86,7 +89,7 @@ public class MissionResultPopup : NetworkBehaviour
             effectTiers.Add(effect);
             effect.transform.SetParent(effectParent);
 
-            effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value, tier.effects);
+            effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value + difficulty, tier.effects);
         }
 
         popup.SetActive(true);

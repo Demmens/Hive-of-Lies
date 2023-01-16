@@ -33,6 +33,9 @@ public class DecideMission : GamePhase
     [Tooltip("The number of mission choices the players have")]
     [SerializeField] IntVariable numMissionChoices;
 
+    [Tooltip("How much more difficult the missions are")]
+    [SerializeField] IntVariable difficutlyMod;
+
     [Tooltip("The mission list that will be used this game")]
     [SerializeField] MissionListVariable decidedMissionList;
 
@@ -160,7 +163,7 @@ public class DecideMission : GamePhase
 
         decidedMissionChoices.Value = choices;
         onMissionChoicesDecided?.Invoke();
-        CreateMissionCards(choices);
+        CreateMissionCards(choices, difficutlyMod);
     }
 
     /// <summary>
@@ -168,7 +171,7 @@ public class DecideMission : GamePhase
     /// </summary>
     /// <param name="choices"></param>
     [ClientRpc]
-    void CreateMissionCards(List<Mission> choices)
+    void CreateMissionCards(List<Mission> choices, int difficultyMod)
     {
         cards = new List<GameObject>();
         for (int i = 0; i < choices.Count; i++)
@@ -177,7 +180,7 @@ public class DecideMission : GamePhase
 
             MissionCard cardScript = card.GetComponent<MissionCard>();
             cardScript.SetPos(GetCardPositionOnScreen(i, choices.Count));
-            cardScript.SetData(choices[i]);
+            cardScript.SetData(choices[i], difficultyMod);
             cardScript.OnMissionCardClicked += MissionCardClicked;
             cards.Add(card);
         }

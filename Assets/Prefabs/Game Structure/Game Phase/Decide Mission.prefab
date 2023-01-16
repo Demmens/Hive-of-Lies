@@ -53,13 +53,17 @@ MonoBehaviour:
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   roundNum: {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
   numMissionChoices: {fileID: 11400000, guid: 1939b9c64f1f30b4fa771aff5b5e9ec8, type: 2}
+  difficutlyMod: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
   decidedMissionList: {fileID: 11400000, guid: f0007d2ca6098c649a90108114c7c3bf, type: 2}
   players: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
   completedMissions: {fileID: 11400000, guid: 33c18e2444b9f1041947a9afb8a706d0, type: 2}
-  decidedMissionChoices: {fileID: 11400000, guid: fa8e39d75c2ce634fb05b9ac70d7cb55, type: 2}
-  onMissionChoicesDecided: {fileID: 11400000, guid: aba833fc5e4ef8c45badf2a1884ef732, type: 2}
-  missionCard: {fileID: 3518710814571722700, guid: 28ace0b806b865c4c922868163c8102d, type: 3}
+  decidedMissionChoices: {fileID: 11400000, guid: fa8e39d75c2ce634fb05b9ac70d7cb55,
+    type: 2}
+  onMissionChoicesDecided: {fileID: 11400000, guid: aba833fc5e4ef8c45badf2a1884ef732,
+    type: 2}
+  missionCard: {fileID: 3518710814571722700, guid: 28ace0b806b865c4c922868163c8102d,
+    type: 3}
 --- !u!114 &-4100112476582232011
 MonoBehaviour:
   m_ObjectHideFlags: 0

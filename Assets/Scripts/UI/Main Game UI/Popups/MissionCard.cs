@@ -23,7 +23,7 @@ public class MissionCard : MonoBehaviour
     public delegate void MissionCardClicked(Mission data);
     public event MissionCardClicked OnMissionCardClicked;
 
-    public void SetData(Mission data)
+    public void SetData(Mission data, int difficultyMod)
     {
         Data = data;
         missionName.text = Data.MissionName;
@@ -33,7 +33,7 @@ public class MissionCard : MonoBehaviour
             GameObject effect = Instantiate(missionEffectPrefab);
             effect.transform.SetParent(missionEffectParent);
 
-            effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value, tier.effects);
+            effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value + difficultyMod, tier.effects);
         }
     }
 

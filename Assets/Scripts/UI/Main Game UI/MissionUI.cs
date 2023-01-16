@@ -19,11 +19,21 @@ public class MissionUI : NetworkBehaviour
     [SerializeField] GameObject effectPrefab;
     [SerializeField] Transform effectParent;
 
+    [Tooltip("Returns true if the player is on the mission")]
+    [SerializeField] BoolVariable isOnMission;
+
+    [Tooltip("The ID of the local player")]
+    [SerializeField] UlongVariable id;
+
     List<string> pickedPlayers = new();
     List<GameObject> effectTiers = new();
     #endregion
 
     #region SERVER
+
+    [Tooltip("How much more difficult all missions are")]
+    [SerializeField] IntVariable missionDifficulty;
+
     [Tooltip("The mission that is currently active")]
     [SerializeField] MissionVariable currentMission;
 
@@ -32,17 +42,11 @@ public class MissionUI : NetworkBehaviour
 
     [Tooltip("All players that have currently been selected to go on the mission")]
     [SerializeField] HoLPlayerSet playersSelected;
-
-    [Tooltip("Returns true if the player is on the mission")]
-    [SerializeField] BoolVariable isOnMission;
-
-    [Tooltip("The ID of the local player")]
-    [SerializeField] UlongVariable id;
     #endregion
 
     public override void OnStartServer()
     {
-        currentMission.AfterVariableChanged += ChangeMission;
+        currentMission.AfterVariableChanged += miss => ChangeMission(miss, missionDifficulty);
         teamLeader.AfterVariableChanged += ply => OnTeamLeaderDecided(ply.DisplayName);
         playersSelected.AfterItemAdded += ply => OnTeamLeaderAddPartner(ply.DisplayName, ply.PlayerID);
         playersSelected.AfterItemRemoved += ply => OnTeamLeaderRemovePartner(ply.DisplayName, ply.PlayerID);
@@ -69,7 +73,7 @@ public class MissionUI : NetworkBehaviour
     }
 
     [ClientRpc]
-    void ChangeMission(Mission mission)
+    void ChangeMission(Mission mission, int difficultyMod)
     {
         pickedPlayers = new();
         missionUI.SetActive(true);
@@ -84,7 +88,7 @@ public class MissionUI : NetworkBehaviour
             effectTiers.Add(effect);
             effect.transform.SetParent(effectParent);
 
-            effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value, tier.effects);
+            effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value + difficultyMod, tier.effects);
         }
     }
 
