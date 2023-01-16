@@ -38,10 +38,13 @@ public class CardMissionUI : NetworkBehaviour
     #endregion
 
     [Server]
-    public void ServerMissionStarted()
+    public void AfterDeckCreated()
     {
-        if (roundNum == 0)
-            allPlayers.Value.ForEach(ply => ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.Connection, card.TempValue, ply.NextDrawCost));
+        allPlayers.Value.ForEach(ply => 
+        {
+            ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.Connection, card.TempValue);
+            ply.NextDrawCost.AfterVariableChanged += val => OnDrawCostChanged(ply.Connection, val);
+        });
     }
 
     /// <summary>
@@ -78,12 +81,17 @@ public class CardMissionUI : NetworkBehaviour
     /// The server tells us what we drew
     /// </summary>
     [TargetRpc]
-    void ReceiveDrawResultFromServer(NetworkConnection conn, int value, int nextCost)
+    void ReceiveDrawResultFromServer(NetworkConnection conn, int value)
     {
         drawResult.text = value.ToString();
         submitButton.SetActive(true);
         drawButton.SetActive(true);
-        drawButtonText.text = $"Redraw ({nextCost}f)";
+    }
+
+    [TargetRpc]
+    void OnDrawCostChanged(NetworkConnection conn, int val)
+    {
+        drawButtonText.text = $"Redraw ({val}f)";
     }
 
     /// <summary>
