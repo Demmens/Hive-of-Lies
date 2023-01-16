@@ -70,4 +70,9 @@ public abstract class Variable<T> : ScriptableObject
         //Set currentValue to bypass all the code that runs from setting Value
         currentValue = initialValue;
     }
+
+    public void OnValidate()
+    {
+        AfterVariableChanged?.Invoke(currentValue);
+    }
 }
