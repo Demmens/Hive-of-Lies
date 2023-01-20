@@ -4,43 +4,39 @@ using UnityEngine;
 using Steamworks;
 using Mirror;
 
-public class PlayerButton : MonoBehaviour
+public class PlayerButton : NetworkBehaviour
 {
+    #region SERVER
     /// <summary>
-    /// Private counterpart to <see cref="ID"/>
+    /// The player this button is associated with
     /// </summary>
-    private ulong id;
-    /// <summary>
-    /// ID of the player associated with this button
-    /// </summary>
-    public ulong ID
-    {
-        get
-        {
-            return id;
-        }
-        set
-        {
-            id = value;
-            gameObject.GetComponentInChildren<TMPro.TMP_Text>().text = SteamFriends.GetFriendPersonaName(new CSteamID(value));
-        }
-    }
+    HoLPlayer player;
 
-    /// <summary>
-    /// Whether this is selected or not
-    /// </summary>
-    public bool selected;
+    [SerializeField] HoLPlayerDictionary playersByConnection;
+    #endregion
 
+    #region CLIENT
     /// <summary>
     /// The PlayerButtonDropdownItems that appear when you click this button
     /// </summary>
     public List<GameObject> listItems = new List<GameObject>();
 
-    [Tooltip("Invoked when a button is clicked")]
-    [SerializeField] UlongEvent onClicked;
+    [SerializeField] TMPro.TMP_Text playerName;
+    #endregion
 
-    public void Click()
+    public event System.Action OnClicked;
+
+    /// <summary>
+    /// Called on the client when the button is clicked
+    /// </summary>
+    public void ClientClick()
     {
-        onClicked?.Invoke(id);
+        OnClicked?.Invoke();
+    }
+
+    [Server]
+    public void SetPlayer(HoLPlayer ply)
+    {
+        player = ply;
     }
 }

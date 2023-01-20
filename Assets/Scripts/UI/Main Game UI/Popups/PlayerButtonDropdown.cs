@@ -77,7 +77,6 @@ public class PlayerButtonDropdown : NetworkBehaviour
             GameObject button = Instantiate(playerButton);
             button.transform.SetParent(playerList.transform);
             PlayerButton plButton = button.GetComponent<PlayerButton>();
-            plButton.ID = id;
             buttons.Add(id, plButton);
         }
     }
