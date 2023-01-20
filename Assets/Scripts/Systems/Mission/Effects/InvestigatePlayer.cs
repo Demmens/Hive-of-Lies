@@ -10,7 +10,7 @@ public class InvestigatePlayer : MissionEffect
     [SerializeField] GameObject notificationPrefab;
     GameObject notification;
 
-    PlayerButtonDropdown dropDown;
+    PlayerButtonController buttonController;
     bool isResult = false;
 
     [Tooltip("All players in the game")]
@@ -75,8 +75,8 @@ public class InvestigatePlayer : MissionEffect
     private void OnEffectTriggered(InvestigateEffectTriggeredMsg msg)
     {
         //This is really bad and we shouldn't be doing this. It's currently midnight and I'm too tired to think of a better way.
-        dropDown = FindObjectOfType<PlayerButtonDropdown>();
-        PlayerButtonDropdownItem item = dropDown.AddAll(investigateButton);
+        buttonController = FindObjectOfType<PlayerButtonController>();
+        PlayerButtonDropdownItem item = buttonController.AddAll(investigateButton);
         item.OnItemClicked += PlayerInvestigated;
 
         if (notification == null) notification = Instantiate(notificationPrefab);
@@ -92,7 +92,7 @@ public class InvestigatePlayer : MissionEffect
     [Client]
     public void PlayerInvestigated(ulong playerID)
     {
-        dropDown.RemoveAll(investigateButton);
+        buttonController.RemoveAll(investigateButton);
         InvestigateEffectTriggeredMsg msg = new InvestigateEffectTriggeredMsg()
         {
             playerID = playerID,

@@ -6,41 +6,30 @@ using Mirror;
 
 public class PlayerButton : MonoBehaviour
 {
-    /// <summary>
-    /// Private counterpart to <see cref="ID"/>
-    /// </summary>
-    private ulong id;
-    /// <summary>
-    /// ID of the player associated with this button
-    /// </summary>
-    public ulong ID
-    {
-        get
-        {
-            return id;
-        }
-        set
-        {
-            id = value;
-            gameObject.GetComponentInChildren<TMPro.TMP_Text>().text = SteamFriends.GetFriendPersonaName(new CSteamID(value));
-        }
-    }
-
-    /// <summary>
-    /// Whether this is selected or not
-    /// </summary>
-    public bool selected;
-
+    #region CLIENT
     /// <summary>
     /// The PlayerButtonDropdownItems that appear when you click this button
     /// </summary>
     public List<GameObject> listItems = new List<GameObject>();
 
-    [Tooltip("Invoked when a button is clicked")]
-    [SerializeField] UlongEvent onClicked;
+    [SerializeField] TMPro.TMP_Text playerName;
+    #endregion
 
+    public event System.Action<ulong> OnClicked;
+
+    public ulong playerID;
+
+    /// <summary>
+    /// Called on the client when the button is clicked
+    /// </summary>
     public void Click()
     {
-        onClicked?.Invoke(id);
+        OnClicked?.Invoke(playerID);
+    }
+
+    public void SetPlayer(string name, ulong id)
+    {
+        playerName.text = name;
+        playerID = id;
     }
 }
