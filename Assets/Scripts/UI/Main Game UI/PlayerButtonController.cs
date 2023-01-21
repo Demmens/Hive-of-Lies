@@ -13,16 +13,25 @@ public class PlayerButtonController : NetworkBehaviour
     [SerializeField] GameObject buttonPrefab;
     [SerializeField] Transform buttonParent;
 
-    [SerializeField] GameObject dropdownPrefab;
-    PlayerButtonDropdown dropdown;
+    [SerializeField] GameObject dropdownObject;
+    PlayerButtonDropdown dropdown { 
+        get
+        {
+            if (dropdownObject.scene.name == null)
+            {
+                dropdownObject = Instantiate(dropdownObject);
+            }
+            return dropdownObject.GetComponent<PlayerButtonDropdown>();
+        }
+        set
+        {
+
+        }
+    }
 
     Dictionary<ulong, PlayerButton> buttons = new();
     #endregion
 
-    public override void OnStartClient()
-    {
-        dropdown = Instantiate(dropdownPrefab).GetComponent<PlayerButtonDropdown>();
-    }
 
     [Server]
     public void CreateButtons()

@@ -2889,7 +2889,7 @@ MonoBehaviour:
   alivePlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   buttonPrefab: {fileID: 8493164326477725227, guid: 141aa0a19c3b95447a559b9f1b764a14, type: 3}
   buttonParent: {fileID: 1869263837}
-  dropdownPrefab: {fileID: 7523242515604620581, guid: 3bb53431ff2517b448b97a3279965d4f, type: 3}
+  dropdownObject: {fileID: 7523242515604620581, guid: 3bb53431ff2517b448b97a3279965d4f, type: 3}
 --- !u!114 &1028373007
 MonoBehaviour:
   m_ObjectHideFlags: 0
