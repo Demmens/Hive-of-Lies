@@ -61,7 +61,14 @@ public class Deck
     /// </summary>
     public void Reshuffle()
     {
-        DrawPile.AddRange(Hand);
+        foreach (Card card in Hand)
+        {
+            if (card.DestroyOnDraw) continue;
+            card.TempValue = card.Value;
+            DrawPile.Add(card);
+        }
+        Hand = new();
+
         foreach (Card card in Played)
         {
             if (card.DestroyOnDraw || card.DestroyOnPlay) continue;
