@@ -10,6 +10,6 @@ public class LobbyChat : Chat
     {
         if (!playersByNetworkConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
 
-        text += $"\n{ply.DisplayName} has joined the game";
+        text += $"\n<b>{ply.DisplayName} has joined the game</b>";
     }
 }
