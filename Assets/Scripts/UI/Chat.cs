@@ -42,7 +42,7 @@ public class Chat : NetworkBehaviour
     [ClientRpc]
     void ClientGetMessage(string name, string message)
     {
-        text += $"\n{name}: {message}";
+        text += $"\n<b>{name}:</b> {message}";
     }
 
     [ClientRpc]
