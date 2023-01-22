@@ -45,7 +45,7 @@ public class Chat : NetworkBehaviour
         text += $"\n{name}: {message}";
     }
 
-    [Client]
+    [ClientRpc]
     void OnTextChanged(string oldVal, string newVal)
     {
         chat.text = newVal;
