@@ -7,7 +7,7 @@ using Mirror;
 public class ClientSelectPartners : NetworkBehaviour
 {
     #region CLIENT
-    [SerializeField] PlayerButtonController buttonController;
+    [SerializeField] PlayerButtonDropdown dropDown;
     [SerializeField] GameObject pickPlayerButton;
     [SerializeField] GameObject unpickPlayerButton;
     [SerializeField] GameObject lockInButton;
@@ -36,9 +36,9 @@ public class ClientSelectPartners : NetworkBehaviour
     [Client]
     public override void OnStartClient()
     {
-        PlayerButtonDropdownItem item = buttonController.CreateItem(pickPlayerButton);
+        PlayerButtonDropdownItem item = dropDown.CreateItem(pickPlayerButton);
         item.OnItemClicked += PlayerAdded;
-        item = buttonController.CreateItem(unpickPlayerButton);
+        item = dropDown.CreateItem(unpickPlayerButton);
         item.OnItemClicked += PlayerRemoved;
     }
 
@@ -52,7 +52,7 @@ public class ClientSelectPartners : NetworkBehaviour
     void CanStartPicking(NetworkConnection conn, int partners)
     {
         pickedPlayers = new();
-        buttonController.AddAll(pickPlayerButton);
+        dropDown.AddAll(pickPlayerButton);
         clientNumPartners = partners;
     }
 
@@ -60,13 +60,13 @@ public class ClientSelectPartners : NetworkBehaviour
     public void PlayerAdded(ulong playerID)
     {
         pickedPlayers.Add(playerID);
-        buttonController.AddItem(playerID, unpickPlayerButton);
-        buttonController.RemoveItem(playerID, pickPlayerButton);
+        dropDown.AddItem(playerID, unpickPlayerButton);
+        dropDown.RemoveItem(playerID, pickPlayerButton);
 
         if (pickedPlayers.Count == clientNumPartners)
         {
             lockInButton.SetActive(true);
-            buttonController.RemoveAll(pickPlayerButton);
+            dropDown.RemoveAll(pickPlayerButton);
         }
 
         ServerAddPlayer(playerID);
@@ -94,16 +94,16 @@ public class ClientSelectPartners : NetworkBehaviour
     void PlayerRemoved(ulong playerID)
     {
         pickedPlayers.Remove(playerID);
-        buttonController.AddItem(playerID, pickPlayerButton);
-        buttonController.RemoveItem(playerID, unpickPlayerButton);
+        dropDown.AddItem(playerID, pickPlayerButton);
+        dropDown.RemoveItem(playerID, unpickPlayerButton);
 
         if (pickedPlayers.Count == clientNumPartners - 1)
         {
             lockInButton.SetActive(false);
-            buttonController.AddAll(pickPlayerButton);
+            dropDown.AddAll(pickPlayerButton);
             for (int i = 0; i < pickedPlayers.Count; i++ )
             {
-                buttonController.RemoveItem(pickedPlayers[i], pickPlayerButton);
+                dropDown.RemoveItem(pickedPlayers[i], pickPlayerButton);
             }
         }
 
@@ -130,8 +130,8 @@ public class ClientSelectPartners : NetworkBehaviour
     public void LockIn()
     {
         lockInButton.SetActive(false);
-        buttonController.RemoveAll(pickPlayerButton);
-        buttonController.RemoveAll(unpickPlayerButton);
+        dropDown.RemoveAll(pickPlayerButton);
+        dropDown.RemoveAll(unpickPlayerButton);
 
         ServerLockIn();
     }
