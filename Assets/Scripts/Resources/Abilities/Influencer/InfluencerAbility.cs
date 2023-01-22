@@ -16,9 +16,7 @@ public class InfluencerAbility : RoleAbility
 
     void ModifyDrawCost(int oldVal, ref int newVal)
     {
-        float change = newVal - oldVal;
-        change *= drawCostMod;
-        newVal = oldVal + Mathf.FloorToInt(change);
+        newVal = Mathf.FloorToInt(newVal * drawCostMod);
     }
 
     void ModifyVoteCost(int oldVal, ref int newVal)
