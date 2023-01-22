@@ -15,9 +15,9 @@ public class TeamLeaderPickPartners : GamePhase
     readonly Dictionary<int, int> partnerPlayerCounts = new Dictionary<int, int>()
     {
         {0,1},
-        {2,2},
-        {6,3},
-        {9,4}
+        {7,2},
+        {9,3},
+        {12,4}
     };
 
     [Tooltip("Number of players that go on the mission with the TeamLeader in this game.")]
