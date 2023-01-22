@@ -59,10 +59,24 @@ public class MissionResultPopup : NetworkBehaviour
             List<Card> played = new();
 
             //Show players on the mission what everyone played. Nobody else gets to see.
-            if (playersOnMission.Value.Contains(ply)) played = playedCards;
+            if (ShouldShowContributions(ply)) played = playedCards;
 
             CreatePopup(ply.Connection, "", played, currentMission, cardsTotal, missionDifficulty);
         });
+    }
+
+    /// <summary>
+    /// Returns true if a the specified player should be able to see the cards that were played
+    /// </summary>
+    /// <param name="ply"></param>
+    /// <returns></returns>
+    bool ShouldShowContributions(HoLPlayer ply)
+    {
+        if (playerCount <= 4) return false;
+
+        if (playersOnMission.Value.Contains(ply)) return true;
+        return false;
+
     }
 
     [TargetRpc]
@@ -78,7 +92,7 @@ public class MissionResultPopup : NetworkBehaviour
             cardResultsText += contributions[i].Value.ToString();
         }
 
-        if (!isOnMission) cardResultsText = "??";
+        if (contributions.Count == 0) cardResultsText = "??";
 
         rollResults.text = cardResultsText;
 
