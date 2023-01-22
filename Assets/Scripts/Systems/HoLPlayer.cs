@@ -116,6 +116,11 @@ public class HoLPlayer : NetworkBehaviour
 
     private void Awake()
     {
+        ResetValues();
+    }
+
+    public void ResetValues()
+    {
         Team = ScriptableObject.CreateInstance<TeamVariable>();
         Favour = ScriptableObject.CreateInstance<IntVariable>();
         Role = ScriptableObject.CreateInstance<RoleVariable>();

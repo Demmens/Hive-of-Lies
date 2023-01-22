@@ -115,4 +115,11 @@ public class HoLNetworkManager : NetworkManager
         }
         
     }
+
+    public override void OnServerChangeScene(string scene)
+    {
+        if (scene != GameScene) return;
+
+        allPlayers.Value.ForEach(ply => ply.ResetValues());
+    }
 }
