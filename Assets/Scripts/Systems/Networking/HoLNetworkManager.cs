@@ -61,6 +61,7 @@ public class HoLNetworkManager : NetworkManager
 
             ply.PlayerID = (ulong) SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, playersByConnection.Value.Count);
             ply.DisplayName = SteamFriends.GetFriendPersonaName(new CSteamID(ply.PlayerID));
+            ply.gameObject.name = "Player: " + ply.DisplayName;
 
             playersByConnection.Value[conn] = ply;
             alivePlayersByConnection.Value[conn] = ply;
@@ -70,7 +71,7 @@ public class HoLNetworkManager : NetworkManager
             DontDestroyOnLoad(ply.gameObject);
 
             NetworkServer.AddPlayerForConnection(conn, ply.gameObject);
-
+            
             playerJoinedServer?.Invoke(conn);
         }
     }
