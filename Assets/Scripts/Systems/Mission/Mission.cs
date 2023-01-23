@@ -92,6 +92,8 @@ public class Mission : ScriptableObject
         int tiersTriggered = 0;
         int applicableTiers = effects.Count(tier => tier.Applicable(cardsTotal));
 
+        if (applicableTiers == 0) AfterAllEffectsTriggered?.Invoke();
+
         foreach (MissionEffectTier tier in effects)
         {
             if (!tier.Applicable(cardsTotal)) continue;
