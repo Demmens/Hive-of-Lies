@@ -196,7 +196,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc038dd5ca71bad45bd89c3f1c5dc948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
+  PlayerName: {fileID: 8493164326049361370}
   selected: 0
+  listItems: []
   onClicked: {fileID: 11400000, guid: e1db643ebc7f2c5428bd62f8391b0287, type: 2}
 --- !u!114 &8493164326477725224
 MonoBehaviour:
