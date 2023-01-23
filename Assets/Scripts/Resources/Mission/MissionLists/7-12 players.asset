@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38cb838b8c66cdc4dbfc5760c045ee12, type: 3}
-  m_Name: Main Mission list
+  m_Name: 7-12 players
   m_EditorClassIdentifier: 
-  minPlayers: 1
+  minPlayers: 7
   maxPlayers: 12
   list:
   - missions:
