@@ -61,23 +61,29 @@ public class PlayerButtonDropdown : NetworkBehaviour
     [Server]
     public void AfterSetup()
     {
-        List<ulong> loaded = new();
-        serverPlayersLoaded.Value.ForEach(ply => loaded.Add(ply.PlayerID));
-        CreateButtons(loaded);
+        List<ulong> ids = new();
+        List<string> names = new();
+        serverPlayersLoaded.Value.ForEach(ply =>
+        {
+            ids.Add(ply.PlayerID);
+            names.Add(ply.DisplayName);
+        });
+        CreateButtons(ids, names);
     }
 
     [ClientRpc]
-    void CreateButtons(List<ulong> loadedPlayers)
+    void CreateButtons(List<ulong> ids, List<string> names)
     {
-        for (int i = 0; i < loadedPlayers.Count; i++)
+        for (int i = 0; i < ids.Count; i++)
         {
-            ulong id = loadedPlayers[i];
+            ulong id = ids[i];
             if (buttons.TryGetValue(id, out PlayerButton btn)) continue;
 
             GameObject button = Instantiate(playerButton);
             button.transform.SetParent(playerList.transform);
             PlayerButton plButton = button.GetComponent<PlayerButton>();
             plButton.ID = id;
+            plButton.PlayerName.text = names[i];
             buttons.Add(id, plButton);
         }
     }
