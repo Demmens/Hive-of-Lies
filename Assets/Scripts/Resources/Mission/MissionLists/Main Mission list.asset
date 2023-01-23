@@ -45,10 +45,10 @@ MonoBehaviour:
   - missions:
     - mission: {fileID: 11400000, guid: 6ff44ea8a53422a47baadb66718a3b20, type: 2}
       weight: 1
-    - mission: {fileID: 11400000, guid: 00fa2c75a90a8a74c8e5b1e8b65e4403, type: 2}
+    - mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
       weight: 1
     - mission: {fileID: 11400000, guid: dfdfb5caacdd4964db552c64b2480b85, type: 2}
-      weight: 0
+      weight: 1
   - missions:
     - mission: {fileID: 11400000, guid: 011299bff98885147a2ce7d29701c10b, type: 2}
       weight: 10
