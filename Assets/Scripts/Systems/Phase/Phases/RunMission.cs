@@ -28,6 +28,10 @@ public class RunMission : GamePhase
     [Tooltip("Set of all players")]
     [SerializeField] HoLPlayerSet players;
 
+    [SerializeField] HoLPlayerVariable teamLeader;
+
+    [SerializeField] IntVariable playerCount;
+
     [Tooltip("The result of the mission")]
     [SerializeField] MissionResultVariable missionResult;
 
@@ -56,9 +60,10 @@ public class RunMission : GamePhase
         completedMissions.Add(currentMission.Value);
         mission.Active = false;
 
+        teamLeader.Value.Exhaustion++;
         foreach (HoLPlayer ply in players.Value)
         {
-            if (playersOnMission.Value.Contains(ply))
+            if (ShouldExhaust(ply))
             {
                 ply.Exhaustion++;
             }
@@ -68,11 +73,20 @@ public class RunMission : GamePhase
             }
         }
 
+
         missionEnded?.Invoke();
 
         currentMission.Value.AfterAllEffectsTriggered += OnEffectEnded;
         //Trigger all effects
         currentMission.Value.TriggerValidEffects(cardsTotal - missionDifficultyMod);
+    }
+
+    bool ShouldExhaust(HoLPlayer ply)
+    {
+        //In fewer than 6 player games, only the team leader becomes exhausted
+        if (playerCount < 6) return ply == teamLeader;
+
+        return playersOnMission.Value.Contains(ply) || ply == teamLeader;
     }
 
     private void OnEffectEnded()

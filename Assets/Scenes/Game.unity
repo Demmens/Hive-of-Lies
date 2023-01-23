@@ -5745,6 +5745,14 @@ PrefabInstance:
       propertyPath: mission
       value: 
       objectReference: {fileID: 2715650868470174704}
+    - target: {fileID: 8541603504321663892, guid: 08243d548e7d45941aa0345f4999b7f9, type: 3}
+      propertyPath: teamLeader
+      value: 
+      objectReference: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
+    - target: {fileID: 8541603504321663892, guid: 08243d548e7d45941aa0345f4999b7f9, type: 3}
+      propertyPath: playerCount
+      value: 
+      objectReference: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08243d548e7d45941aa0345f4999b7f9, type: 3}
 --- !u!4 &8176540168547121645 stripped
