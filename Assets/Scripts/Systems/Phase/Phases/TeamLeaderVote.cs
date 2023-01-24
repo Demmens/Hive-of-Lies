@@ -177,11 +177,6 @@ public class TeamLeaderVote : GamePhase
         }
         else
         {
-            //All players lose favour when the vote is unsuccessful
-            foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in playersByConnection.Value)
-            {
-                pair.Value.Favour.Value -= 1;
-            }
             //Back to standing for TeamLeader
             voteFailed?.Invoke();
         }
