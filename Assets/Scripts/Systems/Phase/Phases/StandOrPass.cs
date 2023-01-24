@@ -68,6 +68,7 @@ public class StandOrPass : GamePhase
         passedPlayers.Value = new();
         playersOnMission.Value = new();
         totalFavourOfStanding = 0;
+        teamLeader.Value = null;
 
         standOrPassBegin?.Invoke();
     }

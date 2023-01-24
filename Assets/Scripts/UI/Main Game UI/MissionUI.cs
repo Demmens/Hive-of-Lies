@@ -47,7 +47,15 @@ public class MissionUI : NetworkBehaviour
     public override void OnStartServer()
     {
         currentMission.AfterVariableChanged += miss => ChangeMission(miss, missionDifficulty);
-        teamLeader.AfterVariableChanged += ply => OnTeamLeaderDecided(ply.DisplayName);
+        teamLeader.AfterVariableChanged += ply =>
+        {
+            if (ply == null)
+            {
+                OnTeamLeaderDecided("Undecided");
+                return;
+            }
+            OnTeamLeaderDecided(ply.DisplayName);
+        };
         playersSelected.AfterItemAdded += ply => OnTeamLeaderAddPartner(ply.DisplayName, ply.PlayerID);
         playersSelected.AfterItemRemoved += ply => OnTeamLeaderRemovePartner(ply.DisplayName, ply.PlayerID);
     }
@@ -95,7 +103,8 @@ public class MissionUI : NetworkBehaviour
     [ClientRpc]
     public void StandOrPassBegin()
     {
-        missionPlayerList.text = "Undecided";
+        pickedPlayers = new();
+        RemakePlayerList();
     }
 
     /// <summary>
@@ -141,5 +150,7 @@ public class MissionUI : NetworkBehaviour
             if (i == pickedPlayers.Count - 1) continue;
             missionPlayerList.text += "\n";
         }
+
+        if (missionPlayerList.text == "") missionPlayerList.text = "Undecided";
     }
 }
