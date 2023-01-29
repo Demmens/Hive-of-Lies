@@ -22,10 +22,5 @@ public class RoleAbility : NetworkBehaviour
     [HideInInspector]
     public HoLPlayer Owner;
 
-    /// <summary>
-    /// The network connection associated with the owner of this ability
-    /// </summary>
-    public NetworkConnection OwnerConnection;
-
     #endregion
 }
