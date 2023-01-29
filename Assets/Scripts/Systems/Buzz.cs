@@ -150,7 +150,6 @@ public class Buzz : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void PlayerClicked(ulong id, NetworkConnectionToClient conn = null)
     {
-        Debug.Log("Player Clicked");
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
         if (ply != currentBuzzer) return;
 
