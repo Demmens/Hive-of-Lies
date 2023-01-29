@@ -13,7 +13,6 @@ public class Buzz : NetworkBehaviour
     [SerializeField] GameObject buzzVotes;
     [SerializeField] TMPro.TMP_Text playersBuzzedText;
 
-    [SerializeField] GameObject VoteResultPopup;
     List<GameObject> buzzButtons = new();
 
     [SerializeField] GameObject submitButton;
@@ -174,7 +173,7 @@ public class Buzz : NetworkBehaviour
 
         if (ply.Team == Team.Bee) beesInBuzz++;
 
-        if (selectedPlayers.Count == waspPlayers.Value.Count) submitButton.SetActive(true);
+        if (selectedPlayers.Count == waspPlayers.Value.Count) SetSubmitActive(currentBuzzer.Connection, true);
     }
 
     [Server]
@@ -185,7 +184,13 @@ public class Buzz : NetworkBehaviour
 
         if (ply.Team == Team.Bee) beesInBuzz--;
 
-        if (selectedPlayers.Count == waspPlayers.Value.Count - 1) submitButton.SetActive(false);
+        if (selectedPlayers.Count == waspPlayers.Value.Count - 1) SetSubmitActive(currentBuzzer.Connection, false);
+    }
+
+    [TargetRpc]
+    void SetSubmitActive(NetworkConnection conn, bool active)
+    {
+        submitButton.SetActive(active);
     }
 
     [Server]
@@ -234,7 +239,6 @@ public class Buzz : NetworkBehaviour
     [Server]
     bool CanVote(HoLPlayer ply)
     {
-        return true;
         //Current buzzer does not get to vote (assumed that they vote yes) to prevent time-wasting buzzes
         if (ply == currentBuzzer) return false;
 
