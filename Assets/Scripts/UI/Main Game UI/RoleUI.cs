@@ -90,8 +90,10 @@ public class RoleUI : NetworkBehaviour
         GameObject abilityObject = Instantiate(data.Ability);
         RoleAbility ability = abilityObject.GetComponent<RoleAbility>();
         ability.Owner = ply;
-        NetworkServer.Spawn(ability.gameObject, conn);
+        NetworkServer.Spawn(abilityObject, conn);
         ply.Favour.Value = data.StartingFavour;
+
+        ability.OnRoleGiven();
 
         Role role = new()
         {

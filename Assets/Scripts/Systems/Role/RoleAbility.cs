@@ -23,4 +23,6 @@ public class RoleAbility : NetworkBehaviour
     public HoLPlayer Owner;
 
     #endregion
+
+    public virtual void OnRoleGiven() { }
 }
