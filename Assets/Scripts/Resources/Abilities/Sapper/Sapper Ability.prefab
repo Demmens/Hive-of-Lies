@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: -559875826137024563}
   - component: {fileID: 4423915965264662964}
   - component: {fileID: 4115939710640907291}
-  - component: {fileID: 1068058073753959441}
   m_Layer: 0
   m_Name: Sapper Ability
   m_TagString: Untagged
@@ -94,35 +93,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: SapperAbility, Assembly-CSharp
         m_MethodName: PlayerChosen
         m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1068058073753959441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2570528568398496050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Events:
-  - {fileID: 11400000, guid: 043b4861c64dcae45ab6222f65a8b680, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4423915965264662964}
-        m_TargetAssemblyTypeName: SapperAbility, Assembly-CSharp
-        m_MethodName: AfterDeckCreated
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
