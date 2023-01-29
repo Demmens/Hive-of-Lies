@@ -58,8 +58,6 @@ public class StandOrPass : GamePhase
 
     [Tooltip("Invoked if nobody stands for the position of team leader.")]
     [SerializeField] GameEvent onNobodyStood;
-
-    private int missionEffectsTriggered = 0;
     #endregion
 
     public override void Begin()
