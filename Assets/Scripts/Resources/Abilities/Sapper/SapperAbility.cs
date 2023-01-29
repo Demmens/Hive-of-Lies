@@ -19,7 +19,13 @@ public class SapperAbility : RoleAbility
     [SyncVar] bool playerChosen = false;
     #endregion
 
-    public override void OnStartAuthority()
+    public override void OnRoleGiven()
+    {
+        CreatePopup(Owner.Connection);
+    }
+
+    [TargetRpc]
+    public void CreatePopup(NetworkConnection conn)
     {
         GameObject pop = Instantiate(popup);
         pop.GetComponent<Notification>().SetText("Choose a player. Shuffle a bomb into that players deck.");
@@ -28,7 +34,6 @@ public class SapperAbility : RoleAbility
     [Client]
     public void PlayerChosen(ulong player)
     {
-        if (!hasAuthority) return;
         if (playerChosen) return;
         
         ServerPlayerChosen(player);
