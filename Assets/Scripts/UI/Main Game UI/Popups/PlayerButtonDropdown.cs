@@ -37,10 +37,14 @@ public class PlayerButtonDropdown : NetworkBehaviour
         CloseDropdown();
     }
 
-    [Client]
     public override void OnStartServer()
     {
         serverPlayersLoaded.AfterItemRemoved += PlayerDied;
+
+        serverPlayersLoaded.Value.ForEach(ply =>
+        {
+            ply.Exhaustion.AfterVariableChanged += ex => PlayerExhaustionChanged(ply.PlayerID, ex);
+        });
     }
 
     [Client]
@@ -50,24 +54,32 @@ public class PlayerButtonDropdown : NetworkBehaviour
     }
 
     [Client]
-    public void MouseEnter() {
+    public void MouseEnter() 
+    {
         isMouseOver = true;
     }
+
     [Client]
-    public void MouseExit() {
+    public void MouseExit() 
+    {
         isMouseOver = false; 
     }
 
     [Server]
     public void AfterSetup()
     {
-        List<ulong> loaded = new();
-        serverPlayersLoaded.Value.ForEach(ply => loaded.Add(ply.PlayerID));
-        CreateButtons(loaded);
+        List<ulong> plyIDs = new();
+        List<string> plyNames = new();
+        serverPlayersLoaded.Value.ForEach(ply => 
+        {
+            plyIDs.Add(ply.PlayerID);
+            plyNames.Add(ply.DisplayName);
+        });
+        CreateButtons(plyIDs, plyNames);
     }
 
     [ClientRpc]
-    void CreateButtons(List<ulong> loadedPlayers)
+    void CreateButtons(List<ulong> loadedPlayers, List<string> playerNames)
     {
         for (int i = 0; i < loadedPlayers.Count; i++)
         {
@@ -78,6 +90,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
             button.transform.SetParent(playerList.transform);
             PlayerButton plButton = button.GetComponent<PlayerButton>();
             plButton.ID = id;
+            plButton.PlayerName = playerNames[i];
             buttons.Add(id, plButton);
         }
     }
@@ -86,6 +99,13 @@ public class PlayerButtonDropdown : NetworkBehaviour
     void PlayerDied(HoLPlayer ply)
     {
         ClientPlayerDied(ply.PlayerID);
+    }
+
+    [ClientRpc]
+    void PlayerExhaustionChanged(ulong id, int exhaustion)
+    {
+        if (!buttons.TryGetValue(id, out PlayerButton button)) return;
+        button.ChangeExhaustion(exhaustion);
     }
 
     [ClientRpc]
