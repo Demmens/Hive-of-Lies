@@ -108,7 +108,7 @@ public class Buzz : NetworkBehaviour
         alivePlayers.Value.ForEach(pl =>
         {
             //Don't create a button for the player buzzing
-            if (/*pl != ply*/ true)
+            if (pl != ply)
             {
                 plyIds.Add(pl.PlayerID);
                 plyNames.Add(pl.DisplayName);
@@ -174,10 +174,7 @@ public class Buzz : NetworkBehaviour
 
         if (ply.Team == Team.Bee) beesInBuzz++;
 
-        if (selectedPlayers.Count < waspPlayers.Value.Count) return;
-
-        submitButton.SetActive(true);
-        buzzButtons.ForEach(button => button.SetActive(false));
+        if (selectedPlayers.Count == waspPlayers.Value.Count) submitButton.SetActive(true);
     }
 
     [Server]
@@ -188,10 +185,7 @@ public class Buzz : NetworkBehaviour
 
         if (ply.Team == Team.Bee) beesInBuzz--;
 
-        if (selectedPlayers.Count < waspPlayers.Value.Count - 1) return;
-
-        submitButton.SetActive(false);
-        buzzButtons.ForEach(button => button.SetActive(true));
+        if (selectedPlayers.Count == waspPlayers.Value.Count - 1) submitButton.SetActive(false);
     }
 
     [Server]
