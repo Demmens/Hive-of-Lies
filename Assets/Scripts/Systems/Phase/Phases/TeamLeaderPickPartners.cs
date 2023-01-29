@@ -16,8 +16,7 @@ public class TeamLeaderPickPartners : GamePhase
     {
         {0,1},
         {7,2},
-        {9,3},
-        {12,4}
+        {10,3},
     };
 
     [Tooltip("Number of players that go on the mission with the TeamLeader in this game.")]
