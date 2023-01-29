@@ -10,12 +10,6 @@ public class RunMission : GamePhase
     /// </summary>
     [SerializeField] MissionType mission;
 
-    public delegate void MissionEnded(MissionResult result);
-    /// <summary>
-    /// Invoked when the mission ends.
-    /// </summary>
-    public event MissionEnded OnMissionEnd;
-
     [Tooltip("The currently active mission")]
     [SerializeField] MissionVariable currentMission;
 
