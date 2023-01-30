@@ -14,7 +14,7 @@ public abstract class Variable<T> : ScriptableObject
     [SerializeField] private T currentValue;
 
     [Tooltip("Whether this variable should persist through scene changes")]
-    public bool Persistent;
+    public bool Persistent = true;
 
     [Space]
     [Space]
