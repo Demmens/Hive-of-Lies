@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
 using Steamworks;
+using System.Reflection;
 using UnityEngine.Events;
 
 public class HoLNetworkManager : NetworkManager
@@ -120,5 +121,19 @@ public class HoLNetworkManager : NetworkManager
         if (scene != GameScene) return;
 
         allPlayers.Value.ForEach(ply => ply.ResetValues());
+
+        Object[] variables = Resources.LoadAll("Variables");
+
+        for (int i = 0; i < variables.Length; i++)
+        {
+            Debug.Log($"Name: {variables[i].name}, Type: {variables[i].GetType()}");
+            System.Type variableType = variables[i].GetType();
+            FieldInfo info = variableType.GetField(nameof(Variable<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
+            object isPersistent = info.GetValue(variables[i]);
+
+            if ((bool) isPersistent) continue;
+
+            variableType.GetMethod(nameof(Variable<int>.OnEnable)).Invoke(variables[i], new object[] { });
+        }
     }
 }

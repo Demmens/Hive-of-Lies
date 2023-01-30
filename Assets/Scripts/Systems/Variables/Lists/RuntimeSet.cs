@@ -22,6 +22,9 @@ public abstract class RuntimeSet<T> : ScriptableObject
     [Tooltip("Should this variable be accessible on clients")]
     [SerializeField] private bool client;
 
+    [Tooltip("Whether this variable should persist through scene changes")]
+    public bool Persistent;
+
     [Space]
     [Space]
 
@@ -72,6 +75,15 @@ public abstract class RuntimeSet<T> : ScriptableObject
         BeforeItemRemoved?.Invoke(item);
         currentValue.Remove(item);
         AfterItemRemoved?.Invoke(item);
+    }
+
+    public void OnEnable()
+    {
+        BeforeItemAdded = null;
+        AfterItemAdded = null;
+        BeforeItemRemoved = null;
+        AfterItemRemoved = null;
+        OnValidate();
     }
 
     private void OnValidate()
