@@ -34,7 +34,7 @@ public class InvestigatePlayer : MissionEffect
         Debug.Log("Effect triggered");
         //If there's no team leader, quit early
         if (teamLeader.Value == null) EndEffect();
-        teamLeader.Value.Connection.Send(new InvestigateEffectTriggeredMsg() { });
+        teamLeader.Value.connectionToClient.Send(new InvestigateEffectTriggeredMsg() { });
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public class InvestigatePlayer : MissionEffect
         {
             if (ply.PlayerID == msg.playerID)
             {
-                teamLeader.Value.Connection.Send(new InvestigateResultMsg()
+                teamLeader.Value.connectionToClient.Send(new InvestigateResultMsg()
                 {
                     team = ply.Team,
                     playerName = ply.DisplayName,
@@ -62,7 +62,7 @@ public class InvestigatePlayer : MissionEffect
     [Server]
     private void ClientClosedPopup(NetworkConnection conn, ClosedInvestigatePopupMsg msg)
     {
-        if (conn != teamLeader.Value.Connection) return;
+        if (conn != teamLeader.Value.connectionToClient) return;
         //Only continue with the game when the team leader has closed the result popup
         EndEffect();
 

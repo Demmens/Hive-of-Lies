@@ -61,7 +61,7 @@ public class MissionResultPopup : NetworkBehaviour
             //Show players on the mission what everyone played. Nobody else gets to see.
             if (ShouldShowContributions(ply)) played = playedCards;
 
-            CreatePopup(ply.Connection, "", played, currentMission, cardsTotal, missionDifficulty);
+            CreatePopup(ply.connectionToClient, "", played, currentMission, cardsTotal, missionDifficulty);
         });
     }
 

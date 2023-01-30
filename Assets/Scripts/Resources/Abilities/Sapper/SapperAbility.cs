@@ -21,7 +21,7 @@ public class SapperAbility : RoleAbility
 
     public override void OnRoleGiven()
     {
-        CreatePopup(Owner.Connection);
+        CreatePopup(Owner.connectionToClient);
     }
 
     [TargetRpc]
@@ -64,7 +64,7 @@ public class SapperAbility : RoleAbility
         deck.DrawPile.Add(bomb);
         deck.Shuffle();
 
-        DisplayBombMessage(chosenPlayer.Connection);
+        DisplayBombMessage(chosenPlayer.connectionToClient);
         if (chosenPlayer != Owner) DisplayBombMessageToOwner(chosenPlayer.DisplayName);
     }
 

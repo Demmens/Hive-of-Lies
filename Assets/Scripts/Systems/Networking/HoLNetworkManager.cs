@@ -57,7 +57,6 @@ public class HoLNetworkManager : NetworkManager
         if (SceneManager.GetActiveScene().path == LobbyScene)
         {
             HoLPlayer ply = Instantiate(GamePlayerPrefab);
-            ply.Connection = conn;
 
             ply.PlayerID = (ulong) SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, playersByConnection.Value.Count);
             ply.DisplayName = SteamFriends.GetFriendPersonaName(new CSteamID(ply.PlayerID));
@@ -105,7 +104,7 @@ public class HoLNetworkManager : NetworkManager
                     alivePlayersByConnection.Value = new();
                     foreach(HoLPlayer ply in allPlayers.Value)
                     {
-                        alivePlayersByConnection.Value[ply.Connection] = ply;
+                        alivePlayersByConnection.Value[ply.connectionToClient] = ply;
                     }
                     allPlayersLoaded.Invoke();
                     //For if we want to reset the game

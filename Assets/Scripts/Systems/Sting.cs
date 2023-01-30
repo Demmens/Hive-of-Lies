@@ -48,7 +48,7 @@ public class Sting : NetworkBehaviour
             //This is only here for debugging purposes
             if (beePlayers.Value.Count == 0) ply.Target.Value = waspPlayers.Value.GetRandom(); 
             RoleData role = ply.Target.Value.Role.Value.Data;
-            SetClientTarget(ply.Connection, role.RoleName, role.Description);
+            SetClientTarget(ply.connectionToClient, role.RoleName, role.Description);
         });    
     }
 
@@ -108,16 +108,16 @@ public class Sting : NetworkBehaviour
     void StingIncorrect(HoLPlayer ply)
     {
         alivePlayers.Remove(ply);
-        playersByConnection.Value.Remove(ply.Connection);
+        playersByConnection.Value.Remove(ply.connectionToClient);
         ply.IsAlive.Value = false;
         playerCount--;
-        ClientStingIncorrect(ply.Connection);
+        ClientStingIncorrect(ply.connectionToClient);
     }
 
     [Server]
     void StingCorrect(HoLPlayer ply)
     {
-        playerWins?.Invoke(ply.Connection);
+        playerWins?.Invoke(ply.connectionToClient);
     }
 
     [TargetRpc]

@@ -20,11 +20,6 @@ public class HoLPlayer : NetworkBehaviour
     /// Returns true on the client that is represented by this object.
     /// </summary>
     public bool LocalPlayer => hasAuthority && NetworkClient.active;
-
-    /// <summary>
-    /// The NetworkConnection associated with this player
-    /// </summary>
-    public NetworkConnection Connection;
     #endregion
 
     #region Gameplay
@@ -136,11 +131,11 @@ public class HoLPlayer : NetworkBehaviour
         IsAlive.Value = true;
         Deck.Value = new();
 
-        Favour.AfterVariableChanged += change => OnFavourChanged?.Invoke(Connection, change);
+        Favour.AfterVariableChanged += change => OnFavourChanged?.Invoke(connectionToClient, change);
         Favour.OnVariableChanged += (int oldVal, ref int newVal) => newVal = Mathf.Max(0, newVal);
-        NextUpvoteCost.AfterVariableChanged += change => OnUpvoteCostChanged?.Invoke(Connection, change);
-        NextDownvoteCost.AfterVariableChanged += change => OnDownvoteCostChanged?.Invoke(Connection, change);
-        NumVotes.AfterVariableChanged += change => OnNumVotesChanged?.Invoke(Connection, change);
+        NextUpvoteCost.AfterVariableChanged += change => OnUpvoteCostChanged?.Invoke(connectionToClient, change);
+        NextDownvoteCost.AfterVariableChanged += change => OnDownvoteCostChanged?.Invoke(connectionToClient, change);
+        NumVotes.AfterVariableChanged += change => OnNumVotesChanged?.Invoke(connectionToClient, change);
     }
 }
 

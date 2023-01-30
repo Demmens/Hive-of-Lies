@@ -42,8 +42,8 @@ public class CardMissionUI : NetworkBehaviour
     {
         allPlayers.Value.ForEach(ply => 
         {
-            ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.Connection, card.TempValue);
-            ply.NextDrawCost.AfterVariableChanged += val => OnDrawCostChanged(ply.Connection, val);
+            ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.connectionToClient, card.TempValue);
+            ply.NextDrawCost.AfterVariableChanged += val => OnDrawCostChanged(ply.connectionToClient, val);
         });
     }
 

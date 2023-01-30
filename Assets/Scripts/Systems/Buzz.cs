@@ -114,7 +114,7 @@ public class Buzz : NetworkBehaviour
             }
         });
         ActivateBuzz();
-        ActivateBuzzButtons(ply.Connection, plyIds, plyNames);
+        ActivateBuzzButtons(ply.connectionToClient, plyIds, plyNames);
     }
 
     /// <summary>
@@ -173,7 +173,7 @@ public class Buzz : NetworkBehaviour
 
         if (ply.Team == Team.Bee) beesInBuzz++;
 
-        if (selectedPlayers.Count == waspPlayers.Value.Count) SetSubmitActive(currentBuzzer.Connection, true);
+        if (selectedPlayers.Count == waspPlayers.Value.Count) SetSubmitActive(currentBuzzer.connectionToClient, true);
     }
 
     [Server]
@@ -184,7 +184,7 @@ public class Buzz : NetworkBehaviour
 
         if (ply.Team == Team.Bee) beesInBuzz--;
 
-        if (selectedPlayers.Count == waspPlayers.Value.Count - 1) SetSubmitActive(currentBuzzer.Connection, false);
+        if (selectedPlayers.Count == waspPlayers.Value.Count - 1) SetSubmitActive(currentBuzzer.connectionToClient, false);
     }
 
     [TargetRpc]
@@ -227,7 +227,7 @@ public class Buzz : NetworkBehaviour
             if (!CanVote(pl)) return;
             maxVotes++;
             //All other players get to vote
-            ShowVoteButtons(pl.Connection);
+            ShowVoteButtons(pl.connectionToClient);
         }
     }
 

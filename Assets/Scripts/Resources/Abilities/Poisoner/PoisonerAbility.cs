@@ -40,7 +40,7 @@ public class PoisonerAbility : RoleAbility
     [Command(requiresAuthority = false)]
     public void OnPoison(NetworkConnectionToClient conn = null)
     {
-        if (conn != Owner.Connection) return;
+        if (conn != Owner.connectionToClient) return;
         if (cost > Owner.Favour.Value) return;
 
         Owner.Favour.Value -= cost;

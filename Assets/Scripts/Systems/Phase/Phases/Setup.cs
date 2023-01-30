@@ -109,7 +109,7 @@ public class Setup : GamePhase
                 beePlayers.Add(ply);
             }
 
-            DisplayTeamPopup(ply.Connection, ply.Team);
+            DisplayTeamPopup(ply.connectionToClient, ply.Team);
         });
     }
 

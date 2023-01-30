@@ -25,7 +25,7 @@ public class TeamLeaderPopup : NetworkBehaviour
         teamLeader.AfterVariableChanged += leader =>
         {
             if (leader == null) return;
-            SetTeamLeader(leader.Connection);
+            SetTeamLeader(leader.connectionToClient);
         };
         teamLeader.AfterVariableChanged += leader =>
         {

@@ -45,7 +45,7 @@ public class ClientSelectPartners : NetworkBehaviour
     [Server]
     public void TeamLeaderCanPick()
     {
-        CanStartPicking(teamLeader.Value.Connection, numPartners);
+        CanStartPicking(teamLeader.Value.connectionToClient, numPartners);
     }
 
     [TargetRpc]
@@ -76,7 +76,7 @@ public class ClientSelectPartners : NetworkBehaviour
     void ServerAddPlayer(ulong player, NetworkConnectionToClient conn = null)
     {
         //Ignore if called by a player that isn't the team leader
-        if (conn != teamLeader.Value.Connection) return;
+        if (conn != teamLeader.Value.connectionToClient) return;
 
         if (playersSelected.Value.Count >= numPartners) return;
 
@@ -114,7 +114,7 @@ public class ClientSelectPartners : NetworkBehaviour
     void ServerRemovePlayer(ulong player, NetworkConnectionToClient conn = null)
     {
         //Ignore if called by a player that isn't the team leader
-        if (conn != teamLeader.Value.Connection) return;
+        if (conn != teamLeader.Value.connectionToClient) return;
 
         allPlayers.Value.ForEach(ply =>
         {
@@ -139,7 +139,7 @@ public class ClientSelectPartners : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void ServerLockIn(NetworkConnectionToClient conn = null)
     {
-        if (conn != teamLeader.Value.Connection) return;
+        if (conn != teamLeader.Value.connectionToClient) return;
 
         onTeamLeaderLockedIn?.Invoke();
     }

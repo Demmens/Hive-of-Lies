@@ -27,7 +27,7 @@ public class LobbyController : NetworkBehaviour
     {
         allPlayers.Value.ForEach(ply =>
         {
-            CreateClientPlayerItem(ply.DisplayName, ply.Connection.connectionId, ply.PlayerID);
+            CreateClientPlayerItem(ply.DisplayName, ply.connectionToClient.connectionId, ply.PlayerID);
         });
         UpdateLobbyName();
     }
