@@ -23,7 +23,7 @@ public abstract class RuntimeSet<T> : ScriptableObject
     [SerializeField] private bool client;
 
     [Tooltip("Whether this variable should persist through scene changes")]
-    public bool Persistent;
+    public bool Persistent = true;
 
     [Space]
     [Space]
