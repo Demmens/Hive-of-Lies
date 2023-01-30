@@ -16,4 +16,5 @@ MonoBehaviour:
   currentValue: []
   server: 1
   client: 0
+  Persistent: 0
   tooltip: The set of all missions that have been succeeded this game

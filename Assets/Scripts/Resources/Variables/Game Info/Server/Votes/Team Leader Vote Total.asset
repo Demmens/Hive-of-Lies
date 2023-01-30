@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: 0
   currentValue: 0
+  Persistent: 0
   server: 1
   client: 0
   tooltip: The amount of votes the team leader has received so far (counting downvotes

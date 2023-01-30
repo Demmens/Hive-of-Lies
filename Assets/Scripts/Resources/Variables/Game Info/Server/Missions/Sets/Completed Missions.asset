@@ -16,4 +16,5 @@ MonoBehaviour:
   currentValue: []
   server: 1
   client: 0
+  Persistent: 0
   tooltip: The set of all completed missions regardless of result

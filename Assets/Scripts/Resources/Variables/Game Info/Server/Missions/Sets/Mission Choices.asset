@@ -16,4 +16,5 @@ MonoBehaviour:
   currentValue: []
   server: 1
   client: 0
+  Persistent: 0
   tooltip: The missions the players are currently choosing between

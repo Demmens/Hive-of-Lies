@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: 2
   currentValue: 2
+  Persistent: 0
   server: 1
   client: 0
   tooltip: How much the value of your cards is reduced by when you have recently
