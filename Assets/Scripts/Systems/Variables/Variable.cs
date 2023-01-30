@@ -13,6 +13,9 @@ public abstract class Variable<T> : ScriptableObject
     [Tooltip("The current value of this variable")]
     [SerializeField] private T currentValue;
 
+    [Tooltip("Whether this variable should persist through scene changes")]
+    public bool Persistent;
+
     [Space]
     [Space]
 
@@ -69,6 +72,8 @@ public abstract class Variable<T> : ScriptableObject
     {
         //Set currentValue to bypass all the code that runs from setting Value
         currentValue = initialValue;
+        OnVariableChanged = null;
+        AfterVariableChanged = null;
     }
 
     public void OnValidate()
