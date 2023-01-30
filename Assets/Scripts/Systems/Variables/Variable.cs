@@ -70,14 +70,25 @@ public abstract class Variable<T> : ScriptableObject
 
     public void OnEnable()
     {
+        if (Persistent) return;
         //Set currentValue to bypass all the code that runs from setting Value
         currentValue = initialValue;
-        OnVariableChanged = null;
-        AfterVariableChanged = null;
+        
+        if (OnVariableChanged == null) return;
+
+        foreach (System.Delegate d in OnVariableChanged.GetInvocationList())
+        {
+            OnVariableChanged -= (VariableChanged) d;
+        }
+        foreach (System.Delegate d in AfterVariableChanged.GetInvocationList())
+        {
+            AfterVariableChanged -= (System.Action<T>) d;
+        }
     }
 
     public void OnValidate()
     {
-        AfterVariableChanged?.Invoke(currentValue);
+        if (Application.isPlaying) AfterVariableChanged?.Invoke(currentValue);
+        else currentValue = initialValue;
     }
 }

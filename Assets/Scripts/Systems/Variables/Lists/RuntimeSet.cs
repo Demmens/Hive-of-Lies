@@ -79,10 +79,25 @@ public abstract class RuntimeSet<T> : ScriptableObject
 
     public void OnEnable()
     {
-        BeforeItemAdded = null;
-        AfterItemAdded = null;
-        BeforeItemRemoved = null;
-        AfterItemRemoved = null;
+        if (Persistent) return;
+
+        if (BeforeItemAdded == null) return;
+        foreach (System.Delegate d in BeforeItemAdded.GetInvocationList())
+        {
+            BeforeItemAdded -= (ListChanged) d;
+        }
+        foreach (System.Delegate d in AfterItemAdded.GetInvocationList())
+        {
+            AfterItemAdded -= (ListChanged) d;
+        }
+        foreach (System.Delegate d in BeforeItemRemoved.GetInvocationList())
+        {
+            BeforeItemRemoved -= (ListChanged)d;
+        }
+        foreach (System.Delegate d in AfterItemRemoved.GetInvocationList())
+        {
+            AfterItemRemoved -= (ListChanged)d;
+        }
         OnValidate();
     }
 
