@@ -128,10 +128,14 @@ public class HoLNetworkManager : NetworkManager
         {
             Debug.Log($"Name: {variables[i].name}, Type: {variables[i].GetType()}");
             System.Type variableType = variables[i].GetType();
-            FieldInfo info = variableType.GetField(nameof(Variable<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
-            object isPersistent = info.GetValue(variables[i]);
+            FieldInfo info = null;
 
-            if ((bool) isPersistent) continue;
+            if (typeof(Variable<>).IsAssignableFrom(variableType)) info = variableType.GetField(nameof(Variable<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
+            else info = variableType.GetField(nameof(RuntimeSet<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
+
+            bool isPersistent = (bool) info.GetValue(variables[i]);
+
+            if (isPersistent) continue;
 
             variableType.GetMethod(nameof(Variable<int>.OnEnable)).Invoke(variables[i], new object[] { });
         }
