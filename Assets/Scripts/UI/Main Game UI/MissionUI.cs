@@ -83,6 +83,7 @@ public class MissionUI : NetworkBehaviour
     [ClientRpc]
     void ChangeMission(Mission mission, int difficultyMod)
     {
+        if (mission == null) return;
         pickedPlayers = new();
         missionUI.SetActive(true);
         missionName.text = mission.MissionName;
