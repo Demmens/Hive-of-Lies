@@ -24,5 +24,8 @@ public class RoleAbility : NetworkBehaviour
 
     #endregion
 
+    /// <summary>
+    /// Called when the player is given this role at the start of the game
+    /// </summary>
     public virtual void OnRoleGiven() { }
 }
