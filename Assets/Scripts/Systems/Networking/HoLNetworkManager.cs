@@ -126,7 +126,6 @@ public class HoLNetworkManager : NetworkManager
 
         for (int i = 0; i < variables.Length; i++)
         {
-            Debug.Log($"Name: {variables[i].name}, Type: {variables[i].GetType()}");
             System.Type variableType = variables[i].GetType();
             FieldInfo info = null;
 
