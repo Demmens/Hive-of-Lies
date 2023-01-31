@@ -131,13 +131,14 @@ public class Setup : GamePhase
             for (int i = 0; i < roles.Count; i++)
             {
                 RoleData role = roles[i];
-                if (role.Team == ply.Team && role.Enabled)
-                {
-                    ply.RoleChoices.Add(role);
-                    roles.Remove(role);
-                    i--;
-                    if (ply.RoleChoices.Count == choices) break;
-                }
+                if (role.Team != ply.Team) continue;
+                if (!role.Enabled) continue;
+                if (role.PlayersRequired > playerCount) continue;
+
+                ply.RoleChoices.Add(role);
+                roles.Remove(role);
+                i--;
+                if (ply.RoleChoices.Count == choices) break;
             }
         }
     }
