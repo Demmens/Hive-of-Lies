@@ -36,6 +36,16 @@ public class Deck
     public delegate void DrawDelegate(ref Card card);
 
     /// <summary>
+    /// Invoked when a card is played
+    /// </summary>
+    public event System.Action<Card> AfterPlay;
+
+    /// <summary>
+    /// Invoked when a card in the hand changes its value
+    /// </summary>
+    public event System.Action<int> HandCardValueChanged;
+
+    /// <summary>
     /// Add a card to the deck
     /// </summary>
     public void Add(Card card)
@@ -110,6 +120,8 @@ public class Deck
 
             Hand.Add(card);
 
+            card.OnValueChanged += (val) => HandCardValueChanged?.Invoke(val);
+
             if (DrawPile.Contains(card)) DrawPile.Remove(card);
 
             OnDraw?.Invoke(card);
@@ -128,7 +140,7 @@ public class Deck
 
         card.DiscardEffects.ForEach(effect => effect());
         card.TempValue = card.Value;
-
+        card.OnValueChanged -= (val) => HandCardValueChanged?.Invoke(val);
         DiscardPile.Add(card);
         Hand.Remove(card);
     }
@@ -146,6 +158,7 @@ public class Deck
         Played.Add(card);
         card.PlayEffects.ForEach(effect => effect());
         Hand.Remove(card);
+        AfterPlay?.Invoke(card);
         return card;
     }
 

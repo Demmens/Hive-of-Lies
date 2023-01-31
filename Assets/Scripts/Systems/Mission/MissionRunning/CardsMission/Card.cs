@@ -13,10 +13,23 @@ public class Card
     /// Value of the card when played
     /// </summary>
     public int Value;
+
+    private int tempValue;
     /// <summary>
     /// The value of the card after all modifiers are applied. Resets back to the default value when discarded.
     /// </summary>
-    public int TempValue;
+    public int TempValue
+    {
+        get
+        {
+            return tempValue;
+        }
+        set
+        {
+            tempValue = value;
+            OnValueChanged?.Invoke(value);
+        }
+    }
 
     /// <summary>
     /// Whether this card should be destroyed once it has been played
@@ -42,6 +55,8 @@ public class Card
     /// Delegates to run when the card is discarded
     /// </summary>
     public List<Action> DiscardEffects = new List<Action>();
+
+    public event Action<int> OnValueChanged;
  
 
     public Card(int value)
