@@ -43,8 +43,6 @@ public class Setup : GamePhase
     [Tooltip("Invoked when all the setup logic is completed")]
     [SerializeField] GameEvent setupFinished;
 
-    [SerializeField] List<IntVariable> intVariablesToReset;
-
     [SerializeField] GameObject teamPopup;
 
     /// <summary>
@@ -64,7 +62,6 @@ public class Setup : GamePhase
     [Server]
     public void BeginSetup()
     {
-        intVariablesToReset.ForEach(var => var.OnEnable());
         Debug.Log("All players have entered the game. Beginning setup.");
 
         Roles.Shuffle();
