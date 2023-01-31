@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
-  m_Name: Fixer
+  m_Name: Saboteur
   m_EditorClassIdentifier: 
-  roleName: Fixer
-  description: '2 favour: Add 1 to the value of your currently held card for this
-    mission. Repeatable.'
+  roleName: Saboteur
+  description: '1 favour: Minus 1 from the value of your currently held card for
+    this mission. Repeatable.'
   sprite: 
   startingFavour: 10
   startingDeck: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
-  team: 1
+  team: 2
   playersRequired: 0
-  ability: {fileID: 6625753491725769877, guid: 1b5c602327a098546a71dfca9bab631b, type: 3}
+  ability: {fileID: 6625753491725769877, guid: d168147dbf3d50445a02888ba4986e4b, type: 3}
   enabled: 1

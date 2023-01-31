@@ -13,6 +13,7 @@ public class FixerAbility : RoleAbility
     [SerializeField] GameObject buttonPrefab;
     private GameObject button;
     [SerializeField] IntVariable favour;
+    [SerializeField] string buttonText;
     #endregion
     #region SHARED
     [SerializeField] int cost;
@@ -52,8 +53,8 @@ public class FixerAbility : RoleAbility
         button.SetActive(false);
         GenericButton btn = button.GetComponent<GenericButton>();
         btn.OnClicked += ClickedButton;
-        btn.SetText($"{cost}f: Increase Card Value");
-        btn.SetPos(new Vector3(Screen.width / 3, 80, 0));
+        btn.SetText($"{cost}f: {buttonText}");
+        btn.SetPos(new Vector3(2 * Screen.width / 3, 70, 0));
     }
 
     [Client]
