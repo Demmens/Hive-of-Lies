@@ -88,7 +88,9 @@ public abstract class Variable<T> : ScriptableObject
 
     public void OnValidate()
     {
-        if (Application.isPlaying) AfterVariableChanged?.Invoke(currentValue);
-        else currentValue = initialValue;
+        #if UNITY_EDITOR
+            if (Application.isPlaying) UnityEditor.EditorApplication.delayCall += () => AfterVariableChanged?.Invoke(currentValue);
+            else currentValue = initialValue;
+        #endif
     }
 }
