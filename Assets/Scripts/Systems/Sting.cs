@@ -42,14 +42,24 @@ public class Sting : NetworkBehaviour
     [Server]
     public void AfterRolesChosen()
     {
-        waspPlayers.Value.ForEach(ply =>
+        foreach (HoLPlayer ply in waspPlayers.Value)
         {
-            ply.Target.Value = beePlayers.Value.GetRandom();
-            //This is only here for debugging purposes
-            if (beePlayers.Value.Count == 0) ply.Target.Value = waspPlayers.Value.GetRandom(); 
-            RoleData role = ply.Target.Value.Role.Value.Data;
-            SetClientTarget(ply.connectionToClient, role.RoleName, role.Description);
-        });    
+            ply.Target.AfterVariableChanged += (pl) => OnTargetChanged(ply, pl);
+            ply.Target.Value = (beePlayers.Value.Count > 0) ? beePlayers.Value.GetRandom() : alivePlayers.Value.GetRandom();
+        } 
+    }
+
+    void OnTargetChanged(HoLPlayer ply, HoLPlayer target)
+    {
+        //If their target is unset
+        if (ply.Target.Value == null)
+        {
+            UnsetClientTarget(ply.connectionToClient);
+            return;
+        }
+
+        RoleData role = ply.Target.Value.Role.Value.Data;
+        SetClientTarget(ply.connectionToClient, role.RoleName, role.Description);
     }
 
     [TargetRpc]
@@ -58,6 +68,12 @@ public class Sting : NetworkBehaviour
         stingButton.SetActive(true);
         GameObject popup = Instantiate(stingPopup);
         popup.GetComponent<Notification>().SetText($"Your target is the {targetName}:\n{targetDescription}");
+    }
+
+    [TargetRpc]
+    void UnsetClientTarget(NetworkConnection conn)
+    {
+        stingButton.SetActive(false);
     }
 
     [Client]
@@ -124,10 +140,5 @@ public class Sting : NetworkBehaviour
     void ClientStingIncorrect(NetworkConnection conn)
     {
         isAlive.Value = false;
-    }
-
-    private void OnDestroy()
-    {
-        favour.AfterVariableChanged -= AfterFavourChanged;
     }
 }
