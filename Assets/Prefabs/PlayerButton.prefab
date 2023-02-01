@@ -303,7 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 8493164326049361370}
   exhaustionUI: {fileID: 8521908829254969518}
-  noExhaustion: {fileID: 2800000, guid: 6828eb0891056e945832547ef332d87f, type: 3}
+  noExhaustion: {fileID: 2800000, guid: b5abca2d329b9b546bbb02f9b57d8471, type: 3}
   someExhaustion: {fileID: 2800000, guid: 6828eb0891056e945832547ef332d87f, type: 3}
   heavyExhaustion: {fileID: 2800000, guid: 7c1925ebdac5d6844a4d8dd43e76da83, type: 3}
   ID: 0
