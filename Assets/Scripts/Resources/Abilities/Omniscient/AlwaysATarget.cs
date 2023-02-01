@@ -11,8 +11,15 @@ public class AlwaysATarget : RoleAbility
 
     protected override void OnRoleGiven()
     {
+        allPlayers.Value.Shuffle();
         foreach (HoLPlayer ply in allPlayers.Value)
         {
+            if (ply.Target != null && !isTarget)
+            {
+                ply.Target.Value = Owner;
+                isTarget = true;
+                return;
+            }
             ply.Target.OnVariableChanged += OnTargetChosen;
         }
     }
