@@ -26,6 +26,9 @@ public class MissionResultPopup : NetworkBehaviour
     [Tooltip("Set of all players on the mission")]
     [SerializeField] HoLPlayerSet playersOnMission;
 
+    [Tooltip("The team leader of the current mission")]
+    [SerializeField] HoLPlayerVariable teamLeader;
+
     [Tooltip("Set of all played cards this mission")]
     [SerializeField] CardSet playedCards;
 
@@ -72,9 +75,9 @@ public class MissionResultPopup : NetworkBehaviour
     /// <returns></returns>
     bool ShouldShowContributions(HoLPlayer ply)
     {
-        if (playerCount <= 4) return false;
+        if (playerCount == 4) return false;
 
-        if (playersOnMission.Value.Contains(ply)) return true;
+        if (ply == teamLeader.Value) return true;
         return false;
 
     }
