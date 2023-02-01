@@ -55,6 +55,7 @@ public class MissionUI : NetworkBehaviour
                 return;
             }
             OnTeamLeaderDecided(ply.DisplayName);
+            GiveTeamLeader(ply.connectionToClient);
         };
         playersSelected.AfterItemAdded += ply => OnTeamLeaderAddPartner(ply.DisplayName, ply.PlayerID);
         playersSelected.AfterItemRemoved += ply => OnTeamLeaderRemovePartner(ply.DisplayName, ply.PlayerID);
@@ -116,6 +117,12 @@ public class MissionUI : NetworkBehaviour
     void OnTeamLeaderDecided(string name)
     {
         teamLeaderName.text = name;
+    }
+
+    [TargetRpc]
+    void GiveTeamLeader(NetworkConnection conn)
+    {
+        isOnMission.Value = true;
     }
 
     [ClientRpc]
