@@ -19,7 +19,6 @@ public class GainUnusedRoles : RoleAbility
     {
         rejectedRoles.Value.Shuffle();
         string roleString = "";
-        int favour = 0;
         int pickedRoles = 0;
 
         for (int i = 0; pickedRoles < rolesToGain && i < rejectedRoles.Value.Count; i++)
@@ -30,11 +29,7 @@ public class GainUnusedRoles : RoleAbility
             GiveRole(rl);
             pickedRoles++;
             roleString += rl.RoleName + "\n";
-            favour += rl.StartingFavour;
         }
-        favour /= rolesToGain;
-        favour /= 2;
-        Owner.Favour.Value += favour;
 
         roleString = roleString.TrimEnd('\n');
         CreatePopup(roleString);
