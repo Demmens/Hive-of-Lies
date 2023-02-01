@@ -6,19 +6,25 @@ using Mirror;
 public class GainUnusedRoles : RoleAbility
 {
     [SerializeField] int rolesToGain = 2;
-    [SerializeField] GameObject popup;
 
+    #region SERVER
     [SerializeField] RoleDataSet rejectedRoles;
+    [SerializeField] HoLPlayerSet waspPlayers;
     [SerializeField] RoleAbility noAbility;
 
     [HideInInspector]
     public List<Role> Roles;
 
+    string roleString;
+    #endregion
+    #region CLIENT
+    [SerializeField] GameObject popup;
+    #endregion    
+
     [Server]
     public void AfterAllRolesChosen()
     {
         rejectedRoles.Value.Shuffle();
-        string roleString = "";
         int pickedRoles = 0;
 
         for (int i = 0; pickedRoles < rolesToGain && i < rejectedRoles.Value.Count; i++)
@@ -33,6 +39,17 @@ public class GainUnusedRoles : RoleAbility
 
         roleString = roleString.TrimEnd('\n');
         CreatePopup(roleString);
+
+        foreach (HoLPlayer ply in waspPlayers.Value)
+        {
+            if (ply.Target == Owner) CreateTargetPopup(ply.connectionToClient, roleString);
+            //If the player already has a target, then we know we can skip the event subscribing
+            if (ply.Target != null) return;
+            ply.Target.AfterVariableChanged += (target) =>
+            {
+                if (target == Owner) CreateTargetPopup(ply.connectionToClient, roleString);
+            };
+        }
     }
 
     [TargetRpc]
@@ -40,6 +57,13 @@ public class GainUnusedRoles : RoleAbility
     {
         popup = Instantiate(popup);
         popup.GetComponent<Notification>().SetText("Your roles are:\n" + roles);
+    }
+
+    [TargetRpc]
+    void CreateTargetPopup(NetworkConnection conn, string str)
+    {
+        popup = Instantiate(popup);
+        popup.GetComponent<Notification>().SetText("The Two Bees in a Trench Coat has the roles:\n" + str);
     }
 
     [Server]
