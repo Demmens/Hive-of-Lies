@@ -26,6 +26,9 @@ public class RoleUI : NetworkBehaviour
     [Tooltip("Runtime set of all the roles in the game")]
     [SerializeField] RoleSet allRoles;
 
+    [Tooltip("Runtime set of all rejected roles")]
+    [SerializeField] RoleDataSet rejectedRoles;
+
     [Tooltip("The amount of players in the game")]
     [SerializeField] IntVariable playerCount;
 
@@ -86,6 +89,12 @@ public class RoleUI : NetworkBehaviour
         if (ply.Role.Value != null) return;
         //If the role selected isn't one of the players choices
         if (!ply.RoleChoices.Contains(data)) return;
+
+        foreach (RoleData rl in ply.RoleChoices)
+        {
+            if (rl == data) continue;
+            rejectedRoles.Add(rl);
+        }
 
         GameObject abilityObject = Instantiate(data.Ability);  
         NetworkServer.Spawn(abilityObject, conn);

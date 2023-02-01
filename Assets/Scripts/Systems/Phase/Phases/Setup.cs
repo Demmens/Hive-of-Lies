@@ -59,7 +59,7 @@ public class Setup : GamePhase
 
         AssignTeams(allPlayers);
 
-        GiveRoleChoices(allPlayers, roles);
+        GiveRoleChoices(allPlayers);
 
         setupFinished?.Invoke();
         Debug.Log("Setup Finished");
@@ -108,16 +108,16 @@ public class Setup : GamePhase
     /// Give players a selection of roles to choose from
     /// </summary>
     [Server]
-    void GiveRoleChoices(List<HoLPlayer> plys, List<RoleData> roles)
+    void GiveRoleChoices(List<HoLPlayer> plys)
     {
         foreach (HoLPlayer ply in plys)
         {
             ply.RoleChoices = new();
             ply.Role.Value = null;
             RoleChoices.TryGetValue(ply.Team, out int choices);
-            for (int i = 0; i < roles.Count; i++)
+            for (int i = 0; i < roles.Value.Count; i++)
             {
-                RoleData role = roles[i];
+                RoleData role = roles.Value[i];
                 if (role.Team != ply.Team) continue;
                 if (!role.Enabled) continue;
                 if (role.PlayersRequired > playerCount) continue;
