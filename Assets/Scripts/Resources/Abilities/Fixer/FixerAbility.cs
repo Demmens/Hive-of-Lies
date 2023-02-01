@@ -20,10 +20,19 @@ public class FixerAbility : RoleAbility
     #endregion
 
     [Server]
-    public override void OnRoleGiven()
+    public override void OnStartServer()
     {
-        CreateButton();
         Owner.Deck.Value.AfterPlay += OnSubmittedCard;
+    }
+
+    public override void OnStartAuthority()
+    {
+        button = Instantiate(buttonPrefab);
+        button.SetActive(false);
+        GenericButton btn = button.GetComponent<GenericButton>();
+        btn.OnClicked += ClickedButton;
+        btn.SetText($"{cost}f: {buttonText}");
+        btn.SetPos(new Vector3(2 * Screen.width / 3, 70, 0));
     }
 
     [Server]
@@ -44,17 +53,6 @@ public class FixerAbility : RoleAbility
     public void OnSubmittedCard(Card card)
     {
         button.SetActive(false);
-    }
-
-    [TargetRpc]
-    void CreateButton()
-    {
-        button = Instantiate(buttonPrefab);
-        button.SetActive(false);
-        GenericButton btn = button.GetComponent<GenericButton>();
-        btn.OnClicked += ClickedButton;
-        btn.SetText($"{cost}f: {buttonText}");
-        btn.SetPos(new Vector3(2 * Screen.width / 3, 70, 0));
     }
 
     [Client]

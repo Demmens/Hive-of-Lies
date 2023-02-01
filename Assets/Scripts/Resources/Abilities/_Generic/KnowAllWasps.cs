@@ -9,7 +9,7 @@ public class KnowAllWasps : RoleAbility
 
     [SerializeField] GameObject popup;
 
-    public override void OnRoleGiven()
+    public override void OnStartServer()
     {
         string wasps = "";
 
@@ -21,6 +21,7 @@ public class KnowAllWasps : RoleAbility
         wasps = wasps.TrimEnd('\n');
         MakePopup(wasps);
     }
+
     [TargetRpc]
     void MakePopup(string wasps)
     {

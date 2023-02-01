@@ -105,7 +105,6 @@ public class RoleUI : NetworkBehaviour
         foreach (RoleAbility ability in abilities)
         {
             ability.Owner = ply;
-            ability.OnRoleGiven();
         }
 
         Role role = new()

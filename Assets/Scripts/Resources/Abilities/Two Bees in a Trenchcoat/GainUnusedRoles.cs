@@ -77,7 +77,6 @@ public class GainUnusedRoles : RoleAbility
         foreach (RoleAbility ability in abilities)
         {
             ability.Owner = Owner;
-            ability.OnRoleGiven();
         }
 
         Role role = new()

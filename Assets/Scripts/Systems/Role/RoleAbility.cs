@@ -23,9 +23,4 @@ public class RoleAbility : NetworkBehaviour
     public HoLPlayer Owner;
 
     #endregion
-
-    /// <summary>
-    /// Called when the player is given this role at the start of the game
-    /// </summary>
-    public virtual void OnRoleGiven() { }
 }
