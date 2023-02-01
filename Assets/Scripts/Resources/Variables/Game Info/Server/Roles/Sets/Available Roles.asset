@@ -29,6 +29,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: af81a6a135e59e744990299059bac590, type: 2}
   - {fileID: 11400000, guid: d9fa5d66848035343859e7570f9cb3f1, type: 2}
   - {fileID: 11400000, guid: b54d2c2d5bf7e7b40be5e82ba43a27c5, type: 2}
+  - {fileID: 11400000, guid: 6473c19b53290b041a4a2bf8a5ffd9e9, type: 2}
   currentValue:
   - {fileID: 11400000, guid: a9e34dacc5cd4654ebe2be3878e558e5, type: 2}
   - {fileID: 11400000, guid: 8dabdcd04de1a234caf6d2f623a75683, type: 2}
@@ -46,6 +47,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: af81a6a135e59e744990299059bac590, type: 2}
   - {fileID: 11400000, guid: d9fa5d66848035343859e7570f9cb3f1, type: 2}
   - {fileID: 11400000, guid: b54d2c2d5bf7e7b40be5e82ba43a27c5, type: 2}
+  - {fileID: 11400000, guid: 6473c19b53290b041a4a2bf8a5ffd9e9, type: 2}
   server: 1
   client: 0
   Persistent: 0
