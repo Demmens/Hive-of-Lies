@@ -226,6 +226,7 @@ MonoBehaviour:
   playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
     type: 2}
   allRoles: {fileID: 11400000, guid: 7aecc6004a4878546b7578a75f4e4b79, type: 2}
+  rejectedRoles: {fileID: 11400000, guid: f13aa2eee048d254181ebce31d998cc6, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   allPlayersChosenRoles: {fileID: 11400000, guid: 603aff459b2ef6241994e8c09260a582,
     type: 2}
