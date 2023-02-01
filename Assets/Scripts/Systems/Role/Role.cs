@@ -6,5 +6,5 @@ using UnityEngine;
 public class Role
 {
     public RoleData Data;
-    public RoleAbility Ability;
+    public RoleAbility[] Abilities;
 }

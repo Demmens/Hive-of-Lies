@@ -51,7 +51,7 @@ public class CardsMission : MissionType
     {
         foreach (Role role in allRoles.Value)
         {
-            HoLPlayer ply = role.Ability.Owner;
+            HoLPlayer ply = role.Abilities[0].Owner;
             for (int i = 0; i < role.Data.StartingDeck.Count; i++)
             {
                 ply.Deck.Value.DrawPile.Add(new Card(role.Data.StartingDeck[i]));

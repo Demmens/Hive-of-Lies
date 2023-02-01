@@ -87,17 +87,21 @@ public class RoleUI : NetworkBehaviour
         //If the role selected isn't one of the players choices
         if (!ply.RoleChoices.Contains(data)) return;
 
-        GameObject abilityObject = Instantiate(data.Ability);
-        RoleAbility ability = abilityObject.GetComponent<RoleAbility>();
-        ability.Owner = ply;
+        GameObject abilityObject = Instantiate(data.Ability);  
         NetworkServer.Spawn(abilityObject, conn);
         ply.Favour.Value = data.StartingFavour;
 
-        ability.OnRoleGiven();
+        RoleAbility[] abilities = abilityObject.GetComponents<RoleAbility>();
+
+        foreach (RoleAbility ability in abilities)
+        {
+            ability.Owner = ply;
+            ability.OnRoleGiven();
+        }
 
         Role role = new()
         {
-            Ability = ability,
+            Abilities = abilities,
             Data = data
         };
 
