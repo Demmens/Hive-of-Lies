@@ -78,7 +78,7 @@ public class RunMission : GamePhase
     bool ShouldExhaust(HoLPlayer ply)
     {
         //In fewer than 6 player games, only the team leader becomes exhausted
-        if (playerCount < 6) return ply == teamLeader;
+        if (playerCount < 6) return ply == teamLeader.Value;
 
         return playersOnMission.Value.Contains(ply) || ply == teamLeader;
     }
