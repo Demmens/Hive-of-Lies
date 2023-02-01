@@ -81,6 +81,9 @@ public abstract class RuntimeSet<T> : ScriptableObject
     {
         if (Persistent) return;
 
+        currentValue = new();
+        if (initialValue != null) currentValue.AddRange(initialValue);
+
         if (BeforeItemAdded == null) return;
         foreach (System.Delegate d in BeforeItemAdded.GetInvocationList())
         {
@@ -98,7 +101,6 @@ public abstract class RuntimeSet<T> : ScriptableObject
         {
             AfterItemRemoved -= (ListChanged)d;
         }
-        OnValidate();
     }
 
     private void OnValidate()
