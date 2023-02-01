@@ -68,11 +68,12 @@ MonoBehaviour:
   active: 1
   Owner: {fileID: 0}
   rolesToGain: 2
-  popup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
   rejectedRoles: {fileID: 11400000, guid: f13aa2eee048d254181ebce31d998cc6, type: 2}
+  waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
   noAbility: {fileID: -7181529955970124378, guid: 03a0291c194e0564cb481d29eaccce7c,
     type: 3}
   Roles: []
+  popup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
 --- !u!114 &-28415198634729546
 MonoBehaviour:
   m_ObjectHideFlags: 0
