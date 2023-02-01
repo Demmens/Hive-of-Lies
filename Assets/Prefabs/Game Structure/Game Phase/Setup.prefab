@@ -109,22 +109,7 @@ MonoBehaviour:
   syncInterval: 0.1
   phase: {fileID: 11400000, guid: 0878ed57b9981b443b62dab369adb201, type: 2}
   traitorRatio: {fileID: 11400000, guid: 345666eca88bcda4ba738d6fa2fb1795, type: 2}
-  roles:
-  - {fileID: 11400000, guid: a9e34dacc5cd4654ebe2be3878e558e5, type: 2}
-  - {fileID: 11400000, guid: 8dabdcd04de1a234caf6d2f623a75683, type: 2}
-  - {fileID: 11400000, guid: 988865947f68b854bb0e58bc3099ede4, type: 2}
-  - {fileID: 11400000, guid: 7222f9c54d4db4941820a751bc386ed0, type: 2}
-  - {fileID: 11400000, guid: c8d7c02d6eea7e64989f43246d204b4c, type: 2}
-  - {fileID: 11400000, guid: a376b347111f8d847af09e6a61f071c9, type: 2}
-  - {fileID: 11400000, guid: 2a210dec565bfc64bab60527c7f80d66, type: 2}
-  - {fileID: 11400000, guid: bb4e576714f1eea4a9d3366e269758be, type: 2}
-  - {fileID: 11400000, guid: 5bc19e90e7c1ebc4d9d9be1348904de9, type: 2}
-  - {fileID: 11400000, guid: 5f46d1642fd51ae4d8e4b89e65a5c7b6, type: 2}
-  - {fileID: 11400000, guid: 6cad7c1c8e63c6541937cdf2f432d53f, type: 2}
-  - {fileID: 11400000, guid: 11fea6c8c64ff08449c554585144df15, type: 2}
-  - {fileID: 11400000, guid: c80f3d8b1f013c74b82ae763aae89140, type: 2}
-  - {fileID: 11400000, guid: af81a6a135e59e744990299059bac590, type: 2}
-  - {fileID: 11400000, guid: d9fa5d66848035343859e7570f9cb3f1, type: 2}
+  roles: {fileID: 11400000, guid: 0fcd1dc0062e0c744806eb71cfd55e08, type: 2}
   allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
   beePlayers: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}

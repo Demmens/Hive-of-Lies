@@ -20,10 +20,8 @@ public class Setup : GamePhase
     [Tooltip("The ratio of traitors to innocents")]
     [SerializeField] FloatVariable traitorRatio;
 
-    /// <summary>
-    /// Private counterpart to <see cref="Roles"/>
-    /// </summary>
-    [SerializeField] List<RoleData> roles;
+    [Tooltip("All the roles that can appear in the game")]
+    [SerializeField] RoleDataSet roles;
 
     [Tooltip("Runtime set of all the players in the game")]
     [SerializeField] HoLPlayerSet allPlayers;
@@ -46,17 +44,6 @@ public class Setup : GamePhase
     [SerializeField] GameObject teamPopup;
 
     /// <summary>
-    /// List of all roles that can appear in the game
-    /// </summary>
-    [SerializeField] List<RoleData> Roles
-    {
-        get
-        {
-            return roles;
-        }
-    }
-
-    /// <summary>
     /// Run the game setup. This includes handing out roles and selecting teams.
     /// </summary>
     [Server]
@@ -64,7 +51,7 @@ public class Setup : GamePhase
     {
         Debug.Log("All players have entered the game. Beginning setup.");
 
-        Roles.Shuffle();
+        roles.Value.Shuffle();
         //Shuffle the players so we can randomly assign teams
         allPlayers.Value.Shuffle();
         //Shuffle the roles so we can randomly dish them out to players
@@ -72,7 +59,7 @@ public class Setup : GamePhase
 
         AssignTeams(allPlayers);
 
-        GiveRoleChoices(allPlayers, Roles);
+        GiveRoleChoices(allPlayers, roles);
 
         setupFinished?.Invoke();
         Debug.Log("Setup Finished");
