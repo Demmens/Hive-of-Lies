@@ -32,6 +32,7 @@ public class GainUnusedRoles : RoleAbility
             RoleData rl = rejectedRoles.Value[i];
             //Make sure they're not given a role that has no ability
             if (rl.Ability == noAbility) continue;
+            if (rl.Team == Team.Wasp) continue;
             GiveRole(rl);
             pickedRoles++;
             roleString += rl.RoleName + "\n";
