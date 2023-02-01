@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -2456713078374529920}
   - component: {fileID: 5572742708158016159}
   - component: {fileID: 1845065423173804132}
+  - component: {fileID: 8765343308926101117}
   - component: {fileID: -4291380088444921296}
   - component: {fileID: 6296553497337492210}
   m_Layer: 0
@@ -69,10 +70,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
   cost: 5
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
   voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
+  freeDraws: {fileID: 0}
   button: {fileID: 1107423568599795120, guid: 636febd51049eaf408fc7d1172356028, type: 3}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
 --- !u!114 &5572742708158016159
@@ -133,6 +134,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8765343308926101117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7908551812632945143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 914730a4f1ae32e48a805cac0393c615, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -2456713078374529920}
+        m_TargetAssemblyTypeName: PoisonerAbility, Assembly-CSharp
+        m_MethodName: OnMissionEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-4291380088444921296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +178,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
 --- !u!114 &6296553497337492210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +193,5 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
   waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
   popup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}

@@ -11,6 +11,8 @@ public class PoisonerAbility : RoleAbility
     [SerializeField] int cost = 5;
     [SerializeField] HoLPlayerVariable teamLeader;
     [SerializeField] IntVariable voteTotal;
+    [SerializeField] IntVariable freeDraws;
+    bool isPoisoned;
     #endregion
     #region CLIENT
     [SerializeField] GameObject button;
@@ -45,6 +47,13 @@ public class PoisonerAbility : RoleAbility
 
         Owner.Favour.Value -= cost;
         teamLeader.Value.Deck.Value.BeforeDraw += OnLeaderDraw;
+        isPoisoned = true;
+    }
+
+    public void OnMissionEnd()
+    {
+        if (!isPoisoned) return;
+        teamLeader.Value.Deck.Value.BeforeDraw -= OnLeaderDraw;
     }
 
     [Server]
@@ -52,11 +61,9 @@ public class PoisonerAbility : RoleAbility
     {
         Deck deck = teamLeader.Value.Deck.Value;
 
-        //Keep going until they have to pay for their draw
-        if (teamLeader.Value.NextDrawCost > 0) deck.BeforeDraw -= OnLeaderDraw;
-
         //If the card is already bad, we're happy.
         if (card.Value <= 5) return;
+        if (teamLeader.Value.NumDraws > freeDraws) return;
 
         for (int i = 0; i < deck.DrawPile.Count; i++)
         {
