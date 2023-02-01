@@ -20,7 +20,7 @@ public class GamblerAbility : RoleAbility
     #endregion
 
     [Client]
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
         successButton = Instantiate(successButton);
         GenericButton button = successButton.GetComponent<GenericButton>();

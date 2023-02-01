@@ -9,7 +9,7 @@ public class KnowAllWasps : RoleAbility
 
     [SerializeField] GameObject popup;
 
-    public override void OnStartServer()
+    protected override void OnRoleGiven()
     {
         string wasps = "";
 

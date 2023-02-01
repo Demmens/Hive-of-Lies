@@ -17,7 +17,7 @@ public class PoisonerAbility : RoleAbility
     [SerializeField] IntVariable favour;
     #endregion
 
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
         button = Instantiate(button);
         button.SetActive(false);

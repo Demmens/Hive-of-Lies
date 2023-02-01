@@ -6,7 +6,7 @@ public class BuzzedBeeAbility : RoleAbility
 {
     private IntVariable playerExhaustion;
 
-    void Start()
+    protected override void OnRoleGiven()
     {
         playerExhaustion = Owner.Exhaustion;
         playerExhaustion.OnVariableChanged += ExhaustionChanged;

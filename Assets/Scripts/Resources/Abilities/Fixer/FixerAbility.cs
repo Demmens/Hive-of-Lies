@@ -20,7 +20,7 @@ public class FixerAbility : RoleAbility
     #endregion
 
     [Server]
-    public override void OnStartServer()
+    protected override void OnRoleGiven()
     {
         Owner.Deck.Value.AfterPlay += OnSubmittedCard;
     }

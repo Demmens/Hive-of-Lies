@@ -6,7 +6,7 @@ using Steamworks;
 public class VeteranAbility : RoleAbility
 {
     [SerializeField] int maxCost = 2;
-    void Start()
+    protected override void OnRoleGiven()
     {
         Owner.NextDrawCost.OnVariableChanged += ModifyDrawCost;
     }

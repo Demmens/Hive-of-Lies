@@ -16,11 +16,26 @@ public class RoleAbility : NetworkBehaviour
     [HideInInspector]
     public bool active = true;
 
+    private HoLPlayer owner;
+
     /// <summary>
     /// The player that owns this ability
     /// </summary>
     [HideInInspector]
-    public HoLPlayer Owner;
+    public HoLPlayer Owner
+    {
+        get
+        {
+            return owner;
+        }
+        set
+        {
+            owner = Owner;
+            OnRoleGiven();
+        }
+    }
 
     #endregion
+
+    protected virtual void OnRoleGiven() { }
 }

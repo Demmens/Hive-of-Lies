@@ -9,7 +9,7 @@ public class BlackWidowAbility : RoleAbility
     [SerializeField] HoLPlayerSet playersOnMission;
     bool isSolo = false;
 
-    void Start()
+    protected override void OnRoleGiven()
     {
         Owner.NextDrawCost.OnVariableChanged += ModifyDrawCost;
     }

@@ -7,7 +7,7 @@ public class InfluencerAbility : RoleAbility
 {
     [SerializeField] float drawCostMod;
     [SerializeField] float voteCostMod;
-    void Start()
+    protected override void OnRoleGiven()
     {
         Owner.NextDrawCost.OnVariableChanged += ModifyDrawCost;
         Owner.NextUpvoteCost.OnVariableChanged += ModifyVoteCost;

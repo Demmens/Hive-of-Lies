@@ -9,7 +9,7 @@ public class AlwaysATarget : RoleAbility
 
     bool isTarget = false;
 
-    public override void OnStartServer()
+    protected override void OnRoleGiven()
     {
         foreach (HoLPlayer ply in allPlayers.Value)
         {
