@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Poisoner
   m_EditorClassIdentifier: 
   roleName: Poisoner
-  description: '3 favour: During the next mission, when the team leader draws a card
-    for free, the drawn card will always be of value 5 or less'
+  description: 'Spider. 3 favour: During the next mission, when the team leader draws
+    a card for free, the drawn card will always be of value 5 or less'
   sprite: 
   startingFavour: 12
   startingDeck: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
   team: 2
-  playersRequired: 0
+  playersRequired: 5
   ability: {fileID: 7908551812632945143, guid: 15c727636970d4d4d908d655cdbe19f5, type: 3}
   enabled: 1
