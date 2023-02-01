@@ -15,6 +15,7 @@ public class KnowAllWasps : RoleAbility
 
         foreach (HoLPlayer ply in waspPlayers.Value)
         {
+            if (ply == Owner) continue;
             wasps += ply.DisplayName + "\n";
         }
         wasps = wasps.TrimEnd('\n');
