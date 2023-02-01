@@ -30,7 +30,7 @@ public class RoleAbility : NetworkBehaviour
         }
         set
         {
-            owner = Owner;
+            owner = value;
             OnRoleGiven();
         }
     }
