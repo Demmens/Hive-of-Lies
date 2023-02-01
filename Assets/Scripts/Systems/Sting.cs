@@ -36,6 +36,7 @@ public class Sting : NetworkBehaviour
     [Client]
     void AfterFavourChanged(int favour)
     {
+        if (button == null) return;
         button.interactable = favour >= stingCost;
     }
 

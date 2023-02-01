@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NoSting : RoleAbility
 {
-    public override void OnStartServer()
+    public override void OnRoleGiven()
     {
         Owner.Target.OnVariableChanged += RemoveTarget;
     }
