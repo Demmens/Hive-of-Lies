@@ -116,9 +116,6 @@ public class CardsMission : MissionType
 
         playedCards.Add(card);
 
-        ply.NumDraws.Value = 0;
-        ply.NextDrawCost.Value = 0;
-
         if (playersPlayed.Count >= playersOnMission.Value.Count)
         {
             allPlayersPlayed?.Invoke();
