@@ -43,9 +43,9 @@ namespace FastScriptReload.Runtime
         private static AssemblyChangesLoader _instance;
         public static AssemblyChangesLoader Instance => _instance ?? (_instance = new AssemblyChangesLoader());
 
-        public static bool IsDidFieldsOrPropertyCountChangedCheckDisabled { get; set; }
+        private Dictionary<Type, Type> _existingTypeToRedirectedType = new Dictionary<Type, Type>();
 
-        public void DynamicallyUpdateMethodsForCreatedAssembly(Assembly dynamicallyLoadedAssemblyWithUpdates)
+        public void DynamicallyUpdateMethodsForCreatedAssembly(Assembly dynamicallyLoadedAssemblyWithUpdates, AssemblyChangesLoaderEditorOptionsNeededInBuild editorOptions)
         {
             try
             {
@@ -74,7 +74,11 @@ namespace FastScriptReload.Runtime
                     var matchingTypeInExistingAssemblies = allTypesInNonDynamicGeneratedAssemblies.SingleOrDefault(t => t.FullName == createdTypeNameWithoutPatchedPostfix);
                     if (matchingTypeInExistingAssemblies != null)
                     {
-                        if (!IsDidFieldsOrPropertyCountChangedCheckDisabled && DidFieldsOrPropertyCountChanged(createdType,  matchingTypeInExistingAssemblies))
+                        _existingTypeToRedirectedType[matchingTypeInExistingAssemblies] = createdType;
+                        
+                        if (!editorOptions.IsDidFieldsOrPropertyCountChangedCheckDisabled 
+                            && !editorOptions.EnableExperimentalAddedFieldsSupport
+                            && DidFieldsOrPropertyCountChanged(createdType,  matchingTypeInExistingAssemblies))
                         {
                             continue;
                         }
@@ -134,6 +138,11 @@ namespace FastScriptReload.Runtime
                 DetourCrashHandler.ClearDetourLog();
             }
         }
+        
+        public Type GetRedirectedType(Type forExistingType)
+        {
+            return _existingTypeToRedirectedType[forExistingType];
+        }
 
         private static bool DidFieldsOrPropertyCountChanged(Type createdType, Type matchingTypeInExistingAssemblies)
         {
@@ -141,7 +150,11 @@ namespace FastScriptReload.Runtime
             var matchingTypeFieldAndPropertiesCount = matchingTypeInExistingAssemblies.GetFields(ALL_BINDING_FLAGS).Length + matchingTypeInExistingAssemblies.GetProperties(ALL_BINDING_FLAGS).Length;
             if (createdTypeFieldAndPropertiesCount != matchingTypeFieldAndPropertiesCount)
             {
-                Debug.LogError($"It seems you've added/removed field to changed script. This is not supported and will result in undefined behaviour. Hot-reload will not be performed for type: {matchingTypeInExistingAssemblies.Name}");
+                Debug.LogError($"It seems you've added/removed field to changed script. This is not supported and will result in undefined behaviour. Hot-reload will not be performed for type: {matchingTypeInExistingAssemblies.Name}" +
+                               $"\r\n\r\nYou can skip the check and force reload anyway if needed, to do so go to: 'Window -> Fast Script Reload -> Start Screen -> Reload -> tick 'Disable added/removed fields check'");
+                Debug.Log(
+                    $"<color=orange>There's an experimental feature that allows to add new fields (which are adjustable in editor), to enable please:</color>" +
+                    $"\r\n - Open Settings 'Window -> Fast Script Reload -> Start Screen -> New Fields -> tick 'Enable experimental added field support'");
                 return true;
             }
 
@@ -199,8 +212,32 @@ namespace FastScriptReload.Runtime
     
     public interface IAssemblyChangesLoader
     {
-        void DynamicallyUpdateMethodsForCreatedAssembly(Assembly dynamicallyLoadedAssemblyWithUpdates);
+        void DynamicallyUpdateMethodsForCreatedAssembly(Assembly dynamicallyLoadedAssemblyWithUpdates, AssemblyChangesLoaderEditorOptionsNeededInBuild editorOptions);
+    }
+    
+    [Serializable]
+    public class AssemblyChangesLoaderEditorOptionsNeededInBuild
+    {
+        public bool IsDidFieldsOrPropertyCountChangedCheckDisabled;
+        public bool EnableExperimentalAddedFieldsSupport;
+
+        public AssemblyChangesLoaderEditorOptionsNeededInBuild(bool isDidFieldsOrPropertyCountChangedCheckDisabled, bool enableExperimentalAddedFieldsSupport)
+        {
+            IsDidFieldsOrPropertyCountChangedCheckDisabled = isDidFieldsOrPropertyCountChangedCheckDisabled;
+            EnableExperimentalAddedFieldsSupport = enableExperimentalAddedFieldsSupport;
+        }
+
+        [Obsolete("Needed for network serialization")]
+        public AssemblyChangesLoaderEditorOptionsNeededInBuild()
+        {
+        }
+
+        //WARN: make sure it has same params as ctor
+        public void UpdateValues(bool isDidFieldsOrPropertyCountChangedCheckDisabled, bool enableExperimentalAddedFieldsSupport)
+        {
+            IsDidFieldsOrPropertyCountChangedCheckDisabled = isDidFieldsOrPropertyCountChangedCheckDisabled;
+            EnableExperimentalAddedFieldsSupport = enableExperimentalAddedFieldsSupport;
+        }
     }
 }
-
 #endif

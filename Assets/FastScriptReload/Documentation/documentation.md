@@ -133,6 +133,30 @@ This is to ensure there are no issues as that is generally not supported.
 
 Some assets however will use IL weaving to adjust your classes (eg Mirror) as a post compile step. In that case it's quite likely hot-reload will still work.
 
+## EXPERIMENTAL Adding New Fields
+Asset has an experimental support for adding new fields at runtime which will also render in Editor and allow you to tweak values - same as with normal fields.
+
+To enable, please:
+`Window -> Fast Script Reload -> Start Window -> New Fields -> Enable experimental added field support`.
+
+> As this is an experimental feature please expect it to break more often! It'd be great help if you could report any issues via Discord / email.
+
+### New Fields - specific limitations
+
+- outside classes can not call new fields added at runtime
+- new fields will only show in editor if they were already used at least once
+  - eg if you've added a variable into a method, on first call that variable will be initialized and will start showing in editor
+
+### New Fields - performance
+For new fields to work your code will be adjusted. Instead of calling fields directly your code will call into a method that retrieves value from dynamic dictionary.
+
+Due to that there'll be some overhead with:
+- looking up proper object and new-field value in dictionary
+- initializing values
+- use of dynamic type, which will introduce some additional casts
+
+> All that shouldn't really add too much overhead on dev-machine - you may lose few FPS though.
+
 ## Debugging
 Debugging is fully supported although breakpoints in your original file won't be hit.
 
@@ -140,7 +164,9 @@ Once change is compiled, you'll get an option to open generated file [via clicka
 
 Tool can also auto-open generated files for you on change for simpler access, you can find option via 'Window -> Fast Script Reload -> Start Screen -> Debugging -> Auto open generated source file for debugging'
 
-> Debugging in that manner is enabled in version 1.2 which is not yet in the store, on v1.1 you'll need to make following changes:
+> Debugging with Rider for Unity 2019 and 2020 is having some issues, once breakpoint has been hit it'll stop asset from hot-reloading in that play-session.
+
+> Debugging in that manner is enabled in version 1.2, on v1.1 you'll need to make following changes:
 
 in '<your project path>\Assets\FastScriptReload\Scripts\Editor\Compilation\DotnetExeCompilator.cs'
 - on line 76 remove/comment out code that deletes temp files
@@ -160,6 +186,12 @@ foreach (var fileToCleanup in createdFilesToCleanUp)
   });
 #endif
 ```
+
+### Adding Function Breakpoint
+If for whatever reason debugger breakpoint is not hit you can try setting Function Breakpoint in your IDE.
+
+For type name you want to include `<OriginalTypeName>__Patched_`, the `__Patched_` postfix is auto-added by asset to prevent name clash.
+Function name remains unchanged.
 
 ## Production Build
 For Fast Script Reload asset code will be excluded from any builds.
@@ -211,6 +243,40 @@ class SingletonBase<T> where T: new() {
 }
 
 ```
+
+### Adding new fields
+Adding new fields is not supported in play mode.
+You can however simply create local variable and later quickly refactor that out.
+
+eg. for a simple class that moves position by some vector on every update
+
+*Initial class before play mode entered*
+```
+public class SimpleTransformMover: MonoBehaviour {
+   void Update() {
+        transform.position += new Vector3(1, 0, 0);
+    }
+}
+```
+
+*Changes in playmode*
+```
+public class SimpleTransformMover: MonoBehaviour {
+   //public Vector3 _moveBy = new Vector3(1, 0, 0); //1) do not introduce fields in play mode
+    
+   void Update() {
+        var _moveBy = new Vector3(1, 0, 0); //2) instead declare variable in method scope 
+        // (optionally with instance scope name-convention)
+   
+        // transform.position += new Vector3(1, 0, 0); //original code - now will use variable
+        transform.position += _moveBy; //3) changed code - uses local variable
+        
+        4) iterate as needed and after play mode simply refactor added variables as fields
+    }
+}
+```
+
+*Tool will show error if you try to add/remove fields and won't perform Hot-Reload.*
 
 ### Passing `this` reference to method that expect concrete class implementation
 
@@ -290,6 +356,9 @@ public class MySingleton: MonoBehaviour {
 }
 ```
 
+### Calling internal class members from changed code
+Technically, once your changed code is compiled it'll be in a separate assembly. As a result this changed code won't be able to access internal classes from assembly it originated from.
+
 ### Extensive use of nested classed / structs
 If your code-base contains lots of nested classes - you may see more compilation errors.
 
@@ -297,40 +366,6 @@ Easy workaround is to move those nested classes away so they are top-level.
 
 ### Creating new public methods
 Hot-reload for new methods will only work with private methods (only called by changed code).
-
-### Adding new fields
-Adding new fields is not supported in play mode.
-You can however simply create local variable and later quickly refactor that out.
-
-eg. for a simple class that moves position by some vector on every update
-
-*Initial class before play mode entered*
-```
-public class SimpleTransformMover: MonoBehaviour {
-   void Update() {
-        transform.position += new Vector3(1, 0, 0);
-    }
-}
-```
-
-*Changes in playmode*
-```
-public class SimpleTransformMover: MonoBehaviour {
-   //public Vector3 _moveBy = new Vector3(1, 0, 0); //1) do not introduce fields in play mode
-    
-   void Update() {
-        var _moveBy = new Vector3(1, 0, 0); //2) instead declare variable in method scope 
-        // (optionally with instance scope name-convention)
-   
-        // transform.position += new Vector3(1, 0, 0); //original code - now will use variable
-        transform.position += _moveBy; //3) changed code - uses local variable
-        
-        4) iterate as needed and after play mode simply refactor added variables as fields
-    }
-}
-```
-
-*Tool will show error if you try to add/remove fields and won't perform Hot-Reload.*
 
 ### Adding new references
 When you're trying to reference new code in play-mode session that'll fail if assembly is not yet referencing that (most often happens when using AsmDefs that are not yet referencing each other)
@@ -427,6 +462,9 @@ class ClassImplementingIInterface: IInterface {
 
 > Quick workaround is to declare that interface as public
 
+### Limited debugger support for Rider when using Unity 2019 and 2020
+Once breakpoint has been hit it'll stop asset from hot-reloading in that play-session. Newer Unity versions are supporting debugging.
+
 ### No IL2CPP support
 Asset runs based on specific .NET functionality, IL2CPP builds will not be supported. Although as this is development workflow aid you can build your APK with Mono backend (android) and change later.
 
@@ -494,6 +532,14 @@ public class VisualStudioProjectGenerationPostProcess : AssetPostprocessor
 ```
 
 > As a one-off you may also need to go to Edit -> Preferences -> External Tools -> click 'Regenerate project files' buttons
+
+### When importing I'm getting error: 'Unable to update following assemblies: (...)/ImmersiveVRTools.Common.Runtime.dll'
+This happens occasionally, especially on upgrade between versions. It's harmless error that'll go away on play mode.
+
+### When upgrading between versions, eg 1.1 to 1.2 example scene cubes are pink
+This is down to reimporting 'Point' prefab. Right now plugin will make sure it's using correct shader eg. URP / Built-in but only on initial import.
+
+To fix please go to `FastScripReload\Examples\Point\Point.prefab` and search for 'Point' shader. 
 
 ## Roadmap
 - ~~add Mac/Linux support~~ (added with 1.1)

@@ -21,7 +21,7 @@ namespace FastScriptReload.Editor
         {
             return $"{BaseUrl}/updates/fast-script-reload/{userId}?CurrentVersion={versionId}";
         }
-        public static string VersionId = "1.2";
+        public static string VersionId = "1.3";
         private static readonly string ProjectIconName = "ProductIcon64";
         public static readonly string ProjectName = "fast-script-reload";
 
@@ -208,6 +208,53 @@ includeSubdirectories - whether child directories should be watched as well
                         ProductPreferenceBase.RenderGuiAndPersistInput(FastScriptReloadPreference.FileWatcherSetupEntries);
                     })
                 }.Concat(additionalSections).ToList()),
+                new GuiSection("Experimental", new List<ClickableElement>
+                {
+                    new ChangeMainViewButton("New Fields", (screen) =>
+                    {
+#if LiveScriptReload_Enabled
+                        EditorGUILayout.HelpBox(
+                            @"On Device Reload (in running build) - Not Supported
+If you enable - new fields WILL show in editor and work as expected but link with the device will be broken and changes won't be visible there!", MessageType.Error, );
+                        GUILayout.Space(10);
+#endif
+                        
+                        EditorGUILayout.HelpBox(
+                            @"Adding new fields is still in experimental mode, it will have issues. 
+
+When you encounter them please get in touch (via any support links above) and I'll be sure to sort them out. Thanks!", MessageType.Error);
+                        GUILayout.Space(10);
+                        
+                        EditorGUILayout.HelpBox(
+                            @"Adding new fields will affect performance, behind the scenes your code is rewritten to access field via static dictionary.
+
+Once you exit playmode and do a full recompile they'll turn to standard fields as you'd expect.
+
+New fields will also show in editor - you can tweak them as normal variables. 
+
+They render using very simple drawer, if you have custom editors those will not be used until full recompile.", MessageType.Warning);
+                        GUILayout.Space(10);
+                        
+                        EditorGUILayout.HelpBox(
+                            @"LIMITATIONS: (full list and more info in docs)
+- outside classes can not call new fields added at runtime
+- new fields will only show in editor if they were already used at least once", MessageType.Info);
+                        GUILayout.Space(10);
+
+                        using (LayoutHelper.LabelWidth(250))
+                        {
+                            ProductPreferenceBase.RenderGuiAndPersistInput(FastScriptReloadPreference.EnableExperimentalAddedFieldsSupport);
+                        }
+                        GUILayout.Space(10);
+
+                        if (Application.isPlaying)
+                        {
+                            EditorGUILayout.HelpBox(@"You're in playmode, for option to start working you need to restart playmode.", MessageType.Warning);
+                        }
+
+                        GUILayout.Space(10);
+                    })
+                }),
                 new GuiSection("Launch Demo", new List<ClickableElement>
                 {
                     launchSceneButton
@@ -332,11 +379,11 @@ includeSubdirectories - whether child directories should be watched as well
             "Disable added/removed fields check", "IsDidFieldsOrPropertyCountChangedCheckDisabled", false,
             (object newValue, object oldValue) =>
             {
-                AssemblyChangesLoader.IsDidFieldsOrPropertyCountChangedCheckDisabled = (bool)newValue;
+                FastScriptReloadManager.Instance.AssemblyChangesLoaderEditorOptionsNeededInBuild.IsDidFieldsOrPropertyCountChangedCheckDisabled = (bool)newValue;
             },
             (value) =>
             {
-                AssemblyChangesLoader.IsDidFieldsOrPropertyCountChangedCheckDisabled = (bool)value;
+                FastScriptReloadManager.Instance.AssemblyChangesLoaderEditorOptionsNeededInBuild.IsDidFieldsOrPropertyCountChangedCheckDisabled = (bool)value;
             }
         );
         
@@ -347,6 +394,17 @@ includeSubdirectories - whether child directories should be watched as well
             }, 
             () => new FileWatcherSetupEntry("<Application.dataPath>", "*.cs", true)
         );
+        
+        public static readonly ToggleProjectEditorPreferenceDefinition EnableExperimentalAddedFieldsSupport = new ToggleProjectEditorPreferenceDefinition(
+            "(Experimental) Enable added field support", "EnableExperimentalAddedFieldsSupport", false,
+            (object newValue, object oldValue) =>
+            {
+                FastScriptReloadManager.Instance.AssemblyChangesLoaderEditorOptionsNeededInBuild.EnableExperimentalAddedFieldsSupport = (bool)newValue;
+            },
+            (value) =>
+            {
+                FastScriptReloadManager.Instance.AssemblyChangesLoaderEditorOptionsNeededInBuild.EnableExperimentalAddedFieldsSupport = (bool)value;
+            });
         
         public static void SetCommonMaterialsShader(ShadersMode newShaderModeValue)
         {
@@ -394,7 +452,8 @@ includeSubdirectories - whether child directories should be watched as well
             StopShowingAutoReloadEnabledDialogBox,
             IsDidFieldsOrPropertyCountChangedCheckDisabled,
             FileWatcherSetupEntries,
-            IsAutoOpenGeneratedSourceFileOnChangeEnabled
+            IsAutoOpenGeneratedSourceFileOnChangeEnabled,
+            EnableExperimentalAddedFieldsSupport
         };
 
         private static bool PrefsLoaded = false;
@@ -461,7 +520,10 @@ includeSubdirectories - whether child directories should be watched as well
             EnsureUserAwareOfAutoRefresh();
 
             DynamicCompilationBase.LogHowToFixMessageOnCompilationError = (bool)FastScriptReloadPreference.LogHowToFixMessageOnCompilationError.GetEditorPersistedValueOrDefault();
-            AssemblyChangesLoader.IsDidFieldsOrPropertyCountChangedCheckDisabled = (bool)FastScriptReloadPreference.IsDidFieldsOrPropertyCountChangedCheckDisabled.GetEditorPersistedValueOrDefault();
+            FastScriptReloadManager.Instance.AssemblyChangesLoaderEditorOptionsNeededInBuild.UpdateValues(
+                (bool)FastScriptReloadPreference.IsDidFieldsOrPropertyCountChangedCheckDisabled.GetEditorPersistedValueOrDefault(),
+                (bool)FastScriptReloadPreference.EnableExperimentalAddedFieldsSupport.GetEditorPersistedValueOrDefault()
+            );
         }
 
         private static void EnsureUserAwareOfAutoRefresh()

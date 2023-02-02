@@ -79,7 +79,7 @@ namespace FastScriptReload.Editor.Compilation
                 var sourceCodeCombinedFilePath = _tempFolder + $"{asmName}.SourceCodeCombined.cs";
                 var outLibraryPath = $"{_tempFolder}{asmName}.dll";
 
-                var sourceCodeCombined = CreateSourceCodeCombinedContents(filePathsWithSourceCode.Select(File.ReadAllText));
+                var sourceCodeCombined = CreateSourceCodeCombinedContents(filePathsWithSourceCode.Select(File.ReadAllText), ActiveScriptCompilationDefines.ToList());
                 CreateFileAndTrackAsCleanup(sourceCodeCombinedFilePath, sourceCodeCombined, _createdFilesToCleanUp);
 #if UNITY_EDITOR
                 UnityMainThreadDispatcher.Instance.Enqueue(() =>
@@ -102,7 +102,9 @@ namespace FastScriptReload.Editor.Compilation
             }
             catch (Exception)
             {
-                Debug.LogError($"Compilation error: temporary files were not removed so they can be inspected: {string.Join(", ", _createdFilesToCleanUp)}");
+                Debug.LogError($"Compilation error: temporary files were not removed so they can be inspected: " 
+                               + string.Join(", ", _createdFilesToCleanUp
+                                   .Select(f => $"<a href=\"{f}\" line=\"1\">{f}</a>")));
                 if (LogHowToFixMessageOnCompilationError)
                 {
                     Debug.LogWarning($@"HOW TO FIX - INSTRUCTIONS:
@@ -165,8 +167,7 @@ In the meantime, you can:
             rspContents.AppendLine("/nowarn:1702");
             rspContents.AppendLine("/utf8output");
             rspContents.AppendLine("/preferreduilang:en-US");
-
-            // rspContents.AppendLine("/additionalfile:\"Library/Bee/artifacts/1300b0aEDbg.dag/Assembly-CSharp.AdditionalFile.txt\""); //TODO: needed?
+            
             var rspContentsString = rspContents.ToString();
             return rspContentsString;
         }

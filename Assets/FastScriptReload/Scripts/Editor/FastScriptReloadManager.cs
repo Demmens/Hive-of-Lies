@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using FastScriptReload.Editor.Compilation;
 using FastScriptReload.Runtime;
 using ImmersiveVRTools.Runtime.Common;
+using ImmersiveVrToolsCommon.Runtime.Logging;
 using UnityEditor;
 using UnityEngine;
 
@@ -31,7 +32,7 @@ namespace FastScriptReload.Editor
         private List<FileSystemWatcher> _fileWatchers = new List<FileSystemWatcher>();
         private IEnumerable<string> _currentFileExclusions;
         public bool EnableExperimentalThisCallLimitationFix { get; set; }
-        public bool EnableExperimentalNewFieldsAccess { get; set; } = false; //TODO: add config for that
+        public AssemblyChangesLoaderEditorOptionsNeededInBuild AssemblyChangesLoaderEditorOptionsNeededInBuild { get; private set; } = new AssemblyChangesLoaderEditorOptionsNeededInBuild();
 
         private List<DynamicFileHotReloadState> _dynamicFileHotReloadStateEntries = new List<DynamicFileHotReloadState>();
 
@@ -62,6 +63,9 @@ As a workaround asset will try to resolve paths via directory search.
 Workaround will search in all folders (under project root) and will use first found file. This means it's possible it'll pick up wrong file as there's no directory information available.");
                 
                 var changedFileName = new FileInfo(filePathToUse).Name;
+                //TODO: try to look in all file watcher configured paths, some users might have code outside of assets, eg packages
+                // var fileFoundInAssets = FastScriptReloadPreference.FileWatcherSetupEntries.GetElementsTyped().SelectMany(setupEntries => Directory.GetFiles(DataPath, setupEntries.path, SearchOption.AllDirectories)).ToList();
+                    
                 var fileFoundInAssets = Directory.GetFiles(DataPath, changedFileName, SearchOption.AllDirectories);
                 if (fileFoundInAssets.Length == 0)
                 {
@@ -197,9 +201,7 @@ Workaround will search in all folders (under project root) and will use first fo
                 return;
             }
 
-            //TODO: PERF: needed in file watcher but when run on non-main thread causes exception. 
-            _currentFileExclusions = FastScriptReloadPreference.FilesExcludedFromHotReload.GetElements();
-            EnableExperimentalThisCallLimitationFix = (bool)FastScriptReloadPreference.EnableExperimentalThisCallLimitationFix.GetEditorPersistedValueOrDefault();
+            AssignConfigValuesThatCanNotBeAccessedOutsideOfMainThread();
 
             if (!_assemblyChangesLoaderResolverResolutionAlreadyCalled)
             {
@@ -212,6 +214,17 @@ Workaround will search in all folders (under project root) and will use first fo
             {
                 TriggerReloadForChangedFiles();
             }
+        }
+
+        private void AssignConfigValuesThatCanNotBeAccessedOutsideOfMainThread()
+        {
+            //TODO: PERF: needed in file watcher but when run on non-main thread causes exception. 
+            _currentFileExclusions = FastScriptReloadPreference.FilesExcludedFromHotReload.GetElements();
+            EnableExperimentalThisCallLimitationFix = (bool)FastScriptReloadPreference.EnableExperimentalThisCallLimitationFix.GetEditorPersistedValueOrDefault();
+            AssemblyChangesLoaderEditorOptionsNeededInBuild.UpdateValues(
+                (bool)FastScriptReloadPreference.IsDidFieldsOrPropertyCountChangedCheckDisabled.GetEditorPersistedValueOrDefault(),
+                (bool)FastScriptReloadPreference.EnableExperimentalAddedFieldsSupport.GetEditorPersistedValueOrDefault()
+            );
         }
 
         public void TriggerReloadForChangedFiles()
@@ -245,7 +258,7 @@ Workaround will search in all folders (under project root) and will use first fo
                             });
 
                             //TODO: return some proper results to make sure entries are correctly updated
-                            assemblyChangesLoader.DynamicallyUpdateMethodsForCreatedAssembly(dynamicallyLoadedAssemblyCompilerResult.CompiledAssembly);
+                            assemblyChangesLoader.DynamicallyUpdateMethodsForCreatedAssembly(dynamicallyLoadedAssemblyCompilerResult.CompiledAssembly, AssemblyChangesLoaderEditorOptionsNeededInBuild);
                             changesAwaitingHotReload.ForEach(c =>
                             {
                                 c.HotSwappedOn = DateTime.UtcNow;
@@ -305,6 +318,12 @@ Workaround will search in all folders (under project root) and will use first fo
 
         private static void Init()
         {
+            if (!(bool)FastScriptReloadPreference.EnableAutoReloadForChangedFiles.GetEditorPersistedValueOrDefault())
+            {
+                LoggerScoped.LogDebug("Hot reload disabled, file watchers will not be initialized.");
+                return;
+            }
+            
             if (Instance._fileWatchers.Count == 0)
             {
                 var fileWatcherSetupEntries = FastScriptReloadPreference.FileWatcherSetupEntries.GetElementsTyped();
