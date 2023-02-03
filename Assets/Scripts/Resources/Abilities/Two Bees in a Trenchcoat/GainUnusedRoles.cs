@@ -34,6 +34,7 @@ public class GainUnusedRoles : RoleAbility
             if (rl.Ability == noAbility) continue;
             if (rl.Team == Team.Wasp) continue;
             GiveRole(rl);
+            rejectedRoles.Remove(rl);
             pickedRoles++;
             roleString += rl.RoleName + "\n";
         }
