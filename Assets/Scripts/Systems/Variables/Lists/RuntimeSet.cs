@@ -53,26 +53,22 @@ public abstract class RuntimeSet<T> : ScriptableObject
         }
     }
 
-    public delegate void ListChanged(T item);
-    public event ListChanged BeforeItemAdded;
-    public event ListChanged AfterItemAdded;
+    public event System.Action<T> AfterItemAdded;
 
-    public event ListChanged BeforeItemRemoved;
-    public event ListChanged AfterItemRemoved;
+    public event System.Action<T> AfterItemRemoved;
 
     public void Add(T item) {
         if (Value.Contains(item)) return;
 
-        BeforeItemAdded?.Invoke(item);
         currentValue.Add(item);
         AfterItemAdded?.Invoke(item);
+
     }
 
     public void Remove(T item)
     {
         if (!Value.Contains(item)) return;
 
-        BeforeItemRemoved?.Invoke(item);
         currentValue.Remove(item);
         AfterItemRemoved?.Invoke(item);
     }
@@ -84,22 +80,14 @@ public abstract class RuntimeSet<T> : ScriptableObject
         currentValue = new();
         if (initialValue != null) currentValue.AddRange(initialValue);
 
-        if (BeforeItemAdded == null) return;
-        foreach (System.Delegate d in BeforeItemAdded.GetInvocationList())
-        {
-            BeforeItemAdded -= (ListChanged) d;
-        }
+        if (AfterItemAdded == null) return;
         foreach (System.Delegate d in AfterItemAdded.GetInvocationList())
         {
-            AfterItemAdded -= (ListChanged) d;
-        }
-        foreach (System.Delegate d in BeforeItemRemoved.GetInvocationList())
-        {
-            BeforeItemRemoved -= (ListChanged)d;
+            AfterItemAdded -= (System.Action<T>)d;
         }
         foreach (System.Delegate d in AfterItemRemoved.GetInvocationList())
         {
-            AfterItemRemoved -= (ListChanged)d;
+            AfterItemRemoved -= (System.Action<T>)d;
         }
     }
 
