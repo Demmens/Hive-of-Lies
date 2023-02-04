@@ -91,6 +91,7 @@ public abstract class RuntimeSet<T> : ScriptableObject
 
     public void OnEnable()
     {
+        SetInitialValue();
         if (subsetOf == extensionOf && subsetOf != null) throw new System.Exception($"Set {name} cannot be a subset and an extension of the same set");
         if (subsetOf != null && subsetOf.extensionOf == this) throw new System.Exception($"{name} is a subset of {subsetOf}, and {subsetOf} is an extension of {name}");
         if (extensionOf != null && extensionOf.subsetOf == this) throw new System.Exception($"{name} is an extension of {extensionOf}, and {extensionOf} is a subset of {name}");
@@ -111,10 +112,7 @@ public abstract class RuntimeSet<T> : ScriptableObject
     /// </summary>
     public void ClearSet()
     {
-        currentValue = new();
-        if (initialValue != null) currentValue.AddRange(initialValue);
-        if (extensionOf != null && extensionOf.currentValue != null) currentValue.AddRange(extensionOf.currentValue);
-        if (subsetOf != null && startFull && subsetOf.currentValue != null) currentValue.AddRange(subsetOf.currentValue);
+        SetInitialValue();
 
         if (AfterItemAdded != null)
         {
@@ -138,7 +136,13 @@ public abstract class RuntimeSet<T> : ScriptableObject
     {
         //Set currentValue to bypass all the code that runs from setting Value
         //For some reason this isn't the same as just setting the current value to the initial value..
-        if (Application.isPlaying) return;
+        if (!Application.isPlaying) return;
+        
+        SetInitialValue();
+    }
+
+    private void SetInitialValue()
+    {
         currentValue = new();
         if (initialValue != null) currentValue.AddRange(initialValue);
         if (extensionOf != null) currentValue.AddRange(extensionOf.currentValue);
