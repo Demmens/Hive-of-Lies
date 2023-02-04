@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801fb41f74d3cd642b277f7f3e90cdc6, type: 3}
   m_Name: All Votes
   m_EditorClassIdentifier: 
+  initialValue: []
+  currentValue: []
   server: 1
   client: 0
   Persistent: 0

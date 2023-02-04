@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: All Players
   m_EditorClassIdentifier: 
   initialValue: []
-  currentValue: []
+  currentValue:
+  - {fileID: 0}
+  subsetOf: {fileID: 0}
+  startFull: 0
+  extensionOf: {fileID: 0}
   server: 1
   client: 0
+  Persistent: 1
   tooltip: All players in the game
