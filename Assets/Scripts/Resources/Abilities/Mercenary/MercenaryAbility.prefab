@@ -78,9 +78,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
   favourGain: 5
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
+  teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
 --- !u!114 &8560317923312266161
 MonoBehaviour:
   m_ObjectHideFlags: 0
