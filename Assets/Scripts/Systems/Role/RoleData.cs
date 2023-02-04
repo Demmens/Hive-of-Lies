@@ -49,9 +49,9 @@ public class RoleData : ScriptableObject
     [SerializeField] int playersRequired;
 
     /// <summary>
-    /// Prefab containing both RoleAbilityData and RoleAbility scripts
+    /// Prefab containing RoleAbility scripts
     /// </summary>
-    [SerializeField] GameObject ability;
+    [SerializeField] List<GameObject> abilities;
 
     /// <summary>
     /// Private counterpart of <see cref="Enabled"/>
@@ -130,11 +130,11 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// The logic for the roles ability
     /// </summary>
-    public GameObject Ability
+    public List<GameObject> Abilities
     {
         get
         {
-            return ability;
+            return abilities;
         }
     }
 

@@ -96,15 +96,19 @@ public class RoleUI : NetworkBehaviour
             rejectedRoles.Add(rl);
         }
 
-        GameObject abilityObject = Instantiate(data.Ability);  
-        NetworkServer.Spawn(abilityObject, conn);
-        ply.Favour.Value = data.StartingFavour;
-
-        RoleAbility[] abilities = abilityObject.GetComponents<RoleAbility>();
-
-        foreach (RoleAbility ability in abilities)
+        List<RoleAbility> abilities = new();
+        for (int i = 0; i < data.Abilities.Count; i++)
         {
-            ability.Owner = ply;
+            GameObject abilityObject = Instantiate(data.Abilities[i]);
+            NetworkServer.Spawn(abilityObject, conn);
+
+            RoleAbility[] scripts = abilityObject.GetComponents<RoleAbility>();
+
+            foreach (RoleAbility ability in scripts)
+            {
+                ability.Owner = ply;
+                abilities.Add(ability);
+            }
         }
 
         Role role = new()
@@ -115,6 +119,7 @@ public class RoleUI : NetworkBehaviour
 
         allRoles.Add(role);
         ply.Role.Value = role;
+        ply.Favour.Value += data.StartingFavour;
 
         if (allRoles.Value.Count == playerCount) allPlayersChosenRoles?.Invoke();
     }
