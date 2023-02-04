@@ -49,7 +49,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
   allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
 --- !u!114 &-3121188735312786800
 MonoBehaviour:
@@ -66,8 +65,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
-  waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
+  waspPlayers: {fileID: 11400000, guid: a3176300e0a49fd44a5963084bab2af0, type: 2}
   popup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
 --- !u!114 &5492599771887989418
 MonoBehaviour:

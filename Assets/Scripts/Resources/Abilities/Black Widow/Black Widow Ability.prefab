@@ -68,7 +68,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
   maxCost: 2
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
 --- !u!114 &-680392601638575671
@@ -115,7 +114,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
 --- !u!114 &4525714429415417730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +129,5 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
-  waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
+  waspPlayers: {fileID: 11400000, guid: a3176300e0a49fd44a5963084bab2af0, type: 2}
   popup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
