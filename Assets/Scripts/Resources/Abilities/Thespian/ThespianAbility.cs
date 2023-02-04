@@ -9,7 +9,7 @@ public class ThespianAbility : RoleAbility
     [SerializeField] HoLPlayerSet playersOnMission;
     [SerializeField] VoteSet votes;
 
-    public void ChoicesLockedIn()
+    public void AllPlayersVoted()
     {
         if (votes.Value.Count(vote => vote.votes < 0) > 0) return;
         if (!playersOnMission.Value.Contains(Owner)) return;

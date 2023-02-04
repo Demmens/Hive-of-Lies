@@ -52,6 +52,7 @@ MonoBehaviour:
   favourGain: 5
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
   votes: {fileID: 11400000, guid: 8868811ef70de684c9f1d84675d4950c, type: 2}
+  voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
 --- !u!114 &3828286612139123299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,13 +66,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Events:
-  - {fileID: 11400000, guid: 2ec4455b9dd56c84b8d12e7e321d0709, type: 2}
+  - {fileID: 11400000, guid: 2c911947a0685cd409dcd5d21d0ace0a, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5550505256605027585}
         m_TargetAssemblyTypeName: ProvocateurAbility, Assembly-CSharp
-        m_MethodName: ChoicesLockedIn
+        m_MethodName: AllPlayersVoted
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
