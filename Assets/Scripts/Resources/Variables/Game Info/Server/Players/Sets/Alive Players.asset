@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: []
   currentValue: []
+  subsetOf: {fileID: 11400000, guid: 4b94e810f13e0194982148a52bcc24c2, type: 2}
+  startFull: 1
+  extensionOf: {fileID: 0}
   server: 1
   client: 0
+  Persistent: 0
   tooltip: All alive players

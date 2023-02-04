@@ -17,9 +17,6 @@ public class HoLNetworkManager : NetworkManager
     [Tooltip("All players by their network connection")]
     [SerializeField] HoLPlayerDictionary playersByConnection;
 
-    [Tooltip("All alive players in the game")]
-    [SerializeField] HoLPlayerSet alivePlayers;
-
     [Tooltip("All players in the game")]
     [SerializeField] HoLPlayerSet allPlayers;
 
@@ -65,7 +62,6 @@ public class HoLNetworkManager : NetworkManager
 
             playersByConnection.Value[conn] = ply;
             alivePlayersByConnection.Value[conn] = ply;
-            alivePlayers.Add(ply);
             allPlayers.Add(ply);
 
             DontDestroyOnLoad(ply.gameObject);
@@ -100,8 +96,6 @@ public class HoLNetworkManager : NetworkManager
             {
                 StartCoroutine(Coroutines.Delay(0.5f, () =>
                 {
-                    alivePlayers.Value = new();
-                    alivePlayers.Value.AddRange(allPlayers.Value);
                     alivePlayersByConnection.Value = new();
                     foreach(HoLPlayer ply in allPlayers.Value)
                     {
@@ -141,8 +135,8 @@ public class HoLNetworkManager : NetworkManager
 
             if (isPersistent) continue;
 
-            if (isVariable) variableType.GetMethod(nameof(Variable<int>.OnEnable)).Invoke(variables[i], new object[] { });
-            if (isSet) variableType.GetMethod(nameof(RuntimeSet<int>.ClearSet)).Invoke(variables[i], new object[] { });
+            if (isVariable) variableType.GetMethod(nameof(Variable<int>.OnEnable))?.Invoke(variables[i], new object[] { });
+            if (isSet) variableType.GetMethod(nameof(RuntimeSet<int>.ClearSet))?.Invoke(variables[i], new object[] { });
         }
     }
 
