@@ -54,7 +54,6 @@ public class RunMission : GamePhase
         completedMissions.Add(currentMission.Value);
         mission.Active = false;
 
-        teamLeader.Value.Exhaustion++;
         foreach (HoLPlayer ply in players.Value)
         {
             if (ShouldExhaust(ply))
