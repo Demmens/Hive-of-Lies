@@ -51,7 +51,7 @@ public class InvestigatePlayer : MissionEffect
             {
                 teamLeader.Value.connectionToClient.Send(new InvestigateResultMsg()
                 {
-                    team = ply.Team,
+                    team = ply.GetTeam(),
                     playerName = ply.DisplayName,
                 });
                 return;
