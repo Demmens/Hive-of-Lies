@@ -135,6 +135,8 @@ public class HoLNetworkManager : NetworkManager
             if (isVariable) info = variableType.GetField(nameof(Variable<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
             if (isSet) info = variableType.GetField(nameof(RuntimeSet<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
 
+            if (info == null) return;
+
             bool isPersistent = (bool) info.GetValue(variables[i]);
 
             if (isPersistent) continue;
