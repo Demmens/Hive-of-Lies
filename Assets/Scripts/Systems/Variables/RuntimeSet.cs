@@ -91,7 +91,7 @@ public abstract class RuntimeSet<T> : ScriptableObject
 
     public void OnEnable()
     {
-        if (subsetOf != null && extensionOf != null) throw new System.Exception($"Set {name} cannot be both a subset and an extension");
+        if (subsetOf == extensionOf && subsetOf != null) throw new System.Exception($"Set {name} cannot be a subset and an extension of the same set");
         if (subsetOf != null && subsetOf.extensionOf == this) throw new System.Exception($"{name} is a subset of {subsetOf}, and {subsetOf} is an extension of {name}");
         if (extensionOf != null && extensionOf.subsetOf == this) throw new System.Exception($"{name} is an extension of {extensionOf}, and {extensionOf} is a subset of {name}");
 
