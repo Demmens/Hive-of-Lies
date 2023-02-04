@@ -49,9 +49,9 @@ public class CardsMission : MissionType
     [Server]
     public void AfterRolesChosen()
     {
-        foreach (Role role in allRoles.Value)
+        foreach (HoLPlayer ply in allPlayers.Value)
         {
-            HoLPlayer ply = role.Abilities[0].Owner;
+            Role role = ply.Role.Value;
             for (int i = 0; i < role.Data.StartingDeck.Count; i++)
             {
                 ply.Deck.Value.DrawPile.Add(new Card(role.Data.StartingDeck[i]));
