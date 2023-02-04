@@ -118,6 +118,8 @@ public class CardsMission : MissionType
 
         if (playersPlayed.Count >= playersOnMission.Value.Count)
         {
+            ply.NumDraws.Value = 0;
+            ply.NextDrawCost.Value = 0;
             allPlayersPlayed?.Invoke();
         }
     }

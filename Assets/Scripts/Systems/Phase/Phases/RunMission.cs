@@ -64,8 +64,6 @@ public class RunMission : GamePhase
             {
                 ply.Exhaustion.Value = 0;
             }
-            ply.NumDraws.Value = 0;
-            ply.NextDrawCost.Value = 0;
         }
 
 
