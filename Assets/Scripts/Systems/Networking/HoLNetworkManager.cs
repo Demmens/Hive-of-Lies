@@ -129,14 +129,18 @@ public class HoLNetworkManager : NetworkManager
             System.Type variableType = variables[i].GetType();
             FieldInfo info = null;
 
-            if (typeof(Variable<>).IsAssignableFrom(variableType)) info = variableType.GetField(nameof(Variable<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
-            else info = variableType.GetField(nameof(RuntimeSet<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
+            bool isVariable = typeof(Variable<>).IsAssignableFrom(variableType);
+            bool isSet = typeof(RuntimeSet<>).IsAssignableFrom(variableType);
+
+            if (isVariable) info = variableType.GetField(nameof(Variable<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
+            if (isSet) info = variableType.GetField(nameof(RuntimeSet<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
 
             bool isPersistent = (bool) info.GetValue(variables[i]);
 
             if (isPersistent) continue;
 
-            variableType.GetMethod(nameof(Variable<int>.OnEnable)).Invoke(variables[i], new object[] { });
+            if (isVariable) variableType.GetMethod(nameof(Variable<int>.OnEnable)).Invoke(variables[i], new object[] { });
+            if (isSet) variableType.GetMethod(nameof(RuntimeSet<int>.ClearSet)).Invoke(variables[i], new object[] { });
         }
     }
 }

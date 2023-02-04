@@ -57,6 +57,8 @@ public abstract class RuntimeSet<T> : ScriptableObject
 
     public event System.Action<T> AfterItemRemoved;
 
+    public event System.Action AfterCleared;
+
     public void Add(T item) {
         if (Value.Contains(item)) return;
 
@@ -75,8 +77,14 @@ public abstract class RuntimeSet<T> : ScriptableObject
 
     public void OnEnable()
     {
-        if (Persistent) return;
+         
+    }
 
+    /// <summary>
+    /// Resets the set back to the initial values
+    /// </summary>
+    public void ClearSet()
+    {
         currentValue = new();
         if (initialValue != null) currentValue.AddRange(initialValue);
 
@@ -89,6 +97,7 @@ public abstract class RuntimeSet<T> : ScriptableObject
         {
             AfterItemRemoved -= (System.Action<T>)d;
         }
+        AfterCleared?.Invoke();
     }
 
     private void OnValidate()
