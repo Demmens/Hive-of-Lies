@@ -129,13 +129,13 @@ public class HoLNetworkManager : NetworkManager
             System.Type variableType = variables[i].GetType();
             FieldInfo info = null;
 
-            bool isVariable = typeof(Variable<>).IsAssignableFrom(variableType);
-            bool isSet = typeof(RuntimeSet<>).IsAssignableFrom(variableType);
+            bool isVariable = IsAssignableToGenericType(variableType, typeof(Variable<>));
+            bool isSet = IsAssignableToGenericType(variableType, typeof(RuntimeSet<>));
 
             if (isVariable) info = variableType.GetField(nameof(Variable<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
             if (isSet) info = variableType.GetField(nameof(RuntimeSet<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
 
-            if (info == null) return;
+            if (info == null) continue;
 
             bool isPersistent = (bool) info.GetValue(variables[i]);
 
@@ -144,5 +144,24 @@ public class HoLNetworkManager : NetworkManager
             if (isVariable) variableType.GetMethod(nameof(Variable<int>.OnEnable)).Invoke(variables[i], new object[] { });
             if (isSet) variableType.GetMethod(nameof(RuntimeSet<int>.ClearSet)).Invoke(variables[i], new object[] { });
         }
+    }
+
+    public static bool IsAssignableToGenericType(System.Type givenType, System.Type genericType)
+    {
+        var interfaceTypes = givenType.GetInterfaces();
+
+        foreach (var it in interfaceTypes)
+        {
+            if (it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
+                return true;
+        }
+
+        if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
+            return true;
+
+        System.Type baseType = givenType.BaseType;
+        if (baseType == null) return false;
+
+        return IsAssignableToGenericType(baseType, genericType);
     }
 }
