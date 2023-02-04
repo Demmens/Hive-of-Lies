@@ -13,6 +13,12 @@ public abstract class RuntimeSet<T> : ScriptableObject
     [Tooltip("The current value of this variable")]
     [SerializeField] private List<T> currentValue;
 
+    [Tooltip("The set that this set is a subset of")]
+    [SerializeField] private RuntimeSet<T> subsetOf;
+
+    [Tooltip("The set that this set is an extension of")]
+    [SerializeField] private RuntimeSet<T> extensionOf;
+
     [Space]
     [Space]
 
@@ -65,6 +71,8 @@ public abstract class RuntimeSet<T> : ScriptableObject
         currentValue.Add(item);
         AfterItemAdded?.Invoke(item);
 
+        if (subsetOf == null) return;
+        subsetOf.Add(item);
     }
 
     public void Remove(T item)
@@ -73,11 +81,26 @@ public abstract class RuntimeSet<T> : ScriptableObject
 
         currentValue.Remove(item);
         AfterItemRemoved?.Invoke(item);
+
+        if (extensionOf == null) return;
+        extensionOf.Remove(item);
     }
 
     public void OnEnable()
     {
-         
+        if (subsetOf != null && extensionOf != null) throw new System.Exception($"Set {name} cannot be both a subset and an extension");
+
+        if (subsetOf != null)
+        {
+            if (subsetOf.initialValue != null) currentValue.AddRange(subsetOf.initialValue);
+            subsetOf.AfterCleared += () => subsetOf.AfterItemRemoved += item => Remove(item);
+        }
+
+        if (extensionOf != null)
+        {
+            if (extensionOf.initialValue != null) currentValue.AddRange(extensionOf.initialValue);
+            extensionOf.AfterCleared += () => extensionOf.AfterItemAdded += item => Add(item);
+        }
     }
 
     /// <summary>
@@ -88,15 +111,18 @@ public abstract class RuntimeSet<T> : ScriptableObject
         currentValue = new();
         if (initialValue != null) currentValue.AddRange(initialValue);
 
-        if (AfterItemAdded == null) return;
-        foreach (System.Delegate d in AfterItemAdded.GetInvocationList())
+        if (AfterItemAdded != null)
         {
-            AfterItemAdded -= (System.Action<T>)d;
+            foreach (System.Delegate d in AfterItemAdded.GetInvocationList())
+            {
+                AfterItemAdded -= (System.Action<T>)d;
+            }
+            foreach (System.Delegate d in AfterItemRemoved.GetInvocationList())
+            {
+                AfterItemRemoved -= (System.Action<T>)d;
+            }
         }
-        foreach (System.Delegate d in AfterItemRemoved.GetInvocationList())
-        {
-            AfterItemRemoved -= (System.Action<T>)d;
-        }
+        
         AfterCleared?.Invoke();
     }
 
@@ -104,6 +130,7 @@ public abstract class RuntimeSet<T> : ScriptableObject
     {
         //Set currentValue to bypass all the code that runs from setting Value
         //For some reason this isn't the same as just setting the current value to the initial value..
+        if (Application.isPlaying) return;
         currentValue = new();
         if (initialValue != null) currentValue.AddRange(initialValue);
     }
