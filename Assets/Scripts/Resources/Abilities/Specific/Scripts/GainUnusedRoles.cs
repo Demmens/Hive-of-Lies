@@ -10,12 +10,11 @@ public class GainUnusedRoles : RoleAbility
     #region SERVER
     [SerializeField] RoleDataSet rejectedRoles;
     [SerializeField] HoLPlayerSet waspPlayers;
-    [SerializeField] RoleAbility noAbility;
 
     [HideInInspector]
     public List<Role> Roles;
 
-    string roleString;
+    string roleString = "";
     #endregion
     #region CLIENT
     [SerializeField] GameObject popup;
@@ -27,13 +26,14 @@ public class GainUnusedRoles : RoleAbility
         rejectedRoles.Value.Shuffle();
         int pickedRoles = 0;
 
-        for (int i = 0; pickedRoles < rolesToGain && i < rejectedRoles.Value.Count; i++)
+        for (int i = rejectedRoles.Value.Count - 1; pickedRoles < rolesToGain && i >= 0; i--)
         {
             RoleData rl = rejectedRoles.Value[i];
             //Make sure they're not given a role that has no ability
             if (rl.Abilities.Count == 0) continue;
             if (rl.Team == Team.Wasp) continue;
             GiveRole(rl);
+            rejectedRoles.Remove(rl);
             pickedRoles++;
             roleString += rl.RoleName + "\n";
         }

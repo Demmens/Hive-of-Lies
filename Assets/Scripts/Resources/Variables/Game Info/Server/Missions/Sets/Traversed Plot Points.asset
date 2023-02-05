@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd96554d52f880c4993f2ee9c4fba3b8, type: 3}
+  m_Name: Traversed Plot Points
+  m_EditorClassIdentifier: 
+  initialValue: []
+  currentValue: []
+  subsetOf: {fileID: 0}
+  startFull: 0
+  extensionOf: {fileID: 0}
+  server: 1
+  client: 0
+  Persistent: 0
+  tooltip: The set of plot points from mission tiers that have been triggered this
+    game

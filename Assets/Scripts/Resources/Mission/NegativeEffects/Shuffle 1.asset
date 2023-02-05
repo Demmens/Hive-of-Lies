@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a761d984e60d56a44974e85dfd81df48, type: 3}
-  m_Name: PickupShelfCondition
+  m_Script: {fileID: 11500000, guid: e03a2be3871082648908b90dc44a9bb2, type: 3}
+  m_Name: Shuffle 1
   m_EditorClassIdentifier: 
-  requiredMissions:
-  - {fileID: 11400000, guid: cc778781c651e684f9bba22270a234b7, type: 2}
-  missionSet: {fileID: 11400000, guid: 3607a819c6730274eb3a1bdd526803db, type: 2}
+  description: 
+  type: 0
+  playerSet: {fileID: 0}
+  cardValue: 0
