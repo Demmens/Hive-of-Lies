@@ -86,6 +86,7 @@ public class Mission : ScriptableObject
     #endregion
 
     public event System.Action AfterAllEffectsTriggered;
+    public event System.Action<EMissionPlotPoint> OnPlotPointTraversed;
 
     public void TriggerValidEffects(int cardsTotal)
     {
@@ -101,7 +102,10 @@ public class Mission : ScriptableObject
             {
                 if (++tiersTriggered >= applicableTiers) AfterAllEffectsTriggered?.Invoke();
             };
-
+            foreach (EMissionPlotPoint point in tier.plotPoints)
+            {
+                OnPlotPointTraversed?.Invoke(point);
+            }
             tier.ApplyEffects(cardsTotal);
         }
     }
@@ -114,6 +118,7 @@ public class MissionEffectTier
     public int value;
     public string effectFlavour;
     public List<MissionEffect> effects;
+    public List<EMissionPlotPoint> plotPoints;
     [Multiline]
 
     int effectsTriggered;

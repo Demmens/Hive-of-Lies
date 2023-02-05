@@ -81,13 +81,16 @@ MonoBehaviour:
   mission: {fileID: 0}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
   completedMissions: {fileID: 11400000, guid: 33c18e2444b9f1041947a9afb8a706d0, type: 2}
-  succeededMissions: {fileID: 11400000, guid: 75075791eb0175345867cdbc9d66d1a3, type: 2}
-  failedMissions: {fileID: 11400000, guid: 3607a819c6730274eb3a1bdd526803db, type: 2}
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
   players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
+  traversedPlotPoints: {fileID: 11400000, guid: 4a5eb640b4396d84296657e382f2bad8,
+    type: 2}
+  playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   missionResult: {fileID: 11400000, guid: cb86549c1c6b60d438b18bc2ca2877a1, type: 2}
   cardsTotal: {fileID: 11400000, guid: 83624ceb4515efa42b174ca87b24d83f, type: 2}
-  missionDifficultyMod: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
+  missionDifficultyMod: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6,
+    type: 2}
   missionStarted: {fileID: 11400000, guid: 84bfa7269e26ce64280be9e1b752ac5b, type: 2}
   missionEnded: {fileID: 11400000, guid: 914730a4f1ae32e48a805cac0393c615, type: 2}
 --- !u!114 &-4355925669750816561

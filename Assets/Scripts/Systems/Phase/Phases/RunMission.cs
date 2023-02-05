@@ -24,6 +24,9 @@ public class RunMission : GamePhase
 
     [SerializeField] HoLPlayerVariable teamLeader;
 
+    [Tooltip("The set to add a plot point to when it is traversed")]
+    [SerializeField] MissionPlotPointSet traversedPlotPoints;
+
     [SerializeField] IntVariable playerCount;
 
     [Tooltip("The result of the mission")]
@@ -70,6 +73,7 @@ public class RunMission : GamePhase
         missionEnded?.Invoke();
 
         currentMission.Value.AfterAllEffectsTriggered += OnEffectEnded;
+        currentMission.Value.OnPlotPointTraversed += (point) => traversedPlotPoints.Add(point);
         //Trigger all effects
         currentMission.Value.TriggerValidEffects(cardsTotal - missionDifficultyMod);
     }
