@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Museum Heist
   m_EditorClassIdentifier: 
   missionName: Museum Heist
-  description: Perform a heist on the Grand Hive Museum
+  description: Perform a heist on the wasps Grand Hive Museum
   favourCost: 12
   effects:
   - comparator: 0

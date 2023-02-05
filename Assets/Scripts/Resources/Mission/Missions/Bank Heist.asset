@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bank Heist
   m_EditorClassIdentifier: 
   missionName: Bank Heist
-  description: Perform a heist on the Central Bee Bank
+  description: Perform a heist on the Central Wasp Bank
   favourCost: 12
   effects:
   - comparator: 0
