@@ -141,7 +141,6 @@ public class TeamLeaderVote : GamePhase
     {
         //Invoke the all players voted event
         onAllPlayersVoted?.Invoke();
-        allVotes.Value = new();
     }
 
     /// <summary>
@@ -169,7 +168,6 @@ public class TeamLeaderVote : GamePhase
     public void AllPlayersClosedPopup()
     {
         playersClosedPopup = new List<HoLPlayer>();
-        allVotes.Value = new();
         //If the vote was successful
         if (voteTotal > 0)
         {
@@ -203,6 +201,7 @@ public class TeamLeaderVote : GamePhase
 /// <summary>
 /// Represents the vote of a player
 /// </summary>
+[System.Serializable]
 public struct PlayerVote
 {
     /// <summary>

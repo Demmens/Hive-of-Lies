@@ -17,9 +17,6 @@ public class HoLNetworkManager : NetworkManager
     [Tooltip("All players by their network connection")]
     [SerializeField] HoLPlayerDictionary playersByConnection;
 
-    [Tooltip("All alive players in the game")]
-    [SerializeField] HoLPlayerSet alivePlayers;
-
     [Tooltip("All players in the game")]
     [SerializeField] HoLPlayerSet allPlayers;
 
@@ -65,7 +62,6 @@ public class HoLNetworkManager : NetworkManager
 
             playersByConnection.Value[conn] = ply;
             alivePlayersByConnection.Value[conn] = ply;
-            alivePlayers.Add(ply);
             allPlayers.Add(ply);
 
             DontDestroyOnLoad(ply.gameObject);
@@ -100,8 +96,6 @@ public class HoLNetworkManager : NetworkManager
             {
                 StartCoroutine(Coroutines.Delay(0.5f, () =>
                 {
-                    alivePlayers.Value = new();
-                    alivePlayers.Value.AddRange(allPlayers.Value);
                     alivePlayersByConnection.Value = new();
                     foreach(HoLPlayer ply in allPlayers.Value)
                     {
@@ -129,14 +123,39 @@ public class HoLNetworkManager : NetworkManager
             System.Type variableType = variables[i].GetType();
             FieldInfo info = null;
 
-            if (typeof(Variable<>).IsAssignableFrom(variableType)) info = variableType.GetField(nameof(Variable<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
-            else info = variableType.GetField(nameof(RuntimeSet<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
+            bool isVariable = IsAssignableToGenericType(variableType, typeof(Variable<>));
+            bool isSet = IsAssignableToGenericType(variableType, typeof(RuntimeSet<>));
+
+            if (isVariable) info = variableType.GetField(nameof(Variable<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
+            if (isSet) info = variableType.GetField(nameof(RuntimeSet<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
+
+            if (info == null) continue;
 
             bool isPersistent = (bool) info.GetValue(variables[i]);
 
             if (isPersistent) continue;
 
-            variableType.GetMethod(nameof(Variable<int>.OnEnable)).Invoke(variables[i], new object[] { });
+            if (isVariable) variableType.GetMethod(nameof(Variable<int>.OnEnable))?.Invoke(variables[i], new object[] { });
+            if (isSet) variableType.GetMethod(nameof(RuntimeSet<int>.ClearSet))?.Invoke(variables[i], new object[] { });
         }
+    }
+
+    public static bool IsAssignableToGenericType(System.Type givenType, System.Type genericType)
+    {
+        var interfaceTypes = givenType.GetInterfaces();
+
+        foreach (var it in interfaceTypes)
+        {
+            if (it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
+                return true;
+        }
+
+        if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
+            return true;
+
+        System.Type baseType = givenType.BaseType;
+        if (baseType == null) return false;
+
+        return IsAssignableToGenericType(baseType, genericType);
     }
 }

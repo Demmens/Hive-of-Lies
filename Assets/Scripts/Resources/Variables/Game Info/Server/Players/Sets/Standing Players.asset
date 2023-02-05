@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: []
   currentValue: []
+  subsetOf: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  startFull: 0
+  extensionOf: {fileID: 0}
   server: 1
   client: 0
   Persistent: 0

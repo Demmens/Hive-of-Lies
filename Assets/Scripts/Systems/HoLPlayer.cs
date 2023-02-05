@@ -109,6 +109,9 @@ public class HoLPlayer : NetworkBehaviour
     /// </summary>
     public event System.Action<NetworkConnection, int> OnNumVotesChanged;
 
+    public event TeamDelegate OnGetTeam;
+    public delegate void TeamDelegate(ref Team team);
+
     private void Awake()
     {
         ResetValues();
@@ -136,6 +139,17 @@ public class HoLPlayer : NetworkBehaviour
         NextUpvoteCost.AfterVariableChanged += change => OnUpvoteCostChanged?.Invoke(connectionToClient, change);
         NextDownvoteCost.AfterVariableChanged += change => OnDownvoteCostChanged?.Invoke(connectionToClient, change);
         NumVotes.AfterVariableChanged += change => OnNumVotesChanged?.Invoke(connectionToClient, change);
+    }
+
+    /// <summary>
+    /// Get the team of this player, accounting for role abilities
+    /// </summary>
+    /// <returns></returns>
+    public Team GetTeam()
+    {
+        Team returnVal = Team;
+        OnGetTeam?.Invoke(ref returnVal);
+        return returnVal;
     }
 }
 
