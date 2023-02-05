@@ -21,9 +21,11 @@ MonoBehaviour:
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: 1e4482e15e8c9114291472f9f621a56b, type: 2}
+    plotPoints: []
   - comparator: 2
-    value: 25
+    value: 30
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+    plotPoints: []
   condition: {fileID: 0}
