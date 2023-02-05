@@ -34,12 +34,14 @@ public abstract class RuntimeSet<T> : ScriptableObject
     [Tooltip("Whether this variable should persist through scene changes")]
     public bool Persistent = true;
 
+#if UNITY_EDITOR
     [Space]
     [Space]
 
     [TextArea]
     [Tooltip("The tooltip for this variable. Doesn't have any mechanical purpose.")]
     [SerializeField] private string tooltip;
+#endif
 
     /// <summary>
     /// The value of this variable

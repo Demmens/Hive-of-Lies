@@ -25,12 +25,14 @@ public abstract class Variable<T> : ScriptableObject
     [Tooltip("Should this variable be accessible on clients")]
     [SerializeField] private bool client;
 
+#if UNITY_EDITOR
     [Space]
     [Space]
 
     [TextArea]
     [Tooltip("The tooltip for this variable. Doesn't have any mechanical purpose.")]
     [SerializeField] private string tooltip;
+#endif
 
     /// <summary>
     /// The value of this variable
