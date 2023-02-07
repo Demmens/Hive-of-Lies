@@ -80,6 +80,8 @@ public class DecideMission : GamePhase
         });
 
         decidedMissionList.Value = possibleLists.GetRandom();
+        //Now we can include all the missions from the included mission threads to this mission list
+        decidedMissionList.Value.AddThreads();
     }
 
     /// <summary>

@@ -9,6 +9,9 @@ public class MissionList : ScriptableObject
 
     [SerializeField] int maxPlayers;
 
+    [Tooltip("Extra mission lists to be automatically included in this list")]
+    [SerializeField] List<MissionList> includedThreads;
+
     [SerializeField] List<MissionListEntry> list;
 
     /// <summary>
@@ -42,6 +45,25 @@ public class MissionList : ScriptableObject
         {
             return list;
         }
+    }
+
+    //Include the included threads missions in this mission list
+    public void AddThreads(MissionList origin = null)
+    {
+        if (origin == this) throw new System.Exception($"Mission list thread from origin {origin.name} is cyclic");
+        if (origin == null) origin = this;
+        foreach (MissionList thread in includedThreads)
+        {
+            thread.AddThreads(origin);
+            for (int i = 0; i < thread.List.Count && i < List.Count; i++)
+            {
+                MissionListEntry entry = list[i];
+                MissionListEntry threadEntry = thread.List[i];
+                entry.Missions.AddRange(threadEntry.Missions);
+            }
+            
+        }
+        
     }
 }
 
