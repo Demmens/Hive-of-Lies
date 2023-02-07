@@ -71,7 +71,7 @@ public class MissionList : ScriptableObject
 /// Stupid way of getting around Unity's serializing system.
 /// </summary>
 [System.Serializable]
-public struct MissionListEntry
+public class MissionListEntry
 {
     /// <summary>
     /// Private counterpart of <see cref="Missions"/>
@@ -89,7 +89,7 @@ public struct MissionListEntry
         }
         set
         {
-            missions = Missions;
+            missions = value;
         }
     }
 }
@@ -98,8 +98,9 @@ public struct MissionListEntry
 /// Stupid way of getting around Unity's serializing system.
 /// </summary>
 [System.Serializable]
-public struct MissionListEntryEntry
+public class MissionListEntryEntry : ISerializationCallbackReceiver
 {
+    private bool serialized;
     /// <summary>
     /// Private counterpart of <see cref="Mission"/>
     /// </summary>
@@ -108,7 +109,7 @@ public struct MissionListEntryEntry
     /// <summary>
     /// Private counterpart of <see cref="Weight"/>
     /// </summary>
-    [SerializeField] float weight;
+    [SerializeField] float weight = 1;
 
     /// <summary>
     /// The mission
@@ -121,7 +122,7 @@ public struct MissionListEntryEntry
         }
         set
         {
-            mission = Mission;
+            mission = value;
         }
     }
 
@@ -136,7 +137,18 @@ public struct MissionListEntryEntry
         }
         set
         {
-            weight = Weight;
+            weight = value;
         }
+    }
+
+    public void OnAfterDeserialize()
+    {
+        if (serialized) return;
+        weight = 1;
+        serialized = true;
+    }
+
+    public void OnBeforeSerialize()
+    {
     }
 }
