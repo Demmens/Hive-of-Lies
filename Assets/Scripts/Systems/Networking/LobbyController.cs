@@ -25,10 +25,10 @@ public class LobbyController : NetworkBehaviour
     [Server]
     public void OnPlayerJoinedLobby(NetworkConnection conn)
     {
-        allPlayers.Value.ForEach(ply =>
+        foreach (HoLPlayer ply in allPlayers.Value)
         {
             CreateClientPlayerItem(ply.DisplayName, ply.connectionToClient.connectionId, ply.PlayerID);
-        });
+        }
         UpdateLobbyName();
     }
 

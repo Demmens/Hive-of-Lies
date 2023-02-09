@@ -10,28 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
-  m_Name: Gather Resources
+  m_Name: Source Getaway Vehicles
   m_EditorClassIdentifier: 
-  missionName: Gather Resources
-  description: Spend time gathering as many helpful resources as posible
-  favourCost: 6
+  missionName: Source Getaway Vehicles
+  description: Find some vehicles to escape the nest after the heist
+  favourCost: 8
   effects:
   - comparator: 0
-    value: 35
-    effectFlavour: 
-    effects:
-    - {fileID: 11400000, guid: 8eade5410567fb14693326ca8dc358ed, type: 2}
-    plotPoints: []
-  - comparator: 0
-    value: 28
-    effectFlavour: 
-    effects:
-    - {fileID: 11400000, guid: 8eade5410567fb14693326ca8dc358ed, type: 2}
-    plotPoints: []
-  - comparator: 2
     value: 25
     effectFlavour: 
     effects:
-    - {fileID: 11400000, guid: 1eb83aac85dba1a4aa6ee342952a1218, type: 2}
+    - {fileID: 11400000, guid: 6af8c0b5daddd624d9d3616e6ddf21f1, type: 2}
     plotPoints: []
-  condition: {fileID: 0}
+  - comparator: 2
+    value: 20
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+    plotPoints: []
+  condition: {fileID: 11400000, guid: a0841fdf235ee0845a2d50681650e433, type: 2}

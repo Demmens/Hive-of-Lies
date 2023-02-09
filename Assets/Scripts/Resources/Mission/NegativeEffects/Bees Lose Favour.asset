@@ -9,16 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff4b9f0e51c6e774d86c18d71c325ab3, type: 3}
-  m_Name: All Players
+  m_Script: {fileID: 11500000, guid: 94f0decc40e2fbe4d80bfcc0321205e3, type: 3}
+  m_Name: Bees Lose Favour
   m_EditorClassIdentifier: 
-  initialValue: []
-  currentValue:
-  - {fileID: 0}
-  subsetOf: {fileID: 0}
-  startFull: 0
-  extensionOf: {fileID: 0}
-  server: 1
-  client: 0
-  Persistent: 1
-  tooltip: All players in the game
+  description: Bees lose 4 favour
+  type: 1
+  players: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
+  favourGain: -4

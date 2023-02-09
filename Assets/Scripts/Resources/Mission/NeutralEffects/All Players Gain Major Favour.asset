@@ -15,4 +15,4 @@ MonoBehaviour:
   description: Everyone gains 6 favour
   type: 2
   players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
-  favourGain: 6
+  favourGain: 8
