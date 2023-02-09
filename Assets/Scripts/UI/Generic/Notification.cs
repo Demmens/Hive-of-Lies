@@ -11,6 +11,8 @@ public class Notification : MonoBehaviour
     /// </summary>
     [SerializeField] TMP_Text text;
 
+    public event System.Action OnNotificationClosed;
+
     /// <summary>
     /// Sets the notification text
     /// </summary>
@@ -26,5 +28,6 @@ public class Notification : MonoBehaviour
     public void CloseNotification()
     {
         Destroy(gameObject);
+        OnNotificationClosed?.Invoke();
     }
 }
