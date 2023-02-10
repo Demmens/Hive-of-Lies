@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38cb838b8c66cdc4dbfc5760c045ee12, type: 3}
   m_Name: 4-6 players
   m_EditorClassIdentifier: 
-  minPlayers: 0
+  minPlayers: 4
   maxPlayers: 6
+  includedThreads: []
   list:
   - missions:
     - mission: {fileID: 11400000, guid: 5a19d64042492e346b49de9a4356e8c0, type: 2}
@@ -27,7 +28,7 @@ MonoBehaviour:
       weight: 1
   - missions:
     - mission: {fileID: 11400000, guid: 0e22ab184d819cb4dba50c901da1e847, type: 2}
-      weight: 10
+      weight: 1
     - mission: {fileID: 11400000, guid: a0eca8970f6641346a59d30e2c014c49, type: 2}
       weight: 1
     - mission: {fileID: 11400000, guid: a0eca8970f6641346a59d30e2c014c49, type: 2}
@@ -51,15 +52,15 @@ MonoBehaviour:
       weight: 1
   - missions:
     - mission: {fileID: 11400000, guid: 011299bff98885147a2ce7d29701c10b, type: 2}
-      weight: 10
+      weight: 1
     - mission: {fileID: 11400000, guid: 13c123683d2047b418ee7b6a936269f4, type: 2}
       weight: 1
   - missions:
     - mission: {fileID: 11400000, guid: 011299bff98885147a2ce7d29701c10b, type: 2}
-      weight: 10
+      weight: 1
   - missions:
     - mission: {fileID: 11400000, guid: 011299bff98885147a2ce7d29701c10b, type: 2}
-      weight: 10
+      weight: 1
   - missions:
     - mission: {fileID: 11400000, guid: 011299bff98885147a2ce7d29701c10b, type: 2}
-      weight: 10
+      weight: 1

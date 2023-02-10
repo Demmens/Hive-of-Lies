@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DebugList
   m_EditorClassIdentifier: 
   minPlayers: 0
-  maxPlayers: 100
+  maxPlayers: 3
+  includedThreads: []
   list:
   - missions:
     - mission: {fileID: 11400000, guid: 13c123683d2047b418ee7b6a936269f4, type: 2}
@@ -24,7 +25,7 @@ MonoBehaviour:
     - mission: {fileID: 11400000, guid: a0eca8970f6641346a59d30e2c014c49, type: 2}
       weight: 1
     - mission: {fileID: 11400000, guid: 0e22ab184d819cb4dba50c901da1e847, type: 2}
-      weight: 5
+      weight: 1
     - mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
       weight: 1
   - missions:
