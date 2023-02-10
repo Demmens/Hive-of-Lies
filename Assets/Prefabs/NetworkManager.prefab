@@ -57,7 +57,8 @@ MonoBehaviour:
   networkAddress: localhost
   maxConnections: 100
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 1475903555409176729, guid: d92fac9098a66254c8f625071f5921b3, type: 3}
+  playerPrefab: {fileID: 1475903555409176729, guid: d92fac9098a66254c8f625071f5921b3,
+    type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
@@ -70,12 +71,14 @@ MonoBehaviour:
   - {fileID: 6625753491725769877, guid: d168147dbf3d50445a02888ba4986e4b, type: 3}
   - {fileID: 2570528568398496050, guid: 4b8a5a4687d60b94aae468ea67054884, type: 3}
   - {fileID: 8722489698491470504, guid: 386ea3b0e977ef54db0f93afa21c2f11, type: 3}
-  - {fileID: 8554649782670390221, guid: bb4543fbba4881540aad058a35fb7a62, type: 3}
+  - {fileID: 6302659205889366563, guid: 2f72b272c52c08d4daa80959b0e07e3d, type: 3}
   - {fileID: 7529912001924459178, guid: ef978e02bed77b1459e21fee9a651b75, type: 3}
-  GamePlayerPrefab: {fileID: -8106975312484968007, guid: d92fac9098a66254c8f625071f5921b3, type: 3}
-  alivePlayersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
-  playersByConnection: {fileID: 11400000, guid: 727a441cdc88fb94daccad50d343bbc9, type: 2}
-  alivePlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  GamePlayerPrefab: {fileID: -8106975312484968007, guid: d92fac9098a66254c8f625071f5921b3,
+    type: 3}
+  alivePlayersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
+    type: 2}
+  playersByConnection: {fileID: 11400000, guid: 727a441cdc88fb94daccad50d343bbc9,
+    type: 2}
   allPlayers: {fileID: 11400000, guid: 4b94e810f13e0194982148a52bcc24c2, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   playerJoinedServer: {fileID: 11400000, guid: 26e05efea1cf88e4fa19abd86adff6b1, type: 2}
