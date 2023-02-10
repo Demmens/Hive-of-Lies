@@ -19,7 +19,10 @@ public class FavourController : NetworkBehaviour
 
     public void AfterSetup()
     {
-        allPlayers.Value.ForEach(ply => ply.OnFavourChanged += ChangeFavourUI);
+        foreach (HoLPlayer ply in allPlayers.Value)
+        {
+            ply.Favour.AfterVariableChanged += (val) => ChangeFavourUI(ply.connectionToClient, val);
+        }
     }
 
     [TargetRpc]
