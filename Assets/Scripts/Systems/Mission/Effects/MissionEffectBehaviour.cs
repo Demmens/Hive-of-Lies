@@ -11,7 +11,7 @@ public abstract class MissionEffectBehaviour : NetworkBehaviour
     public override void OnStartServer()
     {
         //Effect is destroyed when the effect is over
-        if (shouldDestroyOnEnd) OnEffectEnded += () => Destroy(this);
+        if (shouldDestroyOnEnd) OnEffectEnded += () => Destroy(gameObject);
 
         OnEffectTriggered();
     }
