@@ -36,7 +36,7 @@ public class InvestigatePlayer : MissionEffectBehaviour
     public override void OnStartAuthority()
     {
         //This is really bad and we shouldn't be doing this. It's currently midnight and I'm too tired to think of a better way.
-        dropDown = FindObjectOfType<PlayerButtonDropdown>();
+        dropDown = PlayerButtonDropdown.singleton;
         PlayerButtonDropdownItem item = dropDown.AddAll(investigateButton);
         item.OnItemClicked += PlayerInvestigated;
 
