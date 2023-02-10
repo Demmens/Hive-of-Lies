@@ -40,10 +40,11 @@ public class InvestigatePlayer : MissionEffectBehaviour
         PlayerButtonDropdownItem item = dropDown.AddAll(investigateButton);
         item.OnItemClicked += PlayerInvestigated;
 
-        if (notification == null) notification = Instantiate(notificationPrefab);
+        notification = Instantiate(notificationPrefab);
 
-        notification.SetActive(true);
         notification.GetComponent<Notification>().SetText("Choose a player to investigate");
+
+        notification = null;
     }
 
     /// <summary>
@@ -82,9 +83,12 @@ public class InvestigatePlayer : MissionEffectBehaviour
     [TargetRpc]
     private void GetResults(string playerName, Team team)
     {
-        notification.SetActive(true);
+        notification = Instantiate(notificationPrefab);
+
         notification.GetComponent<Notification>().SetText($"{playerName} is a {team}");
         notification.GetComponent<Notification>().OnNotificationClosed += OnClosedPopup;
+
+        notification = null;
     }
 
     [Command]
