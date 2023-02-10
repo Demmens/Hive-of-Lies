@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 226631584199059073}
   - component: {fileID: -559875826137024563}
   - component: {fileID: 4423915965264662964}
-  - component: {fileID: 4115939710640907291}
   m_Layer: 0
   m_Name: Sapper Ability
   m_TagString: Untagged
@@ -66,38 +65,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
   popup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
+  dropdownButton: {fileID: 8102290754876271477, guid: c41cee091ae6c4341ae0beb9b17ef3d8,
+    type: 3}
   alivePlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   missionResult: {fileID: 11400000, guid: cb86549c1c6b60d438b18bc2ca2877a1, type: 2}
   allPlayersPlayed: {fileID: 11400000, guid: 12992b83150649a40b0b24a5c8950cc8, type: 2}
   playedCards: {fileID: 11400000, guid: 2e986bf54c1fd454993a598a36f4f1f5, type: 2}
---- !u!114 &4115939710640907291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2570528568398496050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed52cf641607ad44e8f6d9aa8020d25d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Events:
-  - {fileID: 11400000, guid: e1db643ebc7f2c5428bd62f8391b0287, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4423915965264662964}
-        m_TargetAssemblyTypeName: SapperAbility, Assembly-CSharp
-        m_MethodName: PlayerChosen
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
