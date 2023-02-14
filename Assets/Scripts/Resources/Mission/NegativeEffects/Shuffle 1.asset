@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Shuffle 1
   m_EditorClassIdentifier: 
   description: All players have a 1 shuffled into their deck
-  type: 0
+  type: 1
   playerSet: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   cardValue: 1

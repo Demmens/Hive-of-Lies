@@ -7,6 +7,8 @@ public class SapperAbility : RoleAbility
 {
     #region CLIENT
     [SerializeField] GameObject popup;
+    [SerializeField] GameObject dropdownButton;
+    PlayerButtonDropdown dropdown;
     #endregion
     #region SERVER
     [SerializeField] HoLPlayerSet alivePlayers;
@@ -14,24 +16,24 @@ public class SapperAbility : RoleAbility
     [SerializeField] GameEvent allPlayersPlayed;
     [SerializeField] CardSet playedCards;
     HoLPlayer chosenPlayer;
-    #endregion
-    #region SHARED
-    [SyncVar] bool playerChosen = false;
+    bool playerChosen = false;
     #endregion
 
 
     public override void OnStartAuthority()
     {
+        dropdown = PlayerButtonDropdown.singleton;
         GameObject pop = Instantiate(popup);
         pop.GetComponent<Notification>().SetText("Choose a player. Shuffle a bomb into that players deck.");
+        PlayerButtonDropdownItem item = dropdown.AddAll(dropdownButton);
+        item.OnItemClicked += PlayerChosen;
     }
 
     [Client]
     public void PlayerChosen(ulong player)
-    {
-        if (playerChosen) return;
-        
+    {        
         ServerPlayerChosen(player);
+        dropdown.RemoveAll(dropdownButton);
     }
 
     [Command]

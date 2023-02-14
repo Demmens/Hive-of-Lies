@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-[CreateAssetMenu(fileName = "Investigate Player", menuName = "Missions/Effects/Specific/Investigate Player")]
-public class InvestigatePlayer : MissionEffect
+public class InvestigatePlayer : MissionEffectBehaviour
 {
     [SerializeField] GameObject investigateButton;
     [SerializeField] GameObject notificationPrefab;
@@ -19,70 +18,33 @@ public class InvestigatePlayer : MissionEffect
     [Tooltip("The current team leader")]
     [SerializeField] HoLPlayerVariable teamLeader;
 
-    void Awake()
-    {
-        NetworkClient.RegisterHandler<InvestigateEffectTriggeredMsg>(OnEffectTriggered);
-        NetworkClient.RegisterHandler<InvestigateResultMsg>(GetResults);
-        NetworkServer.RegisterHandler<InvestigateEffectTriggeredMsg>(OnInvestigated);
-        NetworkServer.RegisterHandler<ClosedInvestigatePopupMsg>(ClientClosedPopup);
-    }
-
-    #region SERVER
     [Server]
-    public override void TriggerEffect()
+    public override void OnEffectTriggered()
     {
-        Debug.Log("Effect triggered");
         //If there's no team leader, quit early
-        if (teamLeader.Value == null) EndEffect();
-        teamLeader.Value.connectionToClient.Send(new InvestigateEffectTriggeredMsg() { });
-    }
-
-    /// <summary>
-    /// Called when a player has been investigated. Send the client the team of the investigatee
-    /// </summary>
-    /// <param name="conn"></param>
-    /// <param name="msg"></param>
-    [Server]
-    private void OnInvestigated(NetworkConnection conn, InvestigateEffectTriggeredMsg msg)
-    {
-        foreach (HoLPlayer ply in allPlayers.Value)
+        if (teamLeader.Value == null)
         {
-            if (ply.PlayerID == msg.playerID)
-            {
-                teamLeader.Value.connectionToClient.Send(new InvestigateResultMsg()
-                {
-                    team = ply.GetTeam(),
-                    playerName = ply.DisplayName,
-                });
-                return;
-            }
+            EndEffect();
+            return;
         }
+
+        //Team leader has authority over this object
+        netIdentity.AssignClientAuthority(teamLeader.Value.connectionToClient);
     }
-
-    [Server]
-    private void ClientClosedPopup(NetworkConnection conn, ClosedInvestigatePopupMsg msg)
-    {
-        if (conn != teamLeader.Value.connectionToClient) return;
-        //Only continue with the game when the team leader has closed the result popup
-        EndEffect();
-
-    }
-    #endregion
-
-    #region CLIENT
 
     [Client]
-    private void OnEffectTriggered(InvestigateEffectTriggeredMsg msg)
+    public override void OnStartAuthority()
     {
         //This is really bad and we shouldn't be doing this. It's currently midnight and I'm too tired to think of a better way.
-        dropDown = FindObjectOfType<PlayerButtonDropdown>();
+        dropDown = PlayerButtonDropdown.singleton;
         PlayerButtonDropdownItem item = dropDown.AddAll(investigateButton);
         item.OnItemClicked += PlayerInvestigated;
 
-        if (notification == null) notification = Instantiate(notificationPrefab);
+        notification = Instantiate(notificationPrefab);
 
-        notification.SetActive(true);
-        notification.GetComponent<InvestigatePopup>().SetText("Choose a player to investigate");
+        notification.GetComponent<Notification>().SetText("Choose a player to investigate");
+
+        notification = null;
     }
 
     /// <summary>
@@ -93,44 +55,46 @@ public class InvestigatePlayer : MissionEffect
     public void PlayerInvestigated(ulong playerID)
     {
         dropDown.RemoveAll(investigateButton);
-        InvestigateEffectTriggeredMsg msg = new InvestigateEffectTriggeredMsg()
+        OnInvestigated(playerID);
+    }
+
+    /// <summary>
+    /// Called when a player has been investigated. Send the client the team of the investigatee
+    /// </summary>
+    /// <param name="conn"></param>
+    /// <param name="msg"></param>
+    [Command]
+    private void OnInvestigated(ulong playerID)
+    {
+        foreach (HoLPlayer ply in allPlayers.Value)
         {
-            playerID = playerID,
-        };
-        NetworkClient.Send(msg);
+            if (ply.PlayerID == playerID)
+            {
+                GetResults(ply.DisplayName, ply.Team);
+                return;
+            }
+        }
     }
 
     /// <summary>
     /// Called by the server to send the team of the investigated player over to the client.
     /// </summary>
     /// <param name="msg"></param>
-    [Client]
-    private void GetResults(InvestigateResultMsg msg)
+    [TargetRpc]
+    private void GetResults(string playerName, Team team)
     {
-        notification.SetActive(true);
-        isResult = true;
-        notification.GetComponent<InvestigatePopup>().SetText($"{msg.playerName} is a {msg.team}");
+        notification = Instantiate(notificationPrefab);
+
+        notification.GetComponent<Notification>().SetText($"{playerName} is a {team}");
+        notification.GetComponent<Notification>().OnNotificationClosed += OnClosedPopup;
+
+        notification = null;
     }
 
-    [Client]
-    public void OnClosedPopup()
+    [Command]
+    private void OnClosedPopup()
     {
-        if (!isResult) return;
-        NetworkClient.Send(new ClosedInvestigatePopupMsg());
-        isResult = false;
+        //Only continue with the game when the team leader has closed the result popup
+        EndEffect();
     }
-    #endregion
-
-    struct InvestigateEffectTriggeredMsg : NetworkMessage
-    {
-        public ulong playerID;
-    }
-
-    struct InvestigateResultMsg : NetworkMessage
-    {
-        public Team team;
-        public string playerName;
-    }
-
-    struct ClosedInvestigatePopupMsg : NetworkMessage { }
 }

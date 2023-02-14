@@ -6,9 +6,12 @@ using Mirror;
 
 public class PlayerButtonDropdown : NetworkBehaviour
 {
-    #region Game Objects
+    /// <summary>
+    /// The sole instance of the PlayerButtonDropdown
+    /// </summary>
+    public static PlayerButtonDropdown singleton; //In general I don't like using singletons, but in this instance I make an exception
+
     [SerializeField] GameObject dropdown;
-    #endregion
 
     /// <summary>
     /// Key = Prefab, Value = Instantiated Object
@@ -39,6 +42,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
 
     public override void OnStartServer()
     {
+        singleton = this;
         serverPlayersLoaded.AfterItemRemoved += PlayerDied;
 
         serverPlayersLoaded.Value.ForEach(ply =>
@@ -50,6 +54,7 @@ public class PlayerButtonDropdown : NetworkBehaviour
     [Client]
     public override void OnStartClient()
     {
+        singleton = this;
         dropdown.SetActive(false);
     }
 

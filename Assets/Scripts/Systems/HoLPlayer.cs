@@ -89,25 +89,12 @@ public class HoLPlayer : NetworkBehaviour
     public List<RoleData> RoleChoices = new();
     #endregion
 
+    #region CLIENT
     /// <summary>
-    /// Invoked when the players favour changes
+    /// The on-screen button associated with this player
     /// </summary>
-    public event System.Action<NetworkConnection, int> OnFavourChanged;
-
-    /// <summary>
-    /// Invoked when the players upvote cost changes
-    /// </summary>
-    public event System.Action<NetworkConnection, int> OnUpvoteCostChanged;
-
-    /// <summary>
-    /// Invoked when the players downvote cost changes
-    /// </summary>
-    public event System.Action<NetworkConnection, int> OnDownvoteCostChanged;
-
-    /// <summary>
-    /// Invoked when the players downvote cost changes
-    /// </summary>
-    public event System.Action<NetworkConnection, int> OnNumVotesChanged;
+    public PlayerButton button;
+    #endregion
 
     public event TeamDelegate OnGetTeam;
     public delegate void TeamDelegate(ref Team team);
@@ -134,11 +121,7 @@ public class HoLPlayer : NetworkBehaviour
         IsAlive.Value = true;
         Deck.Value = new();
 
-        Favour.AfterVariableChanged += change => OnFavourChanged?.Invoke(connectionToClient, change);
         Favour.OnVariableChanged += (int oldVal, ref int newVal) => newVal = Mathf.Max(0, newVal);
-        NextUpvoteCost.AfterVariableChanged += change => OnUpvoteCostChanged?.Invoke(connectionToClient, change);
-        NextDownvoteCost.AfterVariableChanged += change => OnDownvoteCostChanged?.Invoke(connectionToClient, change);
-        NumVotes.AfterVariableChanged += change => OnNumVotesChanged?.Invoke(connectionToClient, change);
     }
 
     /// <summary>

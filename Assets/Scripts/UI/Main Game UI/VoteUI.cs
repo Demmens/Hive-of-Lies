@@ -48,9 +48,12 @@ public class VoteUI : NetworkBehaviour
     [Server]
     public void AfterSetup()
     {
-        allPlayers.Value.ForEach(ply => ply.OnUpvoteCostChanged += ReceiveUpvoteCost);
-        allPlayers.Value.ForEach(ply => ply.OnDownvoteCostChanged += ReceiveDownvoteCost);
-        allPlayers.Value.ForEach(ply => ply.OnNumVotesChanged += ReceiveNumVotes);
+        foreach (HoLPlayer ply in allPlayers.Value)
+        {
+            ply.NextUpvoteCost.AfterVariableChanged += (val) => ReceiveUpvoteCost(ply.connectionToClient, val);
+            ply.NextDownvoteCost.AfterVariableChanged += (val) => ReceiveDownvoteCost(ply.connectionToClient, val);
+            ply.NumVotes.AfterVariableChanged += (val) => ReceiveNumVotes(ply.connectionToClient, val);
+        }
     }
 
     /// <summary>

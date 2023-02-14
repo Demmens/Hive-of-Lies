@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2570528568398496050
+--- !u!1 &6302659205889366563
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 226631584199059073}
-  - component: {fileID: -559875826137024563}
-  - component: {fileID: 4423915965264662964}
+  - component: {fileID: 1024453038932847015}
+  - component: {fileID: 6564360650961578459}
+  - component: {fileID: 4506133219946921899}
   m_Layer: 0
-  m_Name: Sapper Ability
+  m_Name: Investigate Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &226631584199059073
+--- !u!4 &1024453038932847015
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2570528568398496050}
+  m_GameObject: {fileID: 6302659205889366563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,13 +33,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-559875826137024563
+--- !u!114 &6564360650961578459
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2570528568398496050}
+  m_GameObject: {fileID: 6302659205889366563}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
@@ -48,27 +48,26 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 4b8a5a4687d60b94aae468ea67054884
+  m_AssetId: 2f72b272c52c08d4daa80959b0e07e3d
   hasSpawned: 0
---- !u!114 &4423915965264662964
+--- !u!114 &4506133219946921899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2570528568398496050}
+  m_GameObject: {fileID: 6302659205889366563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d22e067eeb18f144bbe161a5b3a98c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 871bc193cf4ebd64baaca169edef1302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  active: 1
-  popup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
-  dropdownButton: {fileID: 8102290754876271477, guid: c41cee091ae6c4341ae0beb9b17ef3d8,
+  shouldDestroyOnEnd: 1
+  investigateButton: {fileID: 8102290754876271477, guid: d7c6ccd1631b7df4b84bd6951d5d32a3,
     type: 3}
-  alivePlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
-  missionResult: {fileID: 11400000, guid: cb86549c1c6b60d438b18bc2ca2877a1, type: 2}
-  allPlayersPlayed: {fileID: 11400000, guid: 12992b83150649a40b0b24a5c8950cc8, type: 2}
-  playedCards: {fileID: 11400000, guid: 2e986bf54c1fd454993a598a36f4f1f5, type: 2}
+  notificationPrefab: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb,
+    type: 3}
+  allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
