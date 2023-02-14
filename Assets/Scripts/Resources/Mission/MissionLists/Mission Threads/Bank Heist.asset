@@ -22,13 +22,13 @@ MonoBehaviour:
       weight: 1
   - missions:
     - mission: {fileID: 11400000, guid: c6cf0e5fccd5e38408850fb0c3cd12b3, type: 2}
-      weight: 1
+      weight: 10
   - missions:
-    - mission: {fileID: 0}
-      weight: 1
+    - mission: {fileID: 11400000, guid: 870e2bece8f97224fb0c357b96d31253, type: 2}
+      weight: 10
   - missions:
     - mission: {fileID: 11400000, guid: 4f01e09660638e545a7123ecd399c8de, type: 2}
-      weight: 1
+      weight: 10
   - missions:
     - mission: {fileID: 11400000, guid: 6e16849b822dc7842955755cd4a0c54a, type: 2}
-      weight: 1
+      weight: 10
