@@ -20,10 +20,11 @@ public static class NetworkSerialiser
     {
         if (value == null)
         {
-            Debug.LogError("Attempting to send a null mission to client");
             writer.WriteString("");
+            return;
         }
-        else writer.WriteString(value.name);
+        
+        writer.WriteString(value.name);
     }
     public static Mission ReadMission(this NetworkReader reader)
     {
