@@ -33,12 +33,16 @@ public static class NetworkSerialiser
         {
             return null;
         }
-        if ((Mission) Resources.Load($"Mission/Missions/{missionName}") == null) {
-            Debug.LogError("Cannot find the mission for some reason. Check it's in the correct folder.");
-            return ScriptableObject.CreateInstance<Mission>();
+
+        Mission[] missions = Resources.LoadAll<Mission>("Mission/Missions");
+
+        foreach (Mission miss in missions)
+        {
+            if (miss.name == missionName) return miss;
         }
 
-        return (Mission) Resources.Load($"Mission/Missions/{missionName}");
+        Debug.LogError($"Cannot find the mission '{missionName}'. Check it's somewhere in the Scripts/Resources/Missions folder.");
+        return null;
     }
 
     public static void WriteCSteamID(this NetworkWriter writer, CSteamID value)
