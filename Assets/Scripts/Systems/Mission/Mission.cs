@@ -141,10 +141,13 @@ public class MissionEffectTier
     {
         if (!Applicable(cardsTotal)) return;
 
-        effects.ForEach(effect => {
+        if (effects.Count == 0) AfterEffectsTriggered?.Invoke();
+
+        foreach (MissionEffect effect in effects)
+        {
             effect.OnMissionEffectFinished += EffectTriggered;
             effect.TriggerEffect();
-        });
+        }
     }
 
     public void EffectTriggered(MissionEffect effect)
