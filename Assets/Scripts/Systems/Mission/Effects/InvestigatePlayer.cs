@@ -10,7 +10,6 @@ public class InvestigatePlayer : MissionEffectBehaviour
     GameObject notification;
 
     PlayerButtonDropdown dropDown;
-    bool isResult = false;
 
     [Tooltip("All players in the game")]
     [SerializeField] HoLPlayerSet allPlayers;
