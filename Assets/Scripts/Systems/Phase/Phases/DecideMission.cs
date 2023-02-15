@@ -70,18 +70,22 @@ public class DecideMission : GamePhase
         //Keep track of all the lists we find that are valid for this game
         List<MissionList> possibleLists = new List<MissionList>();
 
-        missionLists.ForEach(list =>
+        foreach (MissionList l in missionLists)
         {
-            //If the current playercount falls within the valid range for the mission list
-            if (list.MinPlayers <= playerCount && list.MaxPlayers >= playerCount)
-            {
-                possibleLists.Add(list);
-            }
-        });
+            if (l.MinPlayers > playerCount) continue;
+            if (l.MaxPlayers < playerCount) continue;
+            possibleLists.Add(l);
+        }
 
-        decidedMissionList.Value = possibleLists.GetRandom();
-        //Now we can include all the missions from the included mission threads to this mission list
-        decidedMissionList.Value.AddThreads();
+        MissionList list = ScriptableObject.CreateInstance<MissionList>();
+        MissionList decided = possibleLists.GetRandom();
+
+        if (decided == null) throw new System.Exception("Decided mission list is null");
+
+        list.IncludedThreads.Add(decided);
+        list.AddThreads(ignoreOriginSize: true);
+
+        decidedMissionList.Value = list;
     }
 
     /// <summary>
