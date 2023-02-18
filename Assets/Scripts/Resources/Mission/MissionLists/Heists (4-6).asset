@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38cb838b8c66cdc4dbfc5760c045ee12, type: 3}
+  m_Name: Heists (4-6)
+  m_EditorClassIdentifier: 
+  minPlayers: 4
+  maxPlayers: 6
+  IncludedThreads:
+  - {fileID: 11400000, guid: 77052f671e203074e9d1547a98747abc, type: 2}
+  - {fileID: 11400000, guid: a084912c307b391428e4229ead2aa866, type: 2}
+  List:
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
+      Weight: 1
+    - Mission: {fileID: 11400000, guid: b0787edbfa53fec4ca17d60eda2ae6e4, type: 2}
+      Weight: 1
+    - Mission: {fileID: 11400000, guid: 5a19d64042492e346b49de9a4356e8c0, type: 2}
+      Weight: 1
+  - Missions: []
+  - Missions:
+    - Mission: {fileID: 11400000, guid: cc778781c651e684f9bba22270a234b7, type: 2}
+      Weight: 1
+    - Mission: {fileID: 11400000, guid: a0eca8970f6641346a59d30e2c014c49, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 0e22ab184d819cb4dba50c901da1e847, type: 2}
+      Weight: 1
+    - Mission: {fileID: 11400000, guid: c8524725d35cc9e4b8479684cab020d4, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 6ff44ea8a53422a47baadb66718a3b20, type: 2}
+      Weight: 1
+    - Mission: {fileID: 11400000, guid: 00fa2c75a90a8a74c8e5b1e8b65e4403, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: dfdfb5caacdd4964db552c64b2480b85, type: 2}
+      Weight: 1
+    - Mission: {fileID: 11400000, guid: d9a9ed8c9b582554e8c62370ca32b2f7, type: 2}
+      Weight: 1
+    - Mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 011299bff98885147a2ce7d29701c10b, type: 2}
+      Weight: 1
