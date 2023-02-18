@@ -10,30 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
-  m_Name: FinaliseResearch
+  m_Name: Open Book
   m_EditorClassIdentifier: 
-  missionName: Final Research Push
-  description: Spend the last of your resources searching the final threads in the
-    hive library in a last ditch effort to weed out the wasps.
-  favourCost: 12
+  missionName: Open Book
+  description: Send a team of top bees to open a large book on wasps
+  favourCost: 8
   effects:
   - comparator: 0
     value: 32
     effectFlavour: 
     effects:
-    - {fileID: 11400000, guid: c20462baca7fd364b857081d92087c9e, type: 2}
-    plotPoints: []
-  - comparator: 0
-    value: 27
-    effectFlavour: 
-    effects:
     - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
-    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
-    plotPoints: []
   - comparator: 2
     value: 28
     effectFlavour: 
     effects:
-    - {fileID: 11400000, guid: 34235a5eb24d62e4086243ed8787bdc4, type: 2}
-    plotPoints: []
+    - {fileID: 11400000, guid: 88ac73c2e59ffb144a8b2984851ef7c1, type: 2}
   condition: {fileID: 0}

@@ -10,24 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
-  m_Name: OrganiseLibrary
+  m_Name: Background Checks
   m_EditorClassIdentifier: 
-  missionName: Organise the Hive Library
-  description: Tidy up all the lose papers and put them back on the shelves where
-    they belong.
-  favourCost: 5
+  missionName: Perform Background Checks
+  description: Thoroughly look into the history of one board member, looking for
+    any clues that might identify their loyalty.
+  favourCost: 6
   effects:
   - comparator: 0
-    value: 28
+    value: 15
     effectFlavour: 
     effects:
-    - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}
-    plotPoints: []
+    - {fileID: 11400000, guid: 2381eed0cf403e84891a61b5da3e92f6, type: 2}
   - comparator: 2
-    value: 26
+    value: 25
     effectFlavour: 
     effects:
-    - {fileID: 11400000, guid: 696d1fb4f2e3c5943a22987d25e901cc, type: 2}
-    plotPoints:
-    - {fileID: 11400000, guid: 2bff6b83a942b734a86ff29cbceebb81, type: 2}
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
   condition: {fileID: 0}

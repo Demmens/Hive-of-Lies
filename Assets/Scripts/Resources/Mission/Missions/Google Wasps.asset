@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
-  m_Name: GoogleWasps
+  m_Name: Google Wasps
   m_EditorClassIdentifier: 
   missionName: Research Wasps
   description: Send out a team to look up the definition of the word "Wasp" online
