@@ -22,18 +22,21 @@ MonoBehaviour:
     effects:
     - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
     plotPoints: []
+    difficultyModifier: {fileID: 11400000, guid: 3f9cdda776948d943af70d9517078aac, type: 2}
   - comparator: 0
     value: 37
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
     plotPoints: []
+    difficultyModifier: {fileID: 11400000, guid: 3f9cdda776948d943af70d9517078aac, type: 2}
   - comparator: 0
     value: 34
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
     plotPoints: []
+    difficultyModifier: {fileID: 11400000, guid: 3f9cdda776948d943af70d9517078aac, type: 2}
   - comparator: 2
     value: 34
     effectFlavour: 
@@ -41,4 +44,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a92f4b5d158b87d498d97c2f343ac217, type: 2}
     plotPoints:
     - {fileID: 11400000, guid: d4582eb078afb3349b8732437cd68f65, type: 2}
+    difficultyModifier: {fileID: 11400000, guid: 3f9cdda776948d943af70d9517078aac, type: 2}
   condition: {fileID: 0}
