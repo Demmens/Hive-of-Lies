@@ -15,10 +15,17 @@ MonoBehaviour:
   missionName: Plan Missions
   description: Create a detailed plan of all future missions
   favourCost: 6
-  successFlavour: Successfully create a plan, and understand all the potential options.
-  successEffects:
-  - {fileID: 11400000, guid: 83c358885e7265e4794da7d77ad6ca12, type: 2}
-  failFlavour: There are too many options and you get confused.
-  failEffects:
-  - {fileID: 11400000, guid: 0eb0458e3ea61794bbf437ab526ae557, type: 2}
+  effects:
+  - comparator: 0
+    value: 26
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 83c358885e7265e4794da7d77ad6ca12, type: 2}
+    plotPoints: []
+  - comparator: 2
+    value: 22
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+    plotPoints: []
   condition: {fileID: 0}
