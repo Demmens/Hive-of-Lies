@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38cb838b8c66cdc4dbfc5760c045ee12, type: 3}
+  m_Name: Museum Heist
+  m_EditorClassIdentifier: 
+  minPlayers: 0
+  maxPlayers: 0
+  IncludedThreads: []
+  List:
+  - Missions: []
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 5e1a9a93377ba654a80afb32d040f3a3, type: 2}
+      Weight: 10
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 8dc885113a444e44c9faab17144770b5, type: 2}
+      Weight: 10
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 89292e0072c421f4baadb203b58b22f0, type: 2}
+      Weight: 10
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 1163f6a9312f08b42bba62072d5e0e6e, type: 2}
+      Weight: 10
+  - Missions:
+    - Mission: {fileID: 11400000, guid: b2698b96bd095e6408b451dc5b958499, type: 2}
+      Weight: 10
