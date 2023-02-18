@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
+  m_Name: Heist drastically harder
+  m_EditorClassIdentifier: 
+  description: Bank heist becomes drastically harder (+4)
+  type: 1
+  intVar: {fileID: 11400000, guid: 3f9cdda776948d943af70d9517078aac, type: 2}
+  incrementAmount: 4
