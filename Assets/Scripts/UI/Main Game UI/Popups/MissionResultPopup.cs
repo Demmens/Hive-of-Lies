@@ -106,7 +106,7 @@ public class MissionResultPopup : NetworkBehaviour
             effectTiers.Add(effect);
             effect.transform.SetParent(effectParent);
 
-            effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value + difficulty, tier.effects);
+            effect.GetComponent<MissionEffectText>().SetText(tier.comparator, tier.value + difficulty, tier);
         }
 
         popup.SetActive(true);

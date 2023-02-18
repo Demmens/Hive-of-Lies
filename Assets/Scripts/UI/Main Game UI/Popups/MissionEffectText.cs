@@ -8,7 +8,7 @@ public class MissionEffectText : MonoBehaviour
     [SerializeField] TMP_Text requirement;
     [SerializeField] TMP_Text effect;
 
-    public void SetText(Comparator comparator, int value, List<MissionEffect> effects)
+    public void SetText(Comparator comparator, int value, MissionEffectTier effect)
     {
         requirement.text = "";
         switch (comparator)
@@ -25,23 +25,28 @@ public class MissionEffectText : MonoBehaviour
         }
         requirement.text += value.ToString();
 
-        effect.text = "";
+        this.effect.text = "";
 
-        foreach (MissionEffect eff in effects)
+        foreach (MissionEffect eff in effect.effects)
         {
-            effect.text += eff.Description;
-            effect.text += "\n";
+            this.effect.text += eff.Description + "\n";
+        }
+
+        foreach (EMissionPlotPoint point in effect.plotPoints)
+        {
+            if (point.Description == "") continue;
+            this.effect.text += point.Description + "\n";
         }
 
         //If there are no mission effects
-        if (effect.text == "")
+        if (this.effect.text == "")
         {
-            effect.text = "No Effect";
+            this.effect.text = "No Effect";
         }
         //Otherwise we can remove the last line break
         else
         {
-            effect.text = effect.text.TrimEnd('\n');
+            this.effect.text = this.effect.text.TrimEnd('\n');
         }
     }
 }
