@@ -17,9 +17,16 @@ MonoBehaviour:
   favourCost: 6
   effects:
   - comparator: 0
-    value: 15
+    value: 20
     effectFlavour: 
     effects:
-    - {fileID: 11400000, guid: 9f418b10ac8e5384f970ea1e536dc10c, type: 2}
+    - {fileID: 11400000, guid: 1e4482e15e8c9114291472f9f621a56b, type: 2}
+    - {fileID: 11400000, guid: 04569bc595b92f74fb90120e81f695e7, type: 2}
+    plotPoints: []
+  - comparator: 2
+    value: 20
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
     plotPoints: []
   condition: {fileID: 11400000, guid: c9304fe2dd3c31248a923c9e2a0d15b0, type: 2}
