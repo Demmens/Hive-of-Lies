@@ -15,18 +15,5 @@ MonoBehaviour:
   minPlayers: 0
   maxPlayers: 3
   IncludedThreads:
-  - {fileID: 11400000, guid: 77052f671e203074e9d1547a98747abc, type: 2}
-  - {fileID: 11400000, guid: a084912c307b391428e4229ead2aa866, type: 2}
-  List:
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
-      Weight: 1
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
-      Weight: 1
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
-      Weight: 1
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 011299bff98885147a2ce7d29701c10b, type: 2}
-      Weight: 1
+  - {fileID: 11400000, guid: e0964301dbc67c148b776acb4e088ed6, type: 2}
+  List: []
