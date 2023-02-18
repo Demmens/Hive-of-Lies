@@ -25,7 +25,9 @@ MonoBehaviour:
       Weight: 1
     - Mission: {fileID: 11400000, guid: 5a19d64042492e346b49de9a4356e8c0, type: 2}
       Weight: 1
-  - Missions: []
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
+      Weight: 1
   - Missions:
     - Mission: {fileID: 11400000, guid: cc778781c651e684f9bba22270a234b7, type: 2}
       Weight: 1
