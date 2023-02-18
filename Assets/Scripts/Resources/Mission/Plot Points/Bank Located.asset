@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751751d2e783c8c428875a4be78d9e73, type: 3}
   m_Name: Bank Located
   m_EditorClassIdentifier: 
+  description: Unlock the Bank Heist missions
