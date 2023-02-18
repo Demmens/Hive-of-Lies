@@ -114,12 +114,30 @@ public class Mission : ScriptableObject
 [System.Serializable]
 public class MissionEffectTier
 {
-    public Comparator comparator;
-    public int value;
+    [SerializeField] Comparator comparator;
+    public Comparator Comparator
+    {
+        get
+        {
+            return comparator;
+        }
+    }
+    [SerializeField] int value;
+    public int Value
+    {
+        get
+        {
+            if (difficultyModifier == null) return value;
+            return value + difficultyModifier;
+        }
+    }
     public string effectFlavour;
     public List<MissionEffect> effects;
     public List<EMissionPlotPoint> plotPoints;
-    [Multiline]
+    /// <summary>
+    /// IntVariable that modifies the difficulty of this effect tier
+    /// </summary>
+    [SerializeField] IntVariable difficultyModifier;
 
     int effectsTriggered;
 
