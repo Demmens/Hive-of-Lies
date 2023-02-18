@@ -29,6 +29,7 @@ public class MissionEffectText : MonoBehaviour
 
         foreach (MissionEffect eff in effect.effects)
         {
+            if (eff.Description == "") continue;
             this.effect.text += eff.Description + "\n";
         }
 
