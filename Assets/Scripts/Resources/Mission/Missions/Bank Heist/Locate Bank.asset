@@ -18,15 +18,15 @@ MonoBehaviour:
   favourCost: 5
   effects:
   - comparator: 0
+    value: 25
+    effectFlavour: Set up a new account
+    effects:
+    - {fileID: 11400000, guid: 60124360add548f4f9745d4e360dd1de, type: 2}
+    plotPoints: []
+  - comparator: 0
     value: 15
     effectFlavour: Locate the bank. Heist missions are now available.
     effects: []
     plotPoints:
     - {fileID: 11400000, guid: a0997a906970a474690c9a8a805f4c12, type: 2}
-  - comparator: 2
-    value: 27
-    effectFlavour: Spend extra resources to make sure it's found
-    effects:
-    - {fileID: 11400000, guid: 3ae29fc7e41546746b4567caf1215158, type: 2}
-    plotPoints: []
   condition: {fileID: 0}
