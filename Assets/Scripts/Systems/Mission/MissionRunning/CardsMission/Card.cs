@@ -15,7 +15,7 @@ public class Card
     /// </summary>
     public int Value;
 
-    private int tempValue;
+    [SerializeField] int tempValue;
     /// <summary>
     /// The value of the card after all modifiers are applied. Resets back to the default value when discarded.
     /// </summary>
