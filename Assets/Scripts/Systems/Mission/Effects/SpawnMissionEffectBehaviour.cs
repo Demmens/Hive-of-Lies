@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-[CreateAssetMenu(fileName = "Spawn Mission Effect Behaviour", menuName = "Missions/Effects/General/Spawn Mission Effect Behaviour")]
+[CreateAssetMenu(fileName = "Spawn Mission Effect Behaviour", menuName = "Missions/Effects/Generic/Spawn Mission Effect Behaviour")]
 public class SpawnMissionEffectBehaviour : MissionEffect
 {
     [SerializeField] GameObject missionEffectBehaviour;
