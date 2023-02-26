@@ -36,7 +36,7 @@ public class Mission : ScriptableObject
     /// </summary>
     [SerializeField] MissionCondition condition;
 
-    //int tiersTriggered;
+    [HideInInspector] public int DifficultyMod;
     #endregion
 
     #region Properties
@@ -127,17 +127,12 @@ public class MissionEffectTier
     {
         get
         {
-            if (difficultyModifier == null) return value;
-            return value + difficultyModifier;
+            return value;
         }
     }
     public string effectFlavour;
     public List<MissionEffect> effects;
     public List<EMissionPlotPoint> plotPoints;
-    /// <summary>
-    /// IntVariable that modifies the difficulty of this effect tier
-    /// </summary>
-    [SerializeField] IntVariable difficultyModifier;
 
     int effectsTriggered;
 

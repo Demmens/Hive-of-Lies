@@ -98,7 +98,7 @@ public class MissionUI : NetworkBehaviour
             effectTiers.Add(effect);
             effect.transform.SetParent(effectParent);
 
-            effect.GetComponent<MissionEffectText>().SetText(tier.Comparator, tier.Value + difficultyMod, tier);
+            effect.GetComponent<MissionEffectText>().SetText(tier.Comparator, tier.Value + difficultyMod + mission.DifficultyMod, tier);
         }
     }
 

@@ -43,8 +43,12 @@ public class MissionList : ScriptableObject
     public void AddThreads(MissionList origin = null, bool ignoreOriginSize = false)
     {
         if (origin == this) throw new System.Exception($"Mission list thread from origin {origin.name} is cyclic");
-        if (origin == null) origin = this;
-        if (origin == this) Debug.Log($"Calling AddThreads on {name}");
+        if (origin == null)
+        {
+            origin = this;
+            Debug.Log($"Calling AddThreads on {name}");
+        }
+
         foreach (MissionList thread in IncludedThreads)
         {
             thread.AddThreads(origin);
@@ -54,6 +58,17 @@ public class MissionList : ScriptableObject
                 MissionListEntry entry = origin.List[i];
                 MissionListEntry threadEntry = thread.List[i];
                 entry.Missions.AddRange(threadEntry.Missions);
+            }
+        }
+
+        if (origin == this)
+        {
+            foreach (MissionListEntry entry in List)
+            {
+                foreach (MissionListEntryEntry mission in entry.Missions)
+                {
+                    mission.Mission.DifficultyMod = 0;
+                }
             }
         }
     }
