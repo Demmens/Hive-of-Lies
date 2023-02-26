@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3ac9e60ebe07a498275b2053bd9ef2, type: 3}
+  m_Name: Museum Located
+  m_EditorClassIdentifier: 
+  plotPoint: {fileID: 11400000, guid: 2234ba1d61c96fd40bb1919b1c9548a2, type: 2}
+  set: {fileID: 11400000, guid: 4a5eb640b4396d84296657e382f2bad8, type: 2}
