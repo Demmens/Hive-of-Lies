@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
   m_Name: Heist drastically harder
   m_EditorClassIdentifier: 
-  description: Bank heist becomes drastically harder (+4)
+  description: Heist becomes drastically harder (+4)
   type: 1
   intVar: {fileID: 11400000, guid: 3f9cdda776948d943af70d9517078aac, type: 2}
   incrementAmount: 4
