@@ -22,10 +22,12 @@ MonoBehaviour:
     effects:
     - {fileID: 11400000, guid: 6b517e413d1041048a4ffa6bb877cf7d, type: 2}
     plotPoints: []
+    difficultyModifier: {fileID: 0}
   - comparator: 2
     value: 20
     effectFlavour: Cover blown
     effects:
     - {fileID: 11400000, guid: 32eb8bf38cd51434eb4dcee378c7cbdc, type: 2}
     plotPoints: []
-  condition: {fileID: 0}
+    difficultyModifier: {fileID: 0}
+  condition: {fileID: 11400000, guid: 36ca41cf28359064f9b5d76eb0a79f28, type: 2}

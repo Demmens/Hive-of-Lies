@@ -45,4 +45,4 @@ MonoBehaviour:
     plotPoints:
     - {fileID: 11400000, guid: d4582eb078afb3349b8732437cd68f65, type: 2}
     difficultyModifier: {fileID: 11400000, guid: 3f9cdda776948d943af70d9517078aac, type: 2}
-  condition: {fileID: 0}
+  condition: {fileID: 11400000, guid: a0841fdf235ee0845a2d50681650e433, type: 2}
