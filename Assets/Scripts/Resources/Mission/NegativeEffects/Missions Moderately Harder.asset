@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
   m_Name: Missions Moderately Harder
   m_EditorClassIdentifier: 
-  description: Future missions become moderately harder
+  description: Future missions become moderately harder (+2)
   type: 1
   intVar: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
   incrementAmount: 2
