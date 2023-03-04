@@ -9,9 +9,11 @@ public class PlayerButton : MonoBehaviour
     [SerializeField] TMPro.TMP_Text playerNameText;
     [SerializeField] UnityEngine.UI.RawImage exhaustionUI;
 
-    [SerializeField] Texture noExhaustion;
     [SerializeField] Texture someExhaustion;
     [SerializeField] Texture heavyExhaustion;
+
+    [SerializeField] GameObject isReady;
+    [SerializeField] GameObject exhaustionObj;
     /// <summary>
     /// The ID of the player associated with this button
     /// </summary>
@@ -55,9 +57,16 @@ public class PlayerButton : MonoBehaviour
         onClicked?.Invoke(ID);
     }
 
+    public void SetReady(bool ready)
+    {
+        isReady.SetActive(ready);
+    }
+
     public void ChangeExhaustion(int exhaustion)
     {
-        if (exhaustion == 0) exhaustionUI.texture = noExhaustion;
+        if (exhaustion == 0) exhaustionObj.SetActive(false);
+        else exhaustionObj.SetActive(true);
+
         if (exhaustion == 1) exhaustionUI.texture = someExhaustion;
         if (exhaustion == 2) exhaustionUI.texture = heavyExhaustion;
     }
