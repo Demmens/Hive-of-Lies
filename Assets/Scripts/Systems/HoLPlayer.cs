@@ -93,7 +93,7 @@ public class HoLPlayer : NetworkBehaviour
     /// <summary>
     /// The on-screen button associated with this player
     /// </summary>
-    public PlayerButton button;
+    public PlayerButton Button;
     #endregion
 
     public event TeamDelegate OnGetTeam;
