@@ -21,27 +21,32 @@ public class GameEnd : NetworkBehaviour
     [SerializeField] IntVariable ResearchProgress;
 
     [SerializeField] HoLPlayerDictionary playersByConnection;
-    #endregion
-    #region CLIENT
+
     [SerializeField] GameObject gameEndScreen;
+
+    bool hasWon;
     #endregion
 
     public override void OnStartServer()
     {
         HoneyStolen.AfterVariableChanged += change =>
         {
-            if (change >= HoneyNeededForWin) WaspsWin();
+            if (change >= HoneyNeededForWin) Coroutines.Delay(0, WaspsWin);
         };
 
         ResearchProgress.AfterVariableChanged += change =>
         {
-            if (change >= ResearchNeededForWin) BeesWin();
+            if (change >= ResearchNeededForWin) Coroutines.Delay(0, BeesWin);
         };
     }
 
     [Server]
     public void BeesWin()
     {
+        if (hasWon) return;
+        hasWon = true;
+        //If 3 honey is stolen at the same time as 3 wasp facts are learned, the bees don't win
+        if (HoneyStolen >= HoneyNeededForWin) return;
         GameObject screen = Instantiate(gameEndScreen);
         screen.GetComponent<PlayAgainButton>().SetText("Bees Win");
         NetworkServer.Spawn(screen);
@@ -50,6 +55,8 @@ public class GameEnd : NetworkBehaviour
     [Server]
     public void WaspsWin()
     {
+        if (hasWon) return;
+        hasWon = true;
         GameObject screen = Instantiate(gameEndScreen);
         screen.GetComponent<PlayAgainButton>().SetText("Wasps Win");
         NetworkServer.Spawn(screen);
