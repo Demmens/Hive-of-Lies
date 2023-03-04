@@ -99,9 +99,9 @@ public class MissionResultPopup : NetworkBehaviour
 
         rollResults.text = cardResultsText;
 
-        foreach (MissionEffectTier tier in currentMission.effects) {
-            if (!tier.Applicable(cardsTotal)) continue;
+        List<MissionEffectTier> applicableTiers = currentMission.GetApplicableTiers(cardsTotal + difficulty);
 
+        foreach (MissionEffectTier tier in applicableTiers) {
             GameObject effect = Instantiate(effectPrefab);
             effectTiers.Add(effect);
             effect.transform.SetParent(effectParent);

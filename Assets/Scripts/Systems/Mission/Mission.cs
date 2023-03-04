@@ -90,6 +90,7 @@ public class Mission : ScriptableObject
 
     public void TriggerValidEffects(int cardsTotal)
     {
+        cardsTotal -= DifficultyMod;
         int tiersTriggered = 0;
         int applicableTiers = effects.Count(tier => tier.Applicable(cardsTotal));
 
@@ -108,6 +109,21 @@ public class Mission : ScriptableObject
             }
             tier.ApplyEffects(cardsTotal);
         }
+    }
+
+    public List<MissionEffectTier> GetApplicableTiers(int cardsTotal)
+    {
+        cardsTotal -= DifficultyMod;
+        List<MissionEffectTier> tiers = new();
+
+        foreach (MissionEffectTier tier in effects)
+        {
+            if (!tier.Applicable(cardsTotal)) continue;
+
+            tiers.Add(tier);
+        }
+
+        return tiers;
     }
 }
 
