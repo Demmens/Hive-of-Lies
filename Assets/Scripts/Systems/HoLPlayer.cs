@@ -134,6 +134,12 @@ public class HoLPlayer : NetworkBehaviour
         OnGetTeam?.Invoke(ref returnVal);
         return returnVal;
     }
+
+    [ClientRpc]
+    public void SetReady(bool ready)
+    {
+        Button.SetReady(ready);
+    }
 }
 
 public enum Team
