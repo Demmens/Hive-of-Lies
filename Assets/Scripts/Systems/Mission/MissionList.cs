@@ -90,9 +90,8 @@ public struct MissionListEntry
 /// Stupid way of getting around Unity's serializing system.
 /// </summary>
 [System.Serializable]
-public struct MissionListEntryEntry : ISerializationCallbackReceiver
+public struct MissionListEntryEntry
 {
-    private bool serialized;
     /// <summary>
     /// The mission
     /// </summary>
@@ -102,15 +101,4 @@ public struct MissionListEntryEntry : ISerializationCallbackReceiver
     /// How likely the mission is to show up
     /// </summary>
     public float Weight;
-
-    public void OnAfterDeserialize()
-    {
-        if (serialized) return;
-        Weight = 1;
-        serialized = true;
-    }
-
-    public void OnBeforeSerialize()
-    {
-    }
 }
