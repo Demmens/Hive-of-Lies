@@ -25,6 +25,7 @@ public static class NetworkSerialiser
         }
         
         writer.WriteString(value.name);
+        writer.WriteInt(value.DifficultyMod);
     }
     public static Mission ReadMission(this NetworkReader reader)
     {
@@ -38,7 +39,11 @@ public static class NetworkSerialiser
 
         foreach (Mission miss in missions)
         {
-            if (miss.name == missionName) return miss;
+            if (miss.name == missionName)
+            {
+                miss.DifficultyMod = reader.ReadInt();
+                return miss;
+            }
         }
 
         Debug.LogError($"Cannot find the mission '{missionName}'. Check it's somewhere in the Scripts/Resources/Missions folder.");
