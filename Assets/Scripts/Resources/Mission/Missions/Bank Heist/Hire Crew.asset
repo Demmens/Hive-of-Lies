@@ -26,12 +26,13 @@ MonoBehaviour:
     value: 25
     effectFlavour: Find a solid selection of crew members
     effects:
-    - {fileID: 11400000, guid: b30c37d9dd1151c4c80c0ad7f97b4102, type: 2}
+    - {fileID: 11400000, guid: 8ef0b0383d29d5a4b85ba72950771937, type: 2}
     plotPoints: []
   - comparator: 2
     value: 25
     effectFlavour: Some of your hired crew contain wasps
     effects:
-    - {fileID: 11400000, guid: 84536b16c5f24b0499745d175b6d68d6, type: 2}
+    - {fileID: 11400000, guid: ec0bc6c4c827a4947b71c2429fd7b01e, type: 2}
     plotPoints: []
   condition: {fileID: 11400000, guid: a0841fdf235ee0845a2d50681650e433, type: 2}
+  DifficultyMod: 0
