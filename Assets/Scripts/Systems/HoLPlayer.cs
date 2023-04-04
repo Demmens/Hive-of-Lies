@@ -87,9 +87,7 @@ public class HoLPlayer : NetworkBehaviour
     /// List of the choices of roles the player will have at the start of the game
     /// </summary>
     public List<RoleData> RoleChoices = new();
-    #endregion
 
-    #region CLIENT
     /// <summary>
     /// The on-screen button associated with this player
     /// </summary>

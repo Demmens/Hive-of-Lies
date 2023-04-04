@@ -7,13 +7,9 @@ using Mirror;
 public class ClientSelectPartners : NetworkBehaviour
 {
     #region CLIENT
-    [SerializeField] PlayerButtonDropdown dropDown;
     [SerializeField] GameObject pickPlayerButton;
     [SerializeField] GameObject unpickPlayerButton;
     [SerializeField] GameObject lockInButton;
-
-    List<ulong> pickedPlayers;
-    int clientNumPartners;
     #endregion
 
     #region SERVER
@@ -33,106 +29,91 @@ public class ClientSelectPartners : NetworkBehaviour
     [SerializeField] GameEvent onTeamLeaderLockedIn;
     #endregion
 
-    [Client]
-    public override void OnStartClient()
-    {
-        PlayerButtonDropdownItem item = dropDown.CreateItem(pickPlayerButton);
-        item.OnItemClicked += PlayerAdded;
-        item = dropDown.CreateItem(unpickPlayerButton);
-        item.OnItemClicked += PlayerRemoved;
-    }
+    List<PlayerButtonDropdownItem> addItems = new();
+    List<PlayerButtonDropdownItem> removeItems = new();
 
     [Server]
     public void TeamLeaderCanPick()
     {
-        CanStartPicking(teamLeader.Value.connectionToClient, numPartners);
+        foreach (PlayerButtonDropdownItem i in addItems) Destroy(i);
+        foreach (PlayerButtonDropdownItem i in removeItems) Destroy(i);
+
+        foreach (HoLPlayer ply in allPlayers.Value)
+        {
+            CreateAddItem(ply);
+        }
+    }
+
+    [Server]
+    void AddPlayer(HoLPlayer ply, PlayerButtonDropdownItem item)
+    {
+        if (playersSelected.Value.Count >= numPartners) return;
+        if (playersSelected.Value.Contains(ply)) return;
+
+        Destroy(item);
+        addItems.Remove(item);
+        CreateRemoveItem(ply);
+
+        Debug.Log($"{teamLeader.Value.DisplayName} has selected {ply.DisplayName}");
+        playersSelected.Add(ply);
+
+        if (playersSelected.Value.Count < numPartners) return;
+
+        OnMaxPlayersAdded();
+    }
+
+    [Server]
+    void OnMaxPlayersAdded()
+    {
+        SetLockInActive(teamLeader.Value.connectionToClient, true);
+
+        foreach (PlayerButtonDropdownItem i in addItems)
+        {
+            Destroy(i);
+        }
+    }
+
+    [Server]
+    void RemovePlayer(HoLPlayer ply, PlayerButtonDropdownItem item)
+    {
+        if (!playersSelected.Value.Contains(ply)) return;
+
+        Destroy(item);
+        CreateAddItem(ply);
+
+        Debug.Log($"{teamLeader.Value.DisplayName} has deselected {ply.DisplayName}");
+        playersSelected.Remove(ply);
+
+        if (playersSelected.Value.Count < numPartners - 1) return;
+
+        OnNoLongerMaxPlayersAdded(ply);
+    }
+
+    [Server]
+    void OnNoLongerMaxPlayersAdded(HoLPlayer ply)
+    {
+        SetLockInActive(teamLeader.Value.connectionToClient, false);
+
+        foreach (HoLPlayer pl in allPlayers.Value)
+        {
+            if (playersSelected.Value.Contains(pl)) continue;
+            //If it's the person we've just removed, then the add to mission button is created elsewhere
+            if (pl == ply) continue;
+
+            CreateAddItem(pl);
+        }
     }
 
     [TargetRpc]
-    void CanStartPicking(NetworkConnection conn, int partners)
+    void SetLockInActive(NetworkConnection conn, bool active)
     {
-        pickedPlayers = new();
-        dropDown.AddAll(pickPlayerButton);
-        clientNumPartners = partners;
-    }
-
-    [Client]
-    public void PlayerAdded(ulong playerID)
-    {
-        pickedPlayers.Add(playerID);
-        dropDown.AddItem(playerID, unpickPlayerButton);
-        dropDown.RemoveItem(playerID, pickPlayerButton);
-
-        if (pickedPlayers.Count == clientNumPartners)
-        {
-            lockInButton.SetActive(true);
-            dropDown.RemoveAll(pickPlayerButton);
-        }
-
-        ServerAddPlayer(playerID);
-    }
-
-    [Command(requiresAuthority = false)]
-    void ServerAddPlayer(ulong player, NetworkConnectionToClient conn = null)
-    {
-        //Ignore if called by a player that isn't the team leader
-        if (conn != teamLeader.Value.connectionToClient) return;
-
-        if (playersSelected.Value.Count >= numPartners) return;
-
-        allPlayers.Value.ForEach(ply =>
-        {
-            if (ply.PlayerID == player && !playersSelected.Value.Contains(ply))
-            {
-                Debug.Log($"{teamLeader.Value.DisplayName} has selected {ply.DisplayName}");
-                playersSelected.Add(ply);
-            }
-        });
-    }
-
-    [Client]
-    void PlayerRemoved(ulong playerID)
-    {
-        pickedPlayers.Remove(playerID);
-        dropDown.AddItem(playerID, pickPlayerButton);
-        dropDown.RemoveItem(playerID, unpickPlayerButton);
-
-        if (pickedPlayers.Count == clientNumPartners - 1)
-        {
-            lockInButton.SetActive(false);
-            dropDown.AddAll(pickPlayerButton);
-            for (int i = 0; i < pickedPlayers.Count; i++ )
-            {
-                dropDown.RemoveItem(pickedPlayers[i], pickPlayerButton);
-            }
-        }
-
-        ServerRemovePlayer(playerID);
-    }
-
-    [Command(requiresAuthority = false)]
-    void ServerRemovePlayer(ulong player, NetworkConnectionToClient conn = null)
-    {
-        //Ignore if called by a player that isn't the team leader
-        if (conn != teamLeader.Value.connectionToClient) return;
-
-        allPlayers.Value.ForEach(ply =>
-        {
-            if (ply.PlayerID == player && playersSelected.Value.Contains(ply))
-            {
-                Debug.Log($"{teamLeader.Value.DisplayName} has deselected {ply.DisplayName}");
-                playersSelected.Remove(ply);
-            }
-        });
+        lockInButton.SetActive(active);
     }
 
     [Client]
     public void LockIn()
     {
         lockInButton.SetActive(false);
-        dropDown.RemoveAll(pickPlayerButton);
-        dropDown.RemoveAll(unpickPlayerButton);
-
         ServerLockIn();
     }
 
@@ -141,6 +122,23 @@ public class ClientSelectPartners : NetworkBehaviour
     {
         if (conn != teamLeader.Value.connectionToClient) return;
 
+        foreach (PlayerButtonDropdownItem i in addItems) Destroy(i);
+        foreach (PlayerButtonDropdownItem i in removeItems) Destroy(i);
+
         onTeamLeaderLockedIn?.Invoke();
+    }
+
+    void CreateAddItem(HoLPlayer ply)
+    {
+        PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(pickPlayerButton, teamLeader);
+        item.OnItemClicked += (ply) => AddPlayer(ply, item);
+        addItems.Add(item);
+    }
+
+    void CreateRemoveItem(HoLPlayer ply)
+    {
+        PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(unpickPlayerButton, teamLeader);
+        item.OnItemClicked += (ply) => RemovePlayer(ply, item);
+        removeItems.Add(item);
     }
 }

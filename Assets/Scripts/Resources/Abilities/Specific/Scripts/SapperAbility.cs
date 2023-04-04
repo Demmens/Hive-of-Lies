@@ -15,54 +15,44 @@ public class SapperAbility : RoleAbility
     [SerializeField] MissionResultVariable missionResult;
     [SerializeField] GameEvent allPlayersPlayed;
     [SerializeField] CardSet playedCards;
-    HoLPlayer chosenPlayer;
-    bool playerChosen = false;
+    List<PlayerButtonDropdownItem> shuffleButtons = new();
     #endregion
 
 
     public override void OnStartAuthority()
     {
-        dropdown = PlayerButtonDropdown.singleton;
         GameObject pop = Instantiate(popup);
         pop.GetComponent<Notification>().SetText("Choose a player. Shuffle a bomb into that players deck.");
-        PlayerButtonDropdownItem item = dropdown.AddAll(dropdownButton);
-        item.OnItemClicked += PlayerChosen;
-    }
-
-    [Client]
-    public void PlayerChosen(ulong player)
-    {        
-        ServerPlayerChosen(player);
-        dropdown.RemoveAll(dropdownButton);
+        foreach (HoLPlayer ply in alivePlayers.Value)
+        {
+            PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(dropdownButton);
+            item.OnItemClicked += PlayerChosen;
+        }
+        
     }
 
     [Command]
-    void ServerPlayerChosen(ulong player)
+    void PlayerChosen(HoLPlayer player)
     {
-        if (playerChosen) return;
-        playerChosen = true;
-
-        foreach (HoLPlayer ply in alivePlayers.Value)
+        if (player.Deck.Value != null) ShuffleBomb(player);
+        foreach (PlayerButtonDropdownItem item in shuffleButtons)
         {
-            if (ply.PlayerID != player) continue;
-            chosenPlayer = ply;
+            Destroy(item);
         }
-
-        if (chosenPlayer.Deck.Value != null) ShuffleBomb();
     }
 
     [Server]
-    void ShuffleBomb()
+    void ShuffleBomb(HoLPlayer player)
     {
         Card bomb = new Card(-100);
-        Deck deck = chosenPlayer.Deck;
+        Deck deck = player.Deck;
         bomb.DrawEffects.Add(OnBombDrawn);
         bomb.DestroyOnDraw = true;
         deck.DrawPile.Add(bomb);
         deck.Shuffle();
 
-        DisplayBombMessage(chosenPlayer.connectionToClient);
-        if (chosenPlayer != Owner) DisplayBombMessageToOwner(chosenPlayer.DisplayName);
+        DisplayBombMessage(player.connectionToClient);
+        if (player != Owner) DisplayBombMessageToOwner(player.DisplayName);
     }
 
     [TargetRpc]

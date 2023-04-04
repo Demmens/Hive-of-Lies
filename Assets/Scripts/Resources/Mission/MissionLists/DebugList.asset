@@ -16,4 +16,7 @@ MonoBehaviour:
   maxPlayers: 3
   IncludedThreads:
   - {fileID: 11400000, guid: e0964301dbc67c148b776acb4e088ed6, type: 2}
-  List: []
+  List:
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 011299bff98885147a2ce7d29701c10b, type: 2}
+      Weight: 1000

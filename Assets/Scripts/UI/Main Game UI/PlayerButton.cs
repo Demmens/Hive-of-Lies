@@ -4,8 +4,28 @@ using UnityEngine;
 using Steamworks;
 using Mirror;
 
-public class PlayerButton : MonoBehaviour
+public class PlayerButton : NetworkBehaviour
 {
+    #region SERVER
+    private HoLPlayer owner;
+    public HoLPlayer Owner
+    {
+        get
+        {
+            return owner;
+        }
+        set
+        {
+            if (owner != null) owner.Exhaustion.AfterVariableChanged -= ChangeExhaustion;
+            owner = value;
+            ChangeOwner(value.DisplayName);
+            value.Exhaustion.AfterVariableChanged += ChangeExhaustion;
+        }
+    }
+    private List<PlayerButtonDropdownItem> activeItems = new();
+    #endregion
+    #region CLIENT
+    [SerializeField] GameObject dropdown;
     [SerializeField] TMPro.TMP_Text playerNameText;
     [SerializeField] UnityEngine.UI.RawImage exhaustionUI;
 
@@ -19,42 +39,66 @@ public class PlayerButton : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public ulong ID;
+    #endregion
 
-    private string playerName;
-    /// <summary>
-    /// ID of the player associated with this button
-    /// </summary>
-    public string PlayerName
+    public override void OnStartClient()
     {
-        get
-        {
-            return playerName;
-        }
-        set
-        {
-            playerName = value;
-            playerNameText.text = value;
-        }
+        Debug.Log("Should be starting the client");
+        dropdown = Instantiate(dropdown).transform.GetChild(0).gameObject;
+    }
+
+    [Client]
+    public void Click()
+    {
+        dropdown.SetActive(true);
+        dropdown.transform.SetPositionAndRotation(Input.mousePosition, new Quaternion());
+    }
+
+    [ClientRpc]
+    void ChangeOwner(string name)
+    {
+        playerNameText.text = name;
     }
 
     /// <summary>
-    /// Whether this is selected or not
+    /// Adds a new item to the dropdown. Simply destroy the item to remove it from the list
     /// </summary>
-    [HideInInspector]
-    public bool selected;
-
-    /// <summary>
-    /// The PlayerButtonDropdownItems that appear when you click this button
-    /// </summary>
-    [HideInInspector]
-    public List<GameObject> listItems = new List<GameObject>();
-
-    [Tooltip("Invoked when a button is clicked")]
-    [SerializeField] UlongEvent onClicked;
-
-    public void Click()
+    /// <param name="ply">The player that will be able to view this item. Pass as null to allow all players to see it.</param>
+    /// <param name="prefab">Prefab of the item to add</param>
+    /// <returns>The instantiated item</returns>
+    [Server]
+    public PlayerButtonDropdownItem AddDropdownItem(GameObject prefab, HoLPlayer ply = null)
     {
-        onClicked?.Invoke(ID);
+        GameObject obj = Instantiate(prefab);
+        NetworkServer.Spawn(obj);
+        obj.SetActive(false);
+
+        if (ply == null) RpcAddDropdownItem(obj);
+        else TargetAddDropdownItem(ply.connectionToClient, obj);
+
+        PlayerButtonDropdownItem item = obj.GetComponent<PlayerButtonDropdownItem>();
+        activeItems.Add(item);
+        item.OnDestroyed += () => activeItems.Remove(item);
+        item.Owner = Owner;
+        return item;
+    }
+
+    [ClientRpc]
+    void RpcAddDropdownItem(GameObject obj)
+    {
+        ClientAddDropdownItem(obj);
+    }
+
+    [TargetRpc]
+    void TargetAddDropdownItem(NetworkConnection conn, GameObject obj)
+    {
+        ClientAddDropdownItem(obj);
+    }
+
+    void ClientAddDropdownItem(GameObject obj)
+    {
+        obj.transform.SetParent(dropdown.transform);
+        obj.SetActive(true);
     }
 
     public void SetReady(bool ready)

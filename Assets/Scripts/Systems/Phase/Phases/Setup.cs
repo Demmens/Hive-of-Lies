@@ -43,6 +43,9 @@ public class Setup : GamePhase
 
     [SerializeField] GameObject teamPopup;
 
+    [SerializeField] GameObject playerButton;
+    [SerializeField] Transform playerList;
+
     /// <summary>
     /// Run the game setup. This includes handing out roles and selecting teams.
     /// </summary>
@@ -56,6 +59,7 @@ public class Setup : GamePhase
         allPlayers.Value.Shuffle();
         //Shuffle the roles so we can randomly dish them out to players
         //Roles.Shuffle();
+        CreateButtons(allPlayers);
 
         AssignTeams(allPlayers);
 
@@ -63,6 +67,19 @@ public class Setup : GamePhase
 
         setupFinished?.Invoke();
         Debug.Log("Setup Finished");
+    }
+
+    void CreateButtons(List<HoLPlayer> plys)
+    {
+        foreach (HoLPlayer ply in plys)
+        {
+            GameObject button = Instantiate(playerButton);
+            NetworkServer.Spawn(button);
+            button.transform.SetParent(playerList.transform);
+            PlayerButton plButton = button.GetComponent<PlayerButton>();
+            plButton.Owner = ply;
+            ply.Button = plButton;
+        }
     }
 
     /// <summary>

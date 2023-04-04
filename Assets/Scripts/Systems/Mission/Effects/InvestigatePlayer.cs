@@ -17,6 +17,8 @@ public class InvestigatePlayer : MissionEffectBehaviour
     [Tooltip("The current team leader")]
     [SerializeField] HoLPlayerVariable teamLeader;
 
+    private List<PlayerButtonDropdownItem> buttons = new();
+
     [Server]
     public override void OnEffectTriggered()
     {
@@ -29,16 +31,18 @@ public class InvestigatePlayer : MissionEffectBehaviour
 
         //Team leader has authority over this object
         netIdentity.AssignClientAuthority(teamLeader.Value.connectionToClient);
+
+        foreach (HoLPlayer ply in allPlayers.Value)
+        {
+            PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(investigateButton, teamLeader);
+            buttons.Add(item);
+            item.OnItemClicked += OnInvestigated;
+        }
     }
 
     [Client]
     public override void OnStartAuthority()
     {
-        //This is really bad and we shouldn't be doing this. It's currently midnight and I'm too tired to think of a better way.
-        dropDown = PlayerButtonDropdown.singleton;
-        PlayerButtonDropdownItem item = dropDown.AddAll(investigateButton);
-        item.OnItemClicked += PlayerInvestigated;
-
         notification = Instantiate(notificationPrefab);
 
         notification.GetComponent<Notification>().SetText("Choose a player to investigate");
@@ -47,32 +51,18 @@ public class InvestigatePlayer : MissionEffectBehaviour
     }
 
     /// <summary>
-    /// Called on the client when the player chooses who to investigate
-    /// </summary>
-    /// <param name="playerID"></param>
-    [Client]
-    public void PlayerInvestigated(ulong playerID)
-    {
-        dropDown.RemoveAll(investigateButton);
-        OnInvestigated(playerID);
-    }
-
-    /// <summary>
     /// Called when a player has been investigated. Send the client the team of the investigatee
     /// </summary>
     /// <param name="conn"></param>
     /// <param name="msg"></param>
     [Command]
-    private void OnInvestigated(ulong playerID)
+    private void OnInvestigated(HoLPlayer ply)
     {
-        foreach (HoLPlayer ply in allPlayers.Value)
+        foreach (PlayerButtonDropdownItem button in buttons)
         {
-            if (ply.PlayerID == playerID)
-            {
-                GetResults(ply.DisplayName, ply.Team);
-                return;
-            }
+            Destroy(button);
         }
+        GetResults(ply.DisplayName, ply.Team);
     }
 
     /// <summary>
