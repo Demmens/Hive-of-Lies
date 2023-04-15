@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
-  m_Name: Purchase Equipment
+  m_Name: Purchase Equipment 3p
   m_EditorClassIdentifier: 
   missionName: Purchase Heist Equipment
   description: Find a retailer from which to buy questionably-legal heist equipment
   favourCost: 4
   effects:
   - comparator: 0
-    value: 20
+    value: 30
     effectFlavour: Successfully purchase Equipment
     effects:
     - {fileID: 11400000, guid: 8ef0b0383d29d5a4b85ba72950771937, type: 2}
     plotPoints: []
   - comparator: 2
-    value: 32
+    value: 42
     effectFlavour: Get ripped off
     effects:
     - {fileID: 11400000, guid: 1854df35800c9e7489294d2dff749f14, type: 2}
     plotPoints: []
   - comparator: 2
-    value: 28
+    value: 36
     effectFlavour: Get a bad deal
     effects:
     - {fileID: 11400000, guid: 1854df35800c9e7489294d2dff749f14, type: 2}

@@ -10,29 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
-  m_Name: Purchase Equipment
+  m_Name: Source Getaway Vehicles 3p
   m_EditorClassIdentifier: 
-  missionName: Purchase Heist Equipment
-  description: Find a retailer from which to buy questionably-legal heist equipment
-  favourCost: 4
+  missionName: Source Getaway Vehicles
+  description: Find some vehicles to escape the nest after the heist
+  favourCost: 8
   effects:
   - comparator: 0
-    value: 20
-    effectFlavour: Successfully purchase Equipment
+    value: 32
+    effectFlavour: 
     effects:
     - {fileID: 11400000, guid: 8ef0b0383d29d5a4b85ba72950771937, type: 2}
     plotPoints: []
   - comparator: 2
-    value: 32
-    effectFlavour: Get ripped off
+    value: 30
+    effectFlavour: 
     effects:
-    - {fileID: 11400000, guid: 1854df35800c9e7489294d2dff749f14, type: 2}
-    plotPoints: []
-  - comparator: 2
-    value: 28
-    effectFlavour: Get a bad deal
-    effects:
-    - {fileID: 11400000, guid: 1854df35800c9e7489294d2dff749f14, type: 2}
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
     plotPoints: []
   condition: {fileID: 11400000, guid: a0841fdf235ee0845a2d50681650e433, type: 2}
   DifficultyMod: 0

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
+  m_Name: Hire Crew 3p
+  m_EditorClassIdentifier: 
+  missionName: Hire Crew
+  description: Find some extra beepower to assist in the heist
+  favourCost: 6
+  effects:
+  - comparator: 2
+    value: 38
+    effectFlavour: Extra resources have to be spent on the hiring process
+    effects:
+    - {fileID: 11400000, guid: 14e529a5ac576094aa87c7fddb920214, type: 2}
+    plotPoints: []
+  - comparator: 0
+    value: 35
+    effectFlavour: Find a solid selection of crew members
+    effects:
+    - {fileID: 11400000, guid: 8ef0b0383d29d5a4b85ba72950771937, type: 2}
+    plotPoints: []
+  - comparator: 2
+    value: 35
+    effectFlavour: Some of your hired crew contain wasps
+    effects:
+    - {fileID: 11400000, guid: ec0bc6c4c827a4947b71c2429fd7b01e, type: 2}
+    plotPoints: []
+  condition: {fileID: 11400000, guid: a0841fdf235ee0845a2d50681650e433, type: 2}
+  DifficultyMod: 0
