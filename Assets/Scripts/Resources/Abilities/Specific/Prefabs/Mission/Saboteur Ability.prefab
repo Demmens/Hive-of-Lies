@@ -49,13 +49,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
   incrementAmount: -1
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
   buttonPrefab: {fileID: 1107423568599795120, guid: 636febd51049eaf408fc7d1172356028, type: 3}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
   buttonText: Decrease Card Value
-  cost: 2
+  cost: 5
 --- !u!114 &3194974027864302717
 MonoBehaviour:
   m_ObjectHideFlags: 0
