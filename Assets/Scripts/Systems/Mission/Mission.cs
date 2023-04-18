@@ -156,7 +156,7 @@ public class MissionEffectTier
 
     public bool Applicable(int cardsTotal)
     {
-        if (comparator == Comparator.GreaterThan) return cardsTotal > value;
+        if (comparator == Comparator.GreaterThan) return cardsTotal >= value;
 
         if (comparator == Comparator.EqualTo) return cardsTotal == value;
 

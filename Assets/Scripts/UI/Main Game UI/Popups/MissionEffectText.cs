@@ -14,7 +14,7 @@ public class MissionEffectText : MonoBehaviour
         switch (comparator)
         {
             case Comparator.GreaterThan:
-                requirement.text += ">";
+                requirement.text += '\u2265';
                 break;
             case Comparator.EqualTo:
                 requirement.text += "=";
