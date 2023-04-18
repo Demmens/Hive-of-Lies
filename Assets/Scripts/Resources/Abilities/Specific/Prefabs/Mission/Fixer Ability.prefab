@@ -54,7 +54,7 @@ MonoBehaviour:
   buttonPrefab: {fileID: 1107423568599795120, guid: 636febd51049eaf408fc7d1172356028, type: 3}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
   buttonText: Increase Card Value
-  cost: 5
+  cost: 4
 --- !u!114 &3194974027864302717
 MonoBehaviour:
   m_ObjectHideFlags: 0

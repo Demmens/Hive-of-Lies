@@ -66,8 +66,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  deckStrengthModifier: 2
-  maxCardValue: 20
+  deckStrengthModifier: 1
+  maxCardValue: 5
 --- !u!114 &-1218275175325444131
 MonoBehaviour:
   m_ObjectHideFlags: 0
