@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
+  m_Name: Reclaim Honey
+  m_EditorClassIdentifier: 
+  missionName: Reclaim Honey
+  description: Send an expedition of our best recruits to reclaim some stolen honey
+    from the wasps
+  favourCost: 12
+  effects:
+  - comparator: 0
+    value: 5
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: d616065035baacc49a9bdf06cc89bc40, type: 2}
+    plotPoints: []
+  - comparator: 2
+    value: 3
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+    plotPoints: []
+  condition: {fileID: 11400000, guid: 710e2d5c7e628da46945271f689f88e5, type: 2}
+  DifficultyMod: 0

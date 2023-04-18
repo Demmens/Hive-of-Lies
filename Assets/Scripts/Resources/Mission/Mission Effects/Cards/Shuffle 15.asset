@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03a2be3871082648908b90dc44a9bb2, type: 3}
   m_Name: Shuffle 15
   m_EditorClassIdentifier: 
-  description: All players have a 15 shuffled into their deck
+  description: All players have a 3 shuffled into their deck
   type: 0
   playerSet: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
-  cardValue: 15
+  cardValue: 3
