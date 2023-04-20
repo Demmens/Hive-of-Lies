@@ -58,7 +58,7 @@ public class CardsMission : MissionType
             }
             ply.Deck.Value.Shuffle();
 
-            ply.Deck.Value.BeforeDraw += (ref Card card) => card.TempValue = Mathf.Max(1, card.TempValue - (ply.Exhaustion * exhaustionPenalty));
+            ply.Deck.Value.BeforeDraw += (ref Card card) => card.TempValue = card.TempValue - (ply.Exhaustion * exhaustionPenalty);
         }
 
         afterDeckCreated?.Invoke();
