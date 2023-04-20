@@ -25,6 +25,9 @@ public class TeamLeaderPickPartners : GamePhase
     [Tooltip("Number of players in the game")]
     [SerializeField] IntVariable playerCount;
 
+    [Tooltip("The modifier of the mission difficulty")]
+    [SerializeField] IntVariable missionDifficulty;
+
     [Tooltip("The current team leader")]
     [SerializeField] HoLPlayerVariable teamLeader;
 
@@ -53,6 +56,8 @@ public class TeamLeaderPickPartners : GamePhase
         {
             if (partnerPlayerCounts.TryGetValue(i, out int num)) numPartners.Value = num;
         }
+
+        missionDifficulty.Value += numPartners.Value - 1;
     }
 
     public override void Begin()
