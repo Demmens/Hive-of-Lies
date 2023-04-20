@@ -27,6 +27,8 @@ public class ClientSelectPartners : NetworkBehaviour
 
     [Tooltip("Invoked when the team leader locks their choices for partners in")]
     [SerializeField] GameEvent onTeamLeaderLockedIn;
+
+    private int numPlayersForLockIn = 1;
     #endregion
 
     List<PlayerButtonDropdownItem> addItems = new();
@@ -57,6 +59,8 @@ public class ClientSelectPartners : NetworkBehaviour
         Debug.Log($"{teamLeader.Value.DisplayName} has selected {ply.DisplayName}");
         playersSelected.Add(ply);
 
+        if (playersSelected.Value.Count >= numPlayersForLockIn) SetLockInActive(teamLeader.Value.connectionToClient, true);
+
         if (playersSelected.Value.Count < numPartners) return;
 
         OnMaxPlayersAdded();
@@ -65,8 +69,6 @@ public class ClientSelectPartners : NetworkBehaviour
     [Server]
     void OnMaxPlayersAdded()
     {
-        SetLockInActive(teamLeader.Value.connectionToClient, true);
-
         foreach (PlayerButtonDropdownItem i in addItems)
         {
             Destroy(i);
@@ -84,6 +86,8 @@ public class ClientSelectPartners : NetworkBehaviour
         Debug.Log($"{teamLeader.Value.DisplayName} has deselected {ply.DisplayName}");
         playersSelected.Remove(ply);
 
+        if (playersSelected.Value.Count < numPlayersForLockIn) SetLockInActive(teamLeader.Value.connectionToClient, false);
+
         if (playersSelected.Value.Count < numPartners - 1) return;
 
         OnNoLongerMaxPlayersAdded(ply);
@@ -92,8 +96,6 @@ public class ClientSelectPartners : NetworkBehaviour
     [Server]
     void OnNoLongerMaxPlayersAdded(HoLPlayer ply)
     {
-        SetLockInActive(teamLeader.Value.connectionToClient, false);
-
         foreach (HoLPlayer pl in allPlayers.Value)
         {
             if (playersSelected.Value.Contains(pl)) continue;
