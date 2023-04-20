@@ -56,7 +56,7 @@ public class CardMissionUI : NetworkBehaviour
     {
         if (!isOnMission) return;
 
-        drawResult.text = "0";
+        drawResult.text = "-";
         drawButtonText.text = $"Redraw (0f)";
         submitButton.SetActive(false);
         drawButton.SetActive(true);
