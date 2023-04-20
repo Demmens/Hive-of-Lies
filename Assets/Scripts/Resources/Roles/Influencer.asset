@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: Influencer
   m_EditorClassIdentifier: 
   roleName: Influencer
-  description: 'Extra votes cost you half as much favour.
-
-
-    Extra draws cost
-    you twice as much favour.'
+  description: Extra votes cost you half as much favour.
   sprite: 
   startingFavour: 15
   startingDeck: 0100000002000000020000000200000003000000030000000300000003000000030000000300000004000000040000000400000004000000040000000400000005000000050000000500000006000000
@@ -25,5 +21,4 @@ MonoBehaviour:
   playersRequired: 0
   abilities:
   - {fileID: 7578572990359515094, guid: 2e453eae3d7e12940bc618f5e9c9a594, type: 3}
-  - {fileID: 7578572990359515094, guid: e3ddb98d252514c408ef2c352fe92ff8, type: 3}
   enabled: 1
