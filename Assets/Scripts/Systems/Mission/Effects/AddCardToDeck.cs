@@ -13,5 +13,6 @@ public class AddCardToDeck : MissionEffect
         {
             ply.Deck.Value.Add(new Card(cardValue));
         }
+        EndEffect();
     }
 }
