@@ -75,11 +75,17 @@ public class Setup : GamePhase
         {
             GameObject button = Instantiate(playerButton);
             NetworkServer.Spawn(button);
-            button.transform.SetParent(playerList.transform);
+            SetupButtonOnClient(button);
             PlayerButton plButton = button.GetComponent<PlayerButton>();
             plButton.Owner = ply;
             ply.Button = plButton;
         }
+    }
+
+    [ClientRpc]
+    void SetupButtonOnClient(GameObject button)
+    {
+        button.transform.SetParent(playerList.transform);
     }
 
     /// <summary>
