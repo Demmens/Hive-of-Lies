@@ -71,9 +71,10 @@ MonoBehaviour:
   syncInterval: 0.1
   active: 1
   cost: 5
+  maxDraw: -1
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
   voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
-  freeDraws: {fileID: 0}
+  freeDraws: {fileID: 11400000, guid: 6748b01369dc2d94fbf6dd9449def0a6, type: 2}
   button: {fileID: 1107423568599795120, guid: 636febd51049eaf408fc7d1172356028, type: 3}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
 --- !u!114 &5572742708158016159

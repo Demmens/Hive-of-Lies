@@ -9,6 +9,7 @@ public class PoisonerAbility : RoleAbility
 {
     #region SERVER
     [SerializeField] int cost = 5;
+    [SerializeField] int maxDraw = -1;
     [SerializeField] HoLPlayerVariable teamLeader;
     [SerializeField] IntVariable voteTotal;
     [SerializeField] IntVariable freeDraws;
@@ -62,12 +63,12 @@ public class PoisonerAbility : RoleAbility
         Deck deck = teamLeader.Value.Deck.Value;
 
         //If the card is already bad, we're happy.
-        if (card.Value <= 5) return;
+        if (card.Value <= maxDraw) return;
         if (teamLeader.Value.NumDraws > freeDraws) return;
 
         for (int i = 0; i < deck.DrawPile.Count; i++)
         {
-            if (deck.DrawPile[i].Value <= 5) card = deck.DrawPile[i];
+            if (deck.DrawPile[i].Value <= maxDraw) card = deck.DrawPile[i];
         }
     }
 
