@@ -17,7 +17,7 @@ MonoBehaviour:
   favourCost: 3
   effects:
   - comparator: 0
-    value: 5
+    value: 6
     effectFlavour: Created a weirdly hypnotic advert
     effects:
     - {fileID: 11400000, guid: 4e99fa1b857ea484db964217a354bfa9, type: 2}

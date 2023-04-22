@@ -17,13 +17,13 @@ MonoBehaviour:
   favourCost: 6
   effects:
   - comparator: 0
-    value: 4
+    value: 5
     effectFlavour: Found an interesting fact on CoolWaspFacts.org
     effects:
     - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
     plotPoints: []
   - comparator: 2
-    value: 2
+    value: 3
     effectFlavour: Downloaded a virus
     effects:
     - {fileID: 11400000, guid: e86834e53b1b0b8418bc30466218cf33, type: 2}

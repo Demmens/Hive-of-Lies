@@ -17,7 +17,7 @@ MonoBehaviour:
   favourCost: 8
   effects:
   - comparator: 2
-    value: 3
+    value: 4
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}

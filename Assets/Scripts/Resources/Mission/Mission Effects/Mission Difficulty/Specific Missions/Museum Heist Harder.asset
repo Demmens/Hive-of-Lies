@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
-  m_Name: Missions Moderately Easier
+  m_Script: {fileID: 11500000, guid: 485320550645d334e9aed050374900ae, type: 3}
+  m_Name: Museum Heist Harder
   m_EditorClassIdentifier: 
-  description: Future missions become moderately easier (-2)
-  type: 0
-  intVar: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
-  incrementAmount: -2
+  description: Museum Heist is harder
+  type: 1
+  mission: {fileID: 11400000, guid: 6e16849b822dc7842955755cd4a0c54a, type: 2}
+  difficultyIncrease: 1

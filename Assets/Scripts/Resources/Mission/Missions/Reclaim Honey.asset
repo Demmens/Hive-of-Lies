@@ -18,13 +18,13 @@ MonoBehaviour:
   favourCost: 12
   effects:
   - comparator: 0
-    value: 5
+    value: 6
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: d616065035baacc49a9bdf06cc89bc40, type: 2}
     plotPoints: []
   - comparator: 2
-    value: 3
+    value: 4
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485320550645d334e9aed050374900ae, type: 3}
   m_Name: Bank Heist Easier
   m_EditorClassIdentifier: 
-  description: Bank Heist is moderately easier (-2)
+  description: Bank Heist is easier
   type: 0
   mission: {fileID: 11400000, guid: 6e16849b822dc7842955755cd4a0c54a, type: 2}
   difficultyIncrease: -1

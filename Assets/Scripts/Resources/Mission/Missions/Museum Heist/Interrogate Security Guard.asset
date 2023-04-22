@@ -26,7 +26,7 @@ MonoBehaviour:
     value: 3
     effectFlavour: The guard tells you all you need to know
     effects:
-    - {fileID: 11400000, guid: b30c37d9dd1151c4c80c0ad7f97b4102, type: 2}
+    - {fileID: 11400000, guid: 774e55c544c83374eb04c0b43a5014db, type: 2}
     plotPoints: []
   - comparator: 2
     value: 0

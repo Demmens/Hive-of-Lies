@@ -19,15 +19,14 @@ MonoBehaviour:
   - comparator: 0
     value: 4
     effectFlavour: Successfully kidnap the guard
-    effects:
-    - {fileID: 11400000, guid: b30c37d9dd1151c4c80c0ad7f97b4102, type: 2}
+    effects: []
     plotPoints:
     - {fileID: 11400000, guid: 0c5cb9a798cded742b9c0ec5419944e8, type: 2}
   - comparator: 2
     value: 2
     effectFlavour: 
     effects:
-    - {fileID: 11400000, guid: 696d1fb4f2e3c5943a22987d25e901cc, type: 2}
+    - {fileID: 11400000, guid: 0eb0458e3ea61794bbf437ab526ae557, type: 2}
     plotPoints:
     - {fileID: 11400000, guid: d4582eb078afb3349b8732437cd68f65, type: 2}
   condition: {fileID: 11400000, guid: 36ca41cf28359064f9b5d76eb0a79f28, type: 2}
