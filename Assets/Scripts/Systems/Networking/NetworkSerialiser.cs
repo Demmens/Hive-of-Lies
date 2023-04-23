@@ -63,17 +63,19 @@ public static class NetworkSerialiser
     {
         if (value == null)
         {
-            writer.WriteString("");
             writer.WriteInt(0);
             return;
         }
 
-        writer.WriteString(value.Name);
         writer.WriteInt(value.TempValue);
     }
 
     public static Card ReadCard(this NetworkReader reader)
     {
-        return new Card(reader.ReadString(), reader.ReadInt());
+        Card card = ScriptableObject.CreateInstance<Card>();
+        int val = reader.ReadInt();
+        card.Value = val;
+        card.TempValue = val;
+        return card;
     }
 }

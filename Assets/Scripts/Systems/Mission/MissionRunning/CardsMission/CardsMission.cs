@@ -54,7 +54,12 @@ public class CardsMission : MissionType
             Role role = ply.Role.Value;
             for (int i = 0; i < role.Data.StartingDeck.Count; i++)
             {
-                ply.Deck.Value.DrawPile.Add(new Card(role.Data.StartingDeck[i]));
+                Card card = ScriptableObject.CreateInstance<Card>();
+                int cardValue = role.Data.StartingDeck[i];
+                card.Value = cardValue;
+                card.TempValue = cardValue;
+                card.name = cardValue.ToString();
+                ply.Deck.Value.DrawPile.Add(card);
             }
             ply.Deck.Value.Shuffle();
 

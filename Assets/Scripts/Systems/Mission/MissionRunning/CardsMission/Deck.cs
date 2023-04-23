@@ -116,7 +116,7 @@ public class Deck
 
             Card card = DrawPile[0];
 
-            card.DrawEffects.ForEach(effect => effect());
+            card.DrawEffects.ForEach(effect => effect.TriggerEffect());
 
             BeforeDraw?.Invoke(ref card);
 
@@ -140,7 +140,7 @@ public class Deck
         if (card == null) card = Hand[0];
         if (!Hand.Contains(card)) return;
 
-        card.DiscardEffects.ForEach(effect => effect());
+        card.DiscardEffects.ForEach(effect => effect.TriggerEffect());
         card.TempValue = card.Value;
         card.OnValueChanged -= (val) => HandCardValueChanged?.Invoke(val);
         DiscardPile.Add(card);
@@ -158,7 +158,7 @@ public class Deck
         if (!Hand.Contains(card)) return null;
 
         Played.Add(card);
-        card.PlayEffects.ForEach(effect => effect());
+        card.PlayEffects.ForEach(effect => effect.TriggerEffect());
         Hand.Remove(card);
         AfterPlay?.Invoke(card);
         return card;

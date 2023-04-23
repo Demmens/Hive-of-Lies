@@ -12,9 +12,7 @@ public class SapperAbility : RoleAbility
     #endregion
     #region SERVER
     [SerializeField] HoLPlayerSet alivePlayers;
-    [SerializeField] MissionResultVariable missionResult;
-    [SerializeField] GameEvent allPlayersPlayed;
-    [SerializeField] CardSet playedCards;
+    [SerializeField] Card bombCard;
     List<PlayerButtonDropdownItem> shuffleButtons = new();
     #endregion
 
@@ -27,6 +25,7 @@ public class SapperAbility : RoleAbility
         {
             PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(dropdownButton);
             item.OnItemClicked += PlayerChosen;
+            item.OnItemClicked += (ply) => Destroy(item);
         }
         
     }
@@ -44,11 +43,8 @@ public class SapperAbility : RoleAbility
     [Server]
     void ShuffleBomb(HoLPlayer player)
     {
-        Card bomb = new Card(-100);
         Deck deck = player.Deck;
-        bomb.DrawEffects.Add(OnBombDrawn);
-        bomb.DestroyOnDraw = true;
-        deck.DrawPile.Add(bomb);
+        deck.DrawPile.Add(bombCard);
         deck.Shuffle();
 
         DisplayBombMessage(player.connectionToClient);
@@ -67,13 +63,5 @@ public class SapperAbility : RoleAbility
     {
         GameObject pop = Instantiate(popup);
         pop.GetComponent<Notification>().SetText($"A bomb has been shuffled into {targetName}'s deck");
-    }
-
-    [Server]
-    void OnBombDrawn()
-    {
-        missionResult.Value = MissionResult.Fail;
-        playedCards.Value = new();
-        allPlayersPlayed?.Invoke();
     }
 }

@@ -3,13 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Card
+[CreateAssetMenu(fileName = "Card", menuName = "Cards/Create card")]
+public class Card : ScriptableObject
 {
-    /// <summary>
-    /// The name of the card
-    /// </summary>
-    public string Name;
     /// <summary>
     /// Value of the card when played
     /// </summary>
@@ -45,31 +41,17 @@ public class Card
     /// <summary>
     /// Delegates to run when the card is drawn
     /// </summary>
-    public List<Action> DrawEffects = new List<Action>();
+    public List<CardEffect> DrawEffects = new();
 
     /// <summary>
     /// Delegates to run when the card is played
     /// </summary>
-    public List<Action> PlayEffects = new List<Action>();
+    public List<CardEffect> PlayEffects = new();
 
     /// <summary>
     /// Delegates to run when the card is discarded
     /// </summary>
-    public List<Action> DiscardEffects = new List<Action>();
+    public List<CardEffect> DiscardEffects = new();
 
     public event Action<int> OnValueChanged;
- 
-
-    public Card(int value)
-    {
-        Value = value;
-        TempValue = value;
-    }
-
-    public Card(string name, int value)
-    {
-        Name = name;
-        Value = value;
-        TempValue = value;
-    }
 }

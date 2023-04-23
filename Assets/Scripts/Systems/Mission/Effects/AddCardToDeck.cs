@@ -11,7 +11,11 @@ public class AddCardToDeck : MissionEffect
     {
         foreach (HoLPlayer ply in playerSet.Value)
         {
-            ply.Deck.Value.Add(new Card(cardValue));
+            Card card = CreateInstance<Card>();
+            card.Value = cardValue;
+            card.TempValue = cardValue;
+            card.name = cardValue.ToString();
+            ply.Deck.Value.Add(card);
         }
         EndEffect();
     }
