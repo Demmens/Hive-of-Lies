@@ -6,15 +6,11 @@ using UnityEngine;
 public class AddCardToDeck : MissionEffect
 {
     [SerializeField] HoLPlayerSet playerSet;
-    [SerializeField] int cardValue;
+    [SerializeField] Card card;
     public override void TriggerEffect()
     {
         foreach (HoLPlayer ply in playerSet.Value)
         {
-            Card card = CreateInstance<Card>();
-            card.Value = cardValue;
-            card.TempValue = cardValue;
-            card.name = cardValue.ToString();
             ply.Deck.Value.Add(card);
         }
         EndEffect();

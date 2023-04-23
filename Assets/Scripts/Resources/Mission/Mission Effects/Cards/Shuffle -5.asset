@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e03a2be3871082648908b90dc44a9bb2, type: 3}
-  m_Name: Shuffle 20
+  m_Name: Shuffle -5
   m_EditorClassIdentifier: 
-  description: All players have a 20 shuffled into their deck
-  type: 0
+  description: All players have a -5 shuffled into their deck
+  type: 1
   playerSet: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
-  cardValue: 20
+  card: {fileID: 11400000, guid: 12b574cc5a91eb34ca55cb7496788d0b, type: 2}
