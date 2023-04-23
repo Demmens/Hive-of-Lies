@@ -64,6 +64,7 @@ public class Deck
             if (card.DestroyOnDraw) continue;
             DrawPile.Add(card);
         }
+        DiscardPile = new();
         DrawPile.Shuffle();
     }
 
