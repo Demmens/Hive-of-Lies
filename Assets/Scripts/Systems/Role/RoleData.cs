@@ -33,10 +33,7 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="StartingDeck"/>
     /// </summary>
-    [SerializeField] List<int> startingDeck = new List<int>
-    {
-        -5,-4,-4,-3,-3,-2,-2,-1,-1,0,0,1,1,2,2,3,3,4,4,5
-    };
+    [SerializeField] List<Card> startingDeck;
 
     /// <summary>
     /// Private counterpart to <see cref="Team"/>
@@ -156,7 +153,7 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// The roles starting deck of cards
     /// </summary>
-    public List<int> StartingDeck
+    public List<Card> StartingDeck
     {
         get
         {

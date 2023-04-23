@@ -52,13 +52,8 @@ public class CardsMission : MissionType
         foreach (HoLPlayer ply in allPlayers.Value)
         {
             Role role = ply.Role.Value;
-            for (int i = 0; i < role.Data.StartingDeck.Count; i++)
+            foreach (Card card in role.Data.StartingDeck)
             {
-                Card card = ScriptableObject.CreateInstance<Card>();
-                int cardValue = role.Data.StartingDeck[i];
-                card.Value = cardValue;
-                card.TempValue = cardValue;
-                card.name = cardValue.ToString();
                 ply.Deck.Value.DrawPile.Add(card);
             }
             ply.Deck.Value.Shuffle();
