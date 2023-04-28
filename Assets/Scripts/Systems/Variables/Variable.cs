@@ -41,16 +41,10 @@ public abstract class Variable<T> : ScriptableObject
     { 
         get 
         {
-            if (!NetworkClient.active && client) Debug.LogError($"Tried to get value of {name} from a client, but it is not a client variable.");
-            if (!NetworkServer.active && server) Debug.LogError($"Tried to get value of {name} from a server, but it is not a server variable.");
-
             return currentValue; 
         }
         set
         {
-            if (!NetworkClient.active && client) return;
-            if (!NetworkServer.active && server) return;
-
             OnVariableChanged?.Invoke(currentValue, ref value);
 
             currentValue = value;
