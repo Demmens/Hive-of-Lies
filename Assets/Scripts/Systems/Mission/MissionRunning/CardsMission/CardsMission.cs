@@ -52,10 +52,7 @@ public class CardsMission : MissionType
         foreach (HoLPlayer ply in allPlayers.Value)
         {
             Role role = ply.Role.Value;
-            foreach (Card card in role.Data.StartingDeck)
-            {
-                ply.Deck.Value.DrawPile.Add(card);
-            }
+            ply.Deck.Value.DrawPile.AddRange(role.Data.StartingDeck);
             ply.Deck.Value.Shuffle();
 
             ply.Deck.Value.BeforeDraw += (ref Card card) => card.TempValue = card.TempValue - (ply.Exhaustion * exhaustionPenalty);
