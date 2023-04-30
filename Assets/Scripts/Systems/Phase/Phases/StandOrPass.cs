@@ -60,6 +60,9 @@ public class StandOrPass : GamePhase
     [SerializeField] GameEvent onNobodyStood;
     #endregion
 
+    [Tooltip("The UI for this game phase")]
+    [SerializeField] StandOrPassUI UI;
+
     public override void Begin()
     {
         standingPlayers.Value = new();
@@ -69,6 +72,24 @@ public class StandOrPass : GamePhase
         teamLeader.Value = null;
 
         standOrPassBegin?.Invoke();
+    }
+
+    [Server]
+    public void OnPlayerReconnect(NetworkConnection conn)
+    {
+        //Ignore if this is not the current game phase
+        if (!Active) return;
+        if (!players.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        //If the player hasn't stood or passed yet, show them the UI again
+        if (standingPlayers.Value.Contains(ply) || passedPlayers.Value.Contains(ply)) return;
+
+        CreateUI(conn);
+    }
+
+    [TargetRpc]
+    void CreateUI(NetworkConnection conn)
+    {
+        UI.CreateUI(currentMission.Value.FavourCost);
     }
 
     /// <summary>

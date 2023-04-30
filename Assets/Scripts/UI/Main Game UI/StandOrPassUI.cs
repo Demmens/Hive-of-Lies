@@ -29,11 +29,17 @@ public class StandOrPassUI : NetworkBehaviour
     [Server]
     public void StandOrPassBegin()
     {
-        CreateUI(currentMission.Value.FavourCost);
+        SendUI(currentMission.Value.FavourCost);
     }
 
     [ClientRpc]
-    void CreateUI(int standCost)
+    void SendUI(int standCost)
+    {
+        CreateUI(standCost);
+    }
+
+    [Client]
+    public void CreateUI(int standCost)
     {
         if (!alive) return;
         FavourCost.text = $"{standCost}f";

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1788656999377696342}
   - component: {fileID: 3706208258329706328}
   - component: {fileID: 2258164925166796951}
+  - component: {fileID: 7239261719262198052}
   m_Layer: 0
   m_Name: Stand or Pass
   m_TagString: Untagged
@@ -117,6 +118,7 @@ MonoBehaviour:
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
   players: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   standOrPassBegin: {fileID: 11400000, guid: e1a950189e0e6b64cafebfb2014d840d, type: 2}
+  UI: {fileID: 0}
   onAllPlayersStandOrPass: {fileID: 11400000, guid: 2c47f8474cfc9714fb6ed377ed951283, type: 2}
   onTeamLeaderVoteCounted: {fileID: 11400000, guid: 3b5ecf0abc4c75548b6e8979de4a094b, type: 2}
   onNobodyStood: {fileID: 11400000, guid: 9e185bd2bad3eab4682c4e9966f84820, type: 2}
@@ -137,3 +139,32 @@ MonoBehaviour:
   visible: 0
   m_AssetId: c7273ef17fafad14ea07c58af5662453
   hasSpawned: 0
+--- !u!114 &7239261719262198052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2794779441042805983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 26e05efea1cf88e4fa19abd86adff6b1, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3706208258329706328}
+        m_TargetAssemblyTypeName: StandOrPass, Assembly-CSharp
+        m_MethodName: OnPlayerReconnect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
