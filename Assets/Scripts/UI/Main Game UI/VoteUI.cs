@@ -64,6 +64,12 @@ public class VoteUI : NetworkBehaviour
         numVotes.Value = 0;
     }
 
+    [TargetRpc]
+    public void TargetEnableUI(NetworkConnection conn)
+    {
+        voteUI.SetActive(true);
+    }
+
     /// <summary>
     /// Called when a player increases their vote (upvotes)
     /// </summary>

@@ -639,6 +639,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4426223277951817524, guid: 89a91b3ce48a6c74b9211e9d235a9ba1, type: 3}
   m_PrefabInstance: {fileID: 136888801}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &136888803 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 668797975872341955, guid: 89a91b3ce48a6c74b9211e9d235a9ba1, type: 3}
+  m_PrefabInstance: {fileID: 136888801}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967c7a5693de5bf4cb4e756c12a2eeee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &141708094
 GameObject:
   m_ObjectHideFlags: 0
@@ -5723,6 +5734,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3496305075509418341, guid: 3dbb62d7ee3ce6e44b67f303666d18fd, type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 136888803}
     - target: {fileID: 3496305075509418341, guid: 3dbb62d7ee3ce6e44b67f303666d18fd, type: 3}
       propertyPath: costCalc
       value: 

@@ -38,6 +38,9 @@ public class TeamLeaderVote : GamePhase
     [Tooltip("Invoked when there are more downvotes than upvotes")]
     [SerializeField] GameEvent voteFailed;
 
+    [Tooltip("The UI associated with this game phase")]
+    [SerializeField] VoteUI UI;
+
     public override void Begin()
     {
         allVotes.Value = new();
@@ -45,6 +48,20 @@ public class TeamLeaderVote : GamePhase
         playersClosedPopup = new();
         voteBegin?.Invoke();
         Debug.Log("Vote has begun");
+    }
+
+    public void OnServerConnected(NetworkConnection conn)
+    {
+        if (!Active) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+
+        foreach (PlayerVote vote in allVotes.Value)
+        {
+            //If the player has already voted, we don't need to enable the UI.
+            if (vote.ply == ply) return;
+        }
+
+        UI.TargetEnableUI(conn);
     }
 
     [Server]
@@ -211,5 +228,5 @@ public struct PlayerVote
     /// <summary>
     /// How many votes the player sent
     /// </summary>
-    public int votes; // int instead of bool in case we want to allow influence to be used for increasing number of votes.
+    public int votes;
 }
