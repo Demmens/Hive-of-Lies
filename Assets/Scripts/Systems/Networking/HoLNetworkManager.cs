@@ -101,6 +101,15 @@ public class HoLNetworkManager : NetworkManager
     {
         base.OnServerConnect(conn);
         onServerConnect.Invoke(conn);
+
+        if (SceneManager.GetActiveScene().path != GameScene) return;
+        //We want to make sure that when a client joins the game, all their information is correct. To do this, we call OnValidate for all variables
+        Object[] variables = Resources.LoadAll("Variables");
+        for (int i = 0; i < variables.Length; i++)
+        {
+            //OnValidate is safe to be a string because the method (which is a unity message) will never have its name changed
+            variables[i].GetType().GetMethod("OnValidate")?.Invoke(variables[i], new object[] { });
+        }
     }
 
     [Client]
@@ -129,25 +138,23 @@ public class HoLNetworkManager : NetworkManager
     {
         base.OnServerReady(conn);
 
-        if (SceneManager.GetActiveScene().path == GameScene)
+        if (SceneManager.GetActiveScene().path != GameScene) return;
+
+        playerLoaded?.Invoke(conn);
+
+        if (++playersLoaded < playerCount) return;
+
+        StartCoroutine(Coroutines.Delay(0.5f, () =>
         {
-            playerLoaded?.Invoke(conn);
-            if (++playersLoaded == playerCount)
+            alivePlayersByConnection.Value = new();
+            foreach(HoLPlayer ply in allPlayers.Value)
             {
-                StartCoroutine(Coroutines.Delay(0.5f, () =>
-                {
-                    alivePlayersByConnection.Value = new();
-                    foreach(HoLPlayer ply in allPlayers.Value)
-                    {
-                        alivePlayersByConnection.Value[ply.connectionToClient] = ply;
-                    }
-                    allPlayersLoaded.Invoke();
-                    //For if we want to reset the game
-                    playersLoaded = 0;
-                }));
+                alivePlayersByConnection.Value[ply.connectionToClient] = ply;
             }
-        }
-        
+            allPlayersLoaded.Invoke();
+            //For if we want to reset the game
+            playersLoaded = 0;
+        }));
     }
 
     [Server]
