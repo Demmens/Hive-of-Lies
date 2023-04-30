@@ -60,7 +60,7 @@ public class TeamLeaderPickPartners : GamePhase
 
     List<PlayerButtonDropdownItem> addItems = new();
     List<PlayerButtonDropdownItem> removeItems = new();
-    private int numPlayersForLockIn = 1;
+    private const int numPlayersForLockIn = 1;
 
     void Start()
     {
@@ -78,6 +78,7 @@ public class TeamLeaderPickPartners : GamePhase
         }
     }
 
+    [Server]
     public override void Begin()
     {
         playersSelected.Value = new();
@@ -91,6 +92,23 @@ public class TeamLeaderPickPartners : GamePhase
         }
 
         teamLeaderCanPick?.Invoke();
+    }
+
+    public void OnServerConnected(NetworkConnection conn)
+    {
+        if (!Active) return;
+        if (conn != teamLeader.Value.connectionToClient) return;
+
+        foreach (PlayerButtonDropdownItem i in addItems) Destroy(i);
+        foreach (PlayerButtonDropdownItem i in removeItems) Destroy(i);
+
+        foreach (HoLPlayer ply in players.Value)
+        {
+            if (playersSelected.Value.Contains(ply)) CreateRemoveItem(ply);
+            else if (playersSelected.Value.Count < numPartners) CreateAddItem(ply);
+        }
+
+        if (playersSelected.Value.Count >= numPlayersForLockIn) SetLockInActive(teamLeader.Value.connectionToClient, true);
     }
 
     [Server]

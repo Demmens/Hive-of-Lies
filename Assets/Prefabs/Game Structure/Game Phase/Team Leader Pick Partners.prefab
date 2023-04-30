@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2411263521803984293}
   - component: {fileID: 8864084132564145735}
   - component: {fileID: -8212179321641859555}
+  - component: {fileID: 1562298339713576402}
   m_Layer: 0
   m_Name: Team Leader Pick Partners
   m_TagString: Untagged
@@ -108,3 +109,32 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 4ae9998a6c0380c4dbca26095bfad075
   hasSpawned: 0
+--- !u!114 &1562298339713576402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867046553651884291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 26e05efea1cf88e4fa19abd86adff6b1, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8864084132564145735}
+        m_TargetAssemblyTypeName: TeamLeaderPickPartners, Assembly-CSharp
+        m_MethodName: OnServerConnected
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
