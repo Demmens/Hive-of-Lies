@@ -100,6 +100,7 @@ public class MissionUI : NetworkBehaviour
 
             effect.GetComponent<MissionEffectText>().SetText(tier.Comparator, tier.Value + difficultyMod + mission.DifficultyMod, tier);
         }
+        RemakePlayerList();
     }
 
     [ClientRpc]
