@@ -12,10 +12,6 @@ public class VoteUI : NetworkBehaviour
     [SerializeField] TMP_Text yesCost;
     [SerializeField] TMP_Text noCost;
 
-    //For the disabled button
-    [SerializeField] TMP_Text yesCost2;
-    [SerializeField] TMP_Text noCost2;
-
     [SerializeField] GameObject yesVote;
     [SerializeField] GameObject noVote;
 
@@ -87,7 +83,6 @@ public class VoteUI : NetworkBehaviour
     void ReceiveUpvoteCost(NetworkConnection conn, int cost)
     {
         yesCost.text = $"{-cost}f";
-        yesCost2.text = yesCost.text;
 
         yesVote.GetComponent<UnityEngine.UI.Button>().interactable = cost <= favour || cost <= 0;
     }
@@ -113,7 +108,6 @@ public class VoteUI : NetworkBehaviour
     void ReceiveDownvoteCost(NetworkConnection conn, int cost)
     {
         noCost.text = $"{-cost}f";
-        noCost2.text = noCost.text;
 
         noVote.GetComponent<UnityEngine.UI.Button>().interactable = cost <= favour || cost <= 0;
     }
