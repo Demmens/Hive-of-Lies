@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 876770644f7a9964cab4b76e1d80d7d2, type: 3}
-  m_Name: Player Left Server
+  m_Name: On Server Disconnect
   m_EditorClassIdentifier: 
