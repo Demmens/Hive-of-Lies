@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.UI;
 using Steamworks;
 
 public class StandOrPassUI : NetworkBehaviour
@@ -36,9 +37,8 @@ public class StandOrPassUI : NetworkBehaviour
     {
         if (!alive) return;
         FavourCost.text = $"{standCost}f";
-        StandButton.SetActive(true);
-        //If we can't afford to stand, disable the button.
-        if (standCost > favour) StandButton.SetActive(false);
+        //Only allow clicking on the button if we can afford to stand
+        StandButton.GetComponent<Button>().interactable = standCost <= favour;
         UI.SetActive(true);
     }
 
