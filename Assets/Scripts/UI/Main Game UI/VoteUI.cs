@@ -88,8 +88,8 @@ public class VoteUI : NetworkBehaviour
     {
         yesCost.text = $"{-cost}f";
         yesCost2.text = yesCost.text;
-        if (cost > favour && cost > 0) yesVote.SetActive(false);
-        else yesVote.SetActive(true);
+
+        yesVote.GetComponent<UnityEngine.UI.Button>().interactable = cost <= favour || cost <= 0;
     }
 
     /// <summary>
@@ -114,8 +114,8 @@ public class VoteUI : NetworkBehaviour
     {
         noCost.text = $"{-cost}f";
         noCost2.text = noCost.text;
-        if (cost > favour && cost > 0) noVote.SetActive(false);
-        else noVote.SetActive(true);
+
+        noVote.GetComponent<UnityEngine.UI.Button>().interactable = cost <= favour || cost <= 0;
     }
 
     [TargetRpc]
