@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5634541530225308048}
   - component: {fileID: 5634541530225308049}
   - component: {fileID: 5634541530225308054}
-  - component: {fileID: 5634541530225308051}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -84,12 +83,14 @@ MonoBehaviour:
   playersByConnection: {fileID: 11400000, guid: 727a441cdc88fb94daccad50d343bbc9, type: 2}
   allPlayers: {fileID: 11400000, guid: 4b94e810f13e0194982148a52bcc24c2, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
-  playerJoinedServer: {fileID: 11400000, guid: 26e05efea1cf88e4fa19abd86adff6b1, type: 2}
-  playerLeavesServer: {fileID: 11400000, guid: cf8e8a55187051647bd73c56284caa06, type: 2}
   playerLoaded: {fileID: 11400000, guid: 9bc7e587cf368614fb629dfe1447a932, type: 2}
   allPlayersLoaded: {fileID: 11400000, guid: 2a01389b5a31e4f43b833a7913dac777, type: 2}
   GameScene: Assets/Scenes/Game.unity
   LobbyScene: Assets/Scenes/Lobby.unity
+  onClientConnect: {fileID: 11400000, guid: 8299deba62f08544aa1f5041ac904872, type: 2}
+  onClientDisconnect: {fileID: 11400000, guid: cb40c4db93019e645b33f9fc297ade08, type: 2}
+  onServerConnect: {fileID: 11400000, guid: 26e05efea1cf88e4fa19abd86adff6b1, type: 2}
+  onServerDisconnect: {fileID: 11400000, guid: cf8e8a55187051647bd73c56284caa06, type: 2}
 --- !u!114 &5634541530225308054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,15 +107,3 @@ MonoBehaviour:
   Timeout: 25
   AllowSteamRelay: 1
   UseNextGenSteamNetworking: 1
---- !u!114 &5634541530225308051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5634541530225308055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3d9fffd82c5fcb41ab678f92b0e02c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

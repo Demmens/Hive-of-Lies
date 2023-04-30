@@ -11,8 +11,8 @@ public class DisconnectButton : MonoBehaviour
     public void Click()
     {
         SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
-        NetworkManager.singleton.StopServer();
         NetworkManager.singleton.StopClient();
+        NetworkManager.singleton.StopServer();
         SceneManager.LoadScene(MenuScene.Value);
     }
 }

@@ -6,7 +6,13 @@ using Mirror;
 
 public class SteamLobby : MonoBehaviour
 {
-    [SerializeField] HoLNetworkManager networkManager;
+    HoLNetworkManager networkManager
+    {
+        get
+        {
+            return NetworkManager.singleton as HoLNetworkManager;
+        }
+    }
 
     protected Callback<LobbyCreated_t> lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
@@ -26,17 +32,14 @@ public class SteamLobby : MonoBehaviour
     private void Start()
     {
         if (!SteamManager.Initialized) { return; }
-        if (singleton == null) singleton = this;
+        //We only ever want to run this code once
+        if (singleton != null) return;
+        singleton = this;
+        DontDestroyOnLoad(this);
 
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         lobbyEnter = Callback<LobbyEnter_t>.Create(LobbyEnter);
-    }
-
-    public void HostLobby()
-    {
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, networkManager.maxConnections);
-        networkManager.ServerChangeScene(networkManager.LobbyScene);
     }
 
     void OnLobbyCreated(LobbyCreated_t callback)

@@ -25,12 +25,6 @@ public class HoLNetworkManager : NetworkManager
     [Tooltip("The number of players in the game")]
     [SerializeField] IntVariable playerCount;
 
-    [Tooltip("The event to invoke when a player joins the server")]
-    [SerializeField] NetworkingEvent playerJoinedServer;
-
-    [Tooltip("The event to invoke when a player leaves the server")]
-    [SerializeField] NetworkingEvent playerLeavesServer;
-
     [Tooltip("The event to invoke when a player loads into the game scene")]
     [SerializeField] NetworkingEvent playerLoaded;
 
@@ -44,6 +38,20 @@ public class HoLNetworkManager : NetworkManager
     [Tooltip("The scene we consider to be the lobby scene")]
     [Scene]
     public string LobbyScene;
+
+    #region Connection Events
+    [Tooltip("Invoked on the client when they connect to the server")]
+    [SerializeField] GameEvent onClientConnect;
+
+    [Tooltip("Invoked on the client when they disconnect from the server")]
+    [SerializeField] GameEvent onClientDisconnect;
+
+    [Tooltip("Invoked on the server when a player connects")]
+    [SerializeField] NetworkingEvent onServerConnect;
+
+    [Tooltip("Invoked on the server when a player disconnects")]
+    [SerializeField] NetworkingEvent onServerDisconnect;
+    #endregion
 
     /// <summary>
     /// Called when a player joins the server for the first time
@@ -68,16 +76,47 @@ public class HoLNetworkManager : NetworkManager
 
             NetworkServer.AddPlayerForConnection(conn, ply.gameObject);
             
-            playerJoinedServer?.Invoke(conn);
+            onServerConnect?.Invoke(conn);
         }
     }
 
-    public override void OnServerDisconnect(NetworkConnection conn)
+    [Server]
+    public override void OnStopServer()
     {
-        base.OnServerDisconnect(conn);
-        playerLeavesServer?.Invoke(conn);
+        allPlayers.Value = new();
+        alivePlayersByConnection.Value = new();
+        playersByConnection.Value = new();
     }
 
+    [Server]
+    public override void OnServerDisconnect(NetworkConnection conn)
+    {
+        onServerDisconnect?.Invoke(conn);
+
+        NetworkServer.DestroyPlayerForConnection(conn);
+    }
+
+    [Server]
+    public override void OnServerConnect(NetworkConnection conn)
+    {
+        base.OnServerConnect(conn);
+        onServerConnect.Invoke(conn);
+    }
+
+    [Client]
+    public override void OnClientDisconnect()
+    {
+        base.OnClientDisconnect();
+        onClientDisconnect.Invoke();
+    }
+
+    public override void OnClientConnect()
+    {
+        base.OnClientConnect();
+        onClientConnect.Invoke();
+    }
+
+    [Server]
     public void StartGame()
     {
         ServerChangeScene(GameScene);
@@ -85,6 +124,7 @@ public class HoLNetworkManager : NetworkManager
         Debug.Log($"Started game with {playerCount.Value} players");
     }
 
+    [Server]
     public override void OnServerReady(NetworkConnection conn)
     {
         base.OnServerReady(conn);
@@ -110,6 +150,7 @@ public class HoLNetworkManager : NetworkManager
         
     }
 
+    [Server]
     public override void OnServerChangeScene(string scene)
     {
         if (scene != GameScene) return;
@@ -140,6 +181,7 @@ public class HoLNetworkManager : NetworkManager
         }
     }
 
+    [Server]
     public static bool IsAssignableToGenericType(System.Type givenType, System.Type genericType)
     {
         var interfaceTypes = givenType.GetInterfaces();
