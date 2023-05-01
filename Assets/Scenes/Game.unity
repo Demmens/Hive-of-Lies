@@ -5391,6 +5391,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 2241472847
       objectReference: {fileID: 0}
+    - target: {fileID: 3337107456053002565, guid: 13e21172b3f60044c906ac98bdfa1cb9, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ServerMissionStarted
+      objectReference: {fileID: 0}
     - target: {fileID: 3466905654826890477, guid: 13e21172b3f60044c906ac98bdfa1cb9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

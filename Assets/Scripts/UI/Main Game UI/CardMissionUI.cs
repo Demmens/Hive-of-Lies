@@ -40,12 +40,12 @@ public class CardMissionUI : NetworkBehaviour
     [Server]
     public void AfterDeckCreated()
     {
-        allPlayers.Value.ForEach(ply => 
+        foreach (HoLPlayer ply in allPlayers.Value) 
         {
             ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.connectionToClient, card.TempValue);
             ply.Deck.Value.HandCardValueChanged += val => ReceiveDrawResultFromServer(ply.connectionToClient, val);
             ply.NextDrawCost.AfterVariableChanged += val => OnDrawCostChanged(ply.connectionToClient, val);
-        });
+        };
     }
 
     /// <summary>
@@ -56,11 +56,16 @@ public class CardMissionUI : NetworkBehaviour
     {
         if (!isOnMission) return;
 
-        drawResult.text = "-";
-        drawButtonText.text = $"Redraw (0f)";
-        submitButton.SetActive(false);
-        drawButton.SetActive(true);
         UI.SetActive(true);
+        PlayerDrewCard();
+    }
+
+    [TargetRpc]
+    public void TargetActivateMissionUI(NetworkConnection conn, int cardValue, int drawCost)
+    {
+        UI.SetActive(true);
+        drawResult.text = cardValue.ToString();
+        drawButtonText.text = $"Redraw ({drawCost}f)";
     }
 
     /// <summary>
@@ -73,7 +78,7 @@ public class CardMissionUI : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    void PlayerDrewCard(NetworkConnectionToClient conn = null)
+    public void PlayerDrewCard(NetworkConnectionToClient conn = null)
     {
         playerDrew?.Invoke(conn);
     }
@@ -85,8 +90,6 @@ public class CardMissionUI : NetworkBehaviour
     void ReceiveDrawResultFromServer(NetworkConnection conn, int value)
     {
         drawResult.text = value.ToString();
-        submitButton.SetActive(true);
-        drawButton.SetActive(true);
     }
 
     [TargetRpc]
