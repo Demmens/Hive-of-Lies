@@ -28,6 +28,10 @@ public class SteamLobby : MonoBehaviour
     /// The sole steam lobby instance
     /// </summary>
     public static SteamLobby singleton;
+    /// <summary>
+    /// How many players are currently in this steam lobby
+    /// </summary>
+    public static int LobbySize => SteamMatchmaking.GetNumLobbyMembers(LobbyID);
 
     private void Start()
     {
