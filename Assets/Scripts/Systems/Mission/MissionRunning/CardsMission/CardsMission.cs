@@ -46,6 +46,9 @@ public class CardsMission : MissionType
     [Tooltip("Invoked when all players decks have been created")]
     [SerializeField] GameEvent afterDeckCreated;
 
+    [Tooltip("The UI for this game phase")]
+    [SerializeField] CardMissionUI UI;
+
     [Server]
     public void AfterRolesChosen()
     {
@@ -59,6 +62,19 @@ public class CardsMission : MissionType
         }
 
         afterDeckCreated?.Invoke();
+    }
+
+
+    public void OnServerConnected(NetworkConnection conn)
+    {
+        if (!Active) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!playersOnMission.Value.Contains(ply)) return;
+        if (playersPlayed.Contains(ply)) return;
+
+        if (ply.Deck.Value.Hand.Count == 0) ply.Deck.Value.Draw();
+
+        UI.TargetActivateMissionUI(conn, ply.Deck.Value.Hand[0].TempValue, ply.NextDrawCost);
     }
 
     [Server]

@@ -106,6 +106,7 @@ public class PlayerButton : NetworkBehaviour
         isReady.SetActive(ready);
     }
 
+    [ClientRpc]
     public void ChangeExhaustion(int exhaustion)
     {
         if (exhaustion == 0) exhaustionObj.SetActive(false);

@@ -60,24 +60,66 @@ public class HoLNetworkManager : NetworkManager
     [Server]
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
+        Debug.Log($"Player {SteamFriends.GetFriendPersonaName(SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize-1))} connected");
+
+        if (SceneManager.GetActiveScene().path == GameScene)
+        {
+            HoLPlayer ply = null;
+            ulong id = (ulong) SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize-1);
+
+            foreach (HoLPlayer i in allPlayers.Value)
+            {
+                ply = i;
+                if (ply.PlayerID == id) break;
+                ply = null;
+            }
+
+            if (ply != null)
+            {
+                //Assign the player back their HoLPlayer object if they reconnect to the game
+                ply.netIdentity.AssignClientAuthority(conn);
+                return;
+            }
+
+            CreateSpectator(conn, id);
+
+            onServerConnect?.Invoke(conn);
+        }
+
+
         if (SceneManager.GetActiveScene().path == LobbyScene)
         {
-            HoLPlayer ply = Instantiate(GamePlayerPrefab);
-
-            ply.PlayerID = (ulong) SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, playersByConnection.Value.Count);
-            ply.DisplayName = SteamFriends.GetFriendPersonaName(new CSteamID(ply.PlayerID));
-            ply.gameObject.name = "Player: " + ply.DisplayName;
-
-            playersByConnection.Value[conn] = ply;
-            alivePlayersByConnection.Value[conn] = ply;
-            allPlayers.Add(ply);
-
-            DontDestroyOnLoad(ply.gameObject);
-
-            NetworkServer.AddPlayerForConnection(conn, ply.gameObject);
+            CreatePlayer(conn, (ulong) SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize-1));
             
             onServerConnect?.Invoke(conn);
         }
+    }
+
+    void CreateSpectator(NetworkConnection conn, ulong id)
+    {
+        HoLPlayer ply = Instantiate(GamePlayerPrefab);
+        ply.PlayerID = id;
+        ply.DisplayName = SteamFriends.GetFriendPersonaName(new CSteamID(id));
+        ply.gameObject.name = "Spectator: " + ply.DisplayName;
+        playersByConnection.Value[conn] = ply;
+        allPlayers.Add(ply);
+        DontDestroyOnLoad(ply.gameObject);
+        NetworkServer.AddPlayerForConnection(conn, ply.gameObject);
+    }
+
+    void CreatePlayer(NetworkConnection conn, ulong id)
+    {
+        HoLPlayer ply = Instantiate(GamePlayerPrefab);
+
+        ply.PlayerID = id;
+        ply.DisplayName = SteamFriends.GetFriendPersonaName(new CSteamID(ply.PlayerID));
+        ply.gameObject.name = "Player: " + ply.DisplayName;
+        playersByConnection.Value[conn] = ply;
+        alivePlayersByConnection.Value[conn] = ply;
+        allPlayers.Add(ply);
+        DontDestroyOnLoad(ply.gameObject);
+
+        NetworkServer.AddPlayerForConnection(conn, ply.gameObject);
     }
 
     [Server]
@@ -93,6 +135,13 @@ public class HoLNetworkManager : NetworkManager
     {
         onServerDisconnect?.Invoke(conn);
 
+        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        playersByConnection.Value.Remove(conn);
+
+        //Can't prevent the player object being destroyed when a player leaves the game, so we need to make a new object to be destroyed instead
+        HoLPlayer newObj = Instantiate(GamePlayerPrefab);
+        NetworkServer.ReplacePlayerForConnection(conn, newObj.gameObject);
+
         NetworkServer.DestroyPlayerForConnection(conn);
     }
 
@@ -101,6 +150,7 @@ public class HoLNetworkManager : NetworkManager
     {
         base.OnServerConnect(conn);
         onServerConnect.Invoke(conn);
+        Debug.Log("Player connected, validating variables");
 
         if (SceneManager.GetActiveScene().path != GameScene) return;
         //We want to make sure that when a client joins the game, all their information is correct. To do this, we call OnValidate for all variables
@@ -137,6 +187,8 @@ public class HoLNetworkManager : NetworkManager
     public override void OnServerReady(NetworkConnection conn)
     {
         base.OnServerReady(conn);
+
+        Debug.Log("Client loaded the scene");
 
         if (SceneManager.GetActiveScene().path != GameScene) return;
 

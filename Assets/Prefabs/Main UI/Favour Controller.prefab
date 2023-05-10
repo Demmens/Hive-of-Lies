@@ -103,7 +103,6 @@ MonoBehaviour:
   syncInterval: 0.1
   favourText: {fileID: 3728589670518208065}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
-  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
 --- !u!222 &76766233332538370
 CanvasRenderer:
