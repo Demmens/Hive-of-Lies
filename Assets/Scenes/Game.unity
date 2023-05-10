@@ -6592,6 +6592,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -42.30835
       objectReference: {fileID: 0}
+    - target: {fileID: 2788326043409385108, guid: 23ad1befb9e54c047a0a9b12fc1f2dfc, type: 3}
+      propertyPath: MenuScene
+      value: Assets/Scenes/Menu.unity
+      objectReference: {fileID: 0}
     - target: {fileID: 3183951445354969926, guid: 23ad1befb9e54c047a0a9b12fc1f2dfc, type: 3}
       propertyPath: m_SizeDelta.x
       value: 31.219

@@ -722,7 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5071a1d4b1004e4c9bd1a45d3f5c5f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuScene: {fileID: 11400000, guid: 711efe86dddae964e9a09e79c87cef1d, type: 2}
+  MenuScene: Assets/Scenes/Menu.unity
 --- !u!114 &5511686159307220586
 MonoBehaviour:
   m_ObjectHideFlags: 0
