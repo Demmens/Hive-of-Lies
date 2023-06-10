@@ -33,7 +33,7 @@ public class MissionCard : MonoBehaviour
             GameObject effect = Instantiate(missionEffectPrefab);
             effect.transform.SetParent(missionEffectParent);
 
-            effect.GetComponent<MissionEffectText>().SetText(tier.Comparator, tier.Value + difficultyMod + data.DifficultyMod, tier);
+            effect.GetComponent<MissionEffectText>().SetText(tier.Value + difficultyMod + data.DifficultyMod, tier);
         }
     }
 

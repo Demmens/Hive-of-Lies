@@ -8,21 +8,9 @@ public class MissionEffectText : MonoBehaviour
     [SerializeField] TMP_Text requirement;
     [SerializeField] TMP_Text effect;
 
-    public void SetText(Comparator comparator, int value, MissionEffectTier effect)
+    public void SetText(int value, MissionEffectTier effect)
     {
         requirement.text = "";
-        switch (comparator)
-        {
-            case Comparator.GreaterThan:
-                requirement.text += '\u2265';
-                break;
-            case Comparator.EqualTo:
-                requirement.text += "=";
-                break;
-            case Comparator.LessThan:
-                requirement.text += "<";
-                break;
-        }
         requirement.text += value.ToString();
 
         this.effect.text = "";

@@ -130,14 +130,6 @@ public class Mission : ScriptableObject
 [System.Serializable]
 public class MissionEffectTier
 {
-    [SerializeField] Comparator comparator;
-    public Comparator Comparator
-    {
-        get
-        {
-            return comparator;
-        }
-    }
     [SerializeField] int value;
     public int Value
     {
@@ -156,14 +148,7 @@ public class MissionEffectTier
 
     public bool Applicable(int cardsTotal)
     {
-        if (comparator == Comparator.GreaterThan) return cardsTotal >= value;
-
-        if (comparator == Comparator.EqualTo) return cardsTotal == value;
-
-        if (comparator == Comparator.LessThan) return cardsTotal < value;
-
-        Debug.LogError("Mission effect tier has an unknown comparator");
-        return false;
+        return cardsTotal >= value;
     }
 
     public void ApplyEffects(int cardsTotal)
