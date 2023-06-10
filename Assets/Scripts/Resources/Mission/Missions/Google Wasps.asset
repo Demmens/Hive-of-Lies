@@ -16,17 +16,19 @@ MonoBehaviour:
   description: Send out a team to look up the definition of the word "Wasp" online
   favourCost: 6
   effects:
-  - comparator: 0
-    value: 5
-    effectFlavour: Found an interesting fact on CoolWaspFacts.org
-    effects:
-    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
-    plotPoints: []
-  - comparator: 2
-    value: 3
+  - value: 0
     effectFlavour: Downloaded a virus
     effects:
     - {fileID: 11400000, guid: e86834e53b1b0b8418bc30466218cf33, type: 2}
+    plotPoints: []
+  - value: 3
+    effectFlavour: Turn up empty
+    effects: []
+    plotPoints: []
+  - value: 5
+    effectFlavour: Found an interesting fact on CoolWaspFacts.org
+    effects:
+    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0

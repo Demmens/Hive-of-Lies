@@ -16,23 +16,20 @@ MonoBehaviour:
   description: Spend time gathering as many helpful resources as posible
   favourCost: 6
   effects:
-  - comparator: 0
-    value: 8
-    effectFlavour: 
-    effects:
-    - {fileID: 11400000, guid: 8eade5410567fb14693326ca8dc358ed, type: 2}
-    plotPoints: []
-  - comparator: 0
-    value: 4
-    effectFlavour: 
-    effects:
-    - {fileID: 11400000, guid: 8eade5410567fb14693326ca8dc358ed, type: 2}
-    plotPoints: []
-  - comparator: 2
-    value: 2
+  - value: 0
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: 1eb83aac85dba1a4aa6ee342952a1218, type: 2}
+    plotPoints: []
+  - value: 4
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 8eade5410567fb14693326ca8dc358ed, type: 2}
+    plotPoints: []
+  - value: 8
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 8eade5410567fb14693326ca8dc358ed, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0

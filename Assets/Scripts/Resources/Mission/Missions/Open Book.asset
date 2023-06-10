@@ -16,17 +16,15 @@ MonoBehaviour:
   description: Send a team of top bees to open a large book on wasps
   favourCost: 3
   effects:
-  - comparator: 0
-    value: 4
-    effectFlavour: 
-    effects:
-    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
-    plotPoints: []
-  - comparator: 2
-    value: 4
+  - value: 0
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: 88ac73c2e59ffb144a8b2984851ef7c1, type: 2}
+    plotPoints: []
+  - value: 4
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0

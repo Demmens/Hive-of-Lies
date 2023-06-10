@@ -16,23 +16,20 @@ MonoBehaviour:
   description: Spend time designing promotional posters for the Bee political campaign.
   favourCost: 3
   effects:
-  - comparator: 0
-    value: 6
-    effectFlavour: Created a weirdly hypnotic advert
+  - value: 0
+    effectFlavour: '"Accidentally" promoted fascist imigary'
     effects:
-    - {fileID: 11400000, guid: 4e99fa1b857ea484db964217a354bfa9, type: 2}
+    - {fileID: 11400000, guid: b6d89fb161e8f5b44a3beee712f688a5, type: 2}
     plotPoints: []
-  - comparator: 0
-    value: 3
+  - value: 3
     effectFlavour: Created an effective advert
     effects:
     - {fileID: 11400000, guid: c5038fef9d1ccb146a0d6f1c0a8ed349, type: 2}
     plotPoints: []
-  - comparator: 2
-    value: 3
-    effectFlavour: '"Accidentally" promoted fascist imigary'
+  - value: 6
+    effectFlavour: Created a weirdly hypnotic advert
     effects:
-    - {fileID: 11400000, guid: b6d89fb161e8f5b44a3beee712f688a5, type: 2}
+    - {fileID: 11400000, guid: 4e99fa1b857ea484db964217a354bfa9, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0

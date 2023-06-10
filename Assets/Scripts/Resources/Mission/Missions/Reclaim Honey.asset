@@ -17,17 +17,19 @@ MonoBehaviour:
     from the wasps
   favourCost: 12
   effects:
-  - comparator: 0
-    value: 6
-    effectFlavour: 
-    effects:
-    - {fileID: 11400000, guid: d616065035baacc49a9bdf06cc89bc40, type: 2}
-    plotPoints: []
-  - comparator: 2
-    value: 4
+  - value: 0
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+    plotPoints: []
+  - value: 4
+    effectFlavour: 
+    effects: []
+    plotPoints: []
+  - value: 6
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: d616065035baacc49a9bdf06cc89bc40, type: 2}
     plotPoints: []
   condition: {fileID: 11400000, guid: 710e2d5c7e628da46945271f689f88e5, type: 2}
   DifficultyMod: 0

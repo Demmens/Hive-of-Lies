@@ -16,17 +16,21 @@ MonoBehaviour:
   description: Forfeit some of our honey as bait to learn about wasp behaviour
   favourCost: 4
   effects:
-  - comparator: 0
-    value: 3
-    effectFlavour: 
-    effects:
-    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
-    plotPoints: []
-  - comparator: 2
-    value: 10
+  - value: 0
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+    plotPoints: []
+  - value: 3
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+    plotPoints: []
+  - value: 10
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0

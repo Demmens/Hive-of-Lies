@@ -17,17 +17,15 @@ MonoBehaviour:
     spend some time trying to pick it back up again.
   favourCost: 6
   effects:
-  - comparator: 0
-    value: 4
-    effectFlavour: 
-    effects:
-    - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}
-    plotPoints: []
-  - comparator: 2
-    value: 5
+  - value: 0
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+    plotPoints: []
+  - value: 4
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}
     plotPoints: []
   condition: {fileID: 11400000, guid: 2b3c04b5fbd13474da59b54bebd8153b, type: 2}
   DifficultyMod: 0

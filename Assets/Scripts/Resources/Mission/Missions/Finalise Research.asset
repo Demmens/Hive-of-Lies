@@ -17,29 +17,25 @@ MonoBehaviour:
     hive library in a last ditch effort to weed out the wasps.
   favourCost: 12
   effects:
-  - comparator: 0
-    value: 6
+  - value: 0
     effectFlavour: 
     effects:
-    - {fileID: 11400000, guid: c20462baca7fd364b857081d92087c9e, type: 2}
+    - {fileID: 11400000, guid: 34235a5eb24d62e4086243ed8787bdc4, type: 2}
     plotPoints: []
-  - comparator: 0
-    value: 5
-    effectFlavour: 
-    effects:
-    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
-    plotPoints: []
-  - comparator: 2
-    value: 5
+  - value: 4
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
     plotPoints: []
-  - comparator: 2
-    value: 4
+  - value: 5
     effectFlavour: 
     effects:
-    - {fileID: 11400000, guid: 34235a5eb24d62e4086243ed8787bdc4, type: 2}
+    - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
+    plotPoints: []
+  - value: 6
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: c20462baca7fd364b857081d92087c9e, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0
