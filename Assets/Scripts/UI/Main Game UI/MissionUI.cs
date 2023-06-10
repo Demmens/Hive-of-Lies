@@ -12,21 +12,13 @@ public class MissionUI : NetworkBehaviour
     [SerializeField] TMP_Text missionName;
     [SerializeField] TMP_Text missionFlavour;
 
-    [SerializeField] TMP_Text teamLeaderName;
-    [SerializeField] TMP_Text missionPlayerList;
-    [SerializeField] TMP_Text missionCost;
-
-    [SerializeField] GameObject effectPrefab;
-    [SerializeField] Transform effectParent;
+    [SerializeField] List<GameObject> effects;
+    [SerializeField] List<TMP_Text> effectTexts;
+    [SerializeField] List<TMP_Text> effectRequirements;
+    [SerializeField] List<GameObject> separators;
 
     [Tooltip("Returns true if the player is on the mission")]
     [SerializeField] BoolVariable isOnMission;
-
-    [Tooltip("The ID of the local player")]
-    [SerializeField] UlongVariable id;
-
-    List<string> pickedPlayers = new();
-    List<GameObject> effectTiers = new();
     #endregion
 
     #region SERVER
@@ -49,16 +41,11 @@ public class MissionUI : NetworkBehaviour
         currentMission.AfterVariableChanged += miss => ChangeMission(miss, missionDifficulty);
         teamLeader.AfterVariableChanged += ply =>
         {
-            if (ply == null)
-            {
-                OnTeamLeaderDecided("Undecided");
-                return;
-            }
-            OnTeamLeaderDecided(ply.DisplayName);
+            if (ply == null) return;
             GiveTeamLeader(ply.connectionToClient);
         };
-        playersSelected.AfterItemAdded += ply => OnTeamLeaderAddPartner(ply.DisplayName, ply.PlayerID);
-        playersSelected.AfterItemRemoved += ply => OnTeamLeaderRemovePartner(ply.DisplayName, ply.PlayerID);
+        playersSelected.AfterItemAdded += ply => OnPartnerChange(ply.DisplayName, ply.PlayerID, true);
+        playersSelected.AfterItemRemoved += ply => OnPartnerChange(ply.DisplayName, ply.PlayerID, false);
     }
 
     /// <summary>
@@ -85,81 +72,60 @@ public class MissionUI : NetworkBehaviour
     void ChangeMission(Mission mission, int difficultyMod)
     {
         if (mission == null) return;
-        pickedPlayers = new();
         missionUI.SetActive(true);
         missionName.text = mission.MissionName;
         missionFlavour.text = mission.Description;
-        missionCost.text = $"Mission Cost: {mission.FavourCost}f";
-        missionPlayerList.text = "Undecided";
-        foreach (GameObject obj in effectTiers) Destroy(obj);
-        effectTiers = new();
-        foreach (MissionEffectTier tier in mission.effects) {
-            GameObject effect = Instantiate(effectPrefab);
-            effectTiers.Add(effect);
-            effect.transform.SetParent(effectParent);
 
-            effect.GetComponent<MissionEffectText>().SetText(tier.Comparator, tier.Value + difficultyMod + mission.DifficultyMod, tier);
+        for (int i = 0; i < effects.Count; i++) {
+
+            if (i >= mission.effects.Count)
+            {
+                effects[i].SetActive(false);
+                if (i > 0) separators[i-1].SetActive(false);
+                continue;
+            }
+
+            effects[i].SetActive(true);
+            if (i > 0) separators[i-1].SetActive(true);
+
+            MissionEffectTier tier = mission.effects[i];
+
+            string effectText = "";
+
+            foreach (MissionEffect eff in tier.effects)
+            {
+                effectText += eff.Description + "\n";
+            }
+
+            foreach (EMissionPlotPoint point in tier.plotPoints)
+            {
+                if (point.Description == "") continue;
+                effectText += point.Description + "\n";
+            }
+
+            //If there are no mission effects
+            if (effectText == "") effectText = "No Effect";
+            //Otherwise we can remove the last line break
+            else effectText.TrimEnd('\n');
+
+            effectTexts[i].text = effectText;
+
+            if (i > 0) effectRequirements[i].text = (tier.Value + difficultyMod + mission.DifficultyMod).ToString();
         }
-        RemakePlayerList();
     }
 
-    [ClientRpc]
-    public void StandOrPassBegin()
-    {
-        pickedPlayers = new();
-        RemakePlayerList();
-    }
-
-    /// <summary>
-    /// Called when the team leader is decided
-    /// </summary>
-    /// <param name="msg"></param>
-    [ClientRpc]
-    void OnTeamLeaderDecided(string name)
-    {
-        teamLeaderName.text = name;
-    }
-
+    //TODO: Move this to a more appropriate place
     [TargetRpc]
     void GiveTeamLeader(NetworkConnection conn)
     {
         isOnMission.Value = true;
     }
 
+    //TODO: Move this to a more appropriate place
     [ClientRpc]
-    void OnTeamLeaderAddPartner(string name, ulong ID)
+    void OnPartnerChange(string name, ulong ID, bool added)
     {
-        pickedPlayers.Add(name);
-
-        RemakePlayerList();
-
-        if (ID == (ulong) SteamUser.GetSteamID()) isOnMission.Value = true;
-    }
-
-    [ClientRpc]
-    void OnTeamLeaderRemovePartner(string name, ulong ID)
-    {
-        pickedPlayers.Remove(name);
-
-        RemakePlayerList();
-
-        if (missionPlayerList.text == "") missionPlayerList.text = "Undecided";
-
-        if (ID == (ulong)SteamUser.GetSteamID()) isOnMission.Value = false;
-    }
-
-    [Client]
-    void RemakePlayerList()
-    {
-        missionPlayerList.text = "";
-
-        for (int i = 0; i < pickedPlayers.Count; i++)
-        {
-            missionPlayerList.text += pickedPlayers[i];
-            if (i == pickedPlayers.Count - 1) continue;
-            missionPlayerList.text += "\n";
-        }
-
-        if (missionPlayerList.text == "") missionPlayerList.text = "Undecided";
+        if (ID != (ulong)SteamUser.GetSteamID()) return;
+        isOnMission.Value = added;
     }
 }
