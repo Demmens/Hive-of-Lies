@@ -72,7 +72,7 @@ public class RunMission : GamePhase
 
         missionEnded?.Invoke();
 
-        currentMission.Value.AfterAllEffectsTriggered += OnEffectEnded;
+        currentMission.Value.AfterEffectTriggered += OnEffectEnded;
         currentMission.Value.OnPlotPointTraversed += (point) => traversedPlotPoints.Add(point);
         //Trigger all effects
         currentMission.Value.TriggerValidEffects(cardsTotal - missionDifficultyMod);
@@ -89,7 +89,7 @@ public class RunMission : GamePhase
     private void OnEffectEnded()
     {
         Debug.Log("All mission effects have finished. Starting the next round");
-        currentMission.Value.AfterAllEffectsTriggered -= OnEffectEnded;
+        currentMission.Value.AfterEffectTriggered -= OnEffectEnded;
         End();
     }
 }

@@ -157,7 +157,7 @@ public class StandOrPass : GamePhase
             //If nobody stood for the position of team leader, and we don't currently have a team leader
             if (teamLeader.Value == null)
             {
-                currentMission.Value.AfterAllEffectsTriggered += OnMissionEffectFinished;
+                currentMission.Value.AfterEffectTriggered += OnMissionEffectFinished;
                 currentMission.Value.TriggerValidEffects(0);
                 return;
             }
@@ -218,7 +218,7 @@ public class StandOrPass : GamePhase
 
     void OnMissionEffectFinished()
     {
-        currentMission.Value.AfterAllEffectsTriggered -= OnMissionEffectFinished;
+        currentMission.Value.AfterEffectTriggered -= OnMissionEffectFinished;
 
         onNobodyStood?.Invoke();
     }

@@ -99,15 +99,13 @@ public class MissionResultPopup : NetworkBehaviour
 
         rollResults.text = cardResultsText;
 
-        List<MissionEffectTier> applicableTiers = currentMission.GetApplicableTiers(cardsTotal + difficulty);
+        MissionEffectTier tier = currentMission.GetValidEffect(cardsTotal + difficulty);
 
-        foreach (MissionEffectTier tier in applicableTiers) {
-            GameObject effect = Instantiate(effectPrefab);
-            effectTiers.Add(effect);
-            effect.transform.SetParent(effectParent);
+        GameObject effect = Instantiate(effectPrefab);
+        effectTiers.Add(effect);
+        effect.transform.SetParent(effectParent);
 
-            effect.GetComponent<MissionEffectText>().SetText(tier.Value + difficulty + currentMission.DifficultyMod, tier);
-        }
+        effect.GetComponent<MissionEffectText>().SetText(tier.Value + difficulty + currentMission.DifficultyMod, tier);
 
         popup.SetActive(true);
     }

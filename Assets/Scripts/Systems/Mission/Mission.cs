@@ -85,45 +85,41 @@ public class Mission : ScriptableObject
     }
     #endregion
 
-    public event System.Action AfterAllEffectsTriggered;
+    public event System.Action AfterEffectTriggered;
     public event System.Action<EMissionPlotPoint> OnPlotPointTraversed;
 
     public void TriggerValidEffects(int cardsTotal)
     {
         cardsTotal -= DifficultyMod;
-        int tiersTriggered = 0;
-        int applicableTiers = effects.Count(tier => tier.Applicable(cardsTotal));
 
-        if (applicableTiers == 0) AfterAllEffectsTriggered?.Invoke();
+        MissionEffectTier tier = GetValidEffect(cardsTotal);
 
-        foreach (MissionEffectTier tier in effects)
+        tier.AfterEffectsTriggered += () =>
         {
-            if (!tier.Applicable(cardsTotal)) continue;
-            tier.AfterEffectsTriggered += () =>
-            {
-                if (++tiersTriggered >= applicableTiers) AfterAllEffectsTriggered?.Invoke();
-            };
-            foreach (EMissionPlotPoint point in tier.plotPoints)
-            {
-                OnPlotPointTraversed?.Invoke(point);
-            }
-            tier.ApplyEffects(cardsTotal);
+            AfterEffectTriggered?.Invoke();
+        };
+
+        foreach (EMissionPlotPoint point in tier.plotPoints)
+        {
+            OnPlotPointTraversed?.Invoke(point);
         }
+
+        tier.ApplyEffects();
     }
 
-    public List<MissionEffectTier> GetApplicableTiers(int cardsTotal)
+    public MissionEffectTier GetValidEffect(int cardsTotal)
     {
-        cardsTotal -= DifficultyMod;
-        List<MissionEffectTier> tiers = new();
-
-        foreach (MissionEffectTier tier in effects)
+        for (int i = effects.Count - 1; i >= 0; i--)
         {
-            if (!tier.Applicable(cardsTotal)) continue;
+            MissionEffectTier tier = effects[i];
 
-            tiers.Add(tier);
+            if (!tier.Applicable(cardsTotal) && i > 0) continue;
+
+            return tier;
         }
 
-        return tiers;
+        //By default the first tier should ALWAYS be an option
+        return effects[0];
     }
 }
 
@@ -151,10 +147,8 @@ public class MissionEffectTier
         return cardsTotal >= value;
     }
 
-    public void ApplyEffects(int cardsTotal)
+    public void ApplyEffects()
     {
-        if (!Applicable(cardsTotal)) return;
-
         if (effects.Count == 0) AfterEffectsTriggered?.Invoke();
 
         foreach (MissionEffect effect in effects)
