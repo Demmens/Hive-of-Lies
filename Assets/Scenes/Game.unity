@@ -3388,6 +3388,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MissionUI
       objectReference: {fileID: 0}
+    - target: {fileID: 4020866136852431417, guid: 2c3edd72b5951814dbb915f5b4cbf2fc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4091960679387166467, guid: 2c3edd72b5951814dbb915f5b4cbf2fc, type: 3}
       propertyPath: sceneId
       value: 3616467103
