@@ -11,7 +11,7 @@ public class Setup : GamePhase
     /// Number of role choices given to each role. If set too high, some players may not receive any choices.
     /// </summary>
     [SerializeField]
-    Dictionary<Team, int> RoleChoices = new Dictionary<Team, int>()
+    Dictionary<Team, int> RoleChoices = new()
     {
         {Team.Bee, 3},
         {Team.Wasp, 3}
@@ -44,7 +44,11 @@ public class Setup : GamePhase
     [SerializeField] GameObject teamPopup;
 
     [SerializeField] GameObject playerButton;
-    [SerializeField] Transform playerList;
+
+    [SerializeField] Transform topPlayerRow;
+    [SerializeField] Transform rightPlayerRow;
+    [SerializeField] Transform bottomPlayerRow;
+    [SerializeField] Transform leftPlayerRow;
 
     /// <summary>
     /// Run the game setup. This includes handing out roles and selecting teams.
@@ -71,21 +75,80 @@ public class Setup : GamePhase
 
     void CreateButtons(List<HoLPlayer> plys)
     {
-        foreach (HoLPlayer ply in plys)
+        for (int i = 0; i < plys.Count; i++)
         {
+            HoLPlayer ply = plys[i];
             GameObject button = Instantiate(playerButton);
             NetworkServer.Spawn(button);
-            SetupButtonOnClient(button);
+            SetupButtonOnClient(button, i, plys.Count);
             PlayerButton plButton = button.GetComponent<PlayerButton>();
             plButton.Owner = ply;
             ply.Button = plButton;
         }
     }
 
+    /// <summary>
+    /// Place the player buttons in the correct positions around the table
+    /// </summary>
     [ClientRpc]
-    void SetupButtonOnClient(GameObject button)
+    void SetupButtonOnClient(GameObject button, int currentPlayer, int maxPlayers)
     {
-        button.transform.SetParent(playerList.transform);
+        // Think about: Should the clients player button always be in the top-middle position if possible?
+
+        // Dictionary<Player Count, Num Seats (top, right, bottom, left)>
+        Dictionary<int, (int, int, int, int)> seats = new()
+        {
+            { 1, (1,0,0,0) },
+            { 2, (0,1,0,1) },
+            { 3, (1,1,0,1) },
+            { 4, (1,1,1,1) },
+            { 5, (2,1,1,1) },
+            { 6, (2,1,2,1) },
+            { 7, (2,1,3,1) }, // Might also want to try (1,2,2,2)
+            { 8, (2,2,2,2) },
+            { 9, (2,2,3,2) },
+            {10, (3,2,3,2) },
+            {11, (2,3,3,3) }, // Might also want to try (3,2,4,2) if enough space on the bottom row
+            {12, (3,3,3,3) },
+        };
+
+        if (!seats.TryGetValue(maxPlayers, out (int, int, int, int) seatingCounts)) return;
+
+        int i = 0;
+
+        i += seatingCounts.Item1;
+        if (currentPlayer < i) 
+        {
+            button.transform.SetParent(topPlayerRow);
+            return;
+        }
+
+        i += seatingCounts.Item2;
+        if (currentPlayer < i)
+        {
+            Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
+
+            imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
+
+            button.transform.SetParent(rightPlayerRow);
+            return;
+        }
+
+        i += seatingCounts.Item3;
+        if (currentPlayer < i)
+        {
+            button.transform.SetParent(bottomPlayerRow);
+            return;
+        }
+
+        i += seatingCounts.Item4;
+        if (currentPlayer < i)
+        {
+            button.transform.SetParent(bottomPlayerRow);
+            return;
+        }
+
+        Debug.LogError($"Not enough seats for the current player count ({maxPlayers})");
     }
 
     /// <summary>
