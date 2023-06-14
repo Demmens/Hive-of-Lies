@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using Mirror;
 
@@ -13,12 +14,12 @@ public class PlayerButtonDropdown : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (!Input.GetMouseButtonDown(0)) return;
+        if (!Mouse.current.leftButton.wasPressedThisFrame) return;
         if (isMouseOver) return;
         if (!gameObject.activeInHierarchy) return;
 
         PointerEventData data = new PointerEventData(EventSystem.current);
-        data.position = Input.mousePosition;
+        data.position = Mouse.current.position.ReadValue();
 
         List<RaycastResult> results = new();
         EventSystem.current.RaycastAll(data, results);

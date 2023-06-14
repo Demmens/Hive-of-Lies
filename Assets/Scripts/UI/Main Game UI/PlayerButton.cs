@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
 using Mirror;
+using UnityEngine.InputSystem;
 
 public class PlayerButton : NetworkBehaviour
 {
@@ -51,7 +52,7 @@ public class PlayerButton : NetworkBehaviour
     public void Click()
     {
         dropdown.SetActive(true);
-        dropdown.transform.SetPositionAndRotation(Input.mousePosition, new Quaternion());
+        dropdown.transform.SetPositionAndRotation(Mouse.current.position.ReadValue(), new Quaternion());
     }
 
     [ClientRpc]
