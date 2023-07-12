@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
   m_Name: Spread Propaganda
   m_EditorClassIdentifier: 
-  missionName: Create Propaganda
+  missionName: Spread Propaganda
   description: Spend time designing promotional posters for the Bee political campaign.
   favourCost: 3
   effects:
