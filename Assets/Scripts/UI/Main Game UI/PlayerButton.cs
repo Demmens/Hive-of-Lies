@@ -33,8 +33,12 @@ public class PlayerButton : NetworkBehaviour
     [SerializeField] Texture someExhaustion;
     [SerializeField] Texture heavyExhaustion;
 
+    [SerializeField] Texture onMissionTexture;
+    [SerializeField] Texture teamLeaderTexture;
+
     [SerializeField] GameObject isReady;
     [SerializeField] GameObject exhaustionObj;
+    [SerializeField] GameObject onMissionObj;
     /// <summary>
     /// The ID of the player associated with this button
     /// </summary>
@@ -115,5 +119,19 @@ public class PlayerButton : NetworkBehaviour
 
         if (exhaustion == 1) exhaustionUI.texture = someExhaustion;
         if (exhaustion == 2) exhaustionUI.texture = heavyExhaustion;
+    }
+
+    [ClientRpc]
+    public void ChangeOnMission(bool isOnMission)
+    {
+        onMissionObj.SetActive(isOnMission);
+        if (isOnMission) onMissionObj.GetComponent<UnityEngine.UI.RawImage>().texture = onMissionTexture;
+    }
+
+    [ClientRpc]
+    public void ChangeTeamLeader(bool isTeamLeader)
+    {
+        onMissionObj.SetActive(isTeamLeader);
+        if (isTeamLeader) onMissionObj.GetComponent<UnityEngine.UI.RawImage>().texture = teamLeaderTexture;
     }
 }

@@ -76,6 +76,9 @@ public class TeamLeaderPickPartners : GamePhase
         {
             lockInButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => LockInChoices());
         }
+
+        playersSelected.AfterItemAdded += ply => ply.Button.ChangeOnMission(true);
+        playersSelected.AfterItemRemoved += ply => ply.Button.ChangeOnMission(false);
     }
 
     [Server]

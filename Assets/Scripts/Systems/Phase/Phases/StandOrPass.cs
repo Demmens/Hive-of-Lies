@@ -72,6 +72,14 @@ public class StandOrPass : GamePhase
         teamLeader.Value = null;
 
         standOrPassBegin?.Invoke();
+
+        teamLeader.AfterVariableChanged += ply =>
+        {
+            foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in players.Value)
+            {
+                pair.Value.Button.ChangeTeamLeader(ply == teamLeader.Value);
+            }
+        };
     }
 
     [Server]
