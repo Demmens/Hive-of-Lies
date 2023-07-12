@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Mirror;
 using Steamworks;
+using UnityEngine.UI;
 
 public class MissionUI : NetworkBehaviour
 {
@@ -13,9 +14,10 @@ public class MissionUI : NetworkBehaviour
     [SerializeField] TMP_Text missionFlavour;
 
     [SerializeField] List<GameObject> effects;
-    [SerializeField] List<TMP_Text> effectTexts;
     [SerializeField] List<TMP_Text> effectRequirements;
-    [SerializeField] List<GameObject> separators;
+    [SerializeField] List<Transform> effectIcons;
+
+    [SerializeField] GameObject iconPrefab;
 
     [Tooltip("Returns true if the player is on the mission")]
     [SerializeField] BoolVariable isOnMission;
@@ -76,42 +78,40 @@ public class MissionUI : NetworkBehaviour
         missionName.text = mission.MissionName;
         missionFlavour.text = mission.Description;
 
-        for (int i = 0; i < effects.Count; i++) {
+        //Set these two effects manually because they need to be the effects at either side of the bar
+        SetEffect(mission, mission.effects[0], difficultyMod, 0);
+        SetEffect(mission, mission.effects[mission.effects.Count -1 ], difficultyMod, 3);
 
-            if (i >= mission.effects.Count)
+        //All other effects can be put in the middle
+        for (int i = 1; i < effects.Count-1; i++) {
+
+            if (i >= mission.effects.Count-1)
             {
                 effects[i].SetActive(false);
-                if (i > 0) separators[i-1].SetActive(false);
                 continue;
             }
 
             effects[i].SetActive(true);
-            if (i > 0) separators[i-1].SetActive(true);
 
             MissionEffectTier tier = mission.effects[i];
 
-            string effectText = "";
-
-            foreach (MissionEffect eff in tier.effects)
-            {
-                effectText += eff.Description + "\n";
-            }
-
-            foreach (EMissionPlotPoint point in tier.plotPoints)
-            {
-                if (point.Description == "") continue;
-                effectText += point.Description + "\n";
-            }
-
-            //If there are no mission effects
-            if (effectText == "") effectText = "No Effect";
-            //Otherwise we can remove the last line break
-            else effectText.TrimEnd('\n');
-
-            effectTexts[i].text = effectText;
-
-            if (i > 0) effectRequirements[i].text = (tier.Value + difficultyMod + mission.DifficultyMod).ToString();
+            SetEffect(mission, tier, difficultyMod, i);
         }
+    }
+
+    void SetEffect(Mission mission, MissionEffectTier tier, int difficultyMod, int effectIndex)
+    {
+        for (int i = 0; i < tier.effects.Count; i++)
+        {
+            MissionEffect eff = tier.effects[i];
+
+            if (eff.iconPrefab == null) continue;
+
+            GameObject prefab = Instantiate(eff.iconPrefab);
+            prefab.transform.SetParent(effectIcons[effectIndex]);
+        }
+
+        if (effectIndex > 0) effectRequirements[effectIndex].text = (tier.Value + difficultyMod + mission.DifficultyMod).ToString();
     }
 
     //TODO: Move this to a more appropriate place
