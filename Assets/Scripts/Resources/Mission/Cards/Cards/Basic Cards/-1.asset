@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Value: -1
   tempValue: -1
-  DestroyOnPlay: 0
+  DestroyOnPlay: 1
   DestroyOnDraw: 0
   DrawEffects: []
   PlayEffects: []

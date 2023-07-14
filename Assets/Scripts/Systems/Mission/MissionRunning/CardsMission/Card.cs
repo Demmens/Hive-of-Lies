@@ -31,7 +31,7 @@ public class Card : ScriptableObject
     /// <summary>
     /// Whether this card should be destroyed once it has been played
     /// </summary>
-    public bool DestroyOnPlay;
+    public bool DestroyOnPlay = true;
 
     /// <summary>
     /// Whether this card should be destroyed once it has been drawn
