@@ -23,8 +23,7 @@ MonoBehaviour:
     plotPoints: []
   - value: 4
     effectFlavour: 
-    effects:
-    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+    effects: []
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0
