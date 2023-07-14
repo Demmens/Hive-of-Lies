@@ -49,15 +49,22 @@ public class MissionList : ScriptableObject
             Debug.Log($"Calling AddThreads on {name}");
         }
 
-        foreach (MissionList thread in IncludedThreads)
+        foreach (MissionList t in IncludedThreads)
         {
+            Debug.Log($"Adding thread: {t}");
+            //Duplicate the thread so we can make changes to it if necessary
+            MissionList thread = Instantiate(t);
             thread.AddThreads(origin);
             for (int i = 0; i < thread.List.Count && (i < origin.List.Count || !ignoreOriginSize); i++)
             {
                 if (origin.List.Count == i) origin.List.Add(new MissionListEntry() { Missions = new() });
                 MissionListEntry entry = origin.List[i];
                 MissionListEntry threadEntry = thread.List[i];
-                entry.Missions.AddRange(threadEntry.Missions);
+                //entry.Missions.AddRange(threadEntry.Missions);
+                foreach (MissionListEntryEntry mission in entry.Missions)
+                {
+                    threadEntry.Missions.Add(mission);
+                }
             }
         }
 

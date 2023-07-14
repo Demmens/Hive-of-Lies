@@ -77,12 +77,14 @@ public class DecideMission : GamePhase
             possibleLists.Add(l);
         }
 
-        MissionList list = ScriptableObject.CreateInstance<MissionList>();
         MissionList decided = possibleLists.GetRandom();
+        //Create a copy of the decided list so we can make changes to it
+        MissionList list = Instantiate(decided);
 
         if (decided == null) throw new System.Exception("Decided mission list is null");
 
         list.IncludedThreads.Add(decided);
+        list.name = "Mission List";
         list.AddThreads(ignoreOriginSize: true);
 
         decidedMissionList.Value = list;
