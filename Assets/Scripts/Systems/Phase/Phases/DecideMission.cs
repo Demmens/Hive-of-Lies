@@ -53,6 +53,8 @@ public class DecideMission : GamePhase
 
     [Tooltip("Event to invoke when the mission choices have been picked")]
     [SerializeField] GameEvent onMissionChoicesDecided;
+
+    int missionListIndex;
     #endregion
 
     #region CLIENT
@@ -100,7 +102,7 @@ public class DecideMission : GamePhase
         MissionVotes = new Dictionary<Mission, (List<HoLPlayer>, int)>();
 
         //List of missions and weights. Make sure if we reach the end of the list that we just start looping the final mission indefinitely.
-        int missionListIndex = Mathf.Min(roundNum, decidedMissionList.Value.List.Count - 1);
+        missionListIndex = Mathf.Min(roundNum, decidedMissionList.Value.List.Count - 1);
         Debug.Log(missionListIndex);
         Debug.Log(decidedMissionList.Value.List.Count);
         List<MissionListEntryEntry> missionDataChoices = decidedMissionList.Value.List[missionListIndex].Missions;
@@ -273,7 +275,7 @@ public class DecideMission : GamePhase
             }
         }
 
-        currentMission.Value = DecidedMission;
+        currentMission.Value = DecidedMission ?? decidedMissionList.Value.List[missionListIndex].Missions[0].Mission;
 
         DestroyRemnantCards();
         End();
