@@ -57,8 +57,6 @@ public class CardsMission : MissionType
             Role role = ply.Role.Value;
             ply.Deck.Value.DrawPile.AddRange(role.Data.StartingDeck);
             ply.Deck.Value.Shuffle();
-
-            ply.Deck.Value.BeforeDraw += (ref Card card) => card.TempValue = card.TempValue - (ply.Exhaustion * exhaustionPenalty);
         }
 
         afterDeckCreated?.Invoke();

@@ -17,10 +17,8 @@ public class PlayerButton : NetworkBehaviour
         }
         set
         {
-            if (owner != null) owner.Exhaustion.AfterVariableChanged -= ChangeExhaustion;
             owner = value;
             ChangeOwner(value.DisplayName);
-            value.Exhaustion.AfterVariableChanged += ChangeExhaustion;
         }
     }
     private List<PlayerButtonDropdownItem> activeItems = new();
@@ -29,9 +27,6 @@ public class PlayerButton : NetworkBehaviour
     [SerializeField] GameObject dropdown;
     [SerializeField] TMPro.TMP_Text playerNameText;
     [SerializeField] UnityEngine.UI.RawImage exhaustionUI;
-
-    [SerializeField] Texture someExhaustion;
-    [SerializeField] Texture heavyExhaustion;
 
     [SerializeField] Texture onMissionTexture;
     [SerializeField] Texture teamLeaderTexture;
@@ -109,16 +104,6 @@ public class PlayerButton : NetworkBehaviour
     public void SetReady(bool ready)
     {
         isReady.SetActive(ready);
-    }
-
-    [ClientRpc]
-    public void ChangeExhaustion(int exhaustion)
-    {
-        if (exhaustion == 0) exhaustionObj.SetActive(false);
-        else exhaustionObj.SetActive(true);
-
-        if (exhaustion == 1) exhaustionUI.texture = someExhaustion;
-        if (exhaustion == 2) exhaustionUI.texture = heavyExhaustion;
     }
 
     [ClientRpc]

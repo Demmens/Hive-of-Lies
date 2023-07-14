@@ -107,7 +107,6 @@ public class HoLPlayer : NetworkBehaviour
         Team = ScriptableObject.CreateInstance<TeamVariable>();
         Favour = ScriptableObject.CreateInstance<IntVariable>();
         Role = ScriptableObject.CreateInstance<RoleVariable>();
-        Exhaustion = ScriptableObject.CreateInstance<IntVariable>();
         NextDrawCost = ScriptableObject.CreateInstance<IntVariable>();
         NextUpvoteCost = ScriptableObject.CreateInstance<IntVariable>();
         NextDownvoteCost = ScriptableObject.CreateInstance<IntVariable>();

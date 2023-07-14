@@ -99,6 +99,8 @@ public class DecideMission : GamePhase
 
         //List of missions and weights. Make sure if we reach the end of the list that we just start looping the final mission indefinitely.
         int missionListIndex = Mathf.Min(roundNum, decidedMissionList.Value.List.Count - 1);
+        Debug.Log(missionListIndex);
+        Debug.Log(decidedMissionList.Value.List.Count);
         List<MissionListEntryEntry> missionDataChoices = decidedMissionList.Value.List[missionListIndex].Missions;
 
         //Essentially the same as above, but we can edit it as much as we like since it's non-static.
@@ -126,6 +128,13 @@ public class DecideMission : GamePhase
                 missionChoices.Add((miss.Mission, total)); //Set each weight to be cumulative so we can find actual probabilities later.
             }
         });
+
+        //If there's only one option, we don't vote on the mission, and just go forward to the next stage.
+        if (missionChoices.Count == 1)
+        {
+            DetermineMission();
+            return;
+        }
 
         //Draw a ball from the bag and then remove all instances of that colour of ball so we don't draw the same mission twice.
         for (int i = 0; i < numMissionChoices; i++)

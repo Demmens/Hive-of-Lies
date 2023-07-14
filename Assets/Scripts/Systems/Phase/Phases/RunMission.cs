@@ -57,33 +57,12 @@ public class RunMission : GamePhase
         completedMissions.Add(currentMission.Value);
         mission.Active = false;
 
-        foreach (HoLPlayer ply in players.Value)
-        {
-            if (ShouldExhaust(ply))
-            {
-                ply.Exhaustion++;
-            }
-            else
-            {
-                ply.Exhaustion.Value = 0;
-            }
-        }
-
-
         missionEnded?.Invoke();
 
         currentMission.Value.AfterEffectTriggered += OnEffectEnded;
         currentMission.Value.OnPlotPointTraversed += (point) => traversedPlotPoints.Add(point);
         //Trigger all effects
         currentMission.Value.TriggerValidEffects(cardsTotal - missionDifficultyMod);
-    }
-
-    bool ShouldExhaust(HoLPlayer ply)
-    {
-        //In fewer than 6 player games, only the team leader becomes exhausted
-        if (playerCount < 6) return ply == teamLeader.Value;
-
-        return playersOnMission.Value.Contains(ply) || ply == teamLeader;
     }
 
     private void OnEffectEnded()
