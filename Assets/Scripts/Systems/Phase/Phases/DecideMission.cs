@@ -134,7 +134,7 @@ public class DecideMission : GamePhase
         });
 
         //If there's only one option, we don't vote on the mission, and just go forward to the next stage.
-        if (missionChoices.Count == 1)
+        if (missionChoices.Count == 1 || numMissionChoices.Value == 1)
         {
             DetermineMission();
             return;
