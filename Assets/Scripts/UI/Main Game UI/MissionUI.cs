@@ -21,6 +21,8 @@ public class MissionUI : NetworkBehaviour
 
     [Tooltip("Returns true if the player is on the mission")]
     [SerializeField] BoolVariable isOnMission;
+
+    List<GameObject> currentEffectIcons = new();
     #endregion
 
     #region SERVER
@@ -73,6 +75,10 @@ public class MissionUI : NetworkBehaviour
     [ClientRpc]
     void ChangeMission(Mission mission, int difficultyMod)
     {
+        //Clear out all currently existing effect icons from the mission screen
+        foreach (GameObject icon in currentEffectIcons) Destroy(icon);
+        currentEffectIcons = new();
+
         if (mission == null) return;
         missionUI.SetActive(true);
         missionName.text = mission.MissionName;
@@ -99,16 +105,21 @@ public class MissionUI : NetworkBehaviour
         }
     }
 
+    [Client]
     void SetEffect(Mission mission, MissionEffectTier tier, int difficultyMod, int effectIndex)
     {
         for (int i = 0; i < tier.effects.Count; i++)
         {
             MissionEffect eff = tier.effects[i];
 
-            if (eff.iconPrefab == null) continue;
+            if (eff.Icon == null) continue;
 
-            GameObject prefab = Instantiate(eff.iconPrefab);
-            prefab.transform.SetParent(effectIcons[effectIndex]);
+            GameObject icon = Instantiate(iconPrefab);
+            icon.transform.SetParent(effectIcons[effectIndex]);
+            MissionEffectIcon iconScript = icon.GetComponentInChildren<MissionEffectIcon>();
+            iconScript.Icon.sprite = eff.Icon;
+            iconScript.Description.text = eff.Description;
+            currentEffectIcons.Add(icon);
         }
 
         if (effectIndex > 0) effectRequirements[effectIndex].text = (tier.Value + difficultyMod + mission.DifficultyMod).ToString();
