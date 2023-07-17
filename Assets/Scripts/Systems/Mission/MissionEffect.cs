@@ -26,7 +26,7 @@ public abstract class MissionEffect : ScriptableObject
         }
     }
 
-    public GameObject iconPrefab;
+    public Texture Icon;
 
     [Tooltip("Whether this is considered a positive, negative, or neutral effect for the Bees")]
     [SerializeField] EffectType type;
