@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using Mirror;
 using Steamworks;
+using UnityEngine.UI;
 
 public static class NetworkSerialiser
 {
+    #region RoleData
     public static void WriteRoleData(this NetworkWriter writer, RoleData value)
     {
         writer.WriteString(value.name);
@@ -14,8 +17,9 @@ public static class NetworkSerialiser
     {
         return Resources.Load($"Roles/{reader.ReadString()}") as RoleData;
     }
+    #endregion
 
-
+    #region Mission
     public static void WriteMission(this NetworkWriter writer, Mission value)
     {
         if (value == null)
@@ -49,7 +53,9 @@ public static class NetworkSerialiser
         Debug.LogError($"Cannot find the mission '{missionName}'. Check it's somewhere in the Scripts/Resources/Missions folder.");
         return null;
     }
+    #endregion
 
+    #region CSteamID
     public static void WriteCSteamID(this NetworkWriter writer, CSteamID value)
     {
         writer.WriteULong(value.m_SteamID);
@@ -58,7 +64,9 @@ public static class NetworkSerialiser
     {
         return new CSteamID(reader.ReadULong());
     }
+    #endregion
 
+    #region Card
     public static void WriteCard(this NetworkWriter writer, Card value)
     {
         if (value == null)
@@ -78,4 +86,28 @@ public static class NetworkSerialiser
         card.TempValue = val;
         return card;
     }
+    #endregion
+
+    #region Texture
+    public static void WriteTexture(this NetworkWriter writer, Texture value)
+    {
+        if (value == null)
+        {
+            writer.WriteString("");
+            return;
+        }
+
+        //Write path instead of asset bc strings are much less network intensive
+        writer.WriteString(AssetDatabase.GetAssetPath(value));
+    }
+
+    public static Texture ReadTexture(this NetworkReader reader)
+    {
+        string path = reader.ReadString();
+
+        if (path == "") Debug.LogError("Could not find texture");
+
+        return AssetDatabase.LoadAssetAtPath(path, typeof(Texture)) as Texture;
+    }
+    #endregion
 }
