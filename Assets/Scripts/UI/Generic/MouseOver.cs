@@ -27,7 +27,7 @@ public class MouseOver : MonoBehaviour
         bool mouseOver = false;
         foreach (RaycastResult result in results)
         {
-            if (result.gameObject == gameObject) continue;
+            if (result.gameObject != gameObject) continue;
             mouseOver = true;
         }
 
