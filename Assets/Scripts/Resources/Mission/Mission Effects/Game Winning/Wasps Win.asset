@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Wasps Win
   m_EditorClassIdentifier: 
   description: Wasps win the game
+  Icon: {fileID: 21300000, guid: 45359d35f2bd8c54fb62f60c57c299a7, type: 3}
   type: 1
   _event: {fileID: 11400000, guid: 5e4f5c6b4ef1b36409d1906eeb12971c, type: 2}

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Bees Win
   m_EditorClassIdentifier: 
   description: Bees win the game
+  Icon: {fileID: 21300000, guid: af6fb6d6e28ca3142843d488a3db924f, type: 3}
   type: 0
   _event: {fileID: 11400000, guid: b2fea23a7715fbc409169f8863b71fc5, type: 2}
