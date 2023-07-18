@@ -42,7 +42,7 @@ public class StandOrPassUI : NetworkBehaviour
     public void CreateUI(int standCost)
     {
         if (!alive) return;
-        FavourCost.text = $"{standCost}f";
+        FavourCost.text = standCost.ToString();
         //Only allow clicking on the button if we can afford to stand
         StandButton.GetComponent<Button>().interactable = standCost <= favour;
         UI.SetActive(true);
