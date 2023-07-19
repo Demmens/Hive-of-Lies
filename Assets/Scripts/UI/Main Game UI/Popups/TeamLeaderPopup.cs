@@ -51,6 +51,7 @@ public class TeamLeaderPopup : NetworkBehaviour
     [Server]
     public void AfterStandOrPass()
     {
+        string leaderName = teamLeader.Value == null ? "" : teamLeader.Value.DisplayName;
         LocalPlayerTeamLeaderPopup(teamLeader.Value.DisplayName);
     }
 
