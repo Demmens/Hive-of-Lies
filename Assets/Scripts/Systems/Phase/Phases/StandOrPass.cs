@@ -63,6 +63,17 @@ public class StandOrPass : GamePhase
     [Tooltip("The UI for this game phase")]
     [SerializeField] StandOrPassUI UI;
 
+    private void Start()
+    {
+        teamLeader.AfterVariableChanged += ply =>
+        {
+            foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in players.Value)
+            {
+                pair.Value.Button.ChangeTeamLeader(pair.Value == teamLeader.Value);
+            }
+        };
+    }
+
     public override void Begin()
     {
         standingPlayers.Value = new();
@@ -73,13 +84,7 @@ public class StandOrPass : GamePhase
 
         standOrPassBegin?.Invoke();
 
-        teamLeader.AfterVariableChanged += ply =>
-        {
-            foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in players.Value)
-            {
-                pair.Value.Button.ChangeTeamLeader(ply == teamLeader.Value);
-            }
-        };
+        
     }
 
     [Server]
