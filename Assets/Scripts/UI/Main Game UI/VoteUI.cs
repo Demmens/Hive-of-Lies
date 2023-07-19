@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Mirror;
 using Steamworks;
+using UnityEngine.UI;
 
 public class VoteUI : NetworkBehaviour
 {
@@ -11,9 +12,11 @@ public class VoteUI : NetworkBehaviour
     [SerializeField] TMP_Text voteNumber;
     [SerializeField] TMP_Text yesCost;
     [SerializeField] TMP_Text noCost;
+    [SerializeField] Transform submitThumb;
 
-    [SerializeField] GameObject yesVote;
-    [SerializeField] GameObject noVote;
+    [SerializeField] Button yesVote;
+    [SerializeField] Button noVote;
+    [SerializeField] Button submitButton;
 
     [SerializeField] GameObject voteUI;
 
@@ -88,9 +91,9 @@ public class VoteUI : NetworkBehaviour
     [TargetRpc]
     void ReceiveUpvoteCost(NetworkConnection conn, int cost)
     {
-        yesCost.text = $"{-cost}f";
+        yesCost.text = cost < 0 ? $"+{-cost}" : cost.ToString();
 
-        yesVote.GetComponent<UnityEngine.UI.Button>().interactable = cost <= favour || cost <= 0;
+        yesVote.interactable = cost <= favour || cost <= 0;
     }
 
     /// <summary>
@@ -99,8 +102,6 @@ public class VoteUI : NetworkBehaviour
     [Client]
     public void DecreaseVote()
     {
-        yesVote.SetActive(true);
-
         PlayerDecreasedVote();
     }
 
@@ -113,15 +114,19 @@ public class VoteUI : NetworkBehaviour
     [TargetRpc]
     void ReceiveDownvoteCost(NetworkConnection conn, int cost)
     {
-        noCost.text = $"{-cost}f";
+        noCost.text = cost < 0 ? $"+{-cost}" : cost.ToString();
 
-        noVote.GetComponent<UnityEngine.UI.Button>().interactable = cost <= favour || cost <= 0;
+        noVote.interactable = cost <= favour || cost <= 0;
     }
 
     [TargetRpc]
     void ReceiveNumVotes(NetworkConnection conn, int num)
     {
-        voteNumber.text = num.ToString();
+        voteNumber.text = Mathf.Abs(num).ToString();
+
+        float y = num >= 0 ? 1f : -1f;
+        submitThumb.localScale = new Vector3(1, y, 1); 
+        submitButton.interactable = num != 0;
     }
 
     [Client]
