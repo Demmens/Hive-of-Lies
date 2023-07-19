@@ -103,8 +103,6 @@ public class DecideMission : GamePhase
 
         //List of missions and weights. Make sure if we reach the end of the list that we just start looping the final mission indefinitely.
         missionListIndex = Mathf.Min(roundNum, decidedMissionList.Value.List.Count - 1);
-        Debug.Log(missionListIndex);
-        Debug.Log(decidedMissionList.Value.List.Count);
         List<MissionListEntryEntry> missionDataChoices = decidedMissionList.Value.List[missionListIndex].Missions;
 
         //Essentially the same as above, but we can edit it as much as we like since it's non-static.
