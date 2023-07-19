@@ -57,10 +57,12 @@ public abstract class RuntimeSet<T> : ScriptableObject
         }
         set
         {
-            if (!NetworkClient.active && client) return;
-            if (!NetworkServer.active && server) return;
+            if (!NetworkClient.active && client) Debug.LogError($"Tried to set value of {name} from a client, but it is not a client variable.");
+            if (!NetworkServer.active && server) Debug.LogError($"Tried to set value of {name} from a server, but it is not a server variable.");
 
             currentValue = value;
+
+            if (value.Count == 0) AfterCleared?.Invoke();
         }
     }
 
