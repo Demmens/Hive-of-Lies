@@ -41,6 +41,11 @@ public class Card : ScriptableObject
     public bool DestroyOnDraw;
 
     /// <summary>
+    /// Whether the owner of the deck should know that they have this card.
+    /// </summary>
+    public bool IsSecret;
+
+    /// <summary>
     /// Delegates to run when the card is drawn
     /// </summary>
     public List<CardEffect> DrawEffects = new();
