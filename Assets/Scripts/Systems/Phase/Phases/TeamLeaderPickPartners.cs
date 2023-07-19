@@ -79,6 +79,7 @@ public class TeamLeaderPickPartners : GamePhase
 
         playersSelected.AfterItemAdded += ply => ply.Button.ChangeOnMission(true);
         playersSelected.AfterItemRemoved += ply => ply.Button.ChangeOnMission(false);
+        playersOnMission.AfterCleared += ClearOnMissionIcons;
     }
 
     [Server]
@@ -240,5 +241,14 @@ public class TeamLeaderPickPartners : GamePhase
     void SetLockInActive(NetworkConnection conn, bool active)
     {
         lockInButton.SetActive(active);
+    }
+
+    [Server]
+    public void ClearOnMissionIcons()
+    {
+        foreach (HoLPlayer ply in players.Value)
+        {
+            ply.Button.ChangeOnMission(false);
+        }
     }
 }
