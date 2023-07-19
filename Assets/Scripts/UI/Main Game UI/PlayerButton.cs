@@ -28,12 +28,10 @@ public class PlayerButton : NetworkBehaviour
     [SerializeField] TMPro.TMP_Text playerNameText;
     [SerializeField] UnityEngine.UI.RawImage exhaustionUI;
 
-    [SerializeField] Texture onMissionTexture;
-    [SerializeField] Texture teamLeaderTexture;
-
     [SerializeField] GameObject isReady;
     [SerializeField] GameObject exhaustionObj;
     [SerializeField] GameObject onMissionObj;
+    [SerializeField] GameObject teamLeaderObj;
     /// <summary>
     /// The ID of the player associated with this button
     /// </summary>
@@ -110,13 +108,11 @@ public class PlayerButton : NetworkBehaviour
     public void ChangeOnMission(bool isOnMission)
     {
         onMissionObj.SetActive(isOnMission);
-        if (isOnMission) onMissionObj.GetComponent<UnityEngine.UI.RawImage>().texture = onMissionTexture;
     }
 
     [ClientRpc]
     public void ChangeTeamLeader(bool isTeamLeader)
     {
-        onMissionObj.SetActive(isTeamLeader);
-        if (isTeamLeader) onMissionObj.GetComponent<UnityEngine.UI.RawImage>().texture = teamLeaderTexture;
+        teamLeaderObj.SetActive(isTeamLeader);
     }
 }
