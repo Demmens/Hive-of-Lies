@@ -88,8 +88,8 @@ public static class NetworkSerialiser
     }
     #endregion
 
-    #region Texture
-    public static void WriteTexture(this NetworkWriter writer, Texture value)
+    #region Sprite
+    public static void WriteSprite(this NetworkWriter writer, Sprite value)
     {
         if (value == null)
         {
@@ -101,13 +101,13 @@ public static class NetworkSerialiser
         writer.WriteString(AssetDatabase.GetAssetPath(value));
     }
 
-    public static Texture ReadTexture(this NetworkReader reader)
+    public static Sprite ReadTexture(this NetworkReader reader)
     {
         string path = reader.ReadString();
 
-        if (path == "") Debug.LogError("Could not find texture");
+        if (path == "") Debug.LogError("Could not find sprite");
 
-        return AssetDatabase.LoadAssetAtPath(path, typeof(Texture)) as Texture;
+        return AssetDatabase.LoadAssetAtPath(path, typeof(Sprite)) as Sprite;
     }
     #endregion
 }
