@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Value: 1
   tempValue: 1
+  Sprite: {fileID: 21300000, guid: c127f9eb37c491742bde71688f019bd6, type: 3}
   DestroyOnPlay: 1
   DestroyOnDraw: 0
   DrawEffects: []
