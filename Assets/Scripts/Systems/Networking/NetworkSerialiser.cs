@@ -71,11 +71,12 @@ public static class NetworkSerialiser
     {
         if (value == null)
         {
-            writer.WriteInt(0);
+            Debug.LogError("Trying to serialise a null card");
             return;
         }
 
         writer.WriteInt(value.TempValue);
+        writer.WriteSprite(value.Sprite);
     }
 
     public static Card ReadCard(this NetworkReader reader)
@@ -84,6 +85,7 @@ public static class NetworkSerialiser
         int val = reader.ReadInt();
         card.Value = val;
         card.TempValue = val;
+        card.Sprite = reader.ReadSprite();
         return card;
     }
     #endregion
@@ -101,7 +103,7 @@ public static class NetworkSerialiser
         writer.WriteString(AssetDatabase.GetAssetPath(value));
     }
 
-    public static Sprite ReadTexture(this NetworkReader reader)
+    public static Sprite ReadSprite(this NetworkReader reader)
     {
         string path = reader.ReadString();
 

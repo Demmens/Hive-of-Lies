@@ -31,6 +31,16 @@ public class Deck
     public event System.Action<Card> OnDraw;
 
     /// <summary>
+    /// Invoked when a card is publicly removed from the draw pile of a player
+    /// </summary>
+    public event System.Action<Card> OnCardRemovedFromDrawPile;
+
+    /// <summary>
+    /// Invoked when a card is publicly added to the draw pile of a player
+    /// </summary>
+    public event System.Action<Card> OnCardAddedToDrawPile;
+
+    /// <summary>
     /// Invoked when a card is drawn
     /// </summary>
     public event DrawDelegate BeforeDraw;
@@ -55,6 +65,28 @@ public class Deck
     }
 
     /// <summary>
+    /// Removes a card from the draw pile. This will show as missing in that players deck screen.
+    /// </summary>
+    /// <param name="card">The card that was removed</param>
+    public void PublicRemoveCard(Card card)
+    {
+        if (!DrawPile.Contains(card)) return;
+
+        DrawPile.Remove(card);
+        OnCardRemovedFromDrawPile?.Invoke(card);
+    }
+
+    /// <summary>
+    /// Adds a card to the deck. That card will appear in that players deck screen.
+    /// </summary>
+    /// <param name="card">The card that was added</param>
+    public void PublicAddCard(Card card)
+    {
+        DrawPile.Add(card);
+        OnCardAddedToDrawPile?.Invoke(card);
+    }
+
+    /// <summary>
     /// Shuffle your discard pile into the deck
     /// </summary>
     public void Shuffle()
@@ -62,7 +94,9 @@ public class Deck
         foreach (Card card in DiscardPile)
         {
             if (card.DestroyOnDraw) continue;
-            DrawPile.Add(card);
+
+            if (card.IsSecret) DrawPile.Add(card);
+            else PublicAddCard(card);
         }
         DiscardPile = new();
         DrawPile.Shuffle();
@@ -77,7 +111,7 @@ public class Deck
         {
             if (card.DestroyOnDraw) continue;
             card.TempValue = card.Value;
-            DrawPile.Add(card);
+            PublicAddCard(card);
         }
         Hand = new();
 
@@ -85,7 +119,7 @@ public class Deck
         {
             if (card.DestroyOnDraw || card.DestroyOnPlay) continue;
             card.TempValue = card.Value;
-            DrawPile.Add(card);
+            PublicAddCard(card);
         }
         Played = new();
         Shuffle();
@@ -124,7 +158,10 @@ public class Deck
 
             card.OnValueChanged += (val) => HandCardValueChanged?.Invoke(val);
 
-            if (DrawPile.Contains(card)) DrawPile.Remove(card);
+            //It's no longer secret if the player has drawn and seen it.
+            card.IsSecret = false;
+
+            if (DrawPile.Contains(card)) PublicRemoveCard(card);
 
             OnDraw?.Invoke(card);
         }

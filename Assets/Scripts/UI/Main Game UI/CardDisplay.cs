@@ -18,7 +18,7 @@ public class CardDisplay : MonoBehaviour
 
     public void SetCard(Card newCard)
     {
-        if (card == null) return;
+        if (newCard == null) return;
         card = newCard;
         image.sprite = card.Sprite;
     }

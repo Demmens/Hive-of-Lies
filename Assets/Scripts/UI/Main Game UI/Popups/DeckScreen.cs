@@ -5,47 +5,48 @@ using Mirror;
 
 public class DeckScreen : NetworkBehaviour
 {
-    [SerializeField] GameObject cardDisplay;
-    [SerializeField] Transform cardPool;
     [SerializeField] HoLPlayerDictionary playersByConnection;
 
-    [Client]
-    public void DeckClicked()
+    #region Client
+    [SerializeField] GameObject cardDisplay;
+    [SerializeField] Transform cardPool;
+
+    List<CardDisplay> drawPile = new();
+    List<CardDisplay> discardPile = new();
+    #endregion
+
+    private void Start()
     {
-        RequestPopulation();
-    }
-
-    [Command(requiresAuthority = false)]
-    public void RequestPopulation(NetworkConnectionToClient conn = null)
-    {
-        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
-
-        List<Card> cardList = new();
-
-        foreach (Card card in ply.Deck.Value.DrawPile)
+        foreach (KeyValuePair<NetworkConnection,HoLPlayer> pair in playersByConnection.Value)
         {
-            if (card.IsSecret) continue;
-            cardList.Add(card);
+            pair.Value.Deck.Value.OnCardRemovedFromDrawPile += (card) => CardRemoved(pair.Key, card);
+            pair.Value.Deck.Value.OnCardAddedToDrawPile += (card) => CardAdded(pair.Key, card);
         }
-
-        //Make sure to sort this list of cards, since the player shouldn't know what the order of their deck is.
-        cardList.Sort((a, b) => { return a.Value - b.Value; });
-
-        Populate(ply.connectionToClient, cardList);
     }
 
     [TargetRpc]
-    public void Populate(NetworkConnection conn, List<Card> deck)
+    void CardRemoved(NetworkConnection conn, Card card)
     {
-        //Destroy all current cards in the pool. This isn't the best way of doing this, but it's the quickest to implement for now.
-        //for (int i = cardPool.childCount-1; i >= 0; i--) Destroy(cardPool.GetChild(i));
+        CardDisplay display = null;
 
-        //Generate new ones
-        foreach (Card card in deck)
+        foreach (CardDisplay c in drawPile)
         {
-            CardDisplay display = Instantiate(cardDisplay).GetComponent<CardDisplay>();
-            display.SetCard(card);
-            display.transform.SetParent(cardPool);
+            if (c.GetCard() == card) display = c;
         }
+
+        //If that card never showed up in their draw pile in the first place, we don't need to do anything else.
+        if (display == null) return;
+
+        //Otherwise destroy it.
+        drawPile.Remove(display);
+        Destroy(display);
+    }
+
+    [TargetRpc]
+    void CardAdded(NetworkConnection conn, Card card)
+    {
+        CardDisplay display = Instantiate(cardDisplay).GetComponent<CardDisplay>();
+        display.SetCard(card);
+        display.transform.SetParent(cardPool);
     }
 }
