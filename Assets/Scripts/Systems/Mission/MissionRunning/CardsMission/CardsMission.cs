@@ -72,7 +72,7 @@ public class CardsMission : MissionType
 
         if (ply.Deck.Value.Hand.Count == 0) ply.Deck.Value.Draw();
 
-        UI.TargetActivateMissionUI(conn, ply.Deck.Value.Hand[0].TempValue, ply.NextDrawCost);
+        UI.TargetActivateMissionUI(conn, ply.Deck.Value.Hand[0].Sprite, ply.NextDrawCost);
     }
 
     [Server]

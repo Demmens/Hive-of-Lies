@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Mirror;
+using UnityEngine.UI;
 
 public class CardMissionUI : NetworkBehaviour
 {
     #region CLIENT
 
     [SerializeField] GameObject UI;
-    [SerializeField] TMP_Text drawResult;
-    [SerializeField] TMP_Text drawButtonText;
+    [SerializeField] Image drawResult;
+    [SerializeField] TMP_Text drawCost;
     [SerializeField] GameObject drawButton;
     [SerializeField] GameObject submitButton;
 
@@ -42,8 +43,7 @@ public class CardMissionUI : NetworkBehaviour
     {
         foreach (HoLPlayer ply in allPlayers.Value) 
         {
-            ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.connectionToClient, card.TempValue);
-            ply.Deck.Value.HandCardValueChanged += val => ReceiveDrawResultFromServer(ply.connectionToClient, val);
+            ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.connectionToClient, card.Sprite);
             ply.NextDrawCost.AfterVariableChanged += val => OnDrawCostChanged(ply.connectionToClient, val);
         };
     }
@@ -61,11 +61,11 @@ public class CardMissionUI : NetworkBehaviour
     }
 
     [TargetRpc]
-    public void TargetActivateMissionUI(NetworkConnection conn, int cardValue, int drawCost)
+    public void TargetActivateMissionUI(NetworkConnection conn, Sprite sprite, int cost)
     {
         UI.SetActive(true);
-        drawResult.text = cardValue.ToString();
-        drawButtonText.text = $"Redraw ({drawCost}f)";
+        drawResult.sprite = sprite;
+        drawCost.text = cost.ToString();
     }
 
     /// <summary>
@@ -87,15 +87,15 @@ public class CardMissionUI : NetworkBehaviour
     /// The server tells us what we drew
     /// </summary>
     [TargetRpc]
-    void ReceiveDrawResultFromServer(NetworkConnection conn, int value)
+    void ReceiveDrawResultFromServer(NetworkConnection conn, Sprite sprite)
     {
-        drawResult.text = value.ToString();
+        drawResult.sprite = sprite;
     }
 
     [TargetRpc]
     void OnDrawCostChanged(NetworkConnection conn, int val)
     {
-        drawButtonText.text = $"Redraw ({val}f)";
+        drawCost.text = val.ToString();
     }
 
     /// <summary>
