@@ -11,6 +11,7 @@ public class RoleUI : NetworkBehaviour
     List<GameObject> cards;
 
     [SerializeField] TMP_Text RoleName;
+    [SerializeField] TMP_Text RoleDescription;
     [SerializeField] GameObject RoleCard;
     [SerializeField] Color WaspColour;
     [SerializeField] Color BeeColour;
@@ -75,6 +76,7 @@ public class RoleUI : NetworkBehaviour
         }
 
         RoleName.text = data.RoleName;
+        RoleDescription.text = data.Description;
 
         AssignPlayerRole(data);
     }
@@ -127,6 +129,7 @@ public class RoleUI : NetworkBehaviour
     static Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
     {
         const float margin = 600;
+        const float centreSkew = 200;
 
         float adjustedWidth = Screen.width - (2 * margin);
 
@@ -134,6 +137,7 @@ public class RoleUI : NetworkBehaviour
         if (cardsTotal > 1)
         {
             x = margin + adjustedWidth * (index / (float)(cardsTotal - 1));
+            x += centreSkew;
         }
 
         return new Vector3(x, Screen.height / 2, 0);
