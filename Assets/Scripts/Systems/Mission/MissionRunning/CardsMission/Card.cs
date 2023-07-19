@@ -28,6 +28,8 @@ public class Card : ScriptableObject
         }
     }
 
+    public Sprite Sprite;
+
     /// <summary>
     /// Whether this card should be destroyed once it has been played
     /// </summary>
