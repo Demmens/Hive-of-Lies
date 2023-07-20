@@ -55,7 +55,7 @@ public class CardsMission : MissionType
         foreach (HoLPlayer ply in allPlayers.Value)
         {
             Role role = ply.Role.Value;
-            foreach (Card card in role.Data.StartingDeck) ply.Deck.Value.PublicAddCard(Instantiate(card));
+            foreach (Card card in role.Data.StartingDeck) ply.Deck.Value.PublicAddToDeck(Instantiate(card));
 
             ply.Deck.Value.Shuffle();
         }

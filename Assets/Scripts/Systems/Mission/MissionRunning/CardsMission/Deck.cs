@@ -41,6 +41,16 @@ public class Deck
     public event System.Action<Card> OnCardAddedToDrawPile;
 
     /// <summary>
+    /// Invoked when a card is publicly removed from the discard pile of a player
+    /// </summary>
+    public event System.Action<Card> OnCardRemovedFromDiscardPile;
+
+    /// <summary>
+    /// Invoked when a card is publicly added to the discard pile of a player
+    /// </summary>
+    public event System.Action<Card> OnCardAddedToDiscardPile;
+
+    /// <summary>
     /// Invoked when a card is drawn
     /// </summary>
     public event DrawDelegate BeforeDraw;
@@ -68,7 +78,7 @@ public class Deck
     /// Removes a card from the draw pile. This will show as missing in that players deck screen.
     /// </summary>
     /// <param name="card">The card that was removed</param>
-    public void PublicRemoveCard(Card card)
+    public void PublicRemoveFromDraw(Card card)
     {
         if (!DrawPile.Contains(card)) return;
 
@@ -80,7 +90,39 @@ public class Deck
     /// Adds a card to the deck. That card will appear in that players deck screen.
     /// </summary>
     /// <param name="card">The card that was added</param>
-    public void PublicAddCard(Card card)
+    public void PublicAddToDraw(Card card)
+    {
+        DrawPile.Add(card);
+        OnCardAddedToDrawPile?.Invoke(card);
+    }
+
+    /// <summary>
+    /// Removes a card from the discard pile. This will show as missing in that players deck screen.
+    /// </summary>
+    /// <param name="card">The card that was removed</param>
+    public void PublicRemoveFromDiscard(Card card)
+    {
+        if (!DiscardPile.Contains(card)) return;
+
+        DiscardPile.Remove(card);
+        OnCardRemovedFromDiscardPile?.Invoke(card);
+    }
+
+    /// <summary>
+    /// Adds a card to the discard pile. That card will appear in that players deck screen.
+    /// </summary>
+    /// <param name="card">The card that was added</param>
+    public void PublicAddToDiscard(Card card)
+    {
+        DiscardPile.Add(card);
+        OnCardAddedToDiscardPile?.Invoke(card);
+    }
+
+    /// <summary>
+    /// Adds a card to the deck. That card will appear in that players deck screen.
+    /// </summary>
+    /// <param name="card">The card that was added</param>
+    public void PublicAddToDeck(Card card)
     {
         DrawPile.Add(card);
         OnCardAddedToDrawPile?.Invoke(card);
@@ -91,14 +133,18 @@ public class Deck
     /// </summary>
     public void Shuffle()
     {
-        foreach (Card card in DiscardPile)
+        for (int i = DiscardPile.Count-1; i >= 0; i--)
         {
+            Card card = DiscardPile[i];
+            if (card.IsSecret) DiscardPile.Remove(card);
+            else PublicRemoveFromDiscard(card);
+
             if (card.DestroyOnDraw) continue;
 
             if (card.IsSecret) DrawPile.Add(card);
-            else PublicAddCard(card);
+            else PublicAddToDeck(card);
         }
-        DiscardPile = new();
+
         DrawPile.Shuffle();
     }
 
@@ -111,7 +157,7 @@ public class Deck
         {
             if (card.DestroyOnDraw) continue;
             card.TempValue = card.Value;
-            PublicAddCard(card);
+            PublicAddToDeck(card);
         }
         Hand = new();
 
@@ -119,7 +165,7 @@ public class Deck
         {
             if (card.DestroyOnDraw || card.DestroyOnPlay) continue;
             card.TempValue = card.Value;
-            PublicAddCard(card);
+            PublicAddToDeck(card);
         }
         Played = new();
         Shuffle();
@@ -161,7 +207,7 @@ public class Deck
             //It's no longer secret if the player has drawn and seen it.
             card.IsSecret = false;
 
-            if (DrawPile.Contains(card)) PublicRemoveCard(card);
+            if (DrawPile.Contains(card)) PublicRemoveFromDraw(card);
 
             OnDraw?.Invoke(card);
         }
@@ -180,7 +226,7 @@ public class Deck
         card.DiscardEffects.ForEach(effect => effect.TriggerEffect());
         card.TempValue = card.Value;
         card.OnValueChanged -= (val) => HandCardValueChanged?.Invoke(val);
-        DiscardPile.Add(card);
+        PublicAddToDiscard(card);
         Hand.Remove(card);
     }
 

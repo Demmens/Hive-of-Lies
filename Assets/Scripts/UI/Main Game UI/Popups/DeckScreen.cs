@@ -6,21 +6,29 @@ using Mirror;
 public class DeckScreen : NetworkBehaviour
 {
     [SerializeField] HoLPlayerDictionary playersByConnection;
+    [SerializeField] bool isDrawPile;
 
     #region Client
     [SerializeField] GameObject cardDisplay;
     [SerializeField] Transform cardPool;
 
     List<CardDisplay> drawPile = new();
-    List<CardDisplay> discardPile = new();
     #endregion
 
     private void Start()
     {
         foreach (KeyValuePair<NetworkConnection,HoLPlayer> pair in playersByConnection.Value)
         {
-            pair.Value.Deck.Value.OnCardRemovedFromDrawPile += (card) => CardRemoved(pair.Key, card);
-            pair.Value.Deck.Value.OnCardAddedToDrawPile += (card) => CardAdded(pair.Key, card);
+            if (isDrawPile)
+            {
+                pair.Value.Deck.Value.OnCardRemovedFromDrawPile += (card) => CardRemoved(pair.Key, card);
+                pair.Value.Deck.Value.OnCardAddedToDrawPile += (card) => CardAdded(pair.Key, card);
+            }
+            else
+            {
+                pair.Value.Deck.Value.OnCardRemovedFromDiscardPile += (card) => CardRemoved(pair.Key, card);
+                pair.Value.Deck.Value.OnCardAddedToDiscardPile += (card) => CardAdded(pair.Key, card);
+            }
         }
     }
 
