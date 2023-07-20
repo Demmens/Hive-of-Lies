@@ -27,11 +27,13 @@ public class DeckScreen : NetworkBehaviour
     [TargetRpc]
     void CardRemoved(NetworkConnection conn, Card card)
     {
+        Debug.Log("Card removed");
         CardDisplay display = null;
 
         foreach (CardDisplay c in drawPile)
         {
-            if (c.GetCard() == card) display = c;
+            //Only the visuals of the card really matter, since this is a purely clientside thing.
+            if (c.GetCard().Sprite == card.Sprite) display = c;
         }
 
         //If that card never showed up in their draw pile in the first place, we don't need to do anything else.
@@ -39,7 +41,7 @@ public class DeckScreen : NetworkBehaviour
 
         //Otherwise destroy it.
         drawPile.Remove(display);
-        Destroy(display);
+        Destroy(display.gameObject);
     }
 
     [TargetRpc]
@@ -48,5 +50,6 @@ public class DeckScreen : NetworkBehaviour
         CardDisplay display = Instantiate(cardDisplay).GetComponent<CardDisplay>();
         display.SetCard(card);
         display.transform.SetParent(cardPool);
+        drawPile.Add(display);
     }
 }
