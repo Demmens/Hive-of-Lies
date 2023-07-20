@@ -50,6 +50,16 @@ public class DeckScreen : NetworkBehaviour
         CardDisplay display = Instantiate(cardDisplay).GetComponent<CardDisplay>();
         display.SetCard(card);
         display.transform.SetParent(cardPool);
+
+        //Player deck should always appear sorted by value
+        for (int i = 0; i < cardPool.childCount; i++)
+        {
+            CardDisplay child = cardPool.GetChild(i).GetComponent<CardDisplay>();
+            if (i == 0 && child.GetCard().Value < card.Value) display.transform.SetAsFirstSibling();
+
+            if (child.GetCard().Value >= card.Value) display.transform.SetSiblingIndex(i);
+        }
+
         drawPile.Add(display);
     }
 }
