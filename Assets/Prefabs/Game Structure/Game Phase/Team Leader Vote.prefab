@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 9178752238623791864}
   - component: {fileID: 7053807078239360839}
   - component: {fileID: 3496305075509418341}
-  - component: {fileID: 7523882568769383993}
   - component: {fileID: -1594521549910843087}
   m_Layer: 0
   m_Name: Team Leader Vote
@@ -141,42 +140,13 @@ MonoBehaviour:
   phase: {fileID: 11400000, guid: 289d0b5f6752c24418120b93802bba58, type: 2}
   allVotes: {fileID: 11400000, guid: 8868811ef70de684c9f1d84675d4950c, type: 2}
   voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
-  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
-    type: 2}
+  playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   voteBegin: {fileID: 11400000, guid: 4d32b573270e9344ca1e9c136d1c12ba, type: 2}
   onPlayerVoted: {fileID: 11400000, guid: 30f264fc8a5a61240b32eca05bab564e, type: 2}
   onAllPlayersVoted: {fileID: 11400000, guid: bdd5ba012ab56d84989dad1a6b388642, type: 2}
   voteFailed: {fileID: 11400000, guid: 9125915b3815a0740b511fb1b40ce95f, type: 2}
---- !u!114 &7523882568769383993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4144939445568799286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Events:
-  - {fileID: 11400000, guid: 2c911947a0685cd409dcd5d21d0ace0a, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3496305075509418341}
-        m_TargetAssemblyTypeName: TeamLeaderVote, Assembly-CSharp
-        m_MethodName: AllPlayersClosedPopup
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  UI: {fileID: 0}
 --- !u!114 &-1594521549910843087
 MonoBehaviour:
   m_ObjectHideFlags: 0

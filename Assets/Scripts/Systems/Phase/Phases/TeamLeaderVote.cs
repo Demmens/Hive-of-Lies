@@ -7,11 +7,6 @@ using Steamworks;
 
 public class TeamLeaderVote : GamePhase
 {
-    /// <summary>
-    /// The players that have closed the vote popup
-    /// </summary>
-    List<HoLPlayer> playersClosedPopup;
-
     [Tooltip("Set of all player votes")]
     [SerializeField] VoteSet allVotes;
 
@@ -45,9 +40,7 @@ public class TeamLeaderVote : GamePhase
     {
         allVotes.Value = new();
         voteTotal.Value = 0;
-        playersClosedPopup = new();
         voteBegin?.Invoke();
-        Debug.Log("Vote has begun");
     }
 
     public void OnServerConnected(NetworkConnection conn)
@@ -158,33 +151,7 @@ public class TeamLeaderVote : GamePhase
     {
         //Invoke the all players voted event
         onAllPlayersVoted?.Invoke();
-    }
 
-    /// <summary>
-    /// Called when a player closes the vote result popup
-    /// </summary>
-    void VotePopupClosed(NetworkConnectionToClient conn)
-    {
-        playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply);
-        if (playersClosedPopup.Contains(ply)) return;
-
-        playersClosedPopup.Add(ply);
-
-        bool lastPlayer = playersClosedPopup.Count == playerCount;
-
-
-        if (lastPlayer)
-        {
-            AllPlayersClosedPopup();
-        }
-    }
-
-    /// <summary>
-    /// Called once all players have closed the vote result popup
-    /// </summary>
-    public void AllPlayersClosedPopup()
-    {
-        playersClosedPopup = new List<HoLPlayer>();
         //If the vote was successful
         if (voteTotal > 0)
         {

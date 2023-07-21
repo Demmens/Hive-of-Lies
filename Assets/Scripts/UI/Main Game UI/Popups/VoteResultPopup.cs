@@ -10,143 +10,72 @@ public class VoteResultPopup : NetworkBehaviour
 {
     #region CLIENT
     [SerializeField] GameObject popup;
-    [SerializeField] GameObject continueButton;
-    [SerializeField] List<PlayerVoteGameObject> allPlayerVotes;
-    [SerializeField] TMP_Text voteTotal;
+    [SerializeField] GameObject playerVotePrefab;
+    [SerializeField] Transform clientVoteTotal;
 
-    [SerializeField] Color unreadyColour;
-    [SerializeField] Color readyColour;
+    List<GameObject> playerVotes = new();
 
-    /// <summary>
-    /// The player vote, and the associated gameobject
-    /// </summary>
-    Dictionary<ulong, PlayerVoteGameObject> playerVotes;
-    List<ClientPlayerVote> votesReceived = new();
+    int upvotesSoFar = 0;
+
+    [SerializeField] GameEvent clientClosedPopup;
     #endregion
     #region SERVER
 
     [Tooltip("All the votes so far")]
     [SerializeField] VoteSet allVotes;
 
-    [Tooltip("All the votes so far")]
-    [SerializeField] IntVariable playerCount;
-
-    [Tooltip("All players by their network connection")]
-    [SerializeField] HoLPlayerDictionary playersByConnection;
-
-    [Tooltip("Invoked when all players have closed this popup")]
-    [SerializeField] GameEvent allPlayersClosedPopup;
-
-    /// <summary>
-    /// A list of all players that have closed this popup so far.
-    /// </summary>
-    List<HoLPlayer> playersClosedPopup = new();
-
+    [Tooltip("The total of all votes")]
+    [SerializeField] IntVariable voteTotal;
     #endregion
 
     [Server]
     public override void OnStartServer()
     {
-        allVotes.AfterItemAdded += vote => VoteReceived(vote.ply.PlayerID, vote.ply.DisplayName, vote.votes);
+        //Only let the clients know if the vote is an upvote or downvote. They can't know how many votes have been placed.
+        allVotes.AfterItemAdded += vote => VoteReceived(vote.ply.DisplayName, vote.votes >= 0 ? 1 : -1);
     }
 
     [ClientRpc]
-    void VoteReceived(ulong player, string name, int vote)
+    void VoteReceived(string name, int vote)
     {
-        votesReceived.Add(new ClientPlayerVote
-        {
-            id = player,
-            name = name,
-            votes = vote,
-        });
+        PlayerVoteObject voteObj = Instantiate(playerVotePrefab).GetComponent<PlayerVoteObject>();
+        voteObj.transform.SetParent(popup.transform);
+        //Place upvotes at the top and downvotes at the bottom, but randomise positions within those groups so we don't have weird metas around who voted first.
+        int siblingIndex = vote > 0 ? Random.Range(1, 2 + upvotesSoFar) : Random.Range(1 + upvotesSoFar, popup.transform.childCount - 1);
+        voteObj.transform.SetSiblingIndex(siblingIndex);
+        voteObj.Name.text = name;
+        voteObj.Vote.localScale = new Vector3(1, vote, 1);
+        playerVotes.Add(voteObj.gameObject);
+
+        if (vote > 0) upvotesSoFar++;
     }
 
-    [ClientRpc]
+    [Server]
     public void ReceiveVoteResults()
     {
-        continueButton.SetActive(true);
-        playerVotes = new();
-        votesReceived.Sort((a, b) => { return a.votes - b.votes; });
+        ClientReceiveVoteResults(voteTotal);
+    }
 
-        int total = 0;
-
-        for (int i = 0; i < votesReceived.Count; i++)
-        {
-            ClientPlayerVote vote = votesReceived[i];
-            PlayerVoteGameObject voteObj = allPlayerVotes[i];
-            playerVotes.Add(vote.id, voteObj);
-            voteObj.continued.color = unreadyColour;
-            voteObj.name.text = vote.name;
-            voteObj.vote.text = vote.votes.ToString();
-            total += vote.votes;
-            voteObj.obj.SetActive(true);
-        }
-
-        voteTotal.text = total.ToString();
+    [ClientRpc]
+    public void ClientReceiveVoteResults(int total)
+    {
+        float y = total >= 0 ? 1 : -1;
+        clientVoteTotal.localScale = new Vector3(1, y, 1);
 
         popup.SetActive(true);
     }
 
     /// <summary>
-    /// Called when the continue button is clicked on this client
+    /// Called when the close button is clicked on this client
     /// </summary>
     [Client]
-    public void ContinueClicked()
+    public void ClosePopup()
     {
-        continueButton.SetActive(false);
-        ServerOnClosedPopup();
+        popup.SetActive(false);
+
+        foreach (GameObject obj in playerVotes) Destroy(obj);
+        playerVotes = new();
+        upvotesSoFar = 0;
+        clientClosedPopup?.Invoke();
     }
-
-    [Command(requiresAuthority = false)]
-    void ServerOnClosedPopup(NetworkConnectionToClient conn = null)
-    {
-        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
-        if (playersClosedPopup.Contains(ply)) return;
-
-        playersClosedPopup.Add(ply);
-
-        bool isLastPlayer = playersClosedPopup.Count >= playerCount;
-
-        OnPlayerClosedPopup(ply.PlayerID, isLastPlayer);
-
-        if (isLastPlayer)
-        {
-            allPlayersClosedPopup?.Invoke();
-            playersClosedPopup = new();
-        }
-    }
-
-    /// <summary>
-    /// Called when any client closes the popup
-    /// </summary>
-    [ClientRpc]
-    void OnPlayerClosedPopup(ulong closedBy, bool lastPlayer)
-    {
-        if (!lastPlayer)
-        {
-            playerVotes.TryGetValue(closedBy, out PlayerVoteGameObject obj);
-            obj.continued.color = readyColour;
-        }
-        else
-        {
-            popup.SetActive(false);
-            votesReceived = new();
-        }
-    }
-
-    struct ClientPlayerVote
-    {
-        public ulong id;
-        public string name;
-        public int votes;
-    }
-}
-
-[System.Serializable]
-public struct PlayerVoteGameObject
-{
-    public GameObject obj;
-    public Image continued;
-    public TMP_Text name;
-    public TMP_Text vote;
 }
