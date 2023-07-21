@@ -17,6 +17,17 @@ public static class Coroutines
     }
 
     /// <summary>
+    /// Runs a function the next frame
+    /// </summary>
+    /// <param name="func">The function to run</param>
+    /// <returns></returns>
+    public static IEnumerator Delay(System.Action func)
+    {
+        yield return null;
+        func();
+    }
+
+    /// <summary>
     /// Runs many functions after specified delays
     /// </summary>
     /// <param name="funcs">Tuple. First item is the delay, second item is the function to run after the delay.</param>
