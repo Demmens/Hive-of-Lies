@@ -131,6 +131,8 @@ public class CardsMission : MissionType
         ply.NumDraws.Value = 0;
         ply.NextDrawCost.Value = 0;
 
+        ply.Deck.Value.Reshuffle();
+
         if (playersPlayed.Count >= playersOnMission.Value.Count)
         {
             allPlayersPlayed?.Invoke();
