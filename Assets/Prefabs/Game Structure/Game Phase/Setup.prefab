@@ -114,11 +114,19 @@ MonoBehaviour:
   waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
   beePlayers: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
-  playersByNetworkConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
+  playersByNetworkConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698,
+    type: 2}
   setupFinished: {fileID: 11400000, guid: 78cfefec714f52749a9d7e5f2ac0fb22, type: 2}
-  teamPopup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
-  playerButton: {fileID: 8493164326477725227, guid: 141aa0a19c3b95447a559b9f1b764a14, type: 3}
-  playerList: {fileID: 0}
+  teamPopup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb,
+    type: 3}
+  playerButton: {fileID: 8493164326477725227, guid: 141aa0a19c3b95447a559b9f1b764a14,
+    type: 3}
+  popupX: {fileID: 11400000, guid: 9b4d808e12d4e6f4f85cbe25f39fbd9f, type: 2}
+  popupY: {fileID: 11400000, guid: 04eb091537587eb43a302a1815112057, type: 2}
+  topPlayerRow: {fileID: 0}
+  rightPlayerRow: {fileID: 0}
+  bottomPlayerRow: {fileID: 0}
+  leftPlayerRow: {fileID: 0}
 --- !u!114 &4473885344014706271
 MonoBehaviour:
   m_ObjectHideFlags: 0

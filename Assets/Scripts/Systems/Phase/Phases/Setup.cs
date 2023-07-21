@@ -45,6 +45,9 @@ public class Setup : GamePhase
 
     [SerializeField] GameObject playerButton;
 
+    [SerializeField] FloatVariable popupX;
+    [SerializeField] FloatVariable popupY;
+
     [SerializeField] Transform topPlayerRow;
     [SerializeField] Transform rightPlayerRow;
     [SerializeField] Transform bottomPlayerRow;
@@ -188,6 +191,9 @@ public class Setup : GamePhase
     {
         teamPopup = Instantiate(teamPopup);
         teamPopup.GetComponent<Notification>().SetText($"You are a {team}");
+        float x = popupX.Value > 0 ? popupX : Screen.width/2;
+        float y = popupY.Value > 0 ? popupY : Screen.height/2;
+        teamPopup.transform.GetChild(0).position = new Vector3(x, y, 1);
     }
 
     /// <summary>
