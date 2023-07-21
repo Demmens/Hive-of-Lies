@@ -1230,6 +1230,7 @@ MonoBehaviour:
   useVariableForMax: 1
   varMax: {fileID: 11400000, guid: 06d80601b7e94364b92473ed6e4aa185, type: 2}
   intMax: 0
+  secondsToFill: 1
   image: {fileID: 1463707798662677197}
 --- !u!114 &5690600941166460579
 MonoBehaviour:
@@ -1249,6 +1250,7 @@ MonoBehaviour:
   useVariableForMax: 1
   varMax: {fileID: 11400000, guid: 1699329a910b70b49a5d013e5622c77c, type: 2}
   intMax: 0
+  secondsToFill: 1
   image: {fileID: 5403911853601990876}
 --- !u!114 &1673844679163517823
 MonoBehaviour:
