@@ -19,6 +19,8 @@ public class MissionUI : NetworkBehaviour
 
     [SerializeField] GameObject iconPrefab;
 
+    [SerializeField] Image missionFill;
+
     [Tooltip("Returns true if the player is on the mission")]
     [SerializeField] BoolVariable isOnMission;
 
@@ -33,11 +35,17 @@ public class MissionUI : NetworkBehaviour
     [Tooltip("The mission that is currently active")]
     [SerializeField] MissionVariable currentMission;
 
+    [Tooltip("The total value of all played cards")]
+    [SerializeField] IntVariable cardsTotal;
+
     [Tooltip("The current team leader")]
     [SerializeField] HoLPlayerVariable teamLeader;
 
     [Tooltip("All players that have currently been selected to go on the mission")]
     [SerializeField] HoLPlayerSet playersSelected;
+
+    [Tooltip("Invoked after the mission bar has filled to the max")]
+    [SerializeField] GameEvent afterMissionResultShown;
     #endregion
 
     public override void OnStartServer()
@@ -78,6 +86,8 @@ public class MissionUI : NetworkBehaviour
         //Clear out all currently existing effect icons from the mission screen
         foreach (GameObject icon in currentEffectIcons) Destroy(icon);
         currentEffectIcons = new();
+        //Clear mission bar fill
+        missionFill.fillAmount = 0;
 
         if (mission == null) return;
         missionUI.SetActive(true);
@@ -138,5 +148,39 @@ public class MissionUI : NetworkBehaviour
     {
         if (ID != (ulong)SteamUser.GetSteamID()) return;
         isOnMission.Value = added;
+    }
+
+    [Server]
+    public void AfterCardsPlayed()
+    {
+        int index = currentMission.Value.GetValidTier(cardsTotal - missionDifficulty);
+        int max = currentMission.Value.effects.Count - 1;
+        ShowMissionResult(index, max);
+        StartCoroutine(Coroutines.Delay(5, afterMissionResultShown.Invoke));
+    }
+
+    [ClientRpc]
+    public void ShowMissionResult(int resultIndex, int resultMax)
+    {
+        float finalFill = (float)resultIndex / resultMax;
+
+        //Show at least *some* progress, even if the mission fails.
+        if (finalFill == 0) finalFill = 0.075f;
+
+        StartCoroutine(FillBar(finalFill, 4));
+    }
+
+    IEnumerator FillBar(float finalFill, float seconds)
+    {
+        float time = 0;
+        
+        while (time < seconds)
+        {
+            time += Time.deltaTime;
+            float t = time / seconds;
+
+            missionFill.fillAmount = Easing.GradualEnd(t) * finalFill;
+            yield return null;
+        }
     }
 }

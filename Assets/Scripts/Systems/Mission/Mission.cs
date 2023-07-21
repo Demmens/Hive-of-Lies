@@ -109,17 +109,22 @@ public class Mission : ScriptableObject
 
     public MissionEffectTier GetValidEffect(int cardsTotal)
     {
+        return effects[GetValidTier(cardsTotal)];
+    }
+
+    public int GetValidTier(int cardsTotal)
+    {
         for (int i = effects.Count - 1; i >= 0; i--)
         {
             MissionEffectTier tier = effects[i];
 
             if (!tier.Applicable(cardsTotal) && i > 0) continue;
 
-            return tier;
+            return i;
         }
 
         //By default the first tier should ALWAYS be an option
-        return effects[0];
+        return 0;
     }
 }
 

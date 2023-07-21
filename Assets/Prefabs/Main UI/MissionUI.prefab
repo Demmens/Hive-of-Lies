@@ -281,8 +281,7 @@ MonoBehaviour:
   m_text: Mission flavour will go here and will need to be fairly long sometimes.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 98f61f9b7bae4524f9a41617223812a5, type: 2}
-  m_sharedMaterial: {fileID: 8734780125169044708, guid: 98f61f9b7bae4524f9a41617223812a5,
-    type: 2}
+  m_sharedMaterial: {fileID: 8734780125169044708, guid: 98f61f9b7bae4524f9a41617223812a5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -540,7 +539,7 @@ RectTransform:
   - {fileID: 4925906332714625754}
   - {fileID: 5641682643401049215}
   m_Father: {fileID: 5049701153879780344}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -763,6 +762,82 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 7
+--- !u!1 &2304103599070847039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7970977125994945563}
+  - component: {fileID: 1876275479625094461}
+  - component: {fileID: 944414072161169316}
+  m_Layer: 5
+  m_Name: Mission Bar Fill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7970977125994945563
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304103599070847039}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5049701153879780344}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.0007019, y: -124}
+  m_SizeDelta: {x: 791.12, y: 38.227}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1876275479625094461
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304103599070847039}
+  m_CullTransparentMesh: 1
+--- !u!114 &944414072161169316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2304103599070847039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.96470594, g: 0.7490196, b: 0.4156863, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b931587800e08c54aa8dbbd6c15c894f, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 0
+  m_FillAmount: 0
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3101724596749265044
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,8 +907,7 @@ MonoBehaviour:
   m_text: Mission Title Here
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
-  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329,
-    type: 2}
+  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -968,8 +1042,7 @@ MonoBehaviour:
   m_text: 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
-  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329,
-    type: 2}
+  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1048,6 +1121,7 @@ GameObject:
   - component: {fileID: 3375515600982180424}
   - component: {fileID: 3978303887994230707}
   - component: {fileID: 5690600941166460579}
+  - component: {fileID: 1673844679163517823}
   m_Layer: 0
   m_Name: MissionUI
   m_TagString: Untagged
@@ -1129,13 +1203,15 @@ MonoBehaviour:
   - {fileID: 5659590344293879083}
   - {fileID: 2613142134937524551}
   - {fileID: 6960662537234846145}
-  iconPrefab: {fileID: 7020603218170682557, guid: e953e7a1357618c44b6eee0d5d4e7319,
-    type: 3}
+  iconPrefab: {fileID: 7020603218170682557, guid: e953e7a1357618c44b6eee0d5d4e7319, type: 3}
+  missionFill: {fileID: 944414072161169316}
   isOnMission: {fileID: 11400000, guid: b9f406dffbe4a27409cd0aa785114640, type: 2}
   missionDifficulty: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
+  cardsTotal: {fileID: 11400000, guid: 83624ceb4515efa42b174ca87b24d83f, type: 2}
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
   playersSelected: {fileID: 11400000, guid: c5185c85b03957546b0a450841d2fd5f, type: 2}
+  afterMissionResultShown: {fileID: 11400000, guid: 6e64cb0c71b5cc74f856d6d531cbc9e9, type: 2}
 --- !u!114 &3978303887994230707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1174,6 +1250,35 @@ MonoBehaviour:
   varMax: {fileID: 11400000, guid: 1699329a910b70b49a5d013e5622c77c, type: 2}
   intMax: 0
   image: {fileID: 5403911853601990876}
+--- !u!114 &1673844679163517823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3586085674499400816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 12992b83150649a40b0b24a5c8950cc8, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3375515600982180424}
+        m_TargetAssemblyTypeName: MissionUI, Assembly-CSharp
+        m_MethodName: AfterCardsPlayed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3670771806395483141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,6 +1387,7 @@ RectTransform:
   m_Children:
   - {fileID: 3904830900350461654}
   - {fileID: 480193402851243320}
+  - {fileID: 7970977125994945563}
   - {fileID: 1724936507004668547}
   m_Father: {fileID: 5173101562105988439}
   m_RootOrder: 0
@@ -1398,8 +1504,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e574ba47fb7201647a47933c6be689bb, type: 2}
-  m_sharedMaterial: {fileID: -1316042358393270621, guid: e574ba47fb7201647a47933c6be689bb,
-    type: 2}
+  m_sharedMaterial: {fileID: -1316042358393270621, guid: e574ba47fb7201647a47933c6be689bb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2162,8 +2267,7 @@ MonoBehaviour:
   m_text: 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
-  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329,
-    type: 2}
+  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2667,8 +2771,7 @@ MonoBehaviour:
   m_text: 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
-  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329,
-    type: 2}
+  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
