@@ -64,8 +64,6 @@ public class CardMissionUI : NetworkBehaviour
         if (!closedVotePopup) return;
         UI.SetActive(true);
         PlayerDrewCard();
-        missionStartedYet = false;
-        closedVotePopup = false;
     }
 
     [Client]
@@ -76,8 +74,6 @@ public class CardMissionUI : NetworkBehaviour
         if (!missionStartedYet) return;
         UI.SetActive(true);
         PlayerDrewCard();
-        missionStartedYet = false;
-        closedVotePopup = false;
     }
 
     [TargetRpc]
@@ -125,6 +121,8 @@ public class CardMissionUI : NetworkBehaviour
     public void PlayCard()
     {
         UI.SetActive(false);
+        missionStartedYet = false;
+        closedVotePopup = false;
         PlayerPlayedCard();
     }
 
