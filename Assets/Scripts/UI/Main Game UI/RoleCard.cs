@@ -17,9 +17,9 @@ public class RoleCard : MonoBehaviour
     public void SetData(RoleData data)
     {
         Data = data;
-        Name.text = Data.RoleName;
+        Name.text = Data.RoleName.ToUpper();
         Description.text = Data.Description;
-        Favour.text = $"{Data.StartingFavour}f";
+        Favour.text = Data.StartingFavour.ToString();
     }
 
     public void SetPos(Vector3 pos)
