@@ -9,8 +9,6 @@ public class MissionResultPopup : NetworkBehaviour
 {
     #region CLIENT
     [SerializeField] GameObject popup;
-    [SerializeField] TMP_Text missionResultText;
-    [SerializeField] TMP_Text rollResults;
 
     [SerializeField] GameObject effectPrefab;
     [SerializeField] Transform effectParent;
@@ -78,26 +76,22 @@ public class MissionResultPopup : NetworkBehaviour
     public void CreatePopup(NetworkConnection conn, string flavour, List<Card> contributions, Mission currentMission, int cardsTotal, int difficulty) 
     {
         foreach (GameObject obj in effectTiers) Destroy(obj);
-        effectTiers = new ();
-        string cardResultsText = "";
+        effectTiers = new();
 
-        for (int i = 0; i < contributions.Count; i++)
-        {
-            if (i != 0) cardResultsText += ", ";
-            cardResultsText += contributions[i].Value.ToString();
-        }
-
-        if (contributions.Count == 0) cardResultsText = "??";
-
-        rollResults.text = cardResultsText;
 
         MissionEffectTier tier = currentMission.GetValidEffect(cardsTotal + difficulty);
 
-        GameObject effect = Instantiate(effectPrefab);
-        effectTiers.Add(effect);
-        effect.transform.SetParent(effectParent);
+        foreach (MissionEffect effect in tier.effects)
+        {
+            MissionEffectIcon effectIcon = Instantiate(effectPrefab).GetComponent<MissionEffectIcon>();
+            effectTiers.Add(effectIcon.gameObject);
+            effectIcon.transform.SetParent(effectParent);
+            effectIcon.transform.localScale = new Vector3(2f, 2f, 2f);
 
-        effect.GetComponent<MissionEffectText>().SetText(tier.Value + difficulty + currentMission.DifficultyMod, tier);
+            effectIcon.Description.text = effect.Description;
+            effectIcon.Icon.sprite = effect.Icon;
+        }
+        
 
         popup.SetActive(true);
     }
