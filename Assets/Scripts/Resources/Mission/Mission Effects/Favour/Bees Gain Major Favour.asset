@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bees Gain Major Favour
   m_EditorClassIdentifier: 
   description: Bees gain 6 favour
+  Icon: {fileID: 21300000, guid: 0688bcf0e2df93c438d4e4911fcafe7b, type: 3}
   type: 0
   players: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
   favourGain: 6

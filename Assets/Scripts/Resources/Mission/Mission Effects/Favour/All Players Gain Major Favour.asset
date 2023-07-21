@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: All Players Gain Major Favour
   m_EditorClassIdentifier: 
   description: Everyone gains 6 favour
+  Icon: {fileID: 21300000, guid: 7f5ff8d640e0633409f3467c79dfb091, type: 3}
   type: 2
   players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
-  favourGain: 8
+  favourGain: 6

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Shuffle 3
   m_EditorClassIdentifier: 
   description: All players have a 3 shuffled into their deck
+  Icon: {fileID: 21300000, guid: 61aeea5902ed0be4facc18bb6465c987, type: 3}
   type: 0
   playerSet: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   card: {fileID: 11400000, guid: ae5b5cef249fc05479c3395575e81da5, type: 2}
