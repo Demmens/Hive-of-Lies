@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6469246254804295995}
   - component: {fileID: 8541603504321663892}
   - component: {fileID: -4355925669750816561}
+  - component: {fileID: 8203588539251465892}
   m_Layer: 0
   m_Name: Run Mission
   m_TagString: Untagged
@@ -78,3 +79,32 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 08243d548e7d45941aa0345f4999b7f9
   hasSpawned: 0
+--- !u!114 &8203588539251465892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3005365250139253029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 12992b83150649a40b0b24a5c8950cc8, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8541603504321663892}
+        m_TargetAssemblyTypeName: RunMission, Assembly-CSharp
+        m_MethodName: EndMission
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

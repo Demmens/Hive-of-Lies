@@ -16,6 +16,10 @@ public class StandOrPassUI : NetworkBehaviour
     [SerializeField] IntVariable favour;
     [Tooltip("Whether the local player is alive or not")]
     [SerializeField] BoolVariable alive;
+
+    bool closedMissionPopup = true;
+    bool phaseBegun;
+    int standCost;
     #endregion
     #region SERVER
     [Tooltip("The currently active mission")]
@@ -33,9 +37,25 @@ public class StandOrPassUI : NetworkBehaviour
     }
 
     [ClientRpc]
-    void SendUI(int standCost)
+    void SendUI(int cost)
     {
+        standCost = cost;
+        phaseBegun = true;
+        if (!closedMissionPopup) return;
+        CreateUI(cost);
+        phaseBegun = false;
+        closedMissionPopup = false;
+    }
+
+    [Client]
+    public void MissionPopupClosed()
+    {
+        closedMissionPopup = true;
+        if (!phaseBegun) return;
+
         CreateUI(standCost);
+        phaseBegun = false;
+        closedMissionPopup = false;
     }
 
     [Client]

@@ -17,6 +17,9 @@ public class MissionResultPopup : NetworkBehaviour
 
     [Tooltip("Whether the local player is on the mission")]
     [SerializeField] BoolVariable isOnMission;
+
+    [Tooltip("Invoked when the client closes the mission popup")]
+    [SerializeField] GameEvent popupClosed;
     #endregion
 
     #region SERVER
@@ -31,12 +34,6 @@ public class MissionResultPopup : NetworkBehaviour
 
     [Tooltip("Set of all played cards this mission")]
     [SerializeField] CardSet playedCards;
-
-    [Tooltip("All players that have closed the popup so far")]
-    List<NetworkConnection> playersClosed;
-
-    [Tooltip("The playercount of the game")]
-    [SerializeField] IntVariable playerCount;
 
     [Tooltip("The total value of played cards")]
     [SerializeField] IntVariable cardsTotal;
@@ -56,8 +53,7 @@ public class MissionResultPopup : NetworkBehaviour
     [Server]
     public void OnMissionEnd()
     {
-        playersClosed = new();
-        allPlayers.Value.ForEach(ply =>
+        foreach (HoLPlayer ply in allPlayers.Value)
         {
             List<Card> played = new();
 
@@ -65,7 +61,7 @@ public class MissionResultPopup : NetworkBehaviour
             if (ShouldShowContributions(ply)) played = playedCards;
 
             CreatePopup(ply.connectionToClient, "", played, currentMission, cardsTotal, missionDifficulty);
-        });
+        }
     }
 
     /// <summary>
@@ -75,11 +71,7 @@ public class MissionResultPopup : NetworkBehaviour
     /// <returns></returns>
     bool ShouldShowContributions(HoLPlayer ply)
     {
-        if (playerCount == 4) return false;
-
-        if (ply == teamLeader.Value) return true;
         return false;
-
     }
 
     [TargetRpc]
@@ -114,16 +106,6 @@ public class MissionResultPopup : NetworkBehaviour
     public void OnClose()
     {
         popup.SetActive(false);
-        OnPlayerClosedPopup();
-    }
-
-    [Command(requiresAuthority = false)]
-    void OnPlayerClosedPopup(NetworkConnectionToClient conn = null)
-    {
-        if (playersClosed.Contains(conn)) return;
-
-        playersClosed.Add(conn);
-
-        if (playersClosed.Count >= playerCount) allPlayersClosed?.Invoke();
+        popupClosed?.Invoke();
     }
 }
