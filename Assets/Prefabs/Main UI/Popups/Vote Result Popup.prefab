@@ -149,18 +149,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 456dfbe3331dade4d9a3443cbefd9b9c, type: 2}
-        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
-        m_MethodName: Invoke
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1796203968119687664
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +233,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   popup: {fileID: 8519083239841991310}
-  playerVotePrefab: {fileID: 5598573501529594177, guid: 174adec5e795e084391e87b4c2d51ba7, type: 3}
+  playerVotePrefab: {fileID: 5598573501529594177, guid: 174adec5e795e084391e87b4c2d51ba7,
+    type: 3}
   clientVoteTotal: {fileID: 9112455618940178714}
   clientClosedPopup: {fileID: 11400000, guid: 456dfbe3331dade4d9a3443cbefd9b9c, type: 2}
   allVotes: {fileID: 11400000, guid: 8868811ef70de684c9f1d84675d4950c, type: 2}
@@ -464,7 +453,8 @@ MonoBehaviour:
   m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
-  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
+  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -840,7 +830,8 @@ MonoBehaviour:
   m_text: Total
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 98f61f9b7bae4524f9a41617223812a5, type: 2}
-  m_sharedMaterial: {fileID: 8734780125169044708, guid: 98f61f9b7bae4524f9a41617223812a5, type: 2}
+  m_sharedMaterial: {fileID: 8734780125169044708, guid: 98f61f9b7bae4524f9a41617223812a5,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -975,7 +966,8 @@ MonoBehaviour:
   m_text: VOTES
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
-  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329, type: 2}
+  m_sharedMaterial: {fileID: 667009591886113578, guid: a77aa3d7c46f893449f6328775ac5329,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
