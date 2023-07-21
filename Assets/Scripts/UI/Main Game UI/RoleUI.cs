@@ -15,6 +15,9 @@ public class RoleUI : NetworkBehaviour
     [SerializeField] GameObject RoleCard;
     [SerializeField] Color WaspColour;
     [SerializeField] Color BeeColour;
+
+    [SerializeField] FloatVariable cardXPosition;
+    [SerializeField] FloatVariable cardYPosition;
     #endregion
 
     [Space]
@@ -126,20 +129,17 @@ public class RoleUI : NetworkBehaviour
         if (allRoles.Value.Count == playerCount) allPlayersChosenRoles?.Invoke();
     }
 
-    static Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
+    Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
     {
-        const float margin = 600;
-        const float centreSkew = 200;
+        //In case these aren't set properly
+        float screenX = cardXPosition.Value > 0 ? cardXPosition.Value : Screen.height/2;
+        float screenY = cardYPosition.Value > 0 ? cardYPosition.Value : Screen.width / 2;
+        const float spacing = 400;
 
-        float adjustedWidth = Screen.width - (2 * margin);
+        float x = screenX;
 
-        float x = Screen.width / 2;
-        if (cardsTotal > 1)
-        {
-            x = margin + adjustedWidth * (index / (float)(cardsTotal - 1));
-            x += centreSkew;
-        }
+        x += spacing * (1 - cardsTotal + (2*index))/2;
 
-        return new Vector3(x, Screen.height / 2, 0);
+        return new Vector3(x, cardYPosition, 0);
     }
 }

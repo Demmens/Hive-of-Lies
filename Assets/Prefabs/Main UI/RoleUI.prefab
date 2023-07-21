@@ -660,6 +660,8 @@ MonoBehaviour:
   RoleCard: {fileID: 2931512615657598136, guid: f3c249f8de9c4384880f64a7640b36af, type: 3}
   WaspColour: {r: 0, g: 0, b: 0, a: 0}
   BeeColour: {r: 0, g: 0, b: 0, a: 0}
+  cardXPosition: {fileID: 11400000, guid: 9b4d808e12d4e6f4f85cbe25f39fbd9f, type: 2}
+  cardYPosition: {fileID: 11400000, guid: 04eb091537587eb43a302a1815112057, type: 2}
   playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   allRoles: {fileID: 11400000, guid: 7aecc6004a4878546b7578a75f4e4b79, type: 2}
   rejectedRoles: {fileID: 11400000, guid: f13aa2eee048d254181ebce31d998cc6, type: 2}
