@@ -45,11 +45,6 @@ public class Setup : GamePhase
 
     [SerializeField] GameObject playerButton;
 
-    [SerializeField] Transform topPlayerRow;
-    [SerializeField] Transform rightPlayerRow;
-    [SerializeField] Transform bottomPlayerRow;
-    [SerializeField] Transform leftPlayerRow;
-
     /// <summary>
     /// Run the game setup. This includes handing out roles and selecting teams.
     /// </summary>
