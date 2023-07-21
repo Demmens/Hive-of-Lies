@@ -18,6 +18,10 @@ public class CardMissionUI : NetworkBehaviour
     [Tooltip("Returns true if the player is on the mission")]
     [SerializeField] BoolVariable isOnMission;
 
+    //Whether the client has closed the vote result popup yet
+    bool closedVotePopup;
+    //Whether the mission has started for the client yet
+    bool missionStartedYet;
     #endregion
     #region SERVER
 
@@ -55,9 +59,25 @@ public class CardMissionUI : NetworkBehaviour
     public void ClientMissionStarted()
     {
         if (!isOnMission) return;
+        missionStartedYet = true;
 
+        if (!closedVotePopup) return;
         UI.SetActive(true);
         PlayerDrewCard();
+        missionStartedYet = false;
+        closedVotePopup = false;
+    }
+
+    [Client]
+    public void OnClosedVotePopup()
+    {
+        closedVotePopup = true;
+
+        if (!missionStartedYet) return;
+        UI.SetActive(true);
+        PlayerDrewCard();
+        missionStartedYet = false;
+        closedVotePopup = false;
     }
 
     [TargetRpc]

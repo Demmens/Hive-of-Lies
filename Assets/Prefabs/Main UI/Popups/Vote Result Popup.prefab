@@ -247,6 +247,7 @@ MonoBehaviour:
   popup: {fileID: 8519083239841991310}
   playerVotePrefab: {fileID: 5598573501529594177, guid: 174adec5e795e084391e87b4c2d51ba7, type: 3}
   clientVoteTotal: {fileID: 9112455618940178714}
+  clientClosedPopup: {fileID: 11400000, guid: 456dfbe3331dade4d9a3443cbefd9b9c, type: 2}
   allVotes: {fileID: 11400000, guid: 8868811ef70de684c9f1d84675d4950c, type: 2}
   voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
 --- !u!114 &1780120899007914122

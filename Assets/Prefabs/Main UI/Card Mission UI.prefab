@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 6453546030122495259}
   - component: {fileID: 3337107456053002565}
   - component: {fileID: 6919128608016368141}
+  - component: {fileID: 2877519521514309309}
   - component: {fileID: 7037346933011592580}
   - component: {fileID: 3301702688902783271}
   m_Layer: 5
@@ -212,6 +213,35 @@ MonoBehaviour:
       - m_Target: {fileID: 7037346933011592580}
         m_TargetAssemblyTypeName: CardMissionUI, Assembly-CSharp
         m_MethodName: CloseUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2877519521514309309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2513808415553107179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 456dfbe3331dade4d9a3443cbefd9b9c, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7037346933011592580}
+        m_TargetAssemblyTypeName: CardMissionUI, Assembly-CSharp
+        m_MethodName: OnClosedVotePopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
