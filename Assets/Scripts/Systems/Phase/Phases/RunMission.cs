@@ -67,6 +67,7 @@ public class RunMission : GamePhase
 
     private void OnEffectEnded()
     {
+        currentMission.Value.AfterEffectTriggered -= OnEffectEnded;
         //Delay so the result popup can have time to display the correct effects
         StartCoroutine(Coroutines.Delay(EndPhase));
     }
@@ -74,7 +75,6 @@ public class RunMission : GamePhase
     void EndPhase()
     {
         Debug.Log("All mission effects have finished. Starting the next round");
-        currentMission.Value.AfterEffectTriggered -= OnEffectEnded;
         End();
     }
 }
