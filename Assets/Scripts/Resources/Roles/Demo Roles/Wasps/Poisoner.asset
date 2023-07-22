@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Poisoner
   m_EditorClassIdentifier: 
   roleName: Poisoner
-  description: 'Spider. 3 favour: During the next mission, when the team leader draws
+  description: 'Social. 3 favour: During the next mission, when the team leader draws
     a card for free, the drawn card will always be negative.'
   sprite: 
   startingFavour: 12
