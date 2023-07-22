@@ -72,9 +72,9 @@ public class TeamLeaderVote : GamePhase
 
         ply.Favour.Value -= cost;
 
-        ply.NextDownvoteCost.Value = CalculateDownVoteCost(ply.NumVotes);
+        ply.NextDownvoteCost.Value = CalculateDownvoteCost(ply.NumVotes);
 
-        ply.NextUpvoteCost.Value = CalculateUpVoteCost(ply.NumVotes);
+        ply.NextUpvoteCost.Value = CalculateUpvoteCost(ply.NumVotes);
     }
 
     [Server]
@@ -92,9 +92,9 @@ public class TeamLeaderVote : GamePhase
 
         ply.Favour.Value -= cost;
 
-        ply.NextUpvoteCost.Value = CalculateUpVoteCost(ply.NumVotes);
+        ply.NextUpvoteCost.Value = CalculateUpvoteCost(ply.NumVotes);
 
-        ply.NextDownvoteCost.Value = CalculateDownVoteCost(ply.NumVotes);
+        ply.NextDownvoteCost.Value = CalculateDownvoteCost(ply.NumVotes);
     }
 
     /// <summary>
@@ -149,7 +149,7 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     /// <param name="numVotes"></param>
     /// <returns></returns>
-    public static int CalculateUpVoteCost(int numVotes)
+    public static int CalculateUpvoteCost(int numVotes)
     {
         return numVotes >= 0 ? 2 * numVotes : 2 * (numVotes + 1);
     }
@@ -159,7 +159,7 @@ public class TeamLeaderVote : GamePhase
     /// </summary>
     /// <param name="numVotes"></param>
     /// <returns></returns>
-    public static int CalculateDownVoteCost(int numVotes)
+    public static int CalculateDownvoteCost(int numVotes)
     {
         return numVotes > 0 ? -2 * (numVotes-1) : -2 * numVotes;
     }
