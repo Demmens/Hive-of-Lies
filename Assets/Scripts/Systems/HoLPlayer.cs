@@ -39,11 +39,6 @@ public class HoLPlayer : NetworkBehaviour
     public RoleVariable Role;
 
     /// <summary>
-    /// How many missions the player has been on in a row. Each level reduces the value of the cards in their deck.
-    /// </summary>
-    public IntVariable Exhaustion;
-
-    /// <summary>
     /// How much favour it costs to draw another card
     /// </summary>
     public IntVariable NextDrawCost;
