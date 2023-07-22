@@ -70,21 +70,11 @@ public class TeamLeaderVote : GamePhase
 
         ply.NumVotes++;
 
-        bool refund = ply.NumVotes < 0;
-
         ply.Favour.Value -= cost;
 
-        int voteCheck = refund ? ply.NumVotes - 1 : ply.NumVotes;
+        ply.NextDownvoteCost.Value = CalculateDownVoteCost(ply.NumVotes);
 
-        cost = CalculateVoteCost(voteCheck);
-        if (!refund) cost *= -1;
-
-        ply.NextDownvoteCost.Value = cost;
-
-        cost = CalculateVoteCost(voteCheck + 1);
-        if (refund) cost *= -1;
-
-        ply.NextUpvoteCost.Value = cost;
+        ply.NextUpvoteCost.Value = CalculateUpVoteCost(ply.NumVotes);
     }
 
     [Server]
@@ -100,21 +90,11 @@ public class TeamLeaderVote : GamePhase
 
         ply.NumVotes--;
 
-        bool refund = ply.NumVotes > 0;
-
         ply.Favour.Value -= cost;
 
-        int voteCheck = refund ? ply.NumVotes + 1 : ply.NumVotes;
+        ply.NextUpvoteCost.Value = CalculateUpVoteCost(ply.NumVotes);
 
-        cost = CalculateVoteCost(voteCheck);
-        if (!refund) cost *= -1;
-
-        ply.NextUpvoteCost.Value = cost;
-
-        cost = CalculateVoteCost(voteCheck - 1);
-        if (refund) cost *= -1;
-
-        ply.NextDownvoteCost.Value = cost;
+        ply.NextDownvoteCost.Value = CalculateDownVoteCost(ply.NumVotes);
     }
 
     /// <summary>
@@ -165,20 +145,23 @@ public class TeamLeaderVote : GamePhase
     }
 
     /// <summary>
-    /// Calculate the favour cost of the vote
+    /// Calculate the costs of the next up vote
     /// </summary>
-    /// <param name="ply">The player who's voting</param>
-    /// <param name="numVotes">The number of votes</param>
-    public int CalculateVoteCost(int numVotes)
+    /// <param name="numVotes"></param>
+    /// <returns></returns>
+    public static int CalculateUpVoteCost(int numVotes)
     {
-        //Votes cost the same up and down
-        numVotes = Mathf.Abs(numVotes);
-        // Cost is 2(n-1) We can change this formula at any time for balance
-        // Gives us the costs: {4,2,0,0,0,2,4}
-        // Cumulatively: {0,2,6,12,20}
-        int cost = Mathf.Max(0, (numVotes - 1) * 2);
+        return numVotes >= 0 ? 2 * numVotes : 2 * (numVotes + 1);
+    }
 
-        return cost;
+    /// <summary>
+    /// Calculate the costs of the next down vote
+    /// </summary>
+    /// <param name="numVotes"></param>
+    /// <returns></returns>
+    public static int CalculateDownVoteCost(int numVotes)
+    {
+        return numVotes > 0 ? -2 * (numVotes-1) : -2 * numVotes;
     }
 }
 
