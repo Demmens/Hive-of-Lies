@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using System.Linq;
 
 [CreateAssetMenu(fileName = "Mission", menuName = "Missions/Create mission")]
@@ -11,12 +10,13 @@ public class Mission : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="MissionName"/>
     /// </summary>
-    string missionName;
+    [SerializeField] string missionName;
 
     /// <summary>
     /// Private counterpart to <see cref="Description"/>
     /// </summary>
-    string description;
+    [Multiline]
+    [SerializeField] string description;
 
     /// <summary>
     /// Private counterpart to <see cref="FavourCost"/>
@@ -126,29 +126,6 @@ public class Mission : ScriptableObject
         //By default the first tier should ALWAYS be an option
         return 0;
     }
-
-    #region Editor
-#if UNITY_EDITOR
-    [CustomEditor(typeof(Mission))]
-    public class MissionEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            Mission mission = target as Mission;
-
-            EditorGUILayout.LabelField("Name");
-            mission.missionName = EditorGUILayout.TextField(mission.missionName);
-
-            EditorGUILayout.LabelField("Description");
-            GUIStyle style = new GUIStyle(EditorStyles.textArea);
-            style.wordWrap = true;
-            mission.description = EditorGUILayout.TextArea(mission.description, style, GUILayout.Height(50));
-
-            base.OnInspectorGUI();
-        }
-    }
-#endif
-    #endregion
 }
 
 [System.Serializable]
