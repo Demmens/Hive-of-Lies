@@ -48,7 +48,7 @@ public class GameEnd : NetworkBehaviour
         //If 3 honey is stolen at the same time as 3 wasp facts are learned, the bees don't win
         if (HoneyStolen >= HoneyNeededForWin) return;
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText("Bees Win");
+        screen.GetComponent<PlayAgainButton>().SetText("BEES WIN");
         NetworkServer.Spawn(screen);
     }
 
@@ -58,7 +58,7 @@ public class GameEnd : NetworkBehaviour
         if (hasWon) return;
         hasWon = true;
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText("Wasps Win");
+        screen.GetComponent<PlayAgainButton>().SetText("WASPS WIN");
         NetworkServer.Spawn(screen);
     }
 
