@@ -31,12 +31,12 @@ public class GameEnd : NetworkBehaviour
     {
         HoneyStolen.AfterVariableChanged += change =>
         {
-            if (change >= HoneyNeededForWin) Coroutines.Delay(0, WaspsWin);
+            if (change >= HoneyNeededForWin) StartCoroutine(Coroutines.Delay(WaspsWin));
         };
 
         ResearchProgress.AfterVariableChanged += change =>
         {
-            if (change >= ResearchNeededForWin) Coroutines.Delay(0, BeesWin);
+            if (change >= ResearchNeededForWin) StartCoroutine(Coroutines.Delay(BeesWin));
         };
     }
 
