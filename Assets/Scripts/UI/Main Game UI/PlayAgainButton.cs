@@ -29,6 +29,13 @@ public class PlayAgainButton : NetworkBehaviour
     {
         OnClientClicked();
         buttonObject.SetActive(false);
+        waitingFor.gameObject.SetActive(true);
+    }
+
+    public void LeaveGame()
+    {
+        Application.Quit();
+        OnClientClicked();
     }
 
     [Command(requiresAuthority = false)]
@@ -36,6 +43,7 @@ public class PlayAgainButton : NetworkBehaviour
     {
         if (playersClicked.Contains(conn)) return;
         playersClicked.Add(conn);
+        SetWaitingFor(playersClicked.Count, playerCount);
 
         if (playersClicked.Count == playerCount) resetRound?.Invoke();
     }
@@ -46,8 +54,15 @@ public class PlayAgainButton : NetworkBehaviour
         winText = text;
     }
 
+    [Client]
     void SetTextObject(string oldText, string newText)
     {
         winTextObject.text = newText;
+    }
+
+    [ClientRpc]
+    void SetWaitingFor(int ready, int total)
+    {
+        waitingFor.text = $"Waiting: ({ready}/{total})";
     }
 }
