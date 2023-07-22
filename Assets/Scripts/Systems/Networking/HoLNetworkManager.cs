@@ -179,7 +179,7 @@ public class HoLNetworkManager : NetworkManager
     public void StartGame()
     {
         ServerChangeScene(GameScene);
-        playerCount.Value = SteamMatchmaking.GetNumLobbyMembers(SteamLobby.LobbyID);
+        playerCount.Value = allPlayers.Value.Count;
         Debug.Log($"Started game with {playerCount.Value} players");
     }
 
