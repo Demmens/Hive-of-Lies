@@ -137,6 +137,8 @@ public class HoLNetworkManager : NetworkManager
 
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
         playersByConnection.Value.Remove(conn);
+        if (alivePlayersByConnection.Value.TryGetValue(conn, out HoLPlayer pl)) alivePlayersByConnection.Value.Remove(conn);
+        allPlayers.Remove(ply);
 
         //Can't prevent the player object being destroyed when a player leaves the game, so we need to make a new object to be destroyed instead
         HoLPlayer newObj = Instantiate(GamePlayerPrefab);
