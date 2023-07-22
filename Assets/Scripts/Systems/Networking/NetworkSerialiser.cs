@@ -11,23 +11,11 @@ public static class NetworkSerialiser
     #region RoleData
     public static void WriteRoleData(this NetworkWriter writer, RoleData value)
     {
-        if (value == null)
-        {
-            writer.WriteString("");
-            return;
-        }
-
-        //Write path instead of asset bc strings are much less network intensive
-        writer.WriteString(AssetDatabase.GetAssetPath(value));
+        writer.WriteString(value.name);
     }
     public static RoleData ReadRoleData(this NetworkReader reader)
     {
-        string path = reader.ReadString();
-        Debug.Log(path);
-
-        if (path == "") Debug.LogError("Could not find sprite");
-
-        return AssetDatabase.LoadAssetAtPath(path, typeof(RoleData)) as RoleData;
+        return Resources.Load($"Roles/{reader.ReadString()}") as RoleData;
     }
     #endregion
 
