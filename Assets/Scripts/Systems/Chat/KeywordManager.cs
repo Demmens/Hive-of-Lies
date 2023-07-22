@@ -17,6 +17,7 @@ public static class KeywordManager
         }
     };
 
+#if UNITY_EDITOR
     [MenuItem("Tools/Hive of Lies/Populate Keywords Dictionary")]
     private static void PopulateKeywordsDictionary()
     {
@@ -31,6 +32,7 @@ public static class KeywordManager
             };
         }
     }
+#endif
 
     public static string ModifyKeywordsInString(string str)
     {
