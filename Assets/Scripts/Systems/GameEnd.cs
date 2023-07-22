@@ -68,7 +68,7 @@ public class GameEnd : NetworkBehaviour
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
 
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText($"{ply.DisplayName} won the game");
+        screen.GetComponent<PlayAgainButton>().SetText($"{ply.DisplayName.ToUpper()} WINS");
         NetworkServer.Spawn(screen);
     }
 }
