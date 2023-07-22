@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Detective
   m_EditorClassIdentifier: 
   roleName: Detective
-  description: After the third round, learn the identity of a random bee
+  description: After the third round, learn the identity of a random Bee
   sprite: 
   startingFavour: 10
   startingDeck:
