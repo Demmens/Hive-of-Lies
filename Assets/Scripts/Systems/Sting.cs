@@ -12,6 +12,10 @@ public class Sting : NetworkBehaviour
     [SerializeField] HoLPlayerSet waspPlayers;
     [SerializeField] HoLPlayerDictionary playersByConnection;
     [SerializeField] NetworkingEvent playerWins;
+    [SerializeField] Transform stingReticleCanvas;
+
+    [SerializeField] GameObject dropdownButton;
+    List<PlayerButtonDropdownItem> stingButtons = new();
     #endregion
     #region CLIENT
     [SerializeField] BoolVariable isAlive;
@@ -21,10 +25,13 @@ public class Sting : NetworkBehaviour
     [SerializeField] TMPro.TMP_Text targetText;
     [SerializeField] GameObject stingButton;
     [SerializeField] UnityEngine.UI.Button button;
+
+    [SerializeField] List<GameObject> DisabledUI;
     bool isStinging;
     #endregion
     #region SHARED
     [SerializeField] int stingCost = 10;
+    [SerializeField] GameObject reticle;
     #endregion
 
     [Client]
@@ -37,7 +44,7 @@ public class Sting : NetworkBehaviour
     void AfterFavourChanged(int favour)
     {
         if (button == null) return;
-        button.interactable = favour >= stingCost;
+        button.interactable = favour >= stingCost && !isStinging;
     }
 
     [Server]
@@ -50,6 +57,7 @@ public class Sting : NetworkBehaviour
         } 
     }
 
+    [Server]
     void OnTargetChanged(HoLPlayer ply, HoLPlayer target)
     {
         //If their target is unset
@@ -69,6 +77,7 @@ public class Sting : NetworkBehaviour
         stingButton.SetActive(true);
         GameObject popup = Instantiate(stingPopup);
         popup.GetComponent<Notification>().SetText($"Your target is the {targetName}:\n{targetDescription}");
+        targetText.text = targetName.ToUpper() + "\n" + targetDescription;
     }
 
     [TargetRpc]
@@ -82,7 +91,7 @@ public class Sting : NetworkBehaviour
     {
         if (favour < stingCost) return;
         isStinging = true;
-        stingButton.SetActive(false);
+        stingButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
         PlayerStingClicked();
     }
 
@@ -93,48 +102,54 @@ public class Sting : NetworkBehaviour
         if (ply.Team == Team.Bee) return;
 
         ply.Favour.Value -= stingCost;
-    }
+        //GameObject ret = Instantiate(reticle);
+        //NetworkServer.Spawn(ret, conn);
 
-    [Client]
-    public void PlayerClicked(ulong ply)
-    {
-        if (!isStinging) return;
+        OnPlayerSting();
 
-        StingTargetDecided(ply);
-        isStinging = false;
-    }
-
-    [Command(requiresAuthority = false)]
-    void StingTargetDecided(ulong id, NetworkConnectionToClient conn = null)
-    {
-        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer stinger)) return;
-
-        for (int i = 0; i < alivePlayers.Value.Count; i++)
+        foreach (HoLPlayer pl in alivePlayers.Value)
         {
-            HoLPlayer ply = alivePlayers.Value[i];
-            if (ply.PlayerID != id) continue;
+            PlayerButtonDropdownItem item = pl.Button.AddDropdownItem(dropdownButton, ply);
+            item.OnItemClicked += (tgt) => StingTargetDecided(ply,tgt);
+            item.OnItemClicked += (tgt) => Destroy(item);
+            stingButtons.Add(item);
+        }
+    }
 
-            if (stinger.Target.Value == ply) StingCorrect(stinger);
-            else StingIncorrect(stinger);
-
-            break;
+    [ClientRpc]
+    public void OnPlayerSting()
+    {
+        foreach (GameObject obj in DisabledUI)
+        {
+            obj.SetActive(false);
         }
     }
 
     [Server]
-    void StingIncorrect(HoLPlayer ply)
+    void StingTargetDecided(HoLPlayer stinger, HoLPlayer target)
     {
-        alivePlayers.Remove(ply);
-        playersByConnection.Value.Remove(ply.connectionToClient);
-        ply.IsAlive.Value = false;
+        foreach (PlayerButtonDropdownItem item in stingButtons) Destroy(item);
+
+        if (stinger.Target.Value == target)
+        {
+            playerWins?.Invoke(stinger.connectionToClient);
+            return;
+        }
+
+        alivePlayers.Remove(stinger);
+        playersByConnection.Value.Remove(stinger.connectionToClient);
+        stinger.IsAlive.Value = false;
         playerCount--;
-        ClientStingIncorrect(ply.connectionToClient);
+        ClientStingIncorrect(stinger.connectionToClient);
     }
 
-    [Server]
-    void StingCorrect(HoLPlayer ply)
+    [ClientRpc]
+    public void OnStingIncorrect()
     {
-        playerWins?.Invoke(ply.connectionToClient);
+        foreach (GameObject obj in DisabledUI)
+        {
+            obj.SetActive(true);
+        }
     }
 
     [TargetRpc]
