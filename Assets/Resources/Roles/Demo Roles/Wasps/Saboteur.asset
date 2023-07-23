@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Saboteur
   m_EditorClassIdentifier: 
   roleName: Saboteur
-  description: 'Solitary. 2 favour: Minus 1 from the value of your currently held
-    card for this mission. Repeatable.'
+  description: '6f: Secretly increase the current missions difficulty by 1'
   sprite: 
   startingFavour: 10
   startingDeck:
