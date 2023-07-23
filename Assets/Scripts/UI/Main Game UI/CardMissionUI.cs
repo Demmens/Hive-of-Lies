@@ -60,18 +60,16 @@ public class CardMissionUI : NetworkBehaviour
     {
         if (!isOnMission) return;
         missionStartedYet = true;
-
-        if (!closedVotePopup) return;
-        UI.SetActive(true);
-        PlayerDrewCard();
     }
 
     [Client]
     public void OnClosedVotePopup()
     {
+        if (!isOnMission) return;
         closedVotePopup = true;
 
         if (!missionStartedYet) return;
+        missionStartedYet = false;
         UI.SetActive(true);
         PlayerDrewCard();
     }
