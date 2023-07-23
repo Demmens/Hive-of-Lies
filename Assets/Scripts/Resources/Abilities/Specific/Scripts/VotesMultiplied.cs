@@ -12,6 +12,8 @@ public class VotesMultiplied : RoleAbility
 
     void NumVotesChanged(int oldVal, ref int newVal)
     {
+        //If votes are being reset back to 0, we shouldn't have a problem here.
+        if (newVal == 0) return;
         //Reduced vote
         if (oldVal > newVal) newVal -= multiplier - 1;
         //Increased vote
