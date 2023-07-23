@@ -20,17 +20,15 @@ public class VariableFill : NetworkBehaviour
     [Server]
     void Start()
     {
-        var.AfterVariableChanged += val => OnVariableChange();
-        varMax.AfterVariableChanged += val => OnVariableChange();
+        var.AfterVariableChanged += val => OnVariableChange(val, useVariableForMax ? varMax : intMax);
+        varMax.AfterVariableChanged += val => OnVariableChange(var, useVariableForMax ? val : intMax);
     }
 
     [ClientRpc]
-    void OnVariableChange()
+    void OnVariableChange(int value, int max)
     {
-        Debug.Log(var.Value);
-        float max = (float)var.Value / (useVariableForMax ? varMax.Value : intMax);
-        Debug.Log(max);
-        StartCoroutine(Fill(max));
+        float maxFill = (float) value / max;
+        StartCoroutine(Fill(maxFill));
     }
 
     IEnumerator Fill(float maxValue)
