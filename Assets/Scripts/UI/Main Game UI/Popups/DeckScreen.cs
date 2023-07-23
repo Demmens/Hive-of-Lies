@@ -35,7 +35,6 @@ public class DeckScreen : NetworkBehaviour
     [TargetRpc]
     void CardRemoved(NetworkConnection conn, Card card)
     {
-        Debug.Log("Card removed");
         CardDisplay display = null;
 
         foreach (CardDisplay c in drawPile)
