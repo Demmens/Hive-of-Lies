@@ -92,6 +92,10 @@ public class TeamLeaderPickPartners : GamePhase
 
         foreach (HoLPlayer ply in players.Value)
         {
+            //Can't pick yourself except for testing purposes
+#if !UNITY_EDITOR
+            if (ply == teamLeader.Value) continue;
+#endif
             CreateAddItem(ply);
         }
 
@@ -120,6 +124,9 @@ public class TeamLeaderPickPartners : GamePhase
     {
         if (playersSelected.Value.Count >= numPartners) return;
         if (playersSelected.Value.Contains(ply)) return;
+#if !UNITY_EDITOR
+        if (ply == teamLeader.Value) return;
+#endif
 
         Destroy(item);
         addItems.Remove(item);
