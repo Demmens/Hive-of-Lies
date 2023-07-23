@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
   m_Name: Gain Wasp Fact
   m_EditorClassIdentifier: 
-  description: Learn a wasp fact
+  description: '+1 Wasp Fact
+
+    <i><alpha=#88><size=25>Bees win at 3 Wasp Facts'
   Icon: {fileID: 21300000, guid: d8083ca9c6426664296304443539c85e, type: 3}
   type: 0
   intVar: {fileID: 11400000, guid: dfe9cf79ab308fa4590bcb660471cac3, type: 2}

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
   m_Name: Steal Honey
   m_EditorClassIdentifier: 
-  description: The wasps steal a jar of honey
+  description: '+1 Honey Stolen
+
+    <i><alpha=#88><size=25>Wasps win at 3 Honey
+    Stolen'
   Icon: {fileID: 21300000, guid: ad5202c8c205ac14885ad4a5a2f4d1ad, type: 3}
   type: 1
   intVar: {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
