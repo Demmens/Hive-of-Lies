@@ -25,11 +25,14 @@ public class LobbyController : NetworkBehaviour
     [Server]
     public void OnPlayerJoinedLobby(NetworkConnection conn)
     {
-        foreach (HoLPlayer ply in allPlayers.Value)
+        StartCoroutine(Coroutines.Delay(1, () =>
         {
-            CreateClientPlayerItem(ply.DisplayName, ply.connectionToClient.connectionId, ply.PlayerID);
-        }
-        UpdateLobbyName();
+            foreach (HoLPlayer ply in allPlayers.Value)
+            {
+                CreateClientPlayerItem(ply.DisplayName, ply.connectionToClient.connectionId, ply.PlayerID);
+            }
+            UpdateLobbyName();
+        }));
     }
 
     [Server]
