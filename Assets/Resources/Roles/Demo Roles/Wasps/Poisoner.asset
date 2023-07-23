@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Poisoner
   m_EditorClassIdentifier: 
   roleName: Poisoner
-  description: 'Social. 3 favour: During the next mission, when the team leader draws
-    a card for free, the drawn card will always be negative.'
+  description: '5f: The next two cards the Team Leader draws will be negative'
   sprite: 
   startingFavour: 12
   startingDeck:
@@ -39,7 +38,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aa6e7a7b6cf6b144b8dee76195382cb1, type: 2}
   - {fileID: 11400000, guid: 12b574cc5a91eb34ca55cb7496788d0b, type: 2}
   team: 2
-  playersRequired: 5
+  playersRequired: 0
   abilities:
   - {fileID: 7908551812632945143, guid: 15c727636970d4d4d908d655cdbe19f5, type: 3}
   enabled: 1
