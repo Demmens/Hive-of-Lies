@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5d8b537a8d0e042854e520b72faf92, type: 3}
   m_Name: Demo Roles
   m_EditorClassIdentifier: 
-  initialValue: []
-  currentValue:
+  initialValue:
   - {fileID: 11400000, guid: 2a210dec565bfc64bab60527c7f80d66, type: 2}
   - {fileID: 11400000, guid: 5f46d1642fd51ae4d8e4b89e65a5c7b6, type: 2}
   - {fileID: 11400000, guid: a9e34dacc5cd4654ebe2be3878e558e5, type: 2}
@@ -23,9 +22,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9fa5d66848035343859e7570f9cb3f1, type: 2}
   - {fileID: 11400000, guid: a376b347111f8d847af09e6a61f071c9, type: 2}
   - {fileID: 11400000, guid: bb4e576714f1eea4a9d3366e269758be, type: 2}
+  - {fileID: 11400000, guid: 95a78d6e91ce6054ba2bbcb5aa4302cd, type: 2}
   - {fileID: 11400000, guid: 8dabdcd04de1a234caf6d2f623a75683, type: 2}
   - {fileID: 11400000, guid: c8d7c02d6eea7e64989f43246d204b4c, type: 2}
   - {fileID: 11400000, guid: c80f3d8b1f013c74b82ae763aae89140, type: 2}
+  - {fileID: 11400000, guid: 6cad7c1c8e63c6541937cdf2f432d53f, type: 2}
+  currentValue:
+  - {fileID: 11400000, guid: a9e34dacc5cd4654ebe2be3878e558e5, type: 2}
+  - {fileID: 11400000, guid: 95a78d6e91ce6054ba2bbcb5aa4302cd, type: 2}
+  - {fileID: 11400000, guid: d9fa5d66848035343859e7570f9cb3f1, type: 2}
+  - {fileID: 11400000, guid: 6cad7c1c8e63c6541937cdf2f432d53f, type: 2}
+  - {fileID: 11400000, guid: c80f3d8b1f013c74b82ae763aae89140, type: 2}
+  - {fileID: 11400000, guid: 5f46d1642fd51ae4d8e4b89e65a5c7b6, type: 2}
+  - {fileID: 11400000, guid: c8d7c02d6eea7e64989f43246d204b4c, type: 2}
+  - {fileID: 11400000, guid: 7222f9c54d4db4941820a751bc386ed0, type: 2}
+  - {fileID: 11400000, guid: 5bc19e90e7c1ebc4d9d9be1348904de9, type: 2}
+  - {fileID: 11400000, guid: 8dabdcd04de1a234caf6d2f623a75683, type: 2}
+  - {fileID: 11400000, guid: bb4e576714f1eea4a9d3366e269758be, type: 2}
+  - {fileID: 11400000, guid: 11fea6c8c64ff08449c554585144df15, type: 2}
   subsetOf: {fileID: 0}
   startFull: 0
   extensionOf: {fileID: 0}
