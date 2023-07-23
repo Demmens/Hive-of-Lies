@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: General
   m_EditorClassIdentifier: 
   roleName: General
-  description: When you are the team leader, all players on the mission with you
-    draw better
+  description: When you are the team leader, all players on the mission draw better
   sprite: 
   startingFavour: 8
   startingDeck:
