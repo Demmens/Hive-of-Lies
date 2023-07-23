@@ -43,8 +43,6 @@ public class StandOrPassUI : NetworkBehaviour
         phaseBegun = true;
         if (!closedMissionPopup) return;
         CreateUI(cost);
-        phaseBegun = false;
-        closedMissionPopup = false;
     }
 
     [Client]
@@ -54,8 +52,6 @@ public class StandOrPassUI : NetworkBehaviour
         if (!phaseBegun) return;
 
         CreateUI(standCost);
-        phaseBegun = false;
-        closedMissionPopup = false;
     }
 
     [Client]
@@ -73,6 +69,7 @@ public class StandOrPassUI : NetworkBehaviour
     {
         UI.SetActive(false);
         PlayerStood(standing);
+        phaseBegun = false;
     }
 
     [Command(requiresAuthority = false)]
@@ -86,5 +83,10 @@ public class StandOrPassUI : NetworkBehaviour
         {
             onPlayerPassed?.Invoke(conn);
         }
+    }
+
+    public void OnMissionStart()
+    {
+        closedMissionPopup = false;
     }
 }
