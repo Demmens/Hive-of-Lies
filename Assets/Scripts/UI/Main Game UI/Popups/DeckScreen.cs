@@ -10,6 +10,7 @@ public class DeckScreen : NetworkBehaviour
 
     #region Client
     [SerializeField] GameObject cardDisplay;
+    [SerializeField] GameObject screen;
     [SerializeField] Transform cardPool;
 
     List<CardDisplay> drawPile = new();
@@ -68,5 +69,10 @@ public class DeckScreen : NetworkBehaviour
         }
 
         drawPile.Add(display);
+    }
+
+    public void Toggle()
+    {
+        screen.SetActive(!screen.activeInHierarchy);
     }
 }
