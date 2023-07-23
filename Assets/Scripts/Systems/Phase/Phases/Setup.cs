@@ -190,7 +190,25 @@ public class Setup : GamePhase
     void DisplayTeamPopup(NetworkConnection conn, Team team)
     {
         teamPopup = Instantiate(teamPopup);
-        teamPopup.GetComponent<Notification>().SetText($"You are a {team}");
+        if (team == Team.Wasp)
+        {
+            teamPopup.GetComponent<Notification>().SetText("<b>YOU ARE A WASP</b>\n\nStay hidden, sabotage missions, and find your target."); ;
+        }
+        else
+        {
+            string text = "<b>YOU ARE A BEE</b>\n\nSucceed missions, find allies, and don't let <b>anyone</b> know your role.";
+            
+            if (waspPlayers.Value.Count == 1)
+            {
+                text += "\nThere is 1 Wasp.";
+            }
+            else
+            {
+                text += $"\nThere are {waspPlayers.Value.Count} Wasps.";
+            }
+            teamPopup.GetComponent<Notification>().SetText(text);
+        }
+        
         float x = popupX.Value > 0 ? popupX : Screen.width/2;
         float y = popupY.Value > 0 ? popupY : Screen.height/2;
         teamPopup.transform.GetChild(0).position = new Vector3(x, y, 1);
