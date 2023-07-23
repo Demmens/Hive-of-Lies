@@ -10,6 +10,7 @@ public class MissionUI : NetworkBehaviour
 {
     #region CLIENT
     [SerializeField] GameObject missionUI;
+    [SerializeField] GameObject missionBar;
     [SerializeField] TMP_Text missionName;
     [SerializeField] TMP_Text missionFlavour;
 
@@ -92,7 +93,10 @@ public class MissionUI : NetworkBehaviour
         if (mission == null) return;
         missionUI.SetActive(true);
         missionName.text = mission.MissionName;
+        missionName.gameObject.SetActive(true);
         missionFlavour.text = mission.Description;
+        missionFlavour.gameObject.SetActive(true);
+        missionBar.SetActive(true);
 
         //Set these two effects manually because they need to be the effects at either side of the bar
         SetEffect(mission, mission.effects[0], difficultyMod, 0);
