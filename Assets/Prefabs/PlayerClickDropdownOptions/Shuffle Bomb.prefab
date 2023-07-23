@@ -152,7 +152,7 @@ MonoBehaviour:
   syncInterval: 0.1
   Owner: {fileID: 0}
   Text: 
-  text: {fileID: 0}
+  text: {fileID: 1542391497637909053}
 --- !u!114 &7846147404545523710
 MonoBehaviour:
   m_ObjectHideFlags: 0
