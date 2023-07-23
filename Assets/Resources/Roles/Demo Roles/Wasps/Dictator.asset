@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dictator
   m_EditorClassIdentifier: 
   roleName: Dictator
-  description: Solitary. When you are on the mission, ignore negative votes.
+  description: When you are on the mission, ignore negative votes.
   sprite: 
   startingFavour: 10
   startingDeck:

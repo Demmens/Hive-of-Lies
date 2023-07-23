@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Sapper
   m_EditorClassIdentifier: 
   roleName: Sapper
-  description: Solitary. Shuffle a bomb into a players deck. When drawn, the mission
-    automatically fails
+  description: Shuffle a bomb into a players deck. When drawn, the mission automatically
+    fails
   sprite: 
   startingFavour: 11
   startingDeck:
