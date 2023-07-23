@@ -15,7 +15,7 @@ MonoBehaviour:
   roleName: Detective
   description: After the third round, learn the identity of a random Bee
   sprite: 
-  startingFavour: 10
+  startingFavour: 6
   startingDeck:
   - {fileID: 11400000, guid: ec6424a80d79cab468517dbf1fb77817, type: 2}
   - {fileID: 11400000, guid: 71bbcbdffc6ff2f43a68d8adbdb26557, type: 2}
