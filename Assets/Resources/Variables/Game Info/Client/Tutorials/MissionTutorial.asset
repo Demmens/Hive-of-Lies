@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 780ad668f99e6234cad74b485c9639cf, type: 3}
   m_Name: MissionTutorial
   m_EditorClassIdentifier: 
-  initialValue: 1
-  currentValue: 1
+  initialValue: 0
+  currentValue: 0
   Persistent: 1
   server: 0
   client: 1
