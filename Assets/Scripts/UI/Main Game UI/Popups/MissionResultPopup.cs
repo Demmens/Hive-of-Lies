@@ -79,7 +79,7 @@ public class MissionResultPopup : NetworkBehaviour
         effectTiers = new();
 
 
-        MissionEffectTier tier = currentMission.GetValidEffect(cardsTotal + difficulty);
+        MissionEffectTier tier = currentMission.GetValidEffect(cardsTotal - difficulty);
 
         foreach (MissionEffect effect in tier.effects)
         {
