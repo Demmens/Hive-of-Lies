@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionName: Research Wasps
   description: Flavour goes here
-  favourCost: 6
+  favourCost: 7
   effects:
   - value: 0
     effectFlavour: 
