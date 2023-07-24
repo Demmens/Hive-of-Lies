@@ -738,6 +738,8 @@ MonoBehaviour:
   dropdown: {fileID: 5609077721954127911, guid: a1e7e626a752c7e489df213af2ae64ab, type: 3}
   playerNameText: {fileID: 8493164326049361370}
   exhaustionUI: {fileID: 8521908829254969518}
+  button: {fileID: 6791660195485115019}
+  trafficLights: {fileID: 8102290754876271477, guid: 5e6034ed2fe207d4fabd7ec7e9e3d626, type: 3}
   isReady: {fileID: 563005560872905284}
   exhaustionObj: {fileID: 8525514177345010789}
   onMissionObj: {fileID: 1519748324308643275}
