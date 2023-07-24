@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Capital Bee
   m_EditorClassIdentifier: 
   roleName: Capital Bee
-  description: 
+  description: Starts with extra Favour
   sprite: 
   startingFavour: 20
   startingDeck:
