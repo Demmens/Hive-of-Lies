@@ -9,6 +9,7 @@ public class RoleCard : MonoBehaviour
     [SerializeField] TMP_Text Description;
     [SerializeField] TMP_Text Favour;
     [SerializeField] RectTransform cardPos;
+    public GameObject Tutorial;
 
     RoleData Data;
 

@@ -16,6 +16,9 @@ public class RoleUI : NetworkBehaviour
     [SerializeField] Color WaspColour;
     [SerializeField] Color BeeColour;
 
+    [SerializeField] GameObject screenCover;
+    [SerializeField] GameObject chooseRoleText;
+
     [SerializeField] FloatVariable cardXPosition;
     [SerializeField] FloatVariable cardYPosition;
     #endregion
@@ -59,6 +62,9 @@ public class RoleUI : NetworkBehaviour
     [TargetRpc]
     public void ReceiveRoleInfo(NetworkConnection conn, List<RoleData> roleChoices)
     {
+        if (screenCover != null) screenCover.SetActive(true);
+        if (chooseRoleText != null) chooseRoleText.SetActive(true);
+
         for (int i = 0; i < roleChoices.Count; i++)
         {
             GameObject card = Instantiate(RoleCard);
@@ -66,6 +72,7 @@ public class RoleUI : NetworkBehaviour
             cardScript.SetPos(GetCardPositionOnScreen(i, roleChoices.Count));
             cardScript.SetData(roleChoices[i]);
             cardScript.OnRoleCardClicked += RoleCardClicked;
+            if (i == 0) cardScript.Tutorial.SetActive(true);
             cards.Add(card);
         }
     }
@@ -73,6 +80,8 @@ public class RoleUI : NetworkBehaviour
     [Client]
     void RoleCardClicked(RoleData data)
     {
+        if (screenCover != null) screenCover.SetActive(false);
+        if (chooseRoleText != null) chooseRoleText.SetActive(false);
         foreach (GameObject card in cards)
         {
             Destroy(card);
