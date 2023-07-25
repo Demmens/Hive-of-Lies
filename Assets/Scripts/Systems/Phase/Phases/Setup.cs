@@ -147,7 +147,7 @@ public class Setup : GamePhase
         i += seatingCounts.Item4;
         if (currentPlayer < i)
         {
-            button.transform.SetParent(bottomPlayerRow);
+            button.transform.SetParent(leftPlayerRow);
             return;
         }
 
