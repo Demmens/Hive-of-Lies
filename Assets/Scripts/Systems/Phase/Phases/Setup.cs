@@ -129,10 +129,6 @@ public class Setup : GamePhase
         i += seatingCounts.Item2;
         if (currentPlayer < i)
         {
-            Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
-
-            imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
-
             button.transform.SetParent(rightPlayerRow);
             return;
         }
@@ -148,6 +144,9 @@ public class Setup : GamePhase
         if (currentPlayer < i)
         {
             button.transform.SetParent(leftPlayerRow);
+            Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
+
+            imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
             return;
         }
 
