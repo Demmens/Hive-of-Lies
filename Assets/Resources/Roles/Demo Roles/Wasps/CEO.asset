@@ -15,7 +15,7 @@ MonoBehaviour:
   roleName: CEO
   description: While you are the Team Leader, all other players on the mission perform
     worse.
-  sprite: 
+  sprite: {fileID: 21300000, guid: 14cc32ba5f75d5b458655f602ad52046, type: 3}
   startingFavour: 6
   startingDeck:
   - {fileID: 11400000, guid: ec6424a80d79cab468517dbf1fb77817, type: 2}
