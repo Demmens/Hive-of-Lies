@@ -19,17 +19,14 @@ MonoBehaviour:
   effects:
   - value: 0
     effectFlavour: 
-    effects: []
+    effects:
+    - {fileID: 11400000, guid: 2381eed0cf403e84891a61b5da3e92f6, type: 2}
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
     plotPoints: []
-  - value: 0
+  - value: 4
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: 2381eed0cf403e84891a61b5da3e92f6, type: 2}
-    plotPoints: []
-  - value: 6
-    effectFlavour: 
-    effects:
-    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0
