@@ -196,12 +196,12 @@ public class Setup : GamePhase
                 beePlayers.Add(ply);
             }
 
-            DisplayTeamPopup(ply.connectionToClient, ply.Team);
+            DisplayTeamPopup(ply.connectionToClient, ply.Team, waspPlayers.Value.Count);
         });
     }
 
     [TargetRpc]
-    void DisplayTeamPopup(NetworkConnection conn, Team team)
+    void DisplayTeamPopup(NetworkConnection conn, Team team, int waspCount)
     {
         teamPopup = Instantiate(teamPopup);
         if (team == Team.Wasp)
@@ -218,7 +218,7 @@ public class Setup : GamePhase
             }
             else
             {
-                text += $"\nThere are {waspPlayers.Value.Count} Wasps.";
+                text += $"\nThere are {waspCount} Wasps.";
             }
             teamPopup.GetComponent<Notification>().SetText(text);
         }
