@@ -58,14 +58,14 @@ public class HoLNetworkManager : NetworkManager
     /// </summary>
     /// <param name="conn"></param>
     [Server]
-    public override void OnServerAddPlayer(NetworkConnection conn)
+    public void OnPlayerJoin(NetworkConnection conn)
     {
-        Debug.Log($"Player {SteamFriends.GetFriendPersonaName(SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize-1))} connected");
+        Debug.Log($"Player {SteamFriends.GetFriendPersonaName(SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize - 1))} connected");
 
         if (SceneManager.GetActiveScene().path == GameScene)
         {
             HoLPlayer ply = null;
-            ulong id = (ulong) SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize-1);
+            ulong id = (ulong)SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize - 1);
 
             foreach (HoLPlayer i in allPlayers.Value)
             {
@@ -86,11 +86,10 @@ public class HoLNetworkManager : NetworkManager
             onServerConnect?.Invoke(conn);
         }
 
-
         if (SceneManager.GetActiveScene().path == LobbyScene)
         {
-            CreatePlayer(conn, (ulong) SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize-1));
-            
+            CreatePlayer(conn, (ulong)SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize - 1));
+
             onServerConnect?.Invoke(conn);
         }
     }
@@ -107,7 +106,7 @@ public class HoLNetworkManager : NetworkManager
         NetworkServer.AddPlayerForConnection(conn, ply.gameObject);
     }
 
-    void CreatePlayer(NetworkConnection conn, ulong id)
+    public void CreatePlayer(NetworkConnection conn, ulong id)
     {
         HoLPlayer ply = Instantiate(GamePlayerPrefab);
 
@@ -191,6 +190,8 @@ public class HoLNetworkManager : NetworkManager
         base.OnServerReady(conn);
 
         Debug.Log("Client loaded the scene");
+
+        OnPlayerJoin(conn);
 
         if (SceneManager.GetActiveScene().path != GameScene) return;
 
