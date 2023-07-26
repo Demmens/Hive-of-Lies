@@ -21,7 +21,7 @@ MonoBehaviour:
     effects:
     - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
     plotPoints: []
-  - value: 5
+  - value: 4
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: 9d99aca7a45cad64a9dcdc38a0ab812c, type: 2}
