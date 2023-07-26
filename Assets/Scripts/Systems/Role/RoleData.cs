@@ -23,7 +23,7 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="Sprite"/>
     /// </summary>
-    [SerializeField] string sprite;
+    [SerializeField] Sprite sprite;
 
     /// <summary>
     /// Private counterpart to <see cref="StartingFavour"/>
@@ -83,7 +83,7 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// Sprite used for the role UI
     /// </summary>
-    public string Sprite
+    public Sprite Sprite
     {
         get
         {
