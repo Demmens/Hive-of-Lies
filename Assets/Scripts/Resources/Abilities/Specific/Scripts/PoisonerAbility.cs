@@ -28,7 +28,7 @@ public class PoisonerAbility : RoleAbility
         btn.SetCost(cost);
         btn.OnClicked += ClickedButton;
         btn.SetText("Poison");
-        btn.SetPos(new Vector3(750, 95, 0));
+        button.transform.SetParent(ScreenCoords.RoleButtonParent);
     }
 
     public void OnVoteStart()
