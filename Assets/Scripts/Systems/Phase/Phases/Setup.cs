@@ -118,10 +118,18 @@ public class Setup : GamePhase
         if (!seats.TryGetValue(maxPlayers, out (int, int, int, int) seatingCounts)) return;
 
         int i = 0;
+        int seatNum = 0;
 
         i += seatingCounts.Item1;
         if (currentPlayer < i) 
         {
+            seatNum = currentPlayer;
+
+            if (seatNum < seatingCounts.Item1 / 2)
+            {
+                Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
+                imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
+            }
             button.transform.SetParent(topPlayerRow);
             return;
         }
@@ -136,6 +144,13 @@ public class Setup : GamePhase
         i += seatingCounts.Item3;
         if (currentPlayer < i)
         {
+            seatNum = seatingCounts.Item3 + currentPlayer - i;
+
+            if (seatNum < seatingCounts.Item3/2)
+            {
+                Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
+                imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
+            }
             button.transform.SetParent(bottomPlayerRow);
             return;
         }
@@ -144,8 +159,8 @@ public class Setup : GamePhase
         if (currentPlayer < i)
         {
             button.transform.SetParent(leftPlayerRow);
-            Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
 
+            Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
             imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
             return;
         }
