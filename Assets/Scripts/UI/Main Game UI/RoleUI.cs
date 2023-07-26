@@ -96,6 +96,7 @@ public class RoleUI : NetworkBehaviour
         RoleName.text = data.RoleName;
         RoleDescription.text = data.Description;
         RoleSprite.sprite = data.Sprite;
+        RoleSprite.gameObject.SetActive(true);
 
         AssignPlayerRole(data);
     }
