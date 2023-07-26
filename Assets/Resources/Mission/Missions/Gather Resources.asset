@@ -30,6 +30,7 @@ MonoBehaviour:
     effectFlavour: 
     effects:
     - {fileID: 11400000, guid: 8eade5410567fb14693326ca8dc358ed, type: 2}
+    - {fileID: 11400000, guid: 8eade5410567fb14693326ca8dc358ed, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0
