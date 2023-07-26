@@ -13,8 +13,10 @@ public class RoleUI : NetworkBehaviour
     [SerializeField] TMP_Text RoleName;
     [SerializeField] TMP_Text RoleDescription;
     [SerializeField] GameObject RoleCard;
-    [SerializeField] Color WaspColour;
-    [SerializeField] Color BeeColour;
+    [SerializeField] Image RoleSprite;
+    [SerializeField] Image RoleNameBackground;
+    [SerializeField] ColourVariable WaspColour;
+    [SerializeField] ColourVariable BeeColour;
 
     [SerializeField] GameObject screenCover;
     [SerializeField] GameObject chooseRoleText;
@@ -65,6 +67,10 @@ public class RoleUI : NetworkBehaviour
         if (screenCover != null) screenCover.SetActive(true);
         if (chooseRoleText != null) chooseRoleText.SetActive(true);
 
+        if (roleChoices[0].Team == Team.Bee) RoleNameBackground.color = BeeColour;
+        if (roleChoices[0].Team == Team.Wasp) RoleNameBackground.color = WaspColour;
+
+
         for (int i = 0; i < roleChoices.Count; i++)
         {
             GameObject card = Instantiate(RoleCard);
@@ -89,6 +95,7 @@ public class RoleUI : NetworkBehaviour
 
         RoleName.text = data.RoleName;
         RoleDescription.text = data.Description;
+        RoleSprite.sprite = data.Sprite;
 
         AssignPlayerRole(data);
     }
