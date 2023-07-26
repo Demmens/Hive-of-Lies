@@ -14,6 +14,7 @@ public class CardMissionUI : NetworkBehaviour
     [SerializeField] TMP_Text drawCost;
     [SerializeField] GameObject drawButton;
     [SerializeField] GameObject submitButton;
+    [SerializeField] IntVariable favour;
 
     [Tooltip("Returns true if the player is on the mission")]
     [SerializeField] BoolVariable isOnMission;
@@ -92,6 +93,7 @@ public class CardMissionUI : NetworkBehaviour
     void OnDrawCostChanged(NetworkConnection conn, int val)
     {
         drawCost.text = val.ToString();
+        drawButton.GetComponent<Button>().interactable = val <= favour;
     }
 
     /// <summary>

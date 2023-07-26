@@ -270,6 +270,7 @@ MonoBehaviour:
   drawCost: {fileID: 1649619071214351667}
   drawButton: {fileID: 4085610580250013912}
   submitButton: {fileID: 4085610581528504281}
+  favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
   isOnMission: {fileID: 11400000, guid: b9f406dffbe4a27409cd0aa785114640, type: 2}
   roundNum: {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
   missionDifficulty: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
