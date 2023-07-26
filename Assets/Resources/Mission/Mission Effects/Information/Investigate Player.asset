@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Investigate Player
   m_EditorClassIdentifier: 
   description: Investigate Player
+  Icon: {fileID: 21300000, guid: 85425d7d1d2ce354cb3abcd2d8eea8dd, type: 3}
   type: 2
-  missionEffectBehaviour: {fileID: 6302659205889366563, guid: 2f72b272c52c08d4daa80959b0e07e3d,
-    type: 3}
+  missionEffectBehaviour: {fileID: 6302659205889366563, guid: 2f72b272c52c08d4daa80959b0e07e3d, type: 3}
