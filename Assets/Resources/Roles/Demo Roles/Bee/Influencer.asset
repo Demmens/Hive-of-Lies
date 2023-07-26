@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roleName: Influencer
   description: Your votes are doubled
-  sprite: 
+  sprite: {fileID: 21300000, guid: 9f987bc44b10bfb428db901fc445c554, type: 3}
   startingFavour: 15
   startingDeck:
   - {fileID: 11400000, guid: ec6424a80d79cab468517dbf1fb77817, type: 2}
