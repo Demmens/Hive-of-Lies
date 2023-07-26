@@ -10,6 +10,7 @@ public class Sting : NetworkBehaviour
     [SerializeField] HoLPlayerSet alivePlayers;
     [SerializeField] HoLPlayerSet beePlayers;
     [SerializeField] HoLPlayerSet waspPlayers;
+    [SerializeField] HoLPlayerSet playersOnMission;
     [SerializeField] HoLPlayerDictionary playersByConnection;
     [SerializeField] NetworkingEvent playerWins;
     [SerializeField] Transform stingReticleCanvas;
@@ -71,10 +72,36 @@ public class Sting : NetworkBehaviour
         SetClientTarget(ply.connectionToClient, role.RoleName, role.Description);
     }
 
+    [Server]
+    public void OnMissionStart()
+    {
+        foreach (HoLPlayer wasp in waspPlayers.Value)
+        {
+            if (playersOnMission.Value.Contains(wasp)) SetStingInteractable(wasp.connectionToClient, true);
+        }
+    }
+
+    [Server]
+    public void OnMissionEnd()
+    {
+        foreach (HoLPlayer wasp in waspPlayers.Value)
+        {
+            SetStingInteractable(wasp.connectionToClient, false);
+        }
+    }
+
+    [TargetRpc]
+    void SetStingInteractable(NetworkConnection conn, bool active)
+    {
+        if (favour < stingCost) return;
+        stingButton.GetComponent<UnityEngine.UI.Button>().interactable = active;
+    }
+
     [TargetRpc]
     void SetClientTarget(NetworkConnection conn, string targetName, string targetDescription)
     {
         stingButton.SetActive(true);
+        stingButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
         GameObject popup = Instantiate(stingPopup);
         popup.GetComponent<Notification>().SetText($"Your target is the {targetName}:\n{targetDescription}");
         targetText.text = targetName.ToUpper() + "\n" + targetDescription;
@@ -100,6 +127,7 @@ public class Sting : NetworkBehaviour
     {
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
         if (ply.Team == Team.Bee) return;
+        if (!playersOnMission.Value.Contains(ply)) return;
 
         ply.Favour.Value -= stingCost;
         //GameObject ret = Instantiate(reticle);
@@ -107,8 +135,12 @@ public class Sting : NetworkBehaviour
 
         OnPlayerSting();
 
-        foreach (HoLPlayer pl in alivePlayers.Value)
+        foreach (HoLPlayer pl in playersOnMission.Value)
         {
+#if !UNITY_EDITOR
+            //Can't sting yourself
+            if (pl == ply) continue;
+#endif
             PlayerButtonDropdownItem item = pl.Button.AddDropdownItem(dropdownButton, ply);
             item.OnItemClicked += (tgt) => StingTargetDecided(ply,tgt);
             item.OnItemClicked += (tgt) => Destroy(item);
