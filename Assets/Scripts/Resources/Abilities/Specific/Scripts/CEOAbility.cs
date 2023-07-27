@@ -26,16 +26,17 @@ public class CEOAbility : RoleAbility
 
         if (deck.DrawPile.Count < 2) return;
 
-        int cardToDraw = 1;
+        int cardToPlaceOnBottom = 1;
 
+        //If the second card is a worse draw than the first card
         if (deck.DrawPile[1].TempValue < deck.DrawPile[0].TempValue)
         {
             card = deck.DrawPile[1];
-            cardToDraw = 0;
+            cardToPlaceOnBottom = 0;
         }
   
-        deck.DrawPile.Add(deck.DrawPile[cardToDraw]);
-        deck.DrawPile.RemoveAt(cardToDraw);
+        deck.DrawPile.Add(deck.DrawPile[cardToPlaceOnBottom]);
+        deck.DrawPile.RemoveAt(cardToPlaceOnBottom);
 
     }
 
