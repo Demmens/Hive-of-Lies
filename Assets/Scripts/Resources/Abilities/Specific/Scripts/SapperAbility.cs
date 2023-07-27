@@ -7,9 +7,9 @@ public class SapperAbility : RoleAbility
 {
     #region CLIENT
     [SerializeField] GameObject popup;
-    [SerializeField] GameObject dropdownButton;
     #endregion
     #region SERVER
+    [SerializeField] GameObject dropdownButton;
     [SerializeField] HoLPlayerSet alivePlayers;
     [SerializeField] Card bombCard;
     List<PlayerButtonDropdownItem> shuffleButtons = new();
@@ -20,6 +20,12 @@ public class SapperAbility : RoleAbility
     {
         GameObject pop = Instantiate(popup);
         pop.GetComponent<Notification>().SetText("Choose a player. Shuffle a bomb into that players deck.");
+        CreateDropdownOption();
+    }
+
+    [Command]
+    void CreateDropdownOption()
+    {
         foreach (HoLPlayer ply in alivePlayers.Value)
         {
             PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(dropdownButton, Owner);
@@ -29,7 +35,7 @@ public class SapperAbility : RoleAbility
         }
     }
 
-    [Command]
+    [Server]
     void PlayerChosen(HoLPlayer player)
     {
         if (player.Deck.Value != null) ShuffleBomb(player);
