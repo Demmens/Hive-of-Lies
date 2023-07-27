@@ -38,6 +38,15 @@ public class CardMissionUI : NetworkBehaviour
 
     #endregion
 
+    private void Start()
+    {
+        allPlayers.AfterItemRemoved += (ply) => 
+        {
+            playerPlayed?.Invoke(ply.connectionToClient);
+            ForceCloseUI(ply.connectionToClient);
+        };
+    }
+
     [Server]
     public void AfterDeckCreated()
     {
@@ -108,6 +117,12 @@ public class CardMissionUI : NetworkBehaviour
 
     [ClientRpc]
     public void CloseUI()
+    {
+        UI.SetActive(false);
+    }
+
+    [TargetRpc]
+    void ForceCloseUI(NetworkConnection conn)
     {
         UI.SetActive(false);
     }

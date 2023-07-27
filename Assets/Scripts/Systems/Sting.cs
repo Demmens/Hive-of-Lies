@@ -168,6 +168,8 @@ public class Sting : NetworkBehaviour
             return;
         }
 
+        OnStingIncorrect();
+
         alivePlayers.Remove(stinger);
         playersByConnection.Value.Remove(stinger.connectionToClient);
         stinger.IsAlive.Value = false;
