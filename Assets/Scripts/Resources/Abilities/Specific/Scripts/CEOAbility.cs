@@ -34,7 +34,7 @@ public class CEOAbility : RoleAbility
             cardToDraw = 0;
         }
   
-        deck.DiscardPile.Add(deck.DrawPile[cardToDraw]);
+        deck.DrawPile.Add(deck.DrawPile[cardToDraw]);
         deck.DrawPile.RemoveAt(cardToDraw);
 
     }
