@@ -67,6 +67,7 @@ public class RoleUI : NetworkBehaviour
         if (screenCover != null) screenCover.SetActive(true);
         if (chooseRoleText != null) chooseRoleText.SetActive(true);
 
+        if (roleChoices.Count == 0) Debug.LogError("Player has no role choices");
         if (roleChoices[0].Team == Team.Bee) RoleNameBackground.color = BeeColour;
         if (roleChoices[0].Team == Team.Wasp) RoleNameBackground.color = WaspColour;
 
