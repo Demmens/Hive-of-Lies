@@ -91,7 +91,7 @@ public class DecideMission : GamePhase
 
         decidedMissionList.Value = list;
 
-        playerCount.AfterVariableChanged += (val) => { if (Active && TotalVotes.Count >= playerCount) DetermineMission(); }
+        playerCount.AfterVariableChanged += (val) => { if (Active && TotalVotes.Count >= playerCount) DetermineMission(); };
     }
 
     /// <summary>
