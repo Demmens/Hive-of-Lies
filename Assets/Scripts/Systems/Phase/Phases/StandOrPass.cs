@@ -72,6 +72,8 @@ public class StandOrPass : GamePhase
                 pair.Value.Button.ChangeTeamLeader(pair.Value == teamLeader.Value);
             }
         };
+
+        playerCount.AfterVariableChanged += (val) => { if ( Active && standingPlayers.Value.Count + passedPlayers.Value.Count == playerCount) ReceiveResults(); };
     }
 
     public override void Begin()
