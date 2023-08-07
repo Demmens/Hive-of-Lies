@@ -225,9 +225,7 @@ GameObject:
   - component: {fileID: 5890783321095297661}
   - component: {fileID: 1538004242011768218}
   - component: {fileID: 1614399783026997193}
-  - component: {fileID: 4986477598634220744}
-  - component: {fileID: 4286455912167884943}
-  - component: {fileID: 3537372202408569453}
+  - component: {fileID: -2178414748425664089}
   m_Layer: 5
   m_Name: Sting
   m_TagString: Untagged
@@ -298,6 +296,7 @@ MonoBehaviour:
   stingReticleCanvas: {fileID: 0}
   dropdownButton: {fileID: 8102290754876271477, guid: c56f7351edf8087469ca6da272d05755, type: 3}
   isAlive: {fileID: 11400000, guid: 3650ca7e2039a914fbfedaf1fcf718b1, type: 2}
+  onMission: {fileID: 11400000, guid: b9f406dffbe4a27409cd0aa785114640, type: 2}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
   stingPopup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
   targetText: {fileID: 8045363945042011534}
@@ -335,36 +334,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4986477598634220744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788812171297553792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed52cf641607ad44e8f6d9aa8020d25d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Events:
-  - {fileID: 11400000, guid: e1db643ebc7f2c5428bd62f8391b0287, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1538004242011768218}
-        m_TargetAssemblyTypeName: Sting, Assembly-CSharp
-        m_MethodName: PlayerClicked
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4286455912167884943
+--- !u!114 &-2178414748425664089
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -378,41 +348,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Events:
   - {fileID: 11400000, guid: 84bfa7269e26ce64280be9e1b752ac5b, type: 2}
+  - {fileID: 11400000, guid: 914730a4f1ae32e48a805cac0393c615, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1538004242011768218}
         m_TargetAssemblyTypeName: Sting, Assembly-CSharp
-        m_MethodName: OnMissionStart
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3537372202408569453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788812171297553792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Events:
-  - {fileID: 11400000, guid: 12992b83150649a40b0b24a5c8950cc8, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1538004242011768218}
-        m_TargetAssemblyTypeName: Sting, Assembly-CSharp
-        m_MethodName: OnMissionEnd
+        m_MethodName: ToggleStingLocked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
