@@ -144,7 +144,7 @@ public class RoleUI : NetworkBehaviour
         ply.Role.Value = role;
         ply.Favour.Value += data.StartingFavour;
 
-        if (allRoles.Value.Count == playerCount) allPlayersChosenRoles?.Invoke();
+        if (allRoles.Value.Count == playerCount) StartCoroutine(Coroutines.Delay(() => allPlayersChosenRoles?.Invoke()));
     }
 
     Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
