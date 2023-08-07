@@ -90,6 +90,8 @@ public class DecideMission : GamePhase
         list.AddThreads(ignoreOriginSize: true);
 
         decidedMissionList.Value = list;
+
+        playerCount.AfterVariableChanged += (val) => { if (Active && TotalVotes.Count >= playerCount) DetermineMission(); }
     }
 
     /// <summary>
