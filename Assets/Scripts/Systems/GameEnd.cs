@@ -22,6 +22,8 @@ public class GameEnd : NetworkBehaviour
 
     [SerializeField] HoLPlayerDictionary playersByConnection;
 
+    [SerializeField] HoLPlayerSet waspPlayers;
+
     [SerializeField] GameObject gameEndScreen;
 
     bool hasWon;
@@ -37,6 +39,11 @@ public class GameEnd : NetworkBehaviour
         ResearchProgress.AfterVariableChanged += change =>
         {
             if (change >= ResearchNeededForWin) StartCoroutine(Coroutines.Delay(BeesWin));
+        };
+
+        waspPlayers.AfterItemRemoved += (item) =>
+        {
+            if (waspPlayers.Value.Count == 0) BeesWin();
         };
     }
 
