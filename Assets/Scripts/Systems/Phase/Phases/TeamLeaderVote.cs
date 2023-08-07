@@ -36,6 +36,11 @@ public class TeamLeaderVote : GamePhase
     [Tooltip("The UI associated with this game phase")]
     [SerializeField] VoteUI UI;
 
+    private void Start()
+    {
+        playerCount.AfterVariableChanged += (val) => { if (allVotes.Value.Count == playerCount) AllVotesReceived(); };
+    }
+
     public override void Begin()
     {
         allVotes.Value = new();
