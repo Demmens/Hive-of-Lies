@@ -22,6 +22,8 @@ public class StandOrPassUI : NetworkBehaviour
     int standCost;
     #endregion
     #region SERVER
+    [Tooltip("The set of currently alive players")]
+    [SerializeField] HoLPlayerSet alivePlayers;
     [Tooltip("The currently active mission")]
     [SerializeField] MissionVariable currentMission;
     [Tooltip("Invoked when a client stands for team leader")]
@@ -33,11 +35,14 @@ public class StandOrPassUI : NetworkBehaviour
     [Server]
     public void StandOrPassBegin()
     {
-        SendUI(currentMission.Value.FavourCost);
+        foreach (HoLPlayer ply in alivePlayers.Value)
+        {
+            SendUI(ply.connectionToClient, ply.NextStandCost);
+        }
     }
 
-    [ClientRpc]
-    void SendUI(int cost)
+    [TargetRpc]
+    void SendUI(NetworkConnection conn, int cost)
     {
         standCost = cost;
         phaseBegun = true;

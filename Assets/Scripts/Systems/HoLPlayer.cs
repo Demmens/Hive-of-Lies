@@ -54,6 +54,11 @@ public class HoLPlayer : NetworkBehaviour
     public IntVariable NextDownvoteCost;
 
     /// <summary>
+    /// How much favour it costs to stand for Team Leader
+    /// </summary>
+    public IntVariable NextStandCost;
+
+    /// <summary>
     /// How many votes this player is currently deciding to give
     /// </summary>
     public IntVariable NumVotes;
@@ -105,6 +110,7 @@ public class HoLPlayer : NetworkBehaviour
         NextDrawCost = ScriptableObject.CreateInstance<IntVariable>();
         NextUpvoteCost = ScriptableObject.CreateInstance<IntVariable>();
         NextDownvoteCost = ScriptableObject.CreateInstance<IntVariable>();
+        NextStandCost = ScriptableObject.CreateInstance<IntVariable>();
         NumVotes = ScriptableObject.CreateInstance<IntVariable>();
         Deck = ScriptableObject.CreateInstance<DeckVariable>();
         NumDraws = ScriptableObject.CreateInstance<IntVariable>();

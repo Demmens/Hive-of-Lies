@@ -1005,6 +1005,7 @@ MonoBehaviour:
   StandButton: {fileID: 719046155352673411}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
   alive: {fileID: 11400000, guid: 3650ca7e2039a914fbfedaf1fcf718b1, type: 2}
+  alivePlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
   onPlayerStood: {fileID: 11400000, guid: 1c0f947f8ad169c4e903f607891850d6, type: 2}
   onPlayerPassed: {fileID: 11400000, guid: 54435d5eb0dfcd248a2238c548a205bb, type: 2}
