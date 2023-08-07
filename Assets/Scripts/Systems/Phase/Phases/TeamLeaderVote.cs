@@ -38,7 +38,7 @@ public class TeamLeaderVote : GamePhase
 
     private void Start()
     {
-        playerCount.AfterVariableChanged += (val) => { if (allVotes.Value.Count == playerCount) AllVotesReceived(); };
+        playerCount.AfterVariableChanged += (val) => { if (Active && allVotes.Value.Count == playerCount) AllVotesReceived(); };
     }
 
     public override void Begin()
