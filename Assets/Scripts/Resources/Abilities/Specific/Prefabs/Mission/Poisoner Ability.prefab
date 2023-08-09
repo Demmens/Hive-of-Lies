@@ -69,7 +69,7 @@ MonoBehaviour:
   active: 1
   cost: 5
   maxDraw: -1
-  numPoisonedDraws: 2
+  numPoisonedDraws: 1
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
   voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
   button: {fileID: 1107423568599795120, guid: 636febd51049eaf408fc7d1172356028, type: 3}
