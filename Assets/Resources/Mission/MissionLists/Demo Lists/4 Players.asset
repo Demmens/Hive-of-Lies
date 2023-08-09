@@ -18,28 +18,28 @@ MonoBehaviour:
   List:
   - Missions:
     - Mission: {fileID: 11400000, guid: d4f256e670b4e7744a80b580131f55c6, type: 2}
-      Weight: 0
+      Weight: 1
   - Missions:
     - Mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
-      Weight: 0
+      Weight: 1
   - Missions:
     - Mission: {fileID: 11400000, guid: 1afd3770df4f294489a1cba2d3647364, type: 2}
-      Weight: 0
+      Weight: 1
   - Missions:
     - Mission: {fileID: 11400000, guid: cc778781c651e684f9bba22270a234b7, type: 2}
-      Weight: 0
+      Weight: 1
   - Missions:
     - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
-      Weight: 0
+      Weight: 1
   - Missions:
     - Mission: {fileID: 11400000, guid: d9a9ed8c9b582554e8c62370ca32b2f7, type: 2}
-      Weight: 0
+      Weight: 1
   - Missions:
     - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
-      Weight: 0
+      Weight: 1
   - Missions:
     - Mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
-      Weight: 0
+      Weight: 1
   - Missions:
-    - Mission: {fileID: 11400000, guid: 011299bff98885147a2ce7d29701c10b, type: 2}
-      Weight: 0
+    - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
+      Weight: 1
