@@ -211,14 +211,15 @@ public class Setup : GamePhase
         else
         {
             string text = "<b>YOU ARE A BEE</b>\n\nSucceed missions, find allies, and don't let <b>anyone</b> know your role.";
+            int waspTotal = Mathf.FloorToInt(playerCount * traitorRatio);
             
-            if (waspPlayers.Value.Count == 1)
+            if (waspTotal == 1)
             {
                 text += "\nThere is 1 Wasp.";
             }
             else
             {
-                text += $"\nThere are {waspCount} Wasps.";
+                text += $"\nThere are {waspTotal} Wasps.";
             }
             teamPopup.GetComponent<Notification>().SetText(text);
         }
