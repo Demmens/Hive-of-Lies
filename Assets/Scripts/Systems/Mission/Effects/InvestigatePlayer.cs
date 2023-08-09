@@ -55,7 +55,7 @@ public class InvestigatePlayer : MissionEffectBehaviour
     /// </summary>
     /// <param name="conn"></param>
     /// <param name="msg"></param>
-    [Command]
+    [Server]
     private void OnInvestigated(HoLPlayer ply)
     {
         foreach (PlayerButtonDropdownItem button in buttons)

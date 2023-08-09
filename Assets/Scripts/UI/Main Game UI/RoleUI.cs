@@ -13,8 +13,13 @@ public class RoleUI : NetworkBehaviour
     [SerializeField] TMP_Text RoleName;
     [SerializeField] TMP_Text RoleDescription;
     [SerializeField] GameObject RoleCard;
-    [SerializeField] Color WaspColour;
-    [SerializeField] Color BeeColour;
+    [SerializeField] Image RoleSprite;
+    [SerializeField] Image RoleNameBackground;
+    [SerializeField] ColourVariable WaspColour;
+    [SerializeField] ColourVariable BeeColour;
+
+    [SerializeField] GameObject screenCover;
+    [SerializeField] GameObject chooseRoleText;
 
     [SerializeField] FloatVariable cardXPosition;
     [SerializeField] FloatVariable cardYPosition;
@@ -59,6 +64,14 @@ public class RoleUI : NetworkBehaviour
     [TargetRpc]
     public void ReceiveRoleInfo(NetworkConnection conn, List<RoleData> roleChoices)
     {
+        if (screenCover != null) screenCover.SetActive(true);
+        if (chooseRoleText != null) chooseRoleText.SetActive(true);
+
+        if (roleChoices.Count == 0) Debug.LogError("Player has no role choices");
+        if (roleChoices[0].Team == Team.Bee) RoleNameBackground.color = BeeColour;
+        if (roleChoices[0].Team == Team.Wasp) RoleNameBackground.color = WaspColour;
+
+
         for (int i = 0; i < roleChoices.Count; i++)
         {
             GameObject card = Instantiate(RoleCard);
@@ -66,6 +79,7 @@ public class RoleUI : NetworkBehaviour
             cardScript.SetPos(GetCardPositionOnScreen(i, roleChoices.Count));
             cardScript.SetData(roleChoices[i]);
             cardScript.OnRoleCardClicked += RoleCardClicked;
+            if (i == 0) cardScript.Tutorial.SetActive(true);
             cards.Add(card);
         }
     }
@@ -73,6 +87,8 @@ public class RoleUI : NetworkBehaviour
     [Client]
     void RoleCardClicked(RoleData data)
     {
+        if (screenCover != null) screenCover.SetActive(false);
+        if (chooseRoleText != null) chooseRoleText.SetActive(false);
         foreach (GameObject card in cards)
         {
             Destroy(card);
@@ -80,6 +96,8 @@ public class RoleUI : NetworkBehaviour
 
         RoleName.text = data.RoleName;
         RoleDescription.text = data.Description;
+        RoleSprite.sprite = data.Sprite;
+        RoleSprite.gameObject.SetActive(true);
 
         AssignPlayerRole(data);
     }
@@ -126,7 +144,7 @@ public class RoleUI : NetworkBehaviour
         ply.Role.Value = role;
         ply.Favour.Value += data.StartingFavour;
 
-        if (allRoles.Value.Count == playerCount) allPlayersChosenRoles?.Invoke();
+        if (allRoles.Value.Count == playerCount) StartCoroutine(Coroutines.Delay(() => allPlayersChosenRoles?.Invoke()));
     }
 
     Vector3 GetCardPositionOnScreen(int index, int cardsTotal)

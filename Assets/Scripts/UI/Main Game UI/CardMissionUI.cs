@@ -14,14 +14,10 @@ public class CardMissionUI : NetworkBehaviour
     [SerializeField] TMP_Text drawCost;
     [SerializeField] GameObject drawButton;
     [SerializeField] GameObject submitButton;
+    [SerializeField] IntVariable favour;
 
     [Tooltip("Returns true if the player is on the mission")]
     [SerializeField] BoolVariable isOnMission;
-
-    //Whether the client has closed the vote result popup yet
-    bool closedVotePopup;
-    //Whether the mission has started for the client yet
-    bool missionStartedYet;
     #endregion
     #region SERVER
 
@@ -42,6 +38,15 @@ public class CardMissionUI : NetworkBehaviour
 
     #endregion
 
+    private void Start()
+    {
+        allPlayers.AfterItemRemoved += (ply) => 
+        {
+            playerPlayed?.Invoke(ply.connectionToClient);
+            ForceCloseUI(ply.connectionToClient);
+        };
+    }
+
     [Server]
     public void AfterDeckCreated()
     {
@@ -52,26 +57,11 @@ public class CardMissionUI : NetworkBehaviour
         };
     }
 
-    /// <summary>
-    /// Called when the cards mission starts
-    /// </summary>
-    [ClientRpc]
-    public void ClientMissionStarted()
-    {
-        if (!isOnMission) return;
-        missionStartedYet = true;
-
-        if (!closedVotePopup) return;
-        UI.SetActive(true);
-        PlayerDrewCard();
-    }
-
     [Client]
     public void OnClosedVotePopup()
     {
-        closedVotePopup = true;
+        if (!isOnMission) return;
 
-        if (!missionStartedYet) return;
         UI.SetActive(true);
         PlayerDrewCard();
     }
@@ -112,6 +102,7 @@ public class CardMissionUI : NetworkBehaviour
     void OnDrawCostChanged(NetworkConnection conn, int val)
     {
         drawCost.text = val.ToString();
+        drawButton.GetComponent<Button>().interactable = val <= favour;
     }
 
     /// <summary>
@@ -121,13 +112,17 @@ public class CardMissionUI : NetworkBehaviour
     public void PlayCard()
     {
         UI.SetActive(false);
-        missionStartedYet = false;
-        closedVotePopup = false;
         PlayerPlayedCard();
     }
 
     [ClientRpc]
     public void CloseUI()
+    {
+        UI.SetActive(false);
+    }
+
+    [TargetRpc]
+    void ForceCloseUI(NetworkConnection conn)
     {
         UI.SetActive(false);
     }

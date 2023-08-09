@@ -22,6 +22,8 @@ public class StandOrPassUI : NetworkBehaviour
     int standCost;
     #endregion
     #region SERVER
+    [Tooltip("The set of currently alive players")]
+    [SerializeField] HoLPlayerSet alivePlayers;
     [Tooltip("The currently active mission")]
     [SerializeField] MissionVariable currentMission;
     [Tooltip("Invoked when a client stands for team leader")]
@@ -33,18 +35,19 @@ public class StandOrPassUI : NetworkBehaviour
     [Server]
     public void StandOrPassBegin()
     {
-        SendUI(currentMission.Value.FavourCost);
+        foreach (HoLPlayer ply in alivePlayers.Value)
+        {
+            SendUI(ply.connectionToClient, ply.NextStandCost);
+        }
     }
 
-    [ClientRpc]
-    void SendUI(int cost)
+    [TargetRpc]
+    void SendUI(NetworkConnection conn, int cost)
     {
         standCost = cost;
         phaseBegun = true;
         if (!closedMissionPopup) return;
         CreateUI(cost);
-        phaseBegun = false;
-        closedMissionPopup = false;
     }
 
     [Client]
@@ -54,8 +57,6 @@ public class StandOrPassUI : NetworkBehaviour
         if (!phaseBegun) return;
 
         CreateUI(standCost);
-        phaseBegun = false;
-        closedMissionPopup = false;
     }
 
     [Client]
@@ -73,6 +74,7 @@ public class StandOrPassUI : NetworkBehaviour
     {
         UI.SetActive(false);
         PlayerStood(standing);
+        phaseBegun = false;
     }
 
     [Command(requiresAuthority = false)]
@@ -86,5 +88,10 @@ public class StandOrPassUI : NetworkBehaviour
         {
             onPlayerPassed?.Invoke(conn);
         }
+    }
+
+    public void OnMissionStart()
+    {
+        closedMissionPopup = false;
     }
 }

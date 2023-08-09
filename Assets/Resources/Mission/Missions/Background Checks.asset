@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
+  m_Name: Background Checks
+  m_EditorClassIdentifier: 
+  missionName: Perform Background Checks
+  description: Thoroughly look into the history of one board member, looking for
+    any clues that might identify their loyalty.
+  favourCost: 6
+  effects:
+  - value: 0
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 2381eed0cf403e84891a61b5da3e92f6, type: 2}
+    - {fileID: 11400000, guid: a62254d8401216b46845c50ace93f83c, type: 2}
+    plotPoints: []
+  - value: 4
+    effectFlavour: 
+    effects:
+    - {fileID: 11400000, guid: 2381eed0cf403e84891a61b5da3e92f6, type: 2}
+    plotPoints: []
+  condition: {fileID: 0}
+  DifficultyMod: 0

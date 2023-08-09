@@ -10,6 +10,7 @@ public class DeckScreen : NetworkBehaviour
 
     #region Client
     [SerializeField] GameObject cardDisplay;
+    [SerializeField] GameObject screen;
     [SerializeField] Transform cardPool;
 
     List<CardDisplay> drawPile = new();
@@ -35,7 +36,6 @@ public class DeckScreen : NetworkBehaviour
     [TargetRpc]
     void CardRemoved(NetworkConnection conn, Card card)
     {
-        Debug.Log("Card removed");
         CardDisplay display = null;
 
         foreach (CardDisplay c in drawPile)
@@ -69,5 +69,10 @@ public class DeckScreen : NetworkBehaviour
         }
 
         drawPile.Add(display);
+    }
+
+    public void Toggle()
+    {
+        screen.SetActive(!screen.activeInHierarchy);
     }
 }

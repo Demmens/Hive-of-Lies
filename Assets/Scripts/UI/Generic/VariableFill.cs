@@ -17,27 +17,28 @@ public class VariableFill : NetworkBehaviour
 
     bool isFilling;
 
-
+    [Server]
     void Start()
     {
-        var.AfterVariableChanged += val => OnVariableChange();
-        varMax.AfterVariableChanged += val => OnVariableChange();
+        var.AfterVariableChanged += val => OnVariableChange(val, useVariableForMax ? varMax : intMax);
+        varMax.AfterVariableChanged += val => OnVariableChange(var, useVariableForMax ? val : intMax);
     }
 
     [ClientRpc]
-    void OnVariableChange()
+    void OnVariableChange(int value, int max)
     {
-        float max = (float)var.Value / (useVariableForMax ? varMax.Value : intMax);
-        StartCoroutine(Fill(image.fillAmount, max));
+        float maxFill = (float) value / max;
+        StartCoroutine(Fill(maxFill));
     }
 
-    IEnumerator Fill(float initialValue, float maxValue)
+    IEnumerator Fill(float maxValue)
     {
         //If it's currently filling, wait for it to finish
         while (isFilling)
         {
             yield return null;
         }
+        float initialValue = image.fillAmount;
 
         float time = 0;
         isFilling = true;
@@ -46,8 +47,10 @@ public class VariableFill : NetworkBehaviour
         {
             time += Time.deltaTime;
             float t = time / secondsToFill;
-            image.fillAmount = initialValue + ((maxValue - initialValue) * t);
+            image.fillAmount = initialValue + ((maxValue - initialValue) * Easing.GradualStartEnd(t));
             yield return null;
         }
+
+        isFilling = false;
     }
 }

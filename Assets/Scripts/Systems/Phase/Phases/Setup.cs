@@ -118,10 +118,18 @@ public class Setup : GamePhase
         if (!seats.TryGetValue(maxPlayers, out (int, int, int, int) seatingCounts)) return;
 
         int i = 0;
+        int seatNum = 0;
 
         i += seatingCounts.Item1;
         if (currentPlayer < i) 
         {
+            seatNum = currentPlayer;
+
+            if (seatNum < seatingCounts.Item1 / 2)
+            {
+                Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
+                imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
+            }
             button.transform.SetParent(topPlayerRow);
             return;
         }
@@ -129,10 +137,6 @@ public class Setup : GamePhase
         i += seatingCounts.Item2;
         if (currentPlayer < i)
         {
-            Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
-
-            imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
-
             button.transform.SetParent(rightPlayerRow);
             return;
         }
@@ -140,6 +144,13 @@ public class Setup : GamePhase
         i += seatingCounts.Item3;
         if (currentPlayer < i)
         {
+            seatNum = seatingCounts.Item3 + currentPlayer - i;
+
+            if (seatNum < seatingCounts.Item3/2)
+            {
+                Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
+                imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
+            }
             button.transform.SetParent(bottomPlayerRow);
             return;
         }
@@ -147,7 +158,10 @@ public class Setup : GamePhase
         i += seatingCounts.Item4;
         if (currentPlayer < i)
         {
-            button.transform.SetParent(bottomPlayerRow);
+            button.transform.SetParent(leftPlayerRow);
+
+            Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
+            imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
             return;
         }
 
@@ -182,15 +196,33 @@ public class Setup : GamePhase
                 beePlayers.Add(ply);
             }
 
-            DisplayTeamPopup(ply.connectionToClient, ply.Team);
+            DisplayTeamPopup(ply.connectionToClient, ply.Team, waspPlayers.Value.Count);
         });
     }
 
     [TargetRpc]
-    void DisplayTeamPopup(NetworkConnection conn, Team team)
+    void DisplayTeamPopup(NetworkConnection conn, Team team, int waspCount)
     {
         teamPopup = Instantiate(teamPopup);
-        teamPopup.GetComponent<Notification>().SetText($"You are a {team}");
+        if (team == Team.Wasp)
+        {
+            teamPopup.GetComponent<Notification>().SetText("<b>YOU ARE A WASP</b>\n\nStay hidden, sabotage missions, and find your target."); ;
+        }
+        else
+        {
+            string text = "<b>YOU ARE A BEE</b>\n\nSucceed missions, find allies, and don't let <b>anyone</b> know your role.";
+            
+            if (waspPlayers.Value.Count == 1)
+            {
+                text += "\nThere is 1 Wasp.";
+            }
+            else
+            {
+                text += $"\nThere are {waspCount} Wasps.";
+            }
+            teamPopup.GetComponent<Notification>().SetText(text);
+        }
+        
         float x = popupX.Value > 0 ? popupX : Screen.width/2;
         float y = popupY.Value > 0 ? popupY : Screen.height/2;
         teamPopup.transform.GetChild(0).position = new Vector3(x, y, 1);

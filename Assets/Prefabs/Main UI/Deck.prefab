@@ -215,10 +215,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7480496720367045647}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 430768154745678234}
+        m_TargetAssemblyTypeName: DeckScreen, Assembly-CSharp
+        m_MethodName: Toggle
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -261,6 +261,7 @@ MonoBehaviour:
   playersByConnection: {fileID: 11400000, guid: 727a441cdc88fb94daccad50d343bbc9, type: 2}
   isDrawPile: 1
   cardDisplay: {fileID: 8440538034046757044, guid: 78586a9f5f8732f43a61494830b9e1bb, type: 3}
+  screen: {fileID: 7480496720367045647}
   cardPool: {fileID: 3690401280835973987}
 --- !u!1 &1839224906318621298
 GameObject:

@@ -33,6 +33,9 @@ public class SteamLobby : MonoBehaviour
     /// </summary>
     public static int LobbySize => SteamMatchmaking.GetNumLobbyMembers(LobbyID);
 
+    [SerializeField] GameObject joiningBox;
+    [SerializeField] TMPro.TMP_Text joiningText;
+
     private void Start()
     {
         if (!SteamManager.Initialized) { return; }
@@ -58,6 +61,8 @@ public class SteamLobby : MonoBehaviour
 
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
+        joiningBox.SetActive(true);
+        joiningText.text = $"JOINING {SteamFriends.GetFriendPersonaName(callback.m_steamIDFriend).ToUpper()}'S GAME";
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }
 

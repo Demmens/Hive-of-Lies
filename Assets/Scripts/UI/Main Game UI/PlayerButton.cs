@@ -4,6 +4,7 @@ using UnityEngine;
 using Steamworks;
 using Mirror;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerButton : NetworkBehaviour
 {
@@ -26,8 +27,9 @@ public class PlayerButton : NetworkBehaviour
     #region CLIENT
     [SerializeField] GameObject dropdown;
     [SerializeField] TMPro.TMP_Text playerNameText;
-    [SerializeField] UnityEngine.UI.RawImage exhaustionUI;
 
+    [SerializeField] GameObject button;
+    [SerializeField] GameObject trafficLights;
     [SerializeField] GameObject isReady;
     [SerializeField] GameObject exhaustionObj;
     [SerializeField] GameObject onMissionObj;
@@ -43,6 +45,9 @@ public class PlayerButton : NetworkBehaviour
     {
         Debug.Log("Should be starting the client");
         dropdown = Instantiate(dropdown).transform.GetChild(0).gameObject;
+        trafficLights = Instantiate(trafficLights);
+        ClientAddDropdownItem(trafficLights);
+        trafficLights.GetComponent<TrafficLights>().colorClicked += ChangeButtonColour;
     }
 
     [Client]
@@ -56,6 +61,24 @@ public class PlayerButton : NetworkBehaviour
     void ChangeOwner(string name)
     {
         playerNameText.text = name;
+    }
+
+    [Client]
+    void ChangeButtonColour(Color colour, Color textColour)
+    {        
+        Image img = button.GetComponent<Image>();
+
+        //If the same colour was clicked twice, reset it.
+        if (colour == img.color)
+        {
+            img.color = new Color(255 / 256f, 247 / 256f, 234 / 256f);
+            playerNameText.color = new Color(101 / 256f, 64 / 256f, 43 / 256f);
+        }
+        else
+        {
+            img.color = colour;
+            playerNameText.color = textColour;
+        }
     }
 
     /// <summary>

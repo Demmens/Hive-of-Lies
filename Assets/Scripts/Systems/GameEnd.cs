@@ -22,6 +22,8 @@ public class GameEnd : NetworkBehaviour
 
     [SerializeField] HoLPlayerDictionary playersByConnection;
 
+    [SerializeField] HoLPlayerSet waspPlayers;
+
     [SerializeField] GameObject gameEndScreen;
 
     bool hasWon;
@@ -31,12 +33,17 @@ public class GameEnd : NetworkBehaviour
     {
         HoneyStolen.AfterVariableChanged += change =>
         {
-            if (change >= HoneyNeededForWin) Coroutines.Delay(0, WaspsWin);
+            if (change >= HoneyNeededForWin) StartCoroutine(Coroutines.Delay(WaspsWin));
         };
 
         ResearchProgress.AfterVariableChanged += change =>
         {
-            if (change >= ResearchNeededForWin) Coroutines.Delay(0, BeesWin);
+            if (change >= ResearchNeededForWin) StartCoroutine(Coroutines.Delay(BeesWin));
+        };
+
+        waspPlayers.AfterItemRemoved += (item) =>
+        {
+            if (waspPlayers.Value.Count == 0) BeesWin();
         };
     }
 
@@ -48,7 +55,7 @@ public class GameEnd : NetworkBehaviour
         //If 3 honey is stolen at the same time as 3 wasp facts are learned, the bees don't win
         if (HoneyStolen >= HoneyNeededForWin) return;
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText("Bees Win");
+        screen.GetComponent<PlayAgainButton>().SetText("BEES WIN");
         NetworkServer.Spawn(screen);
     }
 
@@ -58,7 +65,7 @@ public class GameEnd : NetworkBehaviour
         if (hasWon) return;
         hasWon = true;
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText("Wasps Win");
+        screen.GetComponent<PlayAgainButton>().SetText("WASPS WIN");
         NetworkServer.Spawn(screen);
     }
 
@@ -68,7 +75,7 @@ public class GameEnd : NetworkBehaviour
         if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
 
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText($"{ply.DisplayName} won the game");
+        screen.GetComponent<PlayAgainButton>().SetText($"{ply.DisplayName.ToUpper()} WINS");
         NetworkServer.Spawn(screen);
     }
 }

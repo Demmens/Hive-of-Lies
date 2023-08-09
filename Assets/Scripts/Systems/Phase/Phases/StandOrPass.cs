@@ -72,6 +72,8 @@ public class StandOrPass : GamePhase
                 pair.Value.Button.ChangeTeamLeader(pair.Value == teamLeader.Value);
             }
         };
+
+        playerCount.AfterVariableChanged += (val) => { if ( Active && standingPlayers.Value.Count + passedPlayers.Value.Count == playerCount) ReceiveResults(); };
     }
 
     public override void Begin()
@@ -83,8 +85,6 @@ public class StandOrPass : GamePhase
         teamLeader.Value = null;
 
         standOrPassBegin?.Invoke();
-
-        
     }
 
     [Server]
@@ -96,13 +96,13 @@ public class StandOrPass : GamePhase
         //If the player hasn't stood or passed yet, show them the UI again
         if (standingPlayers.Value.Contains(ply) || passedPlayers.Value.Contains(ply)) return;
 
-        CreateUI(conn);
+        CreateUI(conn, ply.NextStandCost);
     }
 
     [TargetRpc]
-    void CreateUI(NetworkConnection conn)
+    void CreateUI(NetworkConnection conn, int cost)
     {
-        UI.CreateUI(currentMission.Value.FavourCost);
+        UI.CreateUI(cost);
     }
 
     /// <summary>
@@ -144,7 +144,7 @@ public class StandOrPass : GamePhase
         {
             standingPlayers.Add(ply);
             //Lose favour when you stand
-            ply.Favour.Value -= currentMission.Value.FavourCost;
+            ply.Favour.Value -= ply.NextStandCost;
             totalFavourOfStanding += ply.Favour.Value + favourWeightMod;
         }
         else passedPlayers.Add(ply);
@@ -207,7 +207,7 @@ public class StandOrPass : GamePhase
         {
             if (ply != teamLeader.Value)
             {
-                ply.Favour.Value += currentMission.Value.FavourCost;
+                ply.Favour.Value += ply.NextStandCost;
             }
         });
 

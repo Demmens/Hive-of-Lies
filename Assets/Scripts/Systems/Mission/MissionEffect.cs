@@ -7,6 +7,7 @@ public abstract class MissionEffect : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="Description"/>
     /// </summary>
+    [TextArea]
     [SerializeField] string description;
 
     public delegate void MissionEffectOver(MissionEffect effect);

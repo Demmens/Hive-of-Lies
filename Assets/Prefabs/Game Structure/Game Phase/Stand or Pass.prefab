@@ -118,10 +118,10 @@ MonoBehaviour:
   playersOnMission: {fileID: 11400000, guid: 6a71e0d5be0861a4db6391c90d6380d5, type: 2}
   players: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   standOrPassBegin: {fileID: 11400000, guid: e1a950189e0e6b64cafebfb2014d840d, type: 2}
-  UI: {fileID: 0}
   onAllPlayersStandOrPass: {fileID: 11400000, guid: 2c47f8474cfc9714fb6ed377ed951283, type: 2}
   onTeamLeaderVoteCounted: {fileID: 11400000, guid: 3b5ecf0abc4c75548b6e8979de4a094b, type: 2}
   onNobodyStood: {fileID: 11400000, guid: 9e185bd2bad3eab4682c4e9966f84820, type: 2}
+  UI: {fileID: 0}
 --- !u!114 &2258164925166796951
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -90,6 +90,8 @@ public class DecideMission : GamePhase
         list.AddThreads(ignoreOriginSize: true);
 
         decidedMissionList.Value = list;
+
+        playerCount.AfterVariableChanged += (val) => { if (Active && TotalVotes.Count >= playerCount) DetermineMission(); };
     }
 
     /// <summary>
@@ -274,6 +276,11 @@ public class DecideMission : GamePhase
         }
 
         currentMission.Value = DecidedMission ?? decidedMissionList.Value.List[missionListIndex].Missions[0].Mission;
+
+        foreach (KeyValuePair<NetworkConnection,HoLPlayer> pair in players.Value)
+        {
+            pair.Value.NextStandCost.Value = currentMission.Value.FavourCost;
+        }
 
         DestroyRemnantCards();
         End();

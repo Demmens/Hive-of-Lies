@@ -14,4 +14,13 @@ public class IntVariable : Variable<int>
         a.Value--;
         return a;
     }
+
+    /// <summary>
+    /// Mostly useful for being assigned to UnityEvents in the editor
+    /// </summary>
+    /// <param name="value"></param>
+    public void Modify(int value)
+    {
+        Value += value;
+    }
 }

@@ -52,6 +52,9 @@ public class TeamLeaderPickPartners : GamePhase
     [Tooltip("The button you need to click in order to lock in your choices")]
     [SerializeField] GameObject lockInButton;
 
+    [Tooltip("The text displaying how many players have been chosen for the mission")]
+    [SerializeField] GameObject chosenText;
+
     [Tooltip("The dropdown prefab to add a player to the mission")]
     [SerializeField] GameObject pickPlayerButton;
 
@@ -92,10 +95,18 @@ public class TeamLeaderPickPartners : GamePhase
 
         foreach (HoLPlayer ply in players.Value)
         {
+            //Can't pick yourself except for testing purposes
+#if !UNITY_EDITOR
+            if (ply == teamLeader.Value) continue;
+#endif
             CreateAddItem(ply);
         }
 
         teamLeaderCanPick?.Invoke();
+        SetLockInActive(teamLeader.Value.connectionToClient, true);
+        SetLockInInteractable(teamLeader.Value.connectionToClient, false);
+        SetPlayersChosen(teamLeader.Value.connectionToClient, 0, numPartners);
+        SetPlayersChosenActive(teamLeader.Value.connectionToClient, true);
     }
 
     public void OnServerConnected(NetworkConnection conn)
@@ -120,6 +131,9 @@ public class TeamLeaderPickPartners : GamePhase
     {
         if (playersSelected.Value.Count >= numPartners) return;
         if (playersSelected.Value.Contains(ply)) return;
+#if !UNITY_EDITOR
+        if (ply == teamLeader.Value) return;
+#endif
 
         Destroy(item);
         addItems.Remove(item);
@@ -128,7 +142,8 @@ public class TeamLeaderPickPartners : GamePhase
         Debug.Log($"{teamLeader.Value.DisplayName} has selected {ply.DisplayName}");
         playersSelected.Add(ply);
 
-        if (playersSelected.Value.Count >= numPlayersForLockIn) SetLockInActive(teamLeader.Value.connectionToClient, true);
+        if (playersSelected.Value.Count >= numPlayersForLockIn) SetLockInInteractable(teamLeader.Value.connectionToClient, true);
+        SetPlayersChosen(teamLeader.Value.connectionToClient, playersSelected.Value.Count, numPartners);
 
         if (playersSelected.Value.Count < numPartners) return;
 
@@ -155,7 +170,8 @@ public class TeamLeaderPickPartners : GamePhase
         Debug.Log($"{teamLeader.Value.DisplayName} has deselected {ply.DisplayName}");
         playersSelected.Remove(ply);
 
-        if (playersSelected.Value.Count < numPlayersForLockIn) SetLockInActive(teamLeader.Value.connectionToClient, false);
+        if (playersSelected.Value.Count < numPlayersForLockIn) SetLockInInteractable(teamLeader.Value.connectionToClient, false);
+        SetPlayersChosen(teamLeader.Value.connectionToClient, playersSelected.Value.Count, numPartners);
 
         if (playersSelected.Value.Count < numPartners - 1) return;
 
@@ -217,6 +233,7 @@ public class TeamLeaderPickPartners : GamePhase
         };
 
         SetLockInActive(conn, false);
+        SetPlayersChosenActive(conn, false);
 
         End();
     }
@@ -241,6 +258,24 @@ public class TeamLeaderPickPartners : GamePhase
     void SetLockInActive(NetworkConnection conn, bool active)
     {
         lockInButton.SetActive(active);
+    }
+
+    [TargetRpc]
+    void SetLockInInteractable(NetworkConnection conn, bool interactable)
+    {
+        lockInButton.GetComponent<UnityEngine.UI.Button>().interactable = interactable;
+    }
+
+    [TargetRpc]
+    void SetPlayersChosen(NetworkConnection conn, int currentChosen, int max)
+    {
+        chosenText.GetComponent<TMPro.TMP_Text>().text = $"PLAYERS CHOSEN ({currentChosen}/{max})";
+    }
+
+    [TargetRpc]
+    void SetPlayersChosenActive(NetworkConnection conn, bool active)
+    {
+        chosenText.SetActive(active);
     }
 
     [Server]

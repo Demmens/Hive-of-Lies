@@ -6,7 +6,19 @@ public class GenericButton : MonoBehaviour
 {
     [SerializeField] TMPro.TMP_Text text;
     [SerializeField] RectTransform pos;
+    [SerializeField] TMPro.TMP_Text cost;
+    [SerializeField] GameObject favourIcon;
+    [SerializeField] UnityEngine.UI.Button button;
+
+    [SerializeField] IntVariable favour;
+
+    int favourCost;
     public event System.Action OnClicked;
+
+    private void Start()
+    {
+        favour.AfterVariableChanged += (val) => { button.interactable = val >= favourCost; };
+    }
 
     public void Clicked()
     {
@@ -16,6 +28,13 @@ public class GenericButton : MonoBehaviour
     public void SetText(string txt)
     {
         text.text = txt;
+    }
+
+    public void SetCost(int f)
+    {
+        favourCost = f;
+        cost.text = f.ToString();
+        favourIcon.SetActive(true);
     }
 
     public void SetPos(Vector3 vec)

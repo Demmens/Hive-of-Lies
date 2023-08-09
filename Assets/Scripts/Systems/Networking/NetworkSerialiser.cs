@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using Mirror;
 using Steamworks;
 using UnityEngine.UI;
@@ -15,7 +14,21 @@ public static class NetworkSerialiser
     }
     public static RoleData ReadRoleData(this NetworkReader reader)
     {
-        return Resources.Load($"Roles/{reader.ReadString()}") as RoleData;
+        string roleName = reader.ReadString();
+        if (roleName == "")
+        {
+            return null;
+        }
+
+        RoleData[] roles = Resources.LoadAll<RoleData>("Roles");
+
+        foreach (RoleData role in roles)
+        {
+            if (role.name == roleName) return role;
+        }
+
+        Debug.LogError($"Cannot find the mission '{roleName}'. Check it's somewhere in the Scripts/Resources/Missions folder.");
+        return null;
     }
     #endregion
 
@@ -100,16 +113,26 @@ public static class NetworkSerialiser
         }
 
         //Write path instead of asset bc strings are much less network intensive
-        writer.WriteString(AssetDatabase.GetAssetPath(value));
+        writer.WriteString(value.name);
     }
 
     public static Sprite ReadSprite(this NetworkReader reader)
     {
-        string path = reader.ReadString();
+        string spriteName = reader.ReadString();
+        if (spriteName == "")
+        {
+            return null;
+        }
 
-        if (path == "") Debug.LogError("Could not find sprite");
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites");
 
-        return AssetDatabase.LoadAssetAtPath(path, typeof(Sprite)) as Sprite;
+        foreach (Sprite sprite in sprites)
+        {
+            if (sprite.name == spriteName) return sprite;
+        }
+
+        Debug.LogError($"Cannot find the sprite '{spriteName}'. Check it's somewhere in the Resources/Sprites folder.");
+        return null;
     }
     #endregion
 }

@@ -10,9 +10,9 @@ public class PoisonerAbility : RoleAbility
     #region SERVER
     [SerializeField] int cost = 5;
     [SerializeField] int maxDraw = -1;
+    [SerializeField] int numPoisonedDraws = 2;
     [SerializeField] HoLPlayerVariable teamLeader;
     [SerializeField] IntVariable voteTotal;
-    [SerializeField] IntVariable freeDraws;
     bool isPoisoned;
     #endregion
     #region CLIENT
@@ -24,18 +24,33 @@ public class PoisonerAbility : RoleAbility
     {
         button = Instantiate(button);
         button.SetActive(false);
+        GenericButton btn = button.GetComponent<GenericButton>();
+        btn.SetCost(cost);
+        btn.OnClicked += ClickedButton;
+        btn.SetText("Poison");
+        button.transform.SetParent(ScreenCoords.RoleButtonParent);
+    }
+
+    public void OnVoteStart()
+    {
+        SetButtonActive();
+
+        if (!isPoisoned) return;
+
+        teamLeader.Value.Deck.Value.BeforeDraw -= OnLeaderDraw;
+        isPoisoned = false;
     }
 
     [Server]
     public void OnVoteResult()
     {
-        //Only display the button if they actually got voted in
-        if (voteTotal <= 0) return;
-        SetButtonActive();
+        //Refund the cost if the vote failed
+        ClientVoteResult();
+        if (voteTotal <= 0 && isPoisoned) Owner.Favour.Value += cost;
     }
 
-    [Client]
-    public void VotePopupClosed()
+    [TargetRpc]
+    public void ClientVoteResult()
     {
         button.SetActive(false);
     }
@@ -51,12 +66,6 @@ public class PoisonerAbility : RoleAbility
         isPoisoned = true;
     }
 
-    public void OnMissionEnd()
-    {
-        if (!isPoisoned) return;
-        teamLeader.Value.Deck.Value.BeforeDraw -= OnLeaderDraw;
-    }
-
     [Server]
     public void OnLeaderDraw(ref Card card)
     {
@@ -64,7 +73,7 @@ public class PoisonerAbility : RoleAbility
 
         //If the card is already bad, we're happy.
         if (card.Value <= maxDraw) return;
-        if (teamLeader.Value.NumDraws > freeDraws) return;
+        if (teamLeader.Value.NumDraws > numPoisonedDraws) return;
 
         for (int i = 0; i < deck.DrawPile.Count; i++)
         {
@@ -76,10 +85,6 @@ public class PoisonerAbility : RoleAbility
     void SetButtonActive()
     {
         button.SetActive(true);
-        GenericButton btn = button.GetComponent<GenericButton>();
-        btn.OnClicked += ClickedButton;
-        btn.SetText($"{cost}f: Poison");
-        btn.SetPos(new Vector3(Screen.width / 2, 80, 0));
     }
 
     [Client]
