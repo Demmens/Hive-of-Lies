@@ -196,29 +196,36 @@ public class Setup : GamePhase
                 beePlayers.Add(ply);
             }
 
-            DisplayTeamPopup(ply.connectionToClient, ply.Team, waspPlayers.Value.Count);
+            int waspTotal = Mathf.FloorToInt(playerCount * traitorRatio);
+            DisplayTeamPopup(ply.connectionToClient, ply.Team, waspTotal);
         });
     }
 
     [TargetRpc]
-    void DisplayTeamPopup(NetworkConnection conn, Team team, int waspCount)
+    void DisplayTeamPopup(NetworkConnection conn, Team team, int waspTotal)
     {
         teamPopup = Instantiate(teamPopup);
+        
+
         if (team == Team.Wasp)
         {
-            teamPopup.GetComponent<Notification>().SetText("<b>YOU ARE A WASP</b>\n\nStay hidden, sabotage missions, and find your target."); ;
+            string text = "<b>YOU ARE A WASP</b>\n\nStay hidden, sabotage missions, and find your target.";
+            text += $"\nYou have {waspTotal-1} ";
+            text += (waspTotal == 2) ? "ally" : "allies";
+
+            teamPopup.GetComponent<Notification>().SetText(text);
         }
         else
         {
             string text = "<b>YOU ARE A BEE</b>\n\nSucceed missions, find allies, and don't let <b>anyone</b> know your role.";
-            
-            if (waspPlayers.Value.Count == 1)
+
+            if (waspTotal == 1)
             {
                 text += "\nThere is 1 Wasp.";
             }
             else
             {
-                text += $"\nThere are {waspCount} Wasps.";
+                text += $"\nThere are {waspTotal} Wasps.";
             }
             teamPopup.GetComponent<Notification>().SetText(text);
         }
