@@ -73,6 +73,7 @@ public class PoisonerAbility : RoleAbility
 
         //If the card is already bad, we're happy.
         if (card.Value <= maxDraw) return;
+        //If they've already drawn all their poisoned cards
         if (teamLeader.Value.NumDraws > numPoisonedDraws) return;
 
         for (int i = 0; i < deck.DrawPile.Count; i++)
