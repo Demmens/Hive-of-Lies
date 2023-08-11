@@ -51,6 +51,11 @@ public class HoLNetworkManager : NetworkManager
 
     [Tooltip("Invoked on the server when a player disconnects")]
     [SerializeField] NetworkingEvent onServerDisconnect;
+
+    /// <summary>
+    /// The ID of the most recent player to join the lobby. I am aware that this is a bodged fix for now. I just want a stable build xd
+    /// </summary>
+    ulong lastId;
     #endregion
 
     /// <summary>
@@ -88,10 +93,28 @@ public class HoLNetworkManager : NetworkManager
 
         if (SceneManager.GetActiveScene().path == LobbyScene)
         {
-            CreatePlayer(conn, (ulong)SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize - 1));
-
-            onServerConnect?.Invoke(conn);
+            StartCoroutine(WaitForNextSteamID(conn));
         }
+    }
+
+    /// <summary>
+    /// A bodged fix to make sure that players don't join with duplicate steam IDs
+    /// </summary>
+    /// <param name="conn"></param>
+    /// <returns></returns>
+    IEnumerator WaitForNextSteamID(NetworkConnection conn)
+    {
+        ulong ID;
+        //Wait here until the ID is a new ID
+        do
+        {
+            ID = (ulong)SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize - 1);
+            yield return null;
+        } while (lastId == ID);
+
+        lastId = ID;
+        CreatePlayer(conn, ID);
+        onServerConnect?.Invoke(conn);
     }
 
     void CreateSpectator(NetworkConnection conn, ulong id)
