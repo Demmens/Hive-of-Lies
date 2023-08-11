@@ -8,12 +8,16 @@ public class TutorialManager : NetworkBehaviour
     [SerializeField] GameObject standOrPassTutorial;
     [SerializeField] GameObject voteTutorial;
     [SerializeField] GameObject missionTutorial;
+    [SerializeField] GameObject stingTutorial;
 
     [SerializeField] BoolVariable hasDoneStandOrPassTutorial;
     [SerializeField] BoolVariable hasDoneVoteTutorial;
     [SerializeField] BoolVariable hasDoneMissionTutorial;
+    [SerializeField] BoolVariable hasDoneStingTutorial;
 
     [SerializeField] BoolVariable isOnMission;
+    [SerializeField] HoLPlayerSet waspPlayers;
+    [SerializeField] IntVariable roundNum;
 
     [ClientRpc]
     public void OnStandOrPassStart()
@@ -21,6 +25,25 @@ public class TutorialManager : NetworkBehaviour
         if (hasDoneStandOrPassTutorial.Value) return;
         standOrPassTutorial.SetActive(true);
         hasDoneStandOrPassTutorial.Value = true;
+    }
+
+    [Server]
+    public void OnRoundTwoStart()
+    {
+        if (roundNum.Value != 1) return;
+        
+        foreach (HoLPlayer ply in waspPlayers.Value)
+        {
+            StingTutorial(ply.connectionToClient);
+        }
+    }
+
+    [TargetRpc]
+    void StingTutorial(NetworkConnection conn)
+    {
+        if (hasDoneStingTutorial.Value) return;
+        stingTutorial.SetActive(true);
+        hasDoneStingTutorial.Value = true;
     }
 
     [ClientRpc]
