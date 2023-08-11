@@ -9,8 +9,6 @@ public class InvestigatePlayer : MissionEffectBehaviour
     [SerializeField] GameObject notificationPrefab;
     GameObject notification;
 
-    PlayerButtonDropdown dropDown;
-
     [Tooltip("All players in the game")]
     [SerializeField] HoLPlayerSet allPlayers;
 
