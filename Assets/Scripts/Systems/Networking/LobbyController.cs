@@ -22,6 +22,11 @@ public class LobbyController : NetworkBehaviour
     [SerializeField] HoLPlayerDictionary playersByConnection;
     [SerializeField] HoLPlayerSet allPlayers;
     #endregion
+    private void Start()
+    {
+        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
+    }
+
     [Server]
     public void OnPlayerJoinedLobby(NetworkConnection conn)
     {
