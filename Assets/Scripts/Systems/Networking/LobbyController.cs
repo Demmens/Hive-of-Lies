@@ -21,10 +21,19 @@ public class LobbyController : NetworkBehaviour
     #region SERVER
     [SerializeField] HoLPlayerDictionary playersByConnection;
     [SerializeField] HoLPlayerSet allPlayers;
+
+    [SerializeField] GameObject playersRequiredText;
+    [SerializeField] GameObject startGameButton;
     #endregion
     private void Start()
     {
         Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
+        if (NetworkServer.active) playersRequiredText.SetActive(true);
+
+#if UNITY_EDITOR
+        playersRequiredText.SetActive(false);
+        startGameButton.SetActive(true);
+#endif
     }
 
     [Server]
@@ -35,12 +44,24 @@ public class LobbyController : NetworkBehaviour
             CreateClientPlayerItem(ply.DisplayName, ply.connectionToClient.connectionId, ply.PlayerID);
         }
         UpdateLobbyName();
+
+        if (allPlayers.Value.Count >= 4)
+        {
+            playersRequiredText.SetActive(false);
+            startGameButton.SetActive(true);
+        }
     }
 
     [Server]
     public void OnPlayerLeftLobby(NetworkConnection conn)
     {
         RemovePlayerItem(conn.connectionId);
+
+        if (allPlayers.Value.Count < 4)
+        {
+            playersRequiredText.SetActive(true);
+            startGameButton.SetActive(false);
+        }
     }
 
     [ClientRpc]
@@ -77,5 +98,11 @@ public class LobbyController : NetworkBehaviour
 
         playerListItems[connID] = null;
         Destroy(item.gameObject);
+    }
+
+    public void StartGame()
+    {
+        HoLNetworkManager manager = NetworkManager.singleton as HoLNetworkManager;
+        manager.StartGame();
     }
 }
