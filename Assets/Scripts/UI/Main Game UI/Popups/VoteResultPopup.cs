@@ -53,13 +53,13 @@ public class VoteResultPopup : NetworkBehaviour
     [Server]
     public void ReceiveVoteResults()
     {
-        ClientReceiveVoteResults(voteTotal);
+        ClientReceiveVoteResults(voteTotal.Value > 0);
     }
 
     [ClientRpc]
-    public void ClientReceiveVoteResults(int total)
+    public void ClientReceiveVoteResults(bool thumb)
     {
-        float y = total >= 0 ? 1 : -1;
+        float y = thumb ? 1 : -1;
         clientVoteTotal.localScale = new Vector3(1, y, 1);
 
         popup.SetActive(true);
