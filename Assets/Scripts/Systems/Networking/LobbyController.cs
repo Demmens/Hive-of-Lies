@@ -27,7 +27,6 @@ public class LobbyController : NetworkBehaviour
     #endregion
     private void Start()
     {
-        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
         if (NetworkServer.active) playersRequiredText.SetActive(true);
 
 #if UNITY_EDITOR
