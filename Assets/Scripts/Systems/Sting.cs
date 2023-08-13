@@ -6,34 +6,78 @@ using Mirror;
 public class Sting : NetworkBehaviour
 {
     #region SERVER
+    [Tooltip("The player count for the current game")]
     [SerializeField] IntVariable playerCount;
+
+    [Tooltip("The set of alive players")]
     [SerializeField] HoLPlayerSet alivePlayers;
+
+    [Tooltip("The set of bee players")]
     [SerializeField] HoLPlayerSet beePlayers;
+
+    [Tooltip("The set of wasp players")]
     [SerializeField] HoLPlayerSet waspPlayers;
+
+    [Tooltip("Dictionary of players by their NetworkConnection")]
     [SerializeField] HoLPlayerDictionary playersByConnection;
+
+    [Tooltip("The event that is invoked to cause a specific player to win")]
     [SerializeField] NetworkingEvent playerWins;
+
+    [Tooltip("Which canvas the sting reticle should appear on")]
     [SerializeField] Transform stingReticleCanvas;
 
+    [Tooltip("The prefab of the dropdown button we need to add for stings")]
     [SerializeField] GameObject dropdownButton;
+
+    /// <summary>
+    /// The list of instantiated sting dropdown buttons so we can easily destroy them
+    /// </summary>
     List<PlayerButtonDropdownItem> stingButtons = new();
     #endregion
     #region CLIENT
+    [Tooltip("Wether the current client is alive")]
     [SerializeField] BoolVariable isAlive;
+
+    [Tooltip("Whether the current client is on the mission")]
     [SerializeField] BoolVariable onMission;
+
+    [Tooltip("How much favour the current client has")]
     [SerializeField] IntVariable favour;
 
+    [Tooltip("The popup prefab that displays the sting target")]
     [SerializeField] GameObject stingPopup;
+
+    [Tooltip("The text that displays information on the target throughout the game")]
     [SerializeField] TMPro.TMP_Text targetText;
+
+    [Tooltip("The button game object you click to sting")]
     [SerializeField] GameObject stingButton;
+
+    [Tooltip("The button component of the sting button")]
     [SerializeField] UnityEngine.UI.Button button;
 
+    [Tooltip("All UI that should be disabled when any player stings")]
     [SerializeField] List<GameObject> DisabledUI;
+
+    [Tooltip("The text that displays the active stingers target")]
     [SerializeField] TMPro.TMP_Text stingActiveText;
+
+    /// <summary>
+    /// Whether the current client is stinging
+    /// </summary>
     bool isStinging;
+
+    /// <summary>
+    /// Whether the sting has been locked and prevented from being activated (i.e. on a mission)
+    /// </summary>
     bool stingLocked;
     #endregion
     #region SHARED
+    [Tooltip("How much favour the sting costs to click")]
     [SerializeField] int stingCost = 10;
+
+    [Tooltip("The prefab for the sting reticle")]
     [SerializeField] NetworkBehaviour reticle;
     #endregion
 
