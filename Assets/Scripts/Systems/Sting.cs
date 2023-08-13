@@ -65,10 +65,30 @@ public class Sting : NetworkBehaviour
     [Server]
     public void AfterRolesChosen()
     {
-        foreach (HoLPlayer ply in waspPlayers.Value)
+        beePlayers.Value.Shuffle();
+        for (int i = 0, j = 0; i < waspPlayers.Value.Count; i++)
         {
-            ply.Target.AfterVariableChanged += (pl) => OnTargetChanged(ply, pl);
-            ply.Target.Value = (beePlayers.Value.Count > 0) ? beePlayers.Value.GetRandom() : alivePlayers.Value.GetRandom();
+            HoLPlayer wasp = waspPlayers.Value[i];
+            //If nobody else can possibly be a target, have no target I guess
+            HoLPlayer target;
+            if (beePlayers.Value.Count > 0)
+            {
+                //Loop back to duplicate targets if there are more wasps with stings than bees for whatever reason (some future gamemode maybe)
+                target = beePlayers.Value[j % beePlayers.Value.Count];
+            }
+            else
+            {
+                //Not a good solution for wasps having wasps as targets, but for now this will never happen in an actual game, so I'm not figuring it out now.
+                target = waspPlayers.Value[j % waspPlayers.Value.Count];
+            }
+
+            wasp.Target.Value = target;
+            //If the wasp actually has a target set, move to the next bee so we don't get duplicates
+            if (wasp.Target.Value != null) j++;
+
+            //Do this now so we can do as much shenanigans with targets as we like before any popups appear
+            OnTargetChanged(wasp, target);
+            wasp.Target.AfterVariableChanged += (tgt) => OnTargetChanged(wasp, tgt);
         }
     }
 
