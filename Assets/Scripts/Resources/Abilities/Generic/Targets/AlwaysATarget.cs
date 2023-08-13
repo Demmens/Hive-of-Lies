@@ -5,56 +5,32 @@ using Mirror;
 
 public class AlwaysATarget : RoleAbility
 {
-    [SerializeField] HoLPlayerSet allPlayers;
-
-    bool isTarget = false;
-
-    protected override void OnRoleGiven()
-    {
-        allPlayers.Value.Shuffle();
-        foreach (HoLPlayer ply in allPlayers.Value)
-        {
-            //If they alreay have a target, we should assign ourselves to be the target instead
-            if (ply.Target != null && !isTarget)
-            {
-                ply.Target.Value = Owner;
-                isTarget = true;
-                //Still listen for the target changing in case we get unset as a target
-                ply.Target.OnVariableChanged += OnTargetChosen;
-                return;
-            }
-            //If they don't have a target, listen for when they get one
-            ply.Target.OnVariableChanged += OnTargetChosen;
-        }
-    }
+    [Tooltip("The set of all wasp players")]
+    [SerializeField] HoLPlayerSet waspPlayers;
 
     [Server]
-    void OnTargetChosen(HoLPlayer oldTarget, ref HoLPlayer newTarget)
+    public void BeforeTargetsDisplayed()
     {
-        //If we're being unset as a target for whatever reason
-        if (oldTarget == Owner && newTarget != Owner)
+        foreach (HoLPlayer ply in waspPlayers.Value)
         {
-            OnOwnerUnset();
-            return;
+            //If we're already someone's target, then great! We don't need to do anything else.
+            //This also makes sure we don't end up with duplicate targets across the wasps
+            if (ply.Target.Value == Owner) return;
         }
 
-        if (isTarget) return;
+        //Shuffle so we can be a random wasp's target
+        waspPlayers.Value.Shuffle();
+        //If there are no wasps, then this ability doesn't do anything ig?
+        if (waspPlayers.Value.Count == 0) return;
 
-        newTarget = Owner;
-        isTarget = true;
-    }
-
-    void OnOwnerUnset()
-    {
-        isTarget = false;
-        foreach (HoLPlayer ply in allPlayers.Value)
+        foreach (HoLPlayer ply in waspPlayers.Value)
         {
-            //Find any wasp who already has a target, and replace us as a target for them.
-            if (ply.Target != null)
-            {
-                ply.Target.Value = Owner;
-                isTarget = true;
-            }
+            //Don't give someone a target when they shouldn't have one
+            if (ply.Target.Value == null) continue;
+
+            //Set ourselves as a target for the first available person
+            ply.Target.Value = Owner;
+            return;
         }
     }
 }

@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: -3121188735312786800}
   - component: {fileID: 5492599771887989418}
   - component: {fileID: -1684328126718515967}
+  - component: {fileID: 6770268909279962065}
   m_Layer: 0
-  m_Name: Omniscient Ability
+  m_Name: Queen Bee Ability
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +51,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
 --- !u!114 &-3121188735312786800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +106,35 @@ MonoBehaviour:
       - m_Target: {fileID: -3121188735312786800}
         m_TargetAssemblyTypeName: KnowAllWasps, Assembly-CSharp
         m_MethodName: AfterAllRolesGiven
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6770268909279962065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3427588619066902976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 7591706e133c9db45b7be74ebcc8ebc0, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -7168033095446066431}
+        m_TargetAssemblyTypeName: AlwaysATarget, Assembly-CSharp
+        m_MethodName: BeforeTargetsDisplayed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
