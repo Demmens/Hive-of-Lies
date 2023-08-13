@@ -9,6 +9,9 @@ public class Sting : NetworkBehaviour
     [Tooltip("The player count for the current game")]
     [SerializeField] IntVariable playerCount;
 
+    [Tooltip("Event that is invoked before targets are displayed to wasps")]
+    [SerializeField] GameEvent beforeTargetsDisplayed;
+
     [Tooltip("The set of alive players")]
     [SerializeField] HoLPlayerSet alivePlayers;
 
@@ -129,6 +132,8 @@ public class Sting : NetworkBehaviour
             wasp.Target.Value = target;
             //If the wasp actually has a target set, move to the next bee so we don't get duplicates
             if (wasp.Target.Value != null) j++;
+
+            beforeTargetsDisplayed.Invoke();
 
             //Do this now so we can do as much shenanigans with targets as we like before any popups appear
             OnTargetChanged(wasp, target);
