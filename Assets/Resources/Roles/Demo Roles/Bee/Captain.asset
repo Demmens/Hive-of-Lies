@@ -41,4 +41,4 @@ MonoBehaviour:
   playersRequired: 6
   abilities:
   - {fileID: 7043207111567127333, guid: 107c63263c16b4640a76331b9743f03f, type: 3}
-  enabled: 1
+  enabled: 0
