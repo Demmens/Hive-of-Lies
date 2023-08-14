@@ -137,7 +137,7 @@ public class Sting : NetworkBehaviour
 
             //Do this now so we can do as much shenanigans with targets as we like before any popups appear
             OnTargetChanged(wasp, target);
-            wasp.Target.AfterVariableChanged += (tgt) => OnTargetChanged(wasp, tgt);
+            //wasp.Target.AfterVariableChanged += (tgt) => OnTargetChanged(wasp, tgt);
         }
     }
 
