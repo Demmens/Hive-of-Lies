@@ -13,7 +13,7 @@ public class PoisonerAbility : RoleAbility
     [SerializeField] int numPoisonedDraws = 2;
     [SerializeField] HoLPlayerVariable teamLeader;
     [SerializeField] IntVariable voteTotal;
-    bool isPoisoned;
+    HoLPlayer poisonedPlayer;
     #endregion
     #region CLIENT
     [SerializeField] GameObject button;
@@ -35,10 +35,10 @@ public class PoisonerAbility : RoleAbility
     {
         SetButtonActive();
 
-        if (!isPoisoned) return;
+        if (poisonedPlayer == null) return;
 
-        teamLeader.Value.Deck.Value.BeforeDraw -= OnLeaderDraw;
-        isPoisoned = false;
+        poisonedPlayer.Deck.Value.BeforeDraw -= OnLeaderDraw;
+        poisonedPlayer = null;
     }
 
     [Server]
@@ -46,7 +46,7 @@ public class PoisonerAbility : RoleAbility
     {
         //Refund the cost if the vote failed
         ClientVoteResult();
-        if (voteTotal <= 0 && isPoisoned) Owner.Favour.Value += cost;
+        if (voteTotal <= 0 && poisonedPlayer != null) Owner.Favour.Value += cost;
     }
 
     [TargetRpc]
@@ -62,8 +62,8 @@ public class PoisonerAbility : RoleAbility
         if (cost > Owner.Favour.Value) return;
 
         Owner.Favour.Value -= cost;
-        teamLeader.Value.Deck.Value.BeforeDraw += OnLeaderDraw;
-        isPoisoned = true;
+        poisonedPlayer = teamLeader.Value;
+        poisonedPlayer.Deck.Value.BeforeDraw += OnLeaderDraw;
     }
 
     [Server]
