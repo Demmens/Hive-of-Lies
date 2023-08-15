@@ -15,7 +15,7 @@ MonoBehaviour:
   missionName: Perform Background Checks
   description: Thoroughly look into the history of one board member, looking for
     any clues that might identify their loyalty.
-  favourCost: 6
+  favourCost: 5
   effects:
   - value: 0
     effectFlavour: 

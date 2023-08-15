@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionName: Gather Resources
   description: Spend time gathering as many helpful resources as posible
-  favourCost: 6
+  favourCost: 4
   effects:
   - value: 0
     effectFlavour: 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionName: Defend the Honey!
   description: Send all our forces to defend the honey from an imminent raid!
-  favourCost: 8
+  favourCost: 4
   effects:
   - value: 0
     effectFlavour: 
