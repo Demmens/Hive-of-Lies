@@ -25,14 +25,33 @@ public class LobbyController : NetworkBehaviour
     [SerializeField] GameObject playersRequiredText;
     [SerializeField] GameObject startGameButton;
     #endregion
+
+    [Tooltip("The version of the game we are running. Used to check clients are all using the same version")]
+    [SerializeField] StringVariable gameVersion;
+
     private void Start()
     {
+        CheckVersion(gameVersion.Value);
         if (NetworkServer.active) playersRequiredText.SetActive(true);
 
 #if UNITY_EDITOR
         playersRequiredText.SetActive(false);
         startGameButton.SetActive(true);
 #endif
+    }
+
+    [Command(requiresAuthority = false)]
+    void CheckVersion(string version, NetworkConnectionToClient conn = null)
+    {
+        //We're all good if the game version is the same
+        if (gameVersion.Value == version) return;
+        WrongClientVersion(conn);
+    }
+
+    [TargetRpc]
+    void WrongClientVersion(NetworkConnection conn)
+    {
+        NetworkClient.Disconnect();
     }
 
     [Server]

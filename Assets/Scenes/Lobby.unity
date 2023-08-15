@@ -1439,6 +1439,7 @@ MonoBehaviour:
   allPlayers: {fileID: 11400000, guid: 4b94e810f13e0194982148a52bcc24c2, type: 2}
   playersRequiredText: {fileID: 864294149}
   startGameButton: {fileID: 1346385329}
+  gameVersion: {fileID: 11400000, guid: 1855299092143434ca8d909d86b6fcfe, type: 2}
 --- !u!4 &1002554558
 Transform:
   m_ObjectHideFlags: 0
