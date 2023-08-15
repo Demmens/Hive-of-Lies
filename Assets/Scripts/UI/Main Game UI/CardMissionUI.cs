@@ -95,6 +95,7 @@ public class CardMissionUI : NetworkBehaviour
     [TargetRpc]
     void ReceiveDrawResultFromServer(NetworkConnection conn, Sprite sprite)
     {
+        drawResult.color = new Color(drawResult.color.r, drawResult.color.g, drawResult.color.b, 1);
         drawResult.sprite = sprite;
     }
 
@@ -112,6 +113,7 @@ public class CardMissionUI : NetworkBehaviour
     public void PlayCard()
     {
         UI.SetActive(false);
+        drawResult.color = new Color(drawResult.color.r, drawResult.color.g, drawResult.color.b, 0);
         PlayerPlayedCard();
     }
 
