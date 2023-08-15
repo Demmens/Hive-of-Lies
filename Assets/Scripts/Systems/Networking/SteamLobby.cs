@@ -59,6 +59,10 @@ public class SteamLobby : MonoBehaviour
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "name", SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()) + "'s lobby");
     }
 
+    /// <summary>
+    /// Called on the client when they request to join someone elses lobby
+    /// </summary>
+    /// <param name="callback"></param>
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
         joiningBox.SetActive(true);
@@ -66,8 +70,13 @@ public class SteamLobby : MonoBehaviour
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }
 
+    /// <summary>
+    /// Called on the client when their request to join the lobby is accepted
+    /// </summary>
+    /// <param name="callback"></param>
     void LobbyEnter(LobbyEnter_t callback)
     {
+        Debug.Log($"Lobbysize = {SteamMatchmaking.GetNumLobbyMembers(new CSteamID(callback.m_ulSteamIDLobby))}");
         LobbyID = new CSteamID(callback.m_ulSteamIDLobby);
         if (NetworkServer.active) return;
 
