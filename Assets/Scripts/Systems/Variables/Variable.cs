@@ -70,15 +70,20 @@ public abstract class Variable<T> : ScriptableObject
         //Set currentValue to bypass all the code that runs from setting Value
         currentValue = initialValue;
         
-        if (OnVariableChanged == null) return;
-
-        foreach (System.Delegate d in OnVariableChanged.GetInvocationList())
+        if (OnVariableChanged != null)
         {
-            OnVariableChanged -= (VariableChanged) d;
+            foreach (System.Delegate d in OnVariableChanged.GetInvocationList())
+            {
+                OnVariableChanged -= (VariableChanged)d;
+            }
         }
-        foreach (System.Delegate d in AfterVariableChanged.GetInvocationList())
+
+        if (AfterVariableChanged != null)
         {
-            AfterVariableChanged -= (System.Action<T>) d;
+            foreach (System.Delegate d in AfterVariableChanged.GetInvocationList())
+            {
+                AfterVariableChanged -= (System.Action<T>)d;
+            }
         }
     }
 
