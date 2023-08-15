@@ -38,7 +38,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aa6e7a7b6cf6b144b8dee76195382cb1, type: 2}
   - {fileID: 11400000, guid: 12b574cc5a91eb34ca55cb7496788d0b, type: 2}
   team: 1
-  playersRequired: 6
+  playersRequired: 5
   abilities:
   - {fileID: 7043207111567127333, guid: 107c63263c16b4640a76331b9743f03f, type: 3}
-  enabled: 0
+  enabled: 1

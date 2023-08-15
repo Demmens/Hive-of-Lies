@@ -6,14 +6,13 @@ using Mirror;
 public class CEOAbility : RoleAbility
 {
     [SerializeField] HoLPlayerVariable teamLeader;
-    [SerializeField] HoLPlayerSet playersOnMission;
+    [SerializeField] HoLPlayerSet allPlayers;
 
     [Server]
-    public void OnMissionStarted()
+    protected override void OnRoleGiven()
     {
-        if (Owner != teamLeader.Value) return;
-
-        foreach (HoLPlayer ply in playersOnMission.Value)
+        //Just apply the debuff to everyone, and make the debuff not do anything if we're not team leader
+        foreach (HoLPlayer ply in allPlayers.Value)
         {
             if (ply == Owner) continue;
             ply.Deck.Value.BeforeDraw += (ref Card card) => PlayerDrew(ply, ref card);
@@ -22,6 +21,8 @@ public class CEOAbility : RoleAbility
 
     void PlayerDrew(HoLPlayer ply, ref Card card)
     {
+        //If the team leader isn't the CEO, this doesn't do anything.
+        if (teamLeader.Value != Owner) return;
         Deck deck = ply.Deck;
 
         if (deck.DrawPile.Count < 2) return;
@@ -38,16 +39,5 @@ public class CEOAbility : RoleAbility
         deck.DrawPile.Add(deck.DrawPile[cardToPlaceOnBottom]);
         deck.DrawPile.RemoveAt(cardToPlaceOnBottom);
 
-    }
-
-    public void OnMissionEnded()
-    {
-        if (Owner != teamLeader.Value) return;
-
-        foreach (HoLPlayer ply in playersOnMission.Value)
-        {
-            if (ply == Owner) continue;
-            ply.Deck.Value.BeforeDraw -= (ref Card card) => PlayerDrew(ply, ref card);
-        };
     }
 }

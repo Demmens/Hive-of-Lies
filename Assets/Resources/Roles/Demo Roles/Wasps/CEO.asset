@@ -42,4 +42,4 @@ MonoBehaviour:
   playersRequired: 0
   abilities:
   - {fileID: 7043207111567127333, guid: 8d591527df8b14d4bb21933a8beb216c, type: 3}
-  enabled: 0
+  enabled: 1

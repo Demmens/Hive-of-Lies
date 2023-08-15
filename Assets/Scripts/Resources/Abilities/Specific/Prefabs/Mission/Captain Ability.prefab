@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5624860904687087518}
   - component: {fileID: -8552746547839919743}
-  - component: {fileID: 9114137044723505529}
+  - component: {fileID: -1100865434342818029}
   m_Layer: 0
-  m_Name: CEO Ability
+  m_Name: Captain Ability
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,9 +48,9 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 8d591527df8b14d4bb21933a8beb216c
+  m_AssetId: 107c63263c16b4640a76331b9743f03f
   hasSpawned: 0
---- !u!114 &9114137044723505529
+--- !u!114 &-1100865434342818029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7043207111567127333}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fb09a637019ae041b0e29a0292136b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 320aaeb08f55f5c4da4abb77a1ec04f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
