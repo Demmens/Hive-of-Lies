@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class GeneralAbility : RoleAbility
+public class CaptainAbility : RoleAbility
 {
     [SerializeField] HoLPlayerVariable teamLeader;
     [SerializeField] HoLPlayerSet allPlayers;
@@ -22,7 +22,6 @@ public class GeneralAbility : RoleAbility
     void PlayerDrew(HoLPlayer ply, ref Card card)
     {
         if (teamLeader.Value != Owner) return;
-        Debug.Log("Player Drew");
         Deck deck = ply.Deck;
 
         if (deck.DrawPile.Count < 2) return;
