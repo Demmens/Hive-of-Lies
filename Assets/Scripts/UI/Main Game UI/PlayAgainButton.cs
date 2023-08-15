@@ -8,8 +8,8 @@ public class PlayAgainButton : NetworkBehaviour
     [Tooltip("Invoked when all players have pressed this button")]
     [SerializeField] GameEvent resetRound;
 
-    [Tooltip("The number of players in the game")]
-    [SerializeField] IntVariable playerCount;
+    [Tooltip("The set of all players, alive or dead")]
+    [SerializeField] HoLPlayerSet allPlayers;
 
     [Tooltip("The game object containing the play again button")]
     [SerializeField] GameObject buttonObject;
@@ -43,9 +43,9 @@ public class PlayAgainButton : NetworkBehaviour
     {
         if (playersClicked.Contains(conn)) return;
         playersClicked.Add(conn);
-        SetWaitingFor(playersClicked.Count, playerCount);
+        SetWaitingFor(playersClicked.Count, allPlayers.Value.Count);
 
-        if (playersClicked.Count == playerCount) resetRound?.Invoke();
+        if (playersClicked.Count == allPlayers.Value.Count) resetRound?.Invoke();
     }
 
     [Server]
