@@ -212,8 +212,6 @@ public class HoLNetworkManager : NetworkManager
     {
         base.OnServerReady(conn);
 
-        Debug.Log("Client loaded the scene");
-
         OnPlayerJoin(conn);
 
         if (SceneManager.GetActiveScene().path != GameScene) return;
