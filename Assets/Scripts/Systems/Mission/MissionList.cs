@@ -46,12 +46,10 @@ public class MissionList : ScriptableObject
         if (origin == null)
         {
             origin = this;
-            Debug.Log($"Calling AddThreads on {name}");
         }
 
         foreach (MissionList t in IncludedThreads)
         {
-            Debug.Log($"Adding thread: {t}");
             //Duplicate the thread so we can make changes to it if necessary
             MissionList thread = Instantiate(t);
             thread.AddThreads(origin);
