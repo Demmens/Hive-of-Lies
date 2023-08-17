@@ -52,6 +52,8 @@ public class PhaseController : MonoBehaviour
         currentPhase = -1;
         //Complete the setup first.
         setup.ChangePhase();
+
+        AnalyticsService.Instance.CustomData("roundStarted", new Dictionary<string, object>() { { "roundNum", roundNum + 1 } });
     }
 
     /// <summary>
@@ -92,6 +94,7 @@ public class PhaseController : MonoBehaviour
         currentPhase = 0;
         roundNum++;
         roundBegun?.Invoke();
+        AnalyticsService.Instance.CustomData("roundStarted", new Dictionary<string, object>() { { "roundNum", roundNum + 1 } });
 
         foreach (HoLPlayer ply in players.Value)
         {
