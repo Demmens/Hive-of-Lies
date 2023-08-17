@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using TMPro;
 using UnityEngine.UI;
+using Unity.Services.Analytics;
 
 public class RoleUI : NetworkBehaviour
 {
@@ -23,6 +24,7 @@ public class RoleUI : NetworkBehaviour
 
     [SerializeField] FloatVariable cardXPosition;
     [SerializeField] FloatVariable cardYPosition;
+    List<string> choices = new();
     #endregion
 
     [Space]
@@ -81,6 +83,7 @@ public class RoleUI : NetworkBehaviour
             cardScript.OnRoleCardClicked += RoleCardClicked;
             if (i == 0) cardScript.Tutorial.SetActive(true);
             cards.Add(card);
+            choices.Add(roleChoices[i].RoleName);
         }
     }
 
@@ -100,6 +103,18 @@ public class RoleUI : NetworkBehaviour
         RoleSprite.gameObject.SetActive(true);
 
         AssignPlayerRole(data);
+
+        foreach (string choice in choices)
+        {
+            if (choice == data.RoleName)
+            {
+                AnalyticsService.Instance.CustomData("rolePicked", new Dictionary<string, object>() { { "roleName", choice } });
+            }
+            else
+            {
+                AnalyticsService.Instance.CustomData("rolePassed", new Dictionary<string, object>() { { "roleName", choice }, { "rolePicked", data.RoleName } });
+            }
+        }
     }
 
     [Command(requiresAuthority = false)]
