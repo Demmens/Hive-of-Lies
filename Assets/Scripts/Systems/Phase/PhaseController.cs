@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Unity.Services.Analytics;
 
 public class PhaseController : MonoBehaviour
 {
@@ -36,6 +37,9 @@ public class PhaseController : MonoBehaviour
 
     void Start()
     {
+        AnalyticsService.Instance.CustomData("hiveGameStarted");
+        if (!NetworkServer.active) return;
+        AnalyticsService.Instance.CustomData("hiveGameStartedAsHost", new Dictionary<string, object>() { {"playerCount", players.Value.Count } });
         //Give all events a reference to the event system. Saves having to do a FindObjectOfType on each child class of GamePhase.
         foreach (GamePhase phase in phases)
         {
