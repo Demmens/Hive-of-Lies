@@ -88,7 +88,7 @@ public class RunMission : GamePhase
         }
         Dictionary<string, object> parameters = new()
         {
-            { "missionName",  currentMission.name},
+            { "missionName",  currentMission.Value.MissionName},
             { "missionResult", missionResult.Value.ToString()},
             { "playerCount", playerCount.Value },
             { "waspsOnMission", waspsOnMission },
