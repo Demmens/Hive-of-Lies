@@ -27,6 +27,8 @@ public class GameEnd : NetworkBehaviour
 
     [SerializeField] GameObject gameEndScreen;
 
+    [SerializeField] IntVariable roundNum;
+
     bool hasWon;
     #endregion
 
@@ -65,10 +67,10 @@ public class GameEnd : NetworkBehaviour
             { "waspPoints", HoneyStolen.Value },
             { "waspsAlive", waspPlayers.Value.Count },
             { "team", "Bee"},
-            { "playerCount", playersByConnection.Value.Count }
-
+            { "playerCount", playersByConnection.Value.Count },
+            { "roundNum",  roundNum.Value},
         };
-        AnalyticsService.Instance.CustomData("gameEnd", parameters);
+        AnalyticsService.Instance.CustomData("hiveGameEnded", parameters);
     }
 
     [Server]
@@ -86,10 +88,10 @@ public class GameEnd : NetworkBehaviour
             { "waspPoints", HoneyStolen.Value },
             { "waspsAlive", waspPlayers.Value.Count },
             { "team", "Wasp"},
-            { "playerCount", playersByConnection.Value.Count }
-
+            { "playerCount", playersByConnection.Value.Count },
+            { "roundNum",  roundNum.Value},
         };
-        AnalyticsService.Instance.CustomData("gameEnd", parameters);
+        AnalyticsService.Instance.CustomData("hiveGameEnded", parameters);
     }
 
     [Server]
@@ -107,8 +109,8 @@ public class GameEnd : NetworkBehaviour
             { "waspPoints", HoneyStolen.Value },
             { "waspsAlive", waspPlayers.Value.Count },
             { "team", "Solo"},
-            { "playerCount", playersByConnection.Value.Count }
-
+            { "playerCount", playersByConnection.Value.Count },
+            { "roundNum",  roundNum.Value},
         };
         AnalyticsService.Instance.CustomData("hiveGameEnded", parameters);
     }
