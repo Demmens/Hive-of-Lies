@@ -24,7 +24,7 @@ public class RoleUI : NetworkBehaviour
 
     [SerializeField] FloatVariable cardXPosition;
     [SerializeField] FloatVariable cardYPosition;
-    List<string> choices = new();
+    List<RoleData> choices = new();
     #endregion
 
     [Space]
@@ -83,7 +83,7 @@ public class RoleUI : NetworkBehaviour
             cardScript.OnRoleCardClicked += RoleCardClicked;
             if (i == 0) cardScript.Tutorial.SetActive(true);
             cards.Add(card);
-            choices.Add(roleChoices[i].RoleName);
+            choices.Add(roleChoices[i]);
         }
     }
 
@@ -103,18 +103,6 @@ public class RoleUI : NetworkBehaviour
         RoleSprite.gameObject.SetActive(true);
 
         AssignPlayerRole(data);
-
-        foreach (string choice in choices)
-        {
-            if (choice == data.RoleName)
-            {
-                AnalyticsService.Instance.CustomData("rolePicked", new Dictionary<string, object>() { { "roleName", choice } });
-            }
-            else
-            {
-                AnalyticsService.Instance.CustomData("rolePassed", new Dictionary<string, object>() { { "roleName", choice }, { "rolePicked", data.RoleName } });
-            }
-        }
     }
 
     [Command(requiresAuthority = false)]
@@ -130,8 +118,36 @@ public class RoleUI : NetworkBehaviour
 
         foreach (RoleData rl in ply.RoleChoices)
         {
-            if (rl == data) continue;
-            rejectedRoles.Add(rl);
+            Dictionary<string, object> parameters = new()
+            {
+                { "roleName", rl.RoleName },
+                { "team", rl.Team.ToString() },
+                { "favour", rl.StartingFavour },
+                { "playerCount", playerCount.Value },
+            };
+
+            if (rl == data)
+            {
+                AnalyticsService.Instance.CustomData("rolePicked", parameters);
+            }
+            else
+            {
+                parameters.TryAdd("rolePicked", data.RoleName);
+                AnalyticsService.Instance.CustomData("rolePassed", parameters);
+                rejectedRoles.Add(rl);
+            }
+        }
+
+        foreach (RoleData choice in choices)
+        {
+            if (choice == data)
+            {
+                
+            }
+            else
+            {
+                
+            }
         }
 
         List<RoleAbility> abilities = new();
