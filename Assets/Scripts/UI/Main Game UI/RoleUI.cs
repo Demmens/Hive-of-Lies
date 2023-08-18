@@ -138,18 +138,6 @@ public class RoleUI : NetworkBehaviour
             }
         }
 
-        foreach (RoleData choice in choices)
-        {
-            if (choice == data)
-            {
-                
-            }
-            else
-            {
-                
-            }
-        }
-
         List<RoleAbility> abilities = new();
         for (int i = 0; i < data.Abilities.Count; i++)
         {
