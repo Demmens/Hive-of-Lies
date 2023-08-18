@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Unity.Services.Analytics;
 
 public class GameEnd : NetworkBehaviour
 {
@@ -57,6 +58,17 @@ public class GameEnd : NetworkBehaviour
         GameObject screen = Instantiate(gameEndScreen);
         screen.GetComponent<PlayAgainButton>().SetText("BEES WIN");
         NetworkServer.Spawn(screen);
+
+        Dictionary<string, object> parameters = new()
+        {
+            { "beePoints", ResearchProgress.Value},
+            { "waspPoints", HoneyStolen.Value },
+            { "waspsAlive", waspPlayers.Value.Count },
+            { "team", "Bee"},
+            { "playerCount", playersByConnection.Value.Count }
+
+        };
+        AnalyticsService.Instance.CustomData("gameEnd", parameters);
     }
 
     [Server]
@@ -67,6 +79,17 @@ public class GameEnd : NetworkBehaviour
         GameObject screen = Instantiate(gameEndScreen);
         screen.GetComponent<PlayAgainButton>().SetText("WASPS WIN");
         NetworkServer.Spawn(screen);
+
+        Dictionary<string, object> parameters = new()
+        {
+            { "beePoints", ResearchProgress.Value},
+            { "waspPoints", HoneyStolen.Value },
+            { "waspsAlive", waspPlayers.Value.Count },
+            { "team", "Wasp"},
+            { "playerCount", playersByConnection.Value.Count }
+
+        };
+        AnalyticsService.Instance.CustomData("gameEnd", parameters);
     }
 
     [Server]
@@ -77,5 +100,16 @@ public class GameEnd : NetworkBehaviour
         GameObject screen = Instantiate(gameEndScreen);
         screen.GetComponent<PlayAgainButton>().SetText($"{ply.DisplayName.ToUpper()} WINS");
         NetworkServer.Spawn(screen);
+
+        Dictionary<string, object> parameters = new()
+        {
+            { "beePoints", ResearchProgress.Value},
+            { "waspPoints", HoneyStolen.Value },
+            { "waspsAlive", waspPlayers.Value.Count },
+            { "team", "Solo"},
+            { "playerCount", playersByConnection.Value.Count }
+
+        };
+        AnalyticsService.Instance.CustomData("hiveGameEnded", parameters);
     }
 }
