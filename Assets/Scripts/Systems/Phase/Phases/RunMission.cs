@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Unity.Services.Analytics;
 
 public class RunMission : GamePhase
 {
@@ -63,6 +64,10 @@ public class RunMission : GamePhase
         currentMission.Value.OnPlotPointTraversed += (point) => traversedPlotPoints.Add(point);
         //Trigger all effects
         currentMission.Value.TriggerValidEffects(cardsTotal - missionDifficultyMod);
+
+        //Indexing at 1 here is fine because if a mission doesn't have 2 effects, we have bigger problems.
+        if (cardsTotal.Value < currentMission.Value.effects[1].Value) missionResult.Value = MissionResult.Fail;
+        else missionResult.Value = MissionResult.Success;
     }
 
     private void OnEffectEnded()
@@ -75,6 +80,22 @@ public class RunMission : GamePhase
     void EndPhase()
     {
         Debug.Log("All mission effects have finished. Starting the next round");
+
+        int waspsOnMission = 0;
+        foreach (HoLPlayer ply in playersOnMission.Value)
+        {
+            if (ply.Team == Team.Wasp) waspsOnMission++;
+        }
+        Dictionary<string, object> parameters = new()
+        {
+            { "missionName",  currentMission.name},
+            { "missionResult", missionResult.Value.ToString()},
+            { "playerCount", playerCount.Value },
+            { "waspsOnMission", waspsOnMission },
+            { "beesOnMission", playersOnMission.Value.Count - waspsOnMission },
+            { "cardsTotal", cardsTotal.Value }
+        };
+        AnalyticsService.Instance.CustomData("missionCompleted", parameters);
         End();
     }
 }
