@@ -24,19 +24,19 @@ public class Setup : GamePhase
     [SerializeField] RoleDataSet roles;
 
     [Tooltip("Runtime set of all the players in the game")]
-    [SerializeField] HoLPlayerSet allPlayers;
+    [SerializeField] hivePlayerSet allPlayers;
 
     [Tooltip("Runtime set of all the wasp players in the game")]
-    [SerializeField] HoLPlayerSet waspPlayers;
+    [SerializeField] hivePlayerSet waspPlayers;
 
     [Tooltip("Runtime set of all the bee players in the game")]
-    [SerializeField] HoLPlayerSet beePlayers;
+    [SerializeField] hivePlayerSet beePlayers;
 
     [Tooltip("The player count of the game")]
     [SerializeField] IntVariable playerCount;
 
     [Tooltip("Dictionary of Players and their respective NetworkConnections")]
-    [SerializeField] HoLPlayerDictionary playersByNetworkConnection;
+    [SerializeField] hivePlayerDictionary playersByNetworkConnection;
 
     [Tooltip("Invoked when all the setup logic is completed")]
     [SerializeField] GameEvent setupFinished;
@@ -76,11 +76,11 @@ public class Setup : GamePhase
         Debug.Log("Setup Finished");
     }
 
-    void CreateButtons(List<HoLPlayer> plys)
+    void CreateButtons(List<hivePlayer> plys)
     {
         for (int i = 0; i < plys.Count; i++)
         {
-            HoLPlayer ply = plys[i];
+            hivePlayer ply = plys[i];
             GameObject button = Instantiate(playerButton);
             NetworkServer.Spawn(button);
             SetupButtonOnClient(button, i, plys.Count);
@@ -172,7 +172,7 @@ public class Setup : GamePhase
     /// Assign a team to each player
     /// </summary>
     [Server]
-    void AssignTeams(List<HoLPlayer> plys)
+    void AssignTeams(List<hivePlayer> plys)
     {
         beePlayers.Value = new();
         waspPlayers.Value = new();
@@ -239,9 +239,9 @@ public class Setup : GamePhase
     /// Give players a selection of roles to choose from
     /// </summary>
     [Server]
-    void GiveRoleChoices(List<HoLPlayer> plys)
+    void GiveRoleChoices(List<hivePlayer> plys)
     {
-        foreach (HoLPlayer ply in plys)
+        foreach (hivePlayer ply in plys)
         {
             ply.RoleChoices = new();
             ply.Role.Value = null;

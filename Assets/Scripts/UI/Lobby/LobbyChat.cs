@@ -8,7 +8,7 @@ public class LobbyChat : Chat
     [Server]
     public void OnPlayerEnteredLobby(NetworkConnection conn)
     {
-        if (!playersByNetworkConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!playersByNetworkConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
 
         text += $"\n<b>{ply.DisplayName} has joined the game</b>";
     }

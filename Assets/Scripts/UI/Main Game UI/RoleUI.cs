@@ -32,7 +32,7 @@ public class RoleUI : NetworkBehaviour
 
     #region SERVER
     [Tooltip("All players by their network connection")]
-    [SerializeField] HoLPlayerDictionary playersByConnection;
+    [SerializeField] hivePlayerDictionary playersByConnection;
 
     [Tooltip("Runtime set of all the roles in the game")]
     [SerializeField] RoleSet allRoles;
@@ -57,7 +57,7 @@ public class RoleUI : NetworkBehaviour
     public void OnSetupFinished()
     {
         allRoles.Value = new();
-        foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in playersByConnection.Value)
+        foreach (KeyValuePair<NetworkConnection, hivePlayer> pair in playersByConnection.Value)
         {
             ReceiveRoleInfo(pair.Key, pair.Value.RoleChoices);
         }
@@ -110,7 +110,7 @@ public class RoleUI : NetworkBehaviour
     {
 
         //If the player doesn't exist
-        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
         //If the player already has a role
         if (ply.Role.Value != null) return;
         //If the role selected isn't one of the players choices

@@ -14,7 +14,7 @@ public class TeamLeaderVote : GamePhase
     [SerializeField] IntVariable voteTotal;
 
     [Tooltip("All players by their NetworkConnections")]
-    [SerializeField] HoLPlayerDictionary playersByConnection;
+    [SerializeField] hivePlayerDictionary playersByConnection;
 
     [Tooltip("The number of players in the game.")]
     [SerializeField] IntVariable playerCount;
@@ -51,7 +51,7 @@ public class TeamLeaderVote : GamePhase
     public void OnServerConnected(NetworkConnection conn)
     {
         if (!Active) return;
-        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
 
         foreach (PlayerVote vote in allVotes.Value)
         {
@@ -67,7 +67,7 @@ public class TeamLeaderVote : GamePhase
     {
         if (!Active) return;
 
-        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
 
         int cost = ply.NextUpvoteCost;        
 
@@ -87,7 +87,7 @@ public class TeamLeaderVote : GamePhase
     {
         if (!Active) return;
 
-        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
 
         int cost = ply.NextDownvoteCost;
 
@@ -112,7 +112,7 @@ public class TeamLeaderVote : GamePhase
     {
         if (!Active) return;
 
-        playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply);
+        playersByConnection.Value.TryGetValue(conn, out hivePlayer ply);
 
         voteTotal.Value += ply.NumVotes;
         allVotes.Add(new PlayerVote()
@@ -179,7 +179,7 @@ public struct PlayerVote
     /// <summary>
     /// The player that this vote is from
     /// </summary>
-    public HoLPlayer ply;
+    public hivePlayer ply;
     /// <summary>
     /// How many votes the player sent
     /// </summary>

@@ -6,11 +6,11 @@ using Mirror;
 
 public class HostButton : MonoBehaviour
 {
-    private HoLNetworkManager networkManager
+    private hiveNetworkManager networkManager
     {
         get
         {
-            return NetworkManager.singleton as HoLNetworkManager;
+            return NetworkManager.singleton as hiveNetworkManager;
         }
     }
     public void Click()

@@ -34,7 +34,7 @@ public class CardMissionUI : NetworkBehaviour
     [SerializeField] NetworkingEvent playerPlayed;
 
     [Tooltip("All players in the game")]
-    [SerializeField] HoLPlayerSet allPlayers;
+    [SerializeField] hivePlayerSet allPlayers;
 
     #endregion
 
@@ -50,7 +50,7 @@ public class CardMissionUI : NetworkBehaviour
     [Server]
     public void AfterDeckCreated()
     {
-        foreach (HoLPlayer ply in allPlayers.Value) 
+        foreach (hivePlayer ply in allPlayers.Value) 
         {
             ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.connectionToClient, card.Sprite);
             ply.NextDrawCost.AfterVariableChanged += val => OnDrawCostChanged(ply.connectionToClient, val);

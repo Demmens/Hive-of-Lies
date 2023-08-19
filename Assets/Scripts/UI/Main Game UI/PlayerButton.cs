@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public class PlayerButton : NetworkBehaviour
 {
     #region SERVER
-    private HoLPlayer owner;
-    public HoLPlayer Owner
+    private hivePlayer owner;
+    public hivePlayer Owner
     {
         get
         {
@@ -88,7 +88,7 @@ public class PlayerButton : NetworkBehaviour
     /// <param name="prefab">Prefab of the item to add</param>
     /// <returns>The instantiated item</returns>
     [Server]
-    public PlayerButtonDropdownItem AddDropdownItem(GameObject prefab, HoLPlayer ply = null)
+    public PlayerButtonDropdownItem AddDropdownItem(GameObject prefab, hivePlayer ply = null)
     {
         GameObject obj = Instantiate(prefab);
         NetworkServer.Spawn(obj);

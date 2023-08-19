@@ -4,6 +4,6 @@ using UnityEngine;
 using Mirror;
 
 [CreateAssetMenu(fileName = "CardInfo", menuName = "Variable/Dictionaries/HoLPlayer -> Deck")]
-public class CardInfo : Variable<Dictionary<HoLPlayer, Deck>>
+public class CardInfo : Variable<Dictionary<hivePlayer, Deck>>
 {
 }

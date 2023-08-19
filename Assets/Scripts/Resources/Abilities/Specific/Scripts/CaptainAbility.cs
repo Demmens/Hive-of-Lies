@@ -5,21 +5,21 @@ using Mirror;
 
 public class CaptainAbility : RoleAbility
 {
-    [SerializeField] HoLPlayerVariable teamLeader;
-    [SerializeField] HoLPlayerSet allPlayers;
+    [SerializeField] hivePlayerVariable teamLeader;
+    [SerializeField] hivePlayerSet allPlayers;
 
     [Server]
     protected override void OnRoleGiven()
     {
         //Just apply the debuff to everyone, and make the debuff not do anything if we're not team leader
-        foreach (HoLPlayer ply in allPlayers.Value)
+        foreach (hivePlayer ply in allPlayers.Value)
         {
             if (ply == Owner) continue;
             ply.Deck.Value.BeforeDraw += (ref Card card) => PlayerDrew(ply, ref card);
         };
     }
 
-    void PlayerDrew(HoLPlayer ply, ref Card card)
+    void PlayerDrew(hivePlayer ply, ref Card card)
     {
         if (teamLeader.Value != Owner) return;
         Deck deck = ply.Deck;

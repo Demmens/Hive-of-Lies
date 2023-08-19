@@ -6,11 +6,11 @@ using Mirror;
 
 public class SteamLobby : MonoBehaviour
 {
-    HoLNetworkManager networkManager
+    hiveNetworkManager networkManager
     {
         get
         {
-            return NetworkManager.singleton as HoLNetworkManager;
+            return NetworkManager.singleton as hiveNetworkManager;
         }
     }
 

@@ -27,7 +27,7 @@ public class PhaseController : MonoBehaviour
     [SerializeField] IntVariable roundNum;
 
     [Tooltip("All players")]
-    [SerializeField] HoLPlayerSet players;
+    [SerializeField] hivePlayerSet players;
 
     [Tooltip("Invoked when a new round begins")]
     [SerializeField] GameEvent roundBegun;
@@ -96,7 +96,7 @@ public class PhaseController : MonoBehaviour
         roundBegun?.Invoke();
         AnalyticsService.Instance.CustomData("roundStarted", new Dictionary<string, object>() { { "roundNum", roundNum + 1 } });
 
-        foreach (HoLPlayer ply in players.Value)
+        foreach (hivePlayer ply in players.Value)
         {
             ply.Favour.Value += favourGainPerRound;
         }
@@ -124,7 +124,7 @@ public class PhaseController : MonoBehaviour
 
     public void ResetGame()
     {
-        HoLNetworkManager manager = NetworkManager.singleton as HoLNetworkManager;
+        hiveNetworkManager manager = NetworkManager.singleton as hiveNetworkManager;
         manager.ServerChangeScene(manager.GameScene);
     }
 }

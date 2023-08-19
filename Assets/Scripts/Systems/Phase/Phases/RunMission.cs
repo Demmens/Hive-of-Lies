@@ -18,12 +18,12 @@ public class RunMission : GamePhase
     [SerializeField] MissionSet completedMissions;
 
     [Tooltip("Set of all players on the mission")]
-    [SerializeField] HoLPlayerSet playersOnMission;
+    [SerializeField] hivePlayerSet playersOnMission;
 
     [Tooltip("Set of all players")]
-    [SerializeField] HoLPlayerSet players;
+    [SerializeField] hivePlayerSet players;
 
-    [SerializeField] HoLPlayerVariable teamLeader;
+    [SerializeField] hivePlayerVariable teamLeader;
 
     [Tooltip("The set to add a plot point to when it is traversed")]
     [SerializeField] MissionPlotPointSet traversedPlotPoints;
@@ -82,7 +82,7 @@ public class RunMission : GamePhase
         Debug.Log("All mission effects have finished. Starting the next round");
 
         int waspsOnMission = 0;
-        foreach (HoLPlayer ply in playersOnMission.Value)
+        foreach (hivePlayer ply in playersOnMission.Value)
         {
             if (ply.Team == Team.Wasp) waspsOnMission++;
         }

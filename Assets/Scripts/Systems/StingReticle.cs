@@ -8,7 +8,7 @@ public class StingReticle : NetworkBehaviour
 {
     [SerializeField] GameObject reticle;
     [SerializeField] List<GameObject> splines;
-    public HoLPlayer Owner;
+    public hivePlayer Owner;
     [SyncVar(hook =nameof(OnMouseMoved))] Vector3 ownerMousePos;
     [SyncVar] public Vector3 ownerButtonPos;
 

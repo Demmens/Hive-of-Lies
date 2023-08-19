@@ -18,7 +18,7 @@ public class DetectiveAbility : RoleAbility
 
     [SerializeField] IntVariable roundNum;
 
-    [SerializeField] HoLPlayerSet beePlayers;
+    [SerializeField] hivePlayerSet beePlayers;
 
     [Server]
     public void OnMissionEnd()
@@ -27,7 +27,7 @@ public class DetectiveAbility : RoleAbility
 
         string txt = "";
         beePlayers.Value.Shuffle();
-        foreach (HoLPlayer ply in beePlayers.Value)
+        foreach (hivePlayer ply in beePlayers.Value)
         {
             if (ply == Owner) continue;
             txt = $"{ply.DisplayName} is the {ply.Role.Value.Data.RoleName}";

@@ -7,7 +7,7 @@ public class FixerAbility : RoleAbility
 {
     #region SERVER
     [SerializeField] int incrementAmount;
-    [SerializeField] HoLPlayerSet playersOnMission;
+    [SerializeField] hivePlayerSet playersOnMission;
     #endregion
     #region CLIENT
     [SerializeField] GameObject buttonPrefab;

@@ -16,13 +16,13 @@ public class RoleAbility : NetworkBehaviour
     [HideInInspector]
     public bool active = true;
 
-    private HoLPlayer owner;
+    private hivePlayer owner;
 
     /// <summary>
     /// The player that owns this ability
     /// </summary>
     [HideInInspector]
-    public HoLPlayer Owner
+    public hivePlayer Owner
     {
         get
         {

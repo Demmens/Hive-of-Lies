@@ -14,19 +14,19 @@ public class CardsMission : MissionType
     /// <summary>
     /// List of all players who have played cards
     /// </summary>
-    private List<HoLPlayer> playersPlayed;
+    private List<hivePlayer> playersPlayed;
 
     [Tooltip("All the roles in the game")]
     [SerializeField] RoleSet allRoles;
 
     [Tooltip("All the players in the game")]
-    [SerializeField] HoLPlayerSet allPlayers;
+    [SerializeField] hivePlayerSet allPlayers;
 
     [Tooltip("All players by their NetworkConnection")]
-    [SerializeField] HoLPlayerDictionary playersByConnection;
+    [SerializeField] hivePlayerDictionary playersByConnection;
 
     [Tooltip("Set of all players on the mission")]
-    [SerializeField] HoLPlayerSet playersOnMission;
+    [SerializeField] hivePlayerSet playersOnMission;
 
     [Tooltip("Set of all played cards")]
     [SerializeField] CardSet playedCards;
@@ -52,7 +52,7 @@ public class CardsMission : MissionType
     [Server]
     public void AfterRolesChosen()
     {
-        foreach (HoLPlayer ply in allPlayers.Value)
+        foreach (hivePlayer ply in allPlayers.Value)
         {
             Role role = ply.Role.Value;
             foreach (Card card in role.Data.StartingDeck) ply.Deck.Value.PublicAddToDeck(Instantiate(card));
@@ -67,7 +67,7 @@ public class CardsMission : MissionType
     public void OnServerConnected(NetworkConnection conn)
     {
         if (!Active) return;
-        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
         if (!playersOnMission.Value.Contains(ply)) return;
         if (playersPlayed.Contains(ply)) return;
 
@@ -87,7 +87,7 @@ public class CardsMission : MissionType
     [Server]
     public void PlayerClickedDraw(NetworkConnection conn)
     {
-        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
         //If the player isn't on the mission
         if (!playersOnMission.Value.Contains(ply)) return;
 
@@ -113,7 +113,7 @@ public class CardsMission : MissionType
     [Server]
     public void PlayerClickedSubmit(NetworkConnection conn)
     {
-        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
         //If the player isn't on the mission
         if (!playersOnMission.Value.Contains(ply)) return;
         //If the player has already played a card

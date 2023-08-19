@@ -6,8 +6,8 @@ using Mirror;
 public class MercenaryAbility : RoleAbility
 {
     [SerializeField] int favourGain = 5;
-    [SerializeField] HoLPlayerSet playersOnMission;
-    [SerializeField] HoLPlayerVariable teamLeader;
+    [SerializeField] hivePlayerSet playersOnMission;
+    [SerializeField] hivePlayerVariable teamLeader;
     
     public void ChoicesLockedIn()
     {

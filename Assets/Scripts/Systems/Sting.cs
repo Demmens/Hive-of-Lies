@@ -13,16 +13,16 @@ public class Sting : NetworkBehaviour
     [SerializeField] GameEvent beforeTargetsDisplayed;
 
     [Tooltip("The set of alive players")]
-    [SerializeField] HoLPlayerSet alivePlayers;
+    [SerializeField] hivePlayerSet alivePlayers;
 
     [Tooltip("The set of bee players")]
-    [SerializeField] HoLPlayerSet beePlayers;
+    [SerializeField] hivePlayerSet beePlayers;
 
     [Tooltip("The set of wasp players")]
-    [SerializeField] HoLPlayerSet waspPlayers;
+    [SerializeField] hivePlayerSet waspPlayers;
 
     [Tooltip("Dictionary of players by their NetworkConnection")]
-    [SerializeField] HoLPlayerDictionary playersByConnection;
+    [SerializeField] hivePlayerDictionary playersByConnection;
 
     [Tooltip("The event that is invoked to cause a specific player to win")]
     [SerializeField] NetworkingEvent playerWins;
@@ -115,9 +115,9 @@ public class Sting : NetworkBehaviour
         beePlayers.Value.Shuffle();
         for (int i = 0, j = 0; i < waspPlayers.Value.Count; i++)
         {
-            HoLPlayer wasp = waspPlayers.Value[i];
+            hivePlayer wasp = waspPlayers.Value[i];
             //If nobody else can possibly be a target, have no target I guess
-            HoLPlayer target;
+            hivePlayer target;
             if (beePlayers.Value.Count > 0)
             {
                 //Loop back to duplicate targets if there are more wasps with stings than bees for whatever reason (some future gamemode maybe)
@@ -142,7 +142,7 @@ public class Sting : NetworkBehaviour
     }
 
     [Server]
-    void OnTargetChanged(HoLPlayer ply, HoLPlayer target)
+    void OnTargetChanged(hivePlayer ply, hivePlayer target)
     {
         //If their target is unset
         if (ply.Target.Value == null)
@@ -183,7 +183,7 @@ public class Sting : NetworkBehaviour
     [Command(requiresAuthority = false)]
     void PlayerStingClicked(NetworkConnectionToClient conn = null)
     {
-        if (!playersByConnection.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
         if (ply.Team == Team.Bee) return;
         ToggleStingLocked();
 
@@ -196,7 +196,7 @@ public class Sting : NetworkBehaviour
 
         OnPlayerSting(ply.Target.Value.Role.Value.Data.RoleName);
 
-        foreach (HoLPlayer pl in alivePlayers.Value)
+        foreach (hivePlayer pl in alivePlayers.Value)
         {
 #if !UNITY_EDITOR
             //Can't sting yourself
@@ -220,7 +220,7 @@ public class Sting : NetworkBehaviour
     }
 
     [Server]
-    void StingTargetDecided(HoLPlayer stinger, HoLPlayer target)
+    void StingTargetDecided(hivePlayer stinger, hivePlayer target)
     {
         foreach (PlayerButtonDropdownItem item in stingButtons) Destroy(item);
 

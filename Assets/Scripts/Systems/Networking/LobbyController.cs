@@ -19,8 +19,8 @@ public class LobbyController : NetworkBehaviour
     private Dictionary<int, PlayerListItem> playerListItems = new();
     #endregion
     #region SERVER
-    [SerializeField] HoLPlayerDictionary playersByConnection;
-    [SerializeField] HoLPlayerSet allPlayers;
+    [SerializeField] hivePlayerDictionary playersByConnection;
+    [SerializeField] hivePlayerSet allPlayers;
 
     [SerializeField] GameObject playersRequiredText;
     [SerializeField] GameObject startGameButton;
@@ -57,7 +57,7 @@ public class LobbyController : NetworkBehaviour
     [Server]
     public void OnPlayerJoinedLobby(NetworkConnection conn)
     {
-        foreach (HoLPlayer ply in allPlayers.Value)
+        foreach (hivePlayer ply in allPlayers.Value)
         {
             CreateClientPlayerItem(ply.DisplayName, ply.connectionToClient.connectionId, ply.PlayerID);
         }
@@ -120,7 +120,7 @@ public class LobbyController : NetworkBehaviour
 
     public void StartGame()
     {
-        HoLNetworkManager manager = NetworkManager.singleton as HoLNetworkManager;
+        hiveNetworkManager manager = NetworkManager.singleton as hiveNetworkManager;
         manager.StartGame();
     }
 }

@@ -40,10 +40,10 @@ public class MissionUI : NetworkBehaviour
     [SerializeField] IntVariable cardsTotal;
 
     [Tooltip("The current team leader")]
-    [SerializeField] HoLPlayerVariable teamLeader;
+    [SerializeField] hivePlayerVariable teamLeader;
 
     [Tooltip("All players that have currently been selected to go on the mission")]
-    [SerializeField] HoLPlayerSet playersSelected;
+    [SerializeField] hivePlayerSet playersSelected;
 
     [Tooltip("Invoked after the mission bar has filled to the max")]
     [SerializeField] GameEvent afterMissionResultShown;

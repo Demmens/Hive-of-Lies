@@ -23,7 +23,7 @@ public class StandOrPassUI : NetworkBehaviour
     #endregion
     #region SERVER
     [Tooltip("The set of currently alive players")]
-    [SerializeField] HoLPlayerSet alivePlayers;
+    [SerializeField] hivePlayerSet alivePlayers;
     [Tooltip("The currently active mission")]
     [SerializeField] MissionVariable currentMission;
     [Tooltip("Invoked when a client stands for team leader")]
@@ -35,7 +35,7 @@ public class StandOrPassUI : NetworkBehaviour
     [Server]
     public void StandOrPassBegin()
     {
-        foreach (HoLPlayer ply in alivePlayers.Value)
+        foreach (hivePlayer ply in alivePlayers.Value)
         {
             SendUI(ply.connectionToClient, ply.NextStandCost);
         }

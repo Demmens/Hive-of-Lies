@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AppearAsWasp : RoleAbility
 {
-    [SerializeField] HoLPlayerSet supposedWasps;
+    [SerializeField] hivePlayerSet supposedWasps;
     protected override void OnRoleGiven()
     {
         supposedWasps.Add(Owner);

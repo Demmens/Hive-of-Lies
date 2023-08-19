@@ -17,22 +17,22 @@ public class StandOrPass : GamePhase
     [SerializeField] IntVariable numPartners;
 
     [Tooltip("The Team Leader")]
-    [SerializeField] HoLPlayerVariable teamLeader;
+    [SerializeField] hivePlayerVariable teamLeader;
 
     [Tooltip("The Current Mission")]
     [SerializeField] MissionVariable currentMission;
 
     [Tooltip("The players that chose to stand")]
-    [SerializeField] HoLPlayerSet standingPlayers;
+    [SerializeField] hivePlayerSet standingPlayers;
 
     [Tooltip("The players that chose to pass")]
-    [SerializeField] HoLPlayerSet passedPlayers;
+    [SerializeField] hivePlayerSet passedPlayers;
 
     [Tooltip("The players that are on the mission")]
-    [SerializeField] HoLPlayerSet playersOnMission;
+    [SerializeField] hivePlayerSet playersOnMission;
 
     [Tooltip("All players by their NetworkConnection")]
-    [SerializeField] HoLPlayerDictionary players;
+    [SerializeField] hivePlayerDictionary players;
 
     [Tooltip("Invoked when this phase begins")]
     [SerializeField] GameEvent standOrPassBegin;
@@ -67,7 +67,7 @@ public class StandOrPass : GamePhase
     {
         teamLeader.AfterVariableChanged += ply =>
         {
-            foreach (KeyValuePair<NetworkConnection, HoLPlayer> pair in players.Value)
+            foreach (KeyValuePair<NetworkConnection, hivePlayer> pair in players.Value)
             {
                 pair.Value.Button.ChangeTeamLeader(pair.Value == teamLeader.Value);
             }
@@ -92,7 +92,7 @@ public class StandOrPass : GamePhase
     {
         //Ignore if this is not the current game phase
         if (!Active) return;
-        if (!players.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!players.Value.TryGetValue(conn, out hivePlayer ply)) return;
         //If the player hasn't stood or passed yet, show them the UI again
         if (standingPlayers.Value.Contains(ply) || passedPlayers.Value.Contains(ply)) return;
 
@@ -135,7 +135,7 @@ public class StandOrPass : GamePhase
     {
         Debug.Log("Player has stood or passed");
         if (!Active) return;
-        if (!players.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!players.Value.TryGetValue(conn, out hivePlayer ply)) return;
 
         //Make sure they haven't already voted
         if (passedPlayers.Value.Contains(ply) || standingPlayers.Value.Contains(ply)) return;
@@ -181,7 +181,7 @@ public class StandOrPass : GamePhase
             //Team leader is decided randomly, but heavily weighted towards players with more remaining favour
             for (int i = 0; i < standingPlayers.Value.Count; i++)
             {
-                HoLPlayer ply = standingPlayers.Value[i];
+                hivePlayer ply = standingPlayers.Value[i];
 
                 if (Random.Range(0, 1f) <= (ply.Favour.Value + favourWeightMod) / (float) totalFavourOfStanding)
                 {

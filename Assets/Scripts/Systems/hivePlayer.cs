@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class HoLPlayer : NetworkBehaviour
+public class hivePlayer : NetworkBehaviour
 {
     #region Meta
     /// <summary>
@@ -81,7 +81,7 @@ public class HoLPlayer : NetworkBehaviour
     /// <summary>
     /// The target of this player. Always null if the player is a bee.
     /// </summary>
-    public HoLPlayerVariable Target;
+    public hivePlayerVariable Target;
 
     /// <summary>
     /// List of the choices of roles the player will have at the start of the game
@@ -115,7 +115,7 @@ public class HoLPlayer : NetworkBehaviour
         Deck = ScriptableObject.CreateInstance<DeckVariable>();
         NumDraws = ScriptableObject.CreateInstance<IntVariable>();
         IsAlive = ScriptableObject.CreateInstance<BoolVariable>();
-        Target = ScriptableObject.CreateInstance<HoLPlayerVariable>();
+        Target = ScriptableObject.CreateInstance<hivePlayerVariable>();
         IsAlive.Value = true;
         Deck.Value = new();
 

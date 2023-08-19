@@ -41,13 +41,13 @@ public class VoteUI : NetworkBehaviour
     [SerializeField] NetworkingEvent lockedIn;
 
     [Tooltip("All players in the game")]
-    [SerializeField] HoLPlayerSet allPlayers;
+    [SerializeField] hivePlayerSet allPlayers;
     #endregion
 
     [Server]
     public void AfterSetup()
     {
-        foreach (HoLPlayer ply in allPlayers.Value)
+        foreach (hivePlayer ply in allPlayers.Value)
         {
             ply.NextUpvoteCost.AfterVariableChanged += (val) => ReceiveUpvoteCost(ply.connectionToClient, val);
             ply.NextDownvoteCost.AfterVariableChanged += (val) => ReceiveDownvoteCost(ply.connectionToClient, val);

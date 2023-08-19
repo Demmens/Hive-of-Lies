@@ -10,7 +10,7 @@ public class SapperAbility : RoleAbility
     #endregion
     #region SERVER
     [SerializeField] GameObject dropdownButton;
-    [SerializeField] HoLPlayerSet alivePlayers;
+    [SerializeField] hivePlayerSet alivePlayers;
     [SerializeField] Card bombCard;
     List<PlayerButtonDropdownItem> shuffleButtons = new();
     #endregion
@@ -26,7 +26,7 @@ public class SapperAbility : RoleAbility
     [Command]
     void CreateDropdownOption()
     {
-        foreach (HoLPlayer ply in alivePlayers.Value)
+        foreach (hivePlayer ply in alivePlayers.Value)
         {
             PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(dropdownButton, Owner);
             item.OnItemClicked += PlayerChosen;
@@ -36,7 +36,7 @@ public class SapperAbility : RoleAbility
     }
 
     [Server]
-    void PlayerChosen(HoLPlayer player)
+    void PlayerChosen(hivePlayer player)
     {
         if (player.Deck.Value != null) ShuffleBomb(player);
         foreach (PlayerButtonDropdownItem item in shuffleButtons)
@@ -46,7 +46,7 @@ public class SapperAbility : RoleAbility
     }
 
     [Server]
-    void ShuffleBomb(HoLPlayer player)
+    void ShuffleBomb(hivePlayer player)
     {
         Deck deck = player.Deck;
         deck.DrawPile.Add(bombCard);

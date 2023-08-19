@@ -22,13 +22,13 @@ public class MissionResultPopup : NetworkBehaviour
 
     #region SERVER
     [Tooltip("Set of all players")]
-    [SerializeField] HoLPlayerSet allPlayers;
+    [SerializeField] hivePlayerSet allPlayers;
 
     [Tooltip("Set of all players on the mission")]
-    [SerializeField] HoLPlayerSet playersOnMission;
+    [SerializeField] hivePlayerSet playersOnMission;
 
     [Tooltip("The team leader of the current mission")]
-    [SerializeField] HoLPlayerVariable teamLeader;
+    [SerializeField] hivePlayerVariable teamLeader;
 
     [Tooltip("Set of all played cards this mission")]
     [SerializeField] CardSet playedCards;
@@ -51,7 +51,7 @@ public class MissionResultPopup : NetworkBehaviour
     [Server]
     public void OnMissionEnd()
     {
-        foreach (HoLPlayer ply in allPlayers.Value)
+        foreach (hivePlayer ply in allPlayers.Value)
         {
             List<Card> played = new();
 
@@ -67,7 +67,7 @@ public class MissionResultPopup : NetworkBehaviour
     /// </summary>
     /// <param name="ply"></param>
     /// <returns></returns>
-    bool ShouldShowContributions(HoLPlayer ply)
+    bool ShouldShowContributions(hivePlayer ply)
     {
         return false;
     }

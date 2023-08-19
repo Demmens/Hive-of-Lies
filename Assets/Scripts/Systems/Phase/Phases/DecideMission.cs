@@ -17,7 +17,7 @@ public class DecideMission : GamePhase
     /// <summary>
     /// Which players have voted
     /// </summary>
-    List<HoLPlayer> TotalVotes;
+    List<hivePlayer> TotalVotes;
 
     /// <summary>
     /// The mission that was voted in
@@ -40,7 +40,7 @@ public class DecideMission : GamePhase
     [SerializeField] MissionListVariable decidedMissionList;
 
     [Tooltip("All players by their connection")]
-    [SerializeField] HoLPlayerDictionary players;
+    [SerializeField] hivePlayerDictionary players;
 
     [Tooltip("The currently active mission")]
     [SerializeField] MissionVariable currentMission;
@@ -65,7 +65,7 @@ public class DecideMission : GamePhase
     /// <summary>
     /// Who has voted for which mission, and how many votes in total that mission has
     /// </summary>
-    public Dictionary<Mission, (List<HoLPlayer>, int)> MissionVotes;
+    public Dictionary<Mission, (List<hivePlayer>, int)> MissionVotes;
 
     void Start()
     {
@@ -100,8 +100,8 @@ public class DecideMission : GamePhase
     [Server]
     public override void Begin()
     {
-        TotalVotes = new List<HoLPlayer>();
-        MissionVotes = new Dictionary<Mission, (List<HoLPlayer>, int)>();
+        TotalVotes = new List<hivePlayer>();
+        MissionVotes = new Dictionary<Mission, (List<hivePlayer>, int)>();
 
         //List of missions and weights. Make sure if we reach the end of the list that we just start looping the final mission indefinitely.
         missionListIndex = Mathf.Min(roundNum, decidedMissionList.Value.List.Count - 1);
@@ -160,7 +160,7 @@ public class DecideMission : GamePhase
                     if (rand < miss.Item2 / total)
                     {
                         //Add the mission to the selection
-                        MissionVotes.Add(miss.Item1, (new List<HoLPlayer>(), 0));
+                        MissionVotes.Add(miss.Item1, (new List<hivePlayer>(), 0));
                         choices.Add(miss.Item1);
                         //Remove all instances of this mission, thus reducing the total number of balls in the bag.
                         total -= miss.Item2;
@@ -242,12 +242,12 @@ public class DecideMission : GamePhase
     {
         if (!Active) return;
         //Make sure they're alive
-        if (!players.Value.TryGetValue(conn, out HoLPlayer ply)) return;
+        if (!players.Value.TryGetValue(conn, out hivePlayer ply)) return;
         //Make sure players don't vote twice.
         if (TotalVotes.Contains(ply)) return;
 
         //Make sure they're voting on a valid mission.
-        if (!MissionVotes.TryGetValue(vote, out (List<HoLPlayer>, int) Tuple)) return;
+        if (!MissionVotes.TryGetValue(vote, out (List<hivePlayer>, int) Tuple)) return;
 
         Tuple.Item1.Add(ply);
         Tuple.Item2++;
@@ -265,7 +265,7 @@ public class DecideMission : GamePhase
     void DetermineMission()
     {
         int maxVotes = int.MinValue;
-        foreach (KeyValuePair<Mission,(List<HoLPlayer>,int)> item in MissionVotes)
+        foreach (KeyValuePair<Mission,(List<hivePlayer>,int)> item in MissionVotes)
         {
             if (item.Value.Item2 > maxVotes)
             {
@@ -277,7 +277,7 @@ public class DecideMission : GamePhase
 
         currentMission.Value = DecidedMission ?? decidedMissionList.Value.List[missionListIndex].Missions[0].Mission;
 
-        foreach (KeyValuePair<NetworkConnection,HoLPlayer> pair in players.Value)
+        foreach (KeyValuePair<NetworkConnection,hivePlayer> pair in players.Value)
         {
             pair.Value.NextStandCost.Value = currentMission.Value.FavourCost;
         }

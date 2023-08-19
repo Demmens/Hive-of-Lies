@@ -5,7 +5,7 @@ using Mirror;
 
 public class DeckScreen : NetworkBehaviour
 {
-    [SerializeField] HoLPlayerDictionary playersByConnection;
+    [SerializeField] hivePlayerDictionary playersByConnection;
     [SerializeField] bool isDrawPile;
 
     #region Client
@@ -18,7 +18,7 @@ public class DeckScreen : NetworkBehaviour
 
     private void Start()
     {
-        foreach (KeyValuePair<NetworkConnection,HoLPlayer> pair in playersByConnection.Value)
+        foreach (KeyValuePair<NetworkConnection,hivePlayer> pair in playersByConnection.Value)
         {
             if (isDrawPile)
             {

@@ -5,19 +5,19 @@ using Mirror;
 
 public class NeverTarget : RoleAbility
 {
-    [SerializeField] HoLPlayerSet waspPlayers;
-    [SerializeField] HoLPlayerSet beePlayers;
+    [SerializeField] hivePlayerSet waspPlayers;
+    [SerializeField] hivePlayerSet beePlayers;
 
     protected override void OnRoleGiven()
     {
         waspPlayers.Value.Shuffle();
-        foreach (HoLPlayer ply in waspPlayers.Value)
+        foreach (hivePlayer ply in waspPlayers.Value)
         {
             ply.Target.OnVariableChanged += OnTargetChosen;
 
             if (ply.Target == Owner)
             {
-                HoLPlayer newTarget = Owner;
+                hivePlayer newTarget = Owner;
                 ReRandomiseTarget(ref newTarget);
                 ply.Target.Value = newTarget;
                 return;
@@ -26,18 +26,18 @@ public class NeverTarget : RoleAbility
     }
 
     [Server]
-    void OnTargetChosen(HoLPlayer oldTarget, ref HoLPlayer newTarget)
+    void OnTargetChosen(hivePlayer oldTarget, ref hivePlayer newTarget)
     {
         ReRandomiseTarget(ref newTarget);
     }
 
-    void ReRandomiseTarget(ref HoLPlayer target)
+    void ReRandomiseTarget(ref hivePlayer target)
     {
         if (target != Owner) return;
 
         beePlayers.Value.Shuffle();
 
-        foreach (HoLPlayer ply in beePlayers.Value)
+        foreach (hivePlayer ply in beePlayers.Value)
         {
             if (ply == Owner) continue;
             target = ply;

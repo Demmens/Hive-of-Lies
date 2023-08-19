@@ -9,7 +9,7 @@ public class PlayAgainButton : NetworkBehaviour
     [SerializeField] GameEvent resetRound;
 
     [Tooltip("The set of all players, alive or dead")]
-    [SerializeField] HoLPlayerSet allPlayers;
+    [SerializeField] hivePlayerSet allPlayers;
 
     [Tooltip("The game object containing the play again button")]
     [SerializeField] GameObject buttonObject;
