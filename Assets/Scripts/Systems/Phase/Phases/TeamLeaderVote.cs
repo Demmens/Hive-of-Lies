@@ -156,7 +156,7 @@ public class TeamLeaderVote : GamePhase
     /// <returns></returns>
     public static int CalculateUpvoteCost(int numVotes)
     {
-        return numVotes >= 0 ? 2 * numVotes : 2 * (numVotes + 1);
+        return numVotes >= 0 ? 1 * numVotes : 1 * (numVotes + 1);
     }
 
     /// <summary>
@@ -166,7 +166,7 @@ public class TeamLeaderVote : GamePhase
     /// <returns></returns>
     public static int CalculateDownvoteCost(int numVotes)
     {
-        return numVotes > 0 ? -2 * (numVotes-1) : -2 * numVotes;
+        return numVotes > 0 ? -1 * (numVotes-1) : -1 * numVotes;
     }
 }
 
