@@ -65,5 +65,4 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Owner: {fileID: 0}
-  maxCost: 3
+  maxCost: 2
