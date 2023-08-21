@@ -238,6 +238,7 @@ public class HoLNetworkManager : NetworkManager
     [Server]
     public override void OnServerChangeScene(string scene)
     {
+        playerCount.Value = allPlayers.Value.Count;
         if (scene != GameScene) return;
 
         allPlayers.Value.ForEach(ply => ply.ResetValues());
