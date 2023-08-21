@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: All Players
   m_EditorClassIdentifier: 
   initialValue: []
-  currentValue:
-  - {fileID: 0}
+  currentValue: []
   subsetOf: {fileID: 0}
   startFull: 0
   extensionOf: {fileID: 0}
