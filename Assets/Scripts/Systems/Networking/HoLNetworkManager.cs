@@ -58,6 +58,16 @@ public class HoLNetworkManager : NetworkManager
     ulong lastId;
     #endregion
 
+    public override void OnStartServer()
+    {
+        NetworkServer.RegisterHandler<RequestIDMsg>(ReceiveSteamID);
+    }
+
+    public override void OnStartClient()
+    {
+        NetworkClient.RegisterHandler<RequestIDMsg>(OnIDRequested);
+    }
+
     /// <summary>
     /// Called when a player joins the server for the first time
     /// </summary>
@@ -93,28 +103,22 @@ public class HoLNetworkManager : NetworkManager
 
         if (SceneManager.GetActiveScene().path == LobbyScene)
         {
-            StartCoroutine(WaitForNextSteamID(conn));
+            conn.Send(new RequestIDMsg());
         }
     }
 
-    /// <summary>
-    /// A bodged fix to make sure that players don't join with duplicate steam IDs
-    /// </summary>
-    /// <param name="conn"></param>
-    /// <returns></returns>
-    IEnumerator WaitForNextSteamID(NetworkConnection conn)
+    [Server]
+    void ReceiveSteamID(NetworkConnection conn, RequestIDMsg msg)
     {
-        ulong ID;
-        //Wait here until the ID is a new ID
-        do
-        {
-            ID = (ulong)SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize - 1);
-            yield return null;
-        } while (lastId == ID);
-
-        lastId = ID;
-        CreatePlayer(conn, ID);
+        CreatePlayer(conn, msg.ID);
         onServerConnect?.Invoke(conn);
+    }
+
+    [Client]
+    void OnIDRequested(RequestIDMsg msg)
+    {
+        msg.ID = (ulong) SteamUser.GetSteamID();
+        NetworkClient.Send(msg);
     }
 
     void CreateSpectator(NetworkConnection conn, ulong id)
@@ -285,5 +289,10 @@ public class HoLNetworkManager : NetworkManager
         if (baseType == null) return false;
 
         return IsAssignableToGenericType(baseType, genericType);
+    }
+
+    private struct RequestIDMsg : NetworkMessage
+    {
+        public ulong ID;
     }
 }
