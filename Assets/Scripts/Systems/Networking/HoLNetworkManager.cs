@@ -68,6 +68,11 @@ public class HoLNetworkManager : NetworkManager
         NetworkClient.RegisterHandler<RequestIDMsg>(OnIDRequested);
     }
 
+    public override void OnStopClient()
+    {
+        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
+    }
+
     /// <summary>
     /// Called when a player joins the server for the first time
     /// </summary>

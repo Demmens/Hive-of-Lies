@@ -24,10 +24,7 @@ public class SteamLobby : MonoBehaviour
     /// Server only storage of lobbyID
     /// </summary>
     public static CSteamID LobbyID;
-    /// <summary>
-    /// The sole steam lobby instance
-    /// </summary>
-    public static SteamLobby singleton;
+
     /// <summary>
     /// How many players are currently in this steam lobby
     /// </summary>
@@ -39,10 +36,6 @@ public class SteamLobby : MonoBehaviour
     private void Start()
     {
         if (!SteamManager.Initialized) { return; }
-        //We only ever want to run this code once
-        if (singleton != null) return;
-        singleton = this;
-        DontDestroyOnLoad(this);
 
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
