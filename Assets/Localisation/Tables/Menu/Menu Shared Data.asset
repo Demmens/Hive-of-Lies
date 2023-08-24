@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: Test Shared Data
+  m_Name: Menu Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: Test
+  m_TableCollectionName: Menu
   m_TableCollectionNameGuidString: 3480022117d3dd74681aedbb38fe7f5d
   m_Entries:
   - m_Id: 19098308608
@@ -29,6 +29,30 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 2215848251392
     m_Key: settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16334013927424
+    m_Key: analyticsConsent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16441945952256
+    m_Key: deleteData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16917273841664
+    m_Key: deleteDataVerification
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17272049045504
+    m_Key: consentPopup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17585044787200
+    m_Key: consent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17623439446016
+    m_Key: reject
     m_Metadata:
       m_Items: []
   m_Metadata:

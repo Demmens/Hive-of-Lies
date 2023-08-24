@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Menu_en-GB
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-GB
+  m_SharedData: {fileID: 11400000, guid: 3480022117d3dd74681aedbb38fe7f5d, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 19098308608
+    m_Localized: Host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1594529222656
+    m_Localized: Join
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1666734166016
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2215848251392
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16334013927424
+    m_Localized: Consent to collection of analytics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16441945952256
+    m_Localized: Delete data
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16917273841664
+    m_Localized: Are you sure you want to delete your data? This cannot be undone.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17272049045504
+    m_Localized: 'Hive of Lies collects gameplay data to help us with game balance
+      and finding the cause of major issues.
+
+
+      <b>We will not share or sell
+      your data</b>
+
+
+      At any time, you may disable data collection, or delete
+      all your stored data in the game settings.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17585044787200
+    m_Localized: Consent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17623439446016
+    m_Localized: Reject
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
