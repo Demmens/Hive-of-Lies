@@ -15,7 +15,7 @@ MonoBehaviour:
   roleName: Black Widow
   description: Social. When on a mission with no other allies, your redraws cannot
     cost more than 2 favour.
-  sprite: 
+  sprite: {fileID: 0}
   startingFavour: 10
   startingDeck:
   - {fileID: 11400000, guid: ec6424a80d79cab468517dbf1fb77817, type: 2}
@@ -42,5 +42,6 @@ MonoBehaviour:
   playersRequired: 7
   abilities:
   - {fileID: 7529912001924459178, guid: ef978e02bed77b1459e21fee9a651b75, type: 3}
-  - {fileID: 4948950136255913776, guid: d6df43031fa31514fb2ea3bff7d60e1a, type: 3}
+  - {fileID: 859330334463575630, guid: df0f3e71dab3c2b4cb39897bff1e0b63, type: 3}
+  - {fileID: 2220705230345647747, guid: ad1ecb79073683d48a6f37a257dbe096, type: 3}
   enabled: 0
