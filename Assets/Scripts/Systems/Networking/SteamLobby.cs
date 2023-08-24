@@ -34,6 +34,7 @@ public class SteamLobby : MonoBehaviour
     [SerializeField] GameObject joiningBox;
     [SerializeField] TMPro.TMP_Text joiningText;
     [SerializeField] LocalizedString joiningGameString;
+    [SerializeField] LocalizedString lobbyNameString;
 
     private void Start()
     {
@@ -51,7 +52,7 @@ public class SteamLobby : MonoBehaviour
         networkManager.StartHost();
 
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), hostAddressKey, SteamUser.GetSteamID().ToString());
-        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "name", SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()) + "'s lobby");
+        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "name", string.Format(lobbyNameString.GetLocalizedString(), SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID())));
     }
 
     /// <summary>

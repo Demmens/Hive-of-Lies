@@ -2782,6 +2782,15 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  lobbyNameString:
+    m_TableReference:
+      m_TableCollectionName: GUID:92db3fd3ce46a924a8baae6d492cccfd
+    m_TableEntryReference:
+      m_KeyId: 2958546243584
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   references:
     version: 2
     RefIds: []

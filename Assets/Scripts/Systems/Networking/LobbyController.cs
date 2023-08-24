@@ -6,11 +6,13 @@ using Steamworks;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
+using UnityEngine.Localization;
 
 public class LobbyController : NetworkBehaviour
 {
-    #region CLIENT
+    #region CLIENT    
     public TMP_Text LobbyNameText;
+    public GameObject LoadingText;
 
     public GameObject PlayerListViewContent;
     public GameObject PlayerListItemPrefab;
@@ -87,6 +89,8 @@ public class LobbyController : NetworkBehaviour
     {
         CurrentLobbyID = (ulong) SteamLobby.LobbyID;
         LobbyNameText.text = SteamMatchmaking.GetLobbyData(SteamLobby.LobbyID, "name");
+        LobbyNameText.gameObject.SetActive(true);
+        LoadingText.SetActive(false);
     }
 
     [ClientRpc]
