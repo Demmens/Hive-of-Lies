@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 6608709864616854916}
   - component: {fileID: 5152331382672005572}
   m_Layer: 0
-  m_Name: PlayerVote
+  m_Name: Player Vote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

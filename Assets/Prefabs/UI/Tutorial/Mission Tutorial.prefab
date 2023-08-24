@@ -1966,7 +1966,7 @@ GameObject:
   - component: {fileID: 7291692368099075170}
   - component: {fileID: 5663460103529247873}
   m_Layer: 0
-  m_Name: Mission
+  m_Name: Mission Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

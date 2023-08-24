@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3150264247266567199
+--- !u!1 &2340413517240385021
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,54 +8,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3150264247266567185}
-  - component: {fileID: 3100799200789842676}
-  - component: {fileID: 5215957117012090474}
-  - component: {fileID: 3195959915119173472}
-  - component: {fileID: 3150264247266567184}
-  - component: {fileID: 3150264247266567190}
+  - component: {fileID: 2340413517240385016}
+  - component: {fileID: 2340413517240385023}
+  - component: {fileID: 7592450672212666426}
+  - component: {fileID: 3731525916483806513}
+  - component: {fileID: 2340413517240385022}
+  - component: {fileID: -6295889642112760574}
   m_Layer: 0
-  m_Name: GameEnd
+  m_Name: Phase Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3150264247266567185
+--- !u!4 &2340413517240385016
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3150264247266567199}
+  m_GameObject: {fileID: 2340413517240385021}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 986.4814, y: 559.02515, z: 4.061875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3100799200789842676
+--- !u!114 &2340413517240385023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3150264247266567199}
+  m_GameObject: {fileID: 2340413517240385021}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Events:
-  - {fileID: 11400000, guid: b2fea23a7715fbc409169f8863b71fc5, type: 2}
+  - {fileID: 11400000, guid: 9e185bd2bad3eab4682c4e9966f84820, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3150264247266567184}
-        m_TargetAssemblyTypeName: GameEnd, Assembly-CSharp
-        m_MethodName: BeesWin
+      - m_Target: {fileID: 2340413517240385022}
+        m_TargetAssemblyTypeName: PhaseController, Assembly-CSharp
+        m_MethodName: ResetRound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -65,26 +65,26 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5215957117012090474
+--- !u!114 &7592450672212666426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3150264247266567199}
+  m_GameObject: {fileID: 2340413517240385021}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Events:
-  - {fileID: 11400000, guid: 5e4f5c6b4ef1b36409d1906eeb12971c, type: 2}
+  - {fileID: 11400000, guid: 9125915b3815a0740b511fb1b40ce95f, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3150264247266567184}
-        m_TargetAssemblyTypeName: GameEnd, Assembly-CSharp
-        m_MethodName: WaspsWin
+      - m_Target: {fileID: 2340413517240385022}
+        m_TargetAssemblyTypeName: PhaseController, Assembly-CSharp
+        m_MethodName: UnsuccessfulVote
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -94,27 +94,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3195959915119173472
+--- !u!114 &3731525916483806513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3150264247266567199}
+  m_GameObject: {fileID: 2340413517240385021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Events:
-  - {fileID: 11400000, guid: 99fa395cf1c847d4595b1fd05bec6690, type: 2}
+  - {fileID: 11400000, guid: fe5cd7e7dee80d646acbe9411af7d2f9, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3150264247266567184}
-        m_TargetAssemblyTypeName: GameEnd, Assembly-CSharp
-        m_MethodName: PlayerWins
-        m_Mode: 0
+      - m_Target: {fileID: 2340413517240385022}
+        m_TargetAssemblyTypeName: PhaseController, Assembly-CSharp
+        m_MethodName: ResetGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -123,35 +123,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3150264247266567184
+--- !u!114 &2340413517240385022
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3150264247266567199}
+  m_GameObject: {fileID: 2340413517240385021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c1e370e7480a8849af9e063382fe6b7, type: 3}
+  m_Script: {fileID: 11500000, guid: e66656095210bb648a76d116a16759a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  ResearchNeededForWin: {fileID: 11400000, guid: 1699329a910b70b49a5d013e5622c77c, type: 2}
-  HoneyNeededForWin: {fileID: 11400000, guid: 06d80601b7e94364b92473ed6e4aa185, type: 2}
-  HoneyStolen: {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
-  ResearchProgress: {fileID: 11400000, guid: dfe9cf79ab308fa4590bcb660471cac3, type: 2}
-  playersByConnection: {fileID: 11400000, guid: 727a441cdc88fb94daccad50d343bbc9, type: 2}
-  waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
-  gameEndScreen: {fileID: 7185780510350613299, guid: 46326bca61ec2b74bb5f9c738d09b61e, type: 3}
+  setup: {fileID: 7323658707468256372, guid: 919085fba192005429ed3641e721ecfa, type: 3}
+  phases: []
+  favourGainPerRound: 2
   roundNum: {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
---- !u!114 &3150264247266567190
+  players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+  roundBegun: {fileID: 11400000, guid: 0467309d9d93ff84a9ef78acba99aca8, type: 2}
+  downVoteReset: {fileID: 0}
+--- !u!114 &-6295889642112760574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3150264247266567199}
+  m_GameObject: {fileID: 2340413517240385021}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
@@ -160,5 +157,5 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 974755d2f8e297e41a7920aeb82fefb7
+  m_AssetId: 405a08d216e5c914dbf6dee7722086d9
   hasSpawned: 0

@@ -872,7 +872,7 @@ GameObject:
   - component: {fileID: 1789097070559436694}
   - component: {fileID: 2918668051371354464}
   m_Layer: 0
-  m_Name: StandOrPassUI
+  m_Name: Stand or Pass UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
