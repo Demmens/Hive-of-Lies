@@ -702,7 +702,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &493439499
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2773,6 +2773,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joiningBox: {fileID: 217027322}
   joiningText: {fileID: 1544505484}
+  joiningGameString:
+    m_TableReference:
+      m_TableCollectionName: GUID:3480022117d3dd74681aedbb38fe7f5d
+    m_TableEntryReference:
+      m_KeyId: 18826965618688
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!4 &1124173938
 Transform:
   m_ObjectHideFlags: 0
@@ -3799,7 +3811,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

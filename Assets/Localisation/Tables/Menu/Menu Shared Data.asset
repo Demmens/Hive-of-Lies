@@ -55,6 +55,11 @@ MonoBehaviour:
     m_Key: reject
     m_Metadata:
       m_Items: []
+  - m_Id: 18826965618688
+    m_Key: joiningGame
+    m_Metadata:
+      m_Items:
+      - rid: 2288630710118907918
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
@@ -66,3 +71,7 @@ MonoBehaviour:
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
         m_CustomEpoch: 1692877112889
+    - rid: 2288630710118907918
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: '{0} is the display name of the player you are joining'

@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en-US
   m_SharedData: {fileID: 11400000, guid: 3480022117d3dd74681aedbb38fe7f5d, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 2288630710118907916
   m_TableData:
   - m_Id: 19098308608
     m_Localized: Host
@@ -58,7 +59,8 @@ MonoBehaviour:
       At any time, you may disable data collection, or delete
       all your stored data in the game settings.'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2288630710118907916
   - m_Id: 17585044787200
     m_Localized: Consent
     m_Metadata:
@@ -67,6 +69,14 @@ MonoBehaviour:
     m_Localized: Reject
     m_Metadata:
       m_Items: []
+  - m_Id: 18826965618688
+    m_Localized: Joining {0}'s game
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2288630710118907916
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00105976b50f0000

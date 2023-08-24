@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
 using Mirror;
+using UnityEngine.Localization;
 
 public class SteamLobby : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class SteamLobby : MonoBehaviour
 
     [SerializeField] GameObject joiningBox;
     [SerializeField] TMPro.TMP_Text joiningText;
+    [SerializeField] LocalizedString joiningGameString;
 
     private void Start()
     {
@@ -59,7 +61,7 @@ public class SteamLobby : MonoBehaviour
     void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
         joiningBox.SetActive(true);
-        joiningText.text = $"JOINING {SteamFriends.GetFriendPersonaName(callback.m_steamIDFriend).ToUpper()}'S GAME";
+        joiningText.text = string.Format(joiningGameString.GetLocalizedString(), SteamFriends.GetFriendPersonaName(callback.m_steamIDFriend));
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }
 
