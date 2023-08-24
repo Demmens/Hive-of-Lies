@@ -40,5 +40,6 @@ MonoBehaviour:
   team: 1
   playersRequired: 5
   abilities:
-  - {fileID: 3427588619066902976, guid: f09a71d8b2182154786d5f7d0f377835, type: 3}
+  - {fileID: 859330334463575630, guid: df0f3e71dab3c2b4cb39897bff1e0b63, type: 3}
+  - {fileID: 1421403212480907067, guid: 62db3b3d157e37e48ae5a43949055ceb, type: 3}
   enabled: 1
