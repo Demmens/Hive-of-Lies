@@ -15,7 +15,7 @@ MonoBehaviour:
   roleName: Professional
   description: Your starting deck is stronger
   sprite: {fileID: 21300000, guid: 9f987bc44b10bfb428db901fc445c554, type: 3}
-  startingFavour: 5
+  startingFavour: 8
   startingDeck:
   - {fileID: 11400000, guid: ec6424a80d79cab468517dbf1fb77817, type: 2}
   - {fileID: 11400000, guid: ec6424a80d79cab468517dbf1fb77817, type: 2}
