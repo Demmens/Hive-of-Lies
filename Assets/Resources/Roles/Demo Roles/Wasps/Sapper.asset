@@ -12,9 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: Sapper
   m_EditorClassIdentifier: 
-  roleName: Sapper
-  description: Shuffle a bomb into a players deck. When drawn, the mission automatically
-    fails
+  roleName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 3701231652864
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 3801051893760
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: 21300000, guid: 14cc32ba5f75d5b458655f602ad52046, type: 3}
   startingFavour: 11
   startingDeck:
@@ -43,3 +58,6 @@ MonoBehaviour:
   abilities:
   - {fileID: 2570528568398496050, guid: 4b8a5a4687d60b94aae468ea67054884, type: 3}
   enabled: 1
+  references:
+    version: 2
+    RefIds: []

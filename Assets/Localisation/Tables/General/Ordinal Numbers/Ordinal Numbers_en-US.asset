@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Ordinal Numbers_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: e2e5afe656f95c841ab5abe21481d253, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 6150492160
+    m_Localized: first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50140352512
+    m_Localized: second
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67395719168
+    m_Localized: third
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96877481984
+    m_Localized: fourth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 115479220224
+    m_Localized: fifth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 131920891904
+    m_Localized: sixth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2386908745728
+    m_Localized: seventh
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2405770530816
+    m_Localized: eighth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2426372952064
+    m_Localized: ninth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2590961635328
+    m_Localized: tenth
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

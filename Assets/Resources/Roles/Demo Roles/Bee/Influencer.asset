@@ -12,8 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: Influencer
   m_EditorClassIdentifier: 
-  roleName: Influencer
-  description: Your votes are doubled
+  roleName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 4629942833152
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 4668912111616
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: multiplier
+      variable:
+        rid: 2288630729750085633
   sprite: {fileID: 21300000, guid: 9f987bc44b10bfb428db901fc445c554, type: 3}
   startingFavour: 15
   startingDeck:
@@ -42,3 +61,17 @@ MonoBehaviour:
   abilities:
   - {fileID: 7578572990359515094, guid: 3671620abcf17fa4db236c0c4c80fa91, type: 3}
   enabled: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630729750085633
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:1530a8c3162f80241ac076abd3f6eca4
+        m_TableEntryReference:
+          m_KeyId: 5605232640
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []

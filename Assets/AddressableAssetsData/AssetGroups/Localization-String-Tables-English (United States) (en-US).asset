@@ -29,6 +29,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en-US
     - Preload
+  - m_GUID: 99b302f263299bd46bbe96f9c26611d7
+    m_Address: Roles_en-US
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en-US
+    - Preload
+  - m_GUID: 8048949aa0dfe3440b13b5ade66185ee
+    m_Address: Ordinal Numbers_en-US
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en-US
+    - Preload
+  - m_GUID: d4b4e6b6b41e1db49b42fe6e2700c06a
+    m_Address: Multipliers_en-US
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en-US
+    - Preload
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: afe534c31f37b454b9cc4a29fdb17247, type: 2}
   m_SchemaSet:

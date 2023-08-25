@@ -1,0 +1,164 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Roles Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Roles
+  m_TableCollectionNameGuidString: 6f8c779fc0e0fa045a32d0626196818f
+  m_Entries:
+  - m_Id: 9430437888
+    m_Key: captainName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96139284480
+    m_Key: captainDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271972896768
+    m_Key: queenBeeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 311185444864
+    m_Key: queenBeeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 366290210816
+    m_Key: poisonerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 397101568000
+    m_Key: poisonerDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3375636221952
+    m_Key: poisonerButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3430896177152
+    m_Key: politicianName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3523699347456
+    m_Key: politicianDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3608898244608
+    m_Key: socialiteName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3655501156352
+    m_Key: socialiteDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3701231652864
+    m_Key: sapperName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3801051893760
+    m_Key: sapperDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3825555017728
+    m_Key: sapperButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3860879446016
+    m_Key: hornetName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3920757329920
+    m_Key: hornetDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3967226023936
+    m_Key: dictatorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4001061474304
+    m_Key: dictatorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4044191502336
+    m_Key: CEOName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4098612596736
+    m_Key: CEODescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4139259596800
+    m_Key: veteranName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4205366022144
+    m_Key: veteranDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4388657106944
+    m_Key: professionalName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4439668232192
+    m_Key: professionalDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4535000567808
+    m_Key: mercenaryName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4571570704384
+    m_Key: mercenaryDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4629942833152
+    m_Key: influencerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4668912111616
+    m_Key: influencerDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4708053356544
+    m_Key: detectiveName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5000501202944
+    m_Key: detectiveDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5077798031360
+    m_Key: capitalBeeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5121309741056
+    m_Key: capitalBeeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5195817357312
+    m_Key: buzzedBeeName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5248455872512
+    m_Key: buzzedBeeDescription
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2288630715881357314
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630715881357314
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1692902439930

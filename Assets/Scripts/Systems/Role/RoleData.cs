@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 /// <summary>
 /// Information about the role
@@ -12,13 +13,12 @@ public class RoleData : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="RoleName"/>
     /// </summary>
-    [SerializeField] string roleName;
+    [SerializeField] LocalizedString roleName;
 
     /// <summary>
     /// Private counterpart to <see cref="Description"/>
     /// </summary>
-    [TextArea]
-    [SerializeField] string description;
+    [SerializeField] LocalizedString description;
 
     /// <summary>
     /// Private counterpart to <see cref="Sprite"/>
@@ -65,7 +65,7 @@ public class RoleData : ScriptableObject
     {
         get
         {
-            return roleName;
+            return roleName.GetLocalizedString();
         }
     }
 
@@ -76,7 +76,7 @@ public class RoleData : ScriptableObject
     {
         get
         {
-            return description;
+            return description.GetLocalizedString();
         }
     }
 

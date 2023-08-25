@@ -12,8 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: Poisoner
   m_EditorClassIdentifier: 
-  roleName: Poisoner
-  description: '3f: The next card the Team Leader draws will be negative'
+  roleName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 366290210816
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 397101568000
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: cost
+      variable:
+        rid: 2288630715881357325
   sprite: {fileID: 21300000, guid: 14cc32ba5f75d5b458655f602ad52046, type: 3}
   startingFavour: 12
   startingDeck:
@@ -42,3 +61,10 @@ MonoBehaviour:
   abilities:
   - {fileID: 7908551812632945143, guid: 15c727636970d4d4d908d655cdbe19f5, type: 3}
   enabled: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630715881357325
+      type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: 3

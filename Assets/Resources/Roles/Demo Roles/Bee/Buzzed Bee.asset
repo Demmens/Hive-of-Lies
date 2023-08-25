@@ -12,8 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: Buzzed Bee
   m_EditorClassIdentifier: 
-  roleName: Buzzed Bee
-  description: Cards aren't lost when played
+  roleName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 5195817357312
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 5248455872512
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: 21300000, guid: 9f987bc44b10bfb428db901fc445c554, type: 3}
   startingFavour: 7
   startingDeck:
@@ -42,3 +58,6 @@ MonoBehaviour:
   abilities:
   - {fileID: 3963134387682790559, guid: 7a1de41f8bd952e4aabd7e3c3fc8ce8d, type: 3}
   enabled: 1
+  references:
+    version: 2
+    RefIds: []

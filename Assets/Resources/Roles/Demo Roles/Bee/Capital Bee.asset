@@ -12,8 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: Capital Bee
   m_EditorClassIdentifier: 
-  roleName: Capital Bee
-  description: Starts with extra Favour
+  roleName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 5077798031360
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 5121309741056
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: 21300000, guid: 9f987bc44b10bfb428db901fc445c554, type: 3}
   startingFavour: 20
   startingDeck:
@@ -41,3 +57,6 @@ MonoBehaviour:
   playersRequired: 0
   abilities: []
   enabled: 1
+  references:
+    version: 2
+    RefIds: []

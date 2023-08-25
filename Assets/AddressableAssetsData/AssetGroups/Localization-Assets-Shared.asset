@@ -25,6 +25,20 @@ MonoBehaviour:
     m_Address: Assets/Localisation/Tables/Lobby/Lobby Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: 6f8c779fc0e0fa045a32d0626196818f
+    m_Address: Assets/Localisation/Tables/Roles/Roles Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  - m_GUID: e2e5afe656f95c841ab5abe21481d253
+    m_Address: Assets/Localisation/Tables/General/Ordinal Numbers/Ordinal Numbers
+      Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  - m_GUID: 1530a8c3162f80241ac076abd3f6eca4
+    m_Address: Assets/Localisation/Tables/General/Multipliers/Multipliers Shared
+      Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: afe534c31f37b454b9cc4a29fdb17247, type: 2}
   m_SchemaSet:

@@ -67,7 +67,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  cost: 3
+  Cost: 3
   maxDraw: -1
   numPoisonedDraws: 1
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}

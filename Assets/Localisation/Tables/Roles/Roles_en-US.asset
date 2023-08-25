@@ -1,0 +1,173 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Roles_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 6f8c779fc0e0fa045a32d0626196818f, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 2288630715881357315
+  m_TableData:
+  - m_Id: 9430437888
+    m_Localized: Captain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96139284480
+    m_Localized: When you are the Team Leader, all other players on the mission draw
+      better
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271972896768
+    m_Localized: Queen Bee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 311185444864
+    m_Localized: Know the identity of all wasps. You are always a target.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 366290210816
+    m_Localized: Poisoner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 397101568000
+    m_Localized: '{cost}f: The next card the Team Leader draws will be negative'
+    m_Metadata:
+      m_Items:
+      - rid: 2288630715881357315
+  - m_Id: 3375636221952
+    m_Localized: Poison
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3430896177152
+    m_Localized: Politician
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3523699347456
+    m_Localized: Standing for Team Leader is free. If you stand, you will always
+      become the Team Leader.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3608898244608
+    m_Localized: Socialite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3655501156352
+    m_Localized: Knows all allies, has no sting.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3701231652864
+    m_Localized: Sapper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3801051893760
+    m_Localized: Shuffle a bomb into a players deck. When drawn, the mission automatically
+      fails
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3825555017728
+    m_Localized: Shuffle Bomb
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3860879446016
+    m_Localized: Hornet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3920757329920
+    m_Localized: No Ability
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3967226023936
+    m_Localized: Dictator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4001061474304
+    m_Localized: When you are on the mission, ignore negative votes.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4044191502336
+    m_Localized: CEO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4098612596736
+    m_Localized: While you are the Team Leader, all other players on the mission
+      perform worse.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4139259596800
+    m_Localized: Veteran
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4205366022144
+    m_Localized: Your redraws cannot cost more than {cost} favor.
+    m_Metadata:
+      m_Items:
+      - rid: 2288630715881357315
+  - m_Id: 4388657106944
+    m_Localized: Professional
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4439668232192
+    m_Localized: Your starting deck is stronger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4535000567808
+    m_Localized: Mercenary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4571570704384
+    m_Localized: Gain {favour} favor if you're chosen for a mission
+    m_Metadata:
+      m_Items:
+      - rid: 2288630715881357315
+  - m_Id: 4629942833152
+    m_Localized: Influencer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4668912111616
+    m_Localized: Your votes are {multiplier}
+    m_Metadata:
+      m_Items:
+      - rid: 2288630715881357315
+  - m_Id: 4708053356544
+    m_Localized: Detective
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5000501202944
+    m_Localized: After the {round} round, learn the identity of a random Bee
+    m_Metadata:
+      m_Items:
+      - rid: 2288630715881357315
+  - m_Id: 5077798031360
+    m_Localized: Capital Bee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5121309741056
+    m_Localized: Starts with extra Favor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5195817357312
+    m_Localized: Buzzed Bee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5248455872512
+    m_Localized: Cards aren't lost when played
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630715881357315
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 001019755c0000000010d9662804000000105923d3030000001019458c0400000010d9103f040000

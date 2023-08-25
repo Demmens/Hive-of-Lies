@@ -12,8 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: Dictator
   m_EditorClassIdentifier: 
-  roleName: Dictator
-  description: When you are on the mission, ignore negative votes.
+  roleName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 3967226023936
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 4001061474304
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: 21300000, guid: 14cc32ba5f75d5b458655f602ad52046, type: 3}
   startingFavour: 10
   startingDeck:
@@ -42,3 +58,6 @@ MonoBehaviour:
   abilities:
   - {fileID: 899694251160386601, guid: 15aa3f0230c2b3242b8d28e4d47bd514, type: 3}
   enabled: 1
+  references:
+    version: 2
+    RefIds: []

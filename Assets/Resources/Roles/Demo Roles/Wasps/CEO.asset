@@ -12,9 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: CEO
   m_EditorClassIdentifier: 
-  roleName: CEO
-  description: While you are the Team Leader, all other players on the mission perform
-    worse.
+  roleName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 4044191502336
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 4098612596736
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: 21300000, guid: 14cc32ba5f75d5b458655f602ad52046, type: 3}
   startingFavour: 6
   startingDeck:
@@ -43,3 +58,6 @@ MonoBehaviour:
   abilities:
   - {fileID: 7043207111567127333, guid: 8d591527df8b14d4bb21933a8beb216c, type: 3}
   enabled: 1
+  references:
+    version: 2
+    RefIds: []

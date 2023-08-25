@@ -12,8 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
   m_Name: Captain
   m_EditorClassIdentifier: 
-  roleName: Captain
-  description: When you are the team leader, all players on the mission draw better
+  roleName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 9430437888
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 96139284480
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   sprite: {fileID: 21300000, guid: 9f987bc44b10bfb428db901fc445c554, type: 3}
   startingFavour: 8
   startingDeck:
@@ -42,3 +58,6 @@ MonoBehaviour:
   abilities:
   - {fileID: 7043207111567127333, guid: 107c63263c16b4640a76331b9743f03f, type: 3}
   enabled: 1
+  references:
+    version: 2
+    RefIds: []

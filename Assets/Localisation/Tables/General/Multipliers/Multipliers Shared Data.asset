@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Multipliers Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Multipliers
+  m_TableCollectionNameGuidString: 1530a8c3162f80241ac076abd3f6eca4
+  m_Entries:
+  - m_Id: 5605232640
+    m_Key: doubled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22873182208
+    m_Key: tripled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39398739968
+    m_Key: quadrupled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59699171328
+    m_Key: halved
+    m_Metadata:
+      m_Items: []
+  - m_Id: 136131973120
+    m_Key: multipliedBy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 178918068224
+    m_Key: dividedBy
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2288630715881357330
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630715881357330
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1692905367257
