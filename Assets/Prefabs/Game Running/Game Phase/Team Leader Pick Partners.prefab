@@ -60,8 +60,21 @@ MonoBehaviour:
   teamLeaderCanPick: {fileID: 11400000, guid: 75a00421409c93846b2cbb0a2bf008de, type: 2}
   partnerChoicesLocked: {fileID: 11400000, guid: 2ec4455b9dd56c84b8d12e7e321d0709, type: 2}
   lockInButton: {fileID: 0}
+  chosenText: {fileID: 0}
+  chosenTextString:
+    m_TableReference:
+      m_TableCollectionName: GUID:1311fef112061324cafb5b9412876990
+    m_TableEntryReference:
+      m_KeyId: 182466449408
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   pickPlayerButton: {fileID: 5348883325331210057, guid: ef206b6918966b849a02dc0b39eb34ba, type: 3}
   unpickPlayerButton: {fileID: 8102290754876271477, guid: 3a3d8596762c1944b9f04b0cfd72e8e4, type: 3}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-8212179321641859555
 MonoBehaviour:
   m_ObjectHideFlags: 0

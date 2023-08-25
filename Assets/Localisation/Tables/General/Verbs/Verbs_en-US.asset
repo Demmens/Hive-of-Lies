@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: Verbs_en-GB
+  m_Name: Verbs_en-US
   m_EditorClassIdentifier: 
   m_LocaleId:
-    m_Code: en-GB
+    m_Code: en-US
   m_SharedData: {fileID: 11400000, guid: 8db8ba50f66e06a48b758a050e1bf923, type: 2}
   m_Metadata:
     m_Items: []
@@ -32,6 +32,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1876742967296
     m_Localized: lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 78256541339648
+    m_Localized: is
+    m_Metadata:
+      m_Items: []
+  - m_Id: 78264057532416
+    m_Localized: are
     m_Metadata:
       m_Items: []
   references:

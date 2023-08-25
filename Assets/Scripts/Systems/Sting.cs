@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using Mirror;
 
 public class Sting : NetworkBehaviour
@@ -65,6 +66,12 @@ public class Sting : NetworkBehaviour
 
     [Tooltip("The text that displays the active stingers target")]
     [SerializeField] TMPro.TMP_Text stingActiveText;
+
+    [Tooltip("The localised text that displays the active stingers target")]
+    [SerializeField] LocalizedString stingActiveString;
+
+    [Tooltip("The localised text for the target popup")]
+    [SerializeField] LocalizedString targetPopupText;
 
     /// <summary>
     /// Whether the current client is stinging
@@ -161,7 +168,7 @@ public class Sting : NetworkBehaviour
         stingButton.SetActive(true);
         UpdateButtonInteractable();
         GameObject popup = Instantiate(stingPopup);
-        popup.GetComponent<Notification>().SetText($"Your target is the {targetName}:\n{targetDescription}");
+        popup.GetComponent<Notification>().SetText(string.Format(targetPopupText.GetLocalizedString(), targetName, targetDescription));
         targetText.text = targetName.ToUpper() + "\n" + targetDescription;
     }
 
@@ -211,7 +218,7 @@ public class Sting : NetworkBehaviour
     [ClientRpc]
     public void OnPlayerSting(string targetRole)
     {
-        stingActiveText.text = $"TARGET: {targetRole.ToUpper()}";
+        stingActiveText.text = string.Format(stingActiveString.GetLocalizedString(), targetRole);
         stingActiveText.gameObject.SetActive(true);
         foreach (GameObject obj in DisabledUI)
         {

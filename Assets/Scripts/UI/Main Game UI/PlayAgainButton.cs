@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using Mirror;
 
 public class PlayAgainButton : NetworkBehaviour
@@ -16,6 +17,9 @@ public class PlayAgainButton : NetworkBehaviour
 
     [Tooltip("The text displaying the winners")]
     [SerializeField] TMPro.TMP_Text winTextObject;
+
+    [Tooltip("Localised waiting text")]
+    [SerializeField] LocalizedString waitingText;
 
     [SyncVar(hook = nameof(SetTextObject))] string winText;
 
@@ -63,6 +67,6 @@ public class PlayAgainButton : NetworkBehaviour
     [ClientRpc]
     void SetWaitingFor(int ready, int total)
     {
-        waitingFor.text = $"Waiting: ({ready}/{total})";
+        waitingFor.text = string.Format(waitingText.GetLocalizedString(), ready, total);
     }
 }

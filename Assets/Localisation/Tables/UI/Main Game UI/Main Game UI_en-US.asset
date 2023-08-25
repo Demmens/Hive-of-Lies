@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Main Game UI_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 1311fef112061324cafb5b9412876990, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 2288630729750085703
+  m_TableData:
+  - m_Id: 6402150400
+    m_Localized: Total
+    m_Metadata:
+      m_Items: []
+  - m_Id: 58596069376
+    m_Localized: stand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 158118514688
+    m_Localized: pass
+    m_Metadata:
+      m_Items: []
+  - m_Id: 321901891584
+    m_Localized: Add to mission
+    m_Metadata:
+      m_Items: []
+  - m_Id: 340906283008
+    m_Localized: Remove from mission
+    m_Metadata:
+      m_Items: []
+  - m_Id: 936853966848
+    m_Localized: 'vote:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 984161521664
+    m_Localized: votes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1053027799040
+    m_Localized: draw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1068756439040
+    m_Localized: play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1134212747264
+    m_Localized: Mission report
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2379430301696
+    m_Localized: '{0} win'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2534967676928
+    m_Localized: '{0} wins'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2686734372864
+    m_Localized: Play again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2728971014144
+    m_Localized: Leave game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2802258087936
+    m_Localized: sting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 286824927232
+    m_Localized: Confirm players
+    m_Metadata:
+      m_Items: []
+  - m_Id: 182466449408
+    m_Localized: Players chosen ({0}/{1})
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5764770500608
+    m_Localized: Target:{0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 424746225664
+    m_Localized: You are the Team Leader. Select the player you wish to take on the
+      mission.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5745250209792
+    m_Localized: 'Your target is the {0}:
+
+      {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12846852804608
+    m_Localized: 'Waiting: ({0}/{1})'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763620823040
+    m_Localized: '<b>YOU ARE A BEE</b>
+
+
+      Succeed missions, find allies, and
+      don''t let <b>anyone</b> know your role.
+
+      There {is_are} \{0\} {wasp}.'
+    m_Metadata:
+      m_Items:
+      - rid: 2288630729750085703
+  - m_Id: 779613704192
+    m_Localized: '<b>YOU ARE A WASP</b>
+
+
+      Stay hidden, sabotage missions, and
+      find your target.
+
+      You have \{0\} {allies} '
+    m_Metadata:
+      m_Items:
+      - rid: 2288630729750085703
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630729750085703
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 001059cbb100000000109984b5000000

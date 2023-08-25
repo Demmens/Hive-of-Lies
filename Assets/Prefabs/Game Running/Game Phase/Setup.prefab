@@ -124,6 +124,129 @@ MonoBehaviour:
   rightPlayerRow: {fileID: 0}
   bottomPlayerRow: {fileID: 0}
   leftPlayerRow: {fileID: 0}
+  beePopupText:
+    m_TableReference:
+      m_TableCollectionName: GUID:1311fef112061324cafb5b9412876990
+    m_TableEntryReference:
+      m_KeyId: 763620823040
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: is_are
+      variable:
+        rid: 2288630729750085706
+    - name: wasp
+      variable:
+        rid: 2288630729750085707
+  waspPopupText:
+    m_TableReference:
+      m_TableCollectionName: GUID:1311fef112061324cafb5b9412876990
+    m_TableEntryReference:
+      m_KeyId: 779613704192
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: allies
+      variable:
+        rid: 2288630729750085713
+  beePopupText_pl:
+    m_TableReference:
+      m_TableCollectionName: GUID:1311fef112061324cafb5b9412876990
+    m_TableEntryReference:
+      m_KeyId: 763620823040
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: is_are
+      variable:
+        rid: 2288630729750085710
+    - name: wasp
+      variable:
+        rid: 2288630729750085711
+  waspPopupText_pl:
+    m_TableReference:
+      m_TableCollectionName: GUID:1311fef112061324cafb5b9412876990
+    m_TableEntryReference:
+      m_KeyId: 779613704192
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: allies
+      variable:
+        rid: 2288630729750085715
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630729750085706
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:8db8ba50f66e06a48b758a050e1bf923
+        m_TableEntryReference:
+          m_KeyId: 78256541339648
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630729750085707
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 146198302720
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630729750085710
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:8db8ba50f66e06a48b758a050e1bf923
+        m_TableEntryReference:
+          m_KeyId: 78264057532416
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630729750085711
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 116091588608
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630729750085713
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:52f6f297fd5a1844b837048c6f69b046
+        m_TableEntryReference:
+          m_KeyId: 4703457280
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630729750085715
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:52f6f297fd5a1844b837048c6f69b046
+        m_TableEntryReference:
+          m_KeyId: 32390057984
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
 --- !u!114 &4473885344014706271
 MonoBehaviour:
   m_ObjectHideFlags: 0

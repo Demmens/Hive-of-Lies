@@ -10,35 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: Verbs Shared Data
+  m_Name: Nouns Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: Verbs
-  m_TableCollectionNameGuidString: 8db8ba50f66e06a48b758a050e1bf923
+  m_TableCollectionName: Nouns
+  m_TableCollectionNameGuidString: 52f6f297fd5a1844b837048c6f69b046
   m_Entries:
-  - m_Id: 11045244928
-    m_Key: gain_3rd_sg
+  - m_Id: 4703457280
+    m_Key: ally_sg
     m_Metadata:
       m_Items: []
-  - m_Id: 32536858624
-    m_Key: gain_3rd_pl
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1836687364096
-    m_Key: lose_3rd_sg
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1876742967296
-    m_Key: lose_3rd_pl
+  - m_Id: 32390057984
+    m_Key: ally_pl
     m_Metadata:
       m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 2288630729750085656
+    rid: 2288630729750085695
   references:
     version: 2
     RefIds:
-    - rid: 2288630729750085656
+    - rid: 2288630729750085695
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1692957811146
+        m_CustomEpoch: 1692975610274

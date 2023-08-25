@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using Mirror;
 using Steamworks;
 
@@ -8,11 +9,20 @@ public class TeamLeaderPopup : NetworkBehaviour
 {
     #region CLIENT
     [SerializeField] TMPro.TMP_Text popupText;
+
     [SerializeField] GameObject popup;
+
     [Tooltip("Whether the local player is the team leader")]
     [SerializeField] BoolVariable isTeamLeader;
+
     [Tooltip("Whether the local player is on the mission")]
     [SerializeField] BoolVariable isOnMission;
+
+    [Tooltip("The text for the popup when you are the Team Leader")]
+    [SerializeField] LocalizedString popupText1;
+
+    [Tooltip("The text for the popup when someone else is the Team Leader")]
+    [SerializeField] LocalizedString popupText2;
     #endregion
     #region SERVER
     [Tooltip("The current team leader")]
@@ -61,11 +71,11 @@ public class TeamLeaderPopup : NetworkBehaviour
 
         if (isTeamLeader)
         {
-            popupText.text = "You are the team leader. Select the player you wish to take on the mission.";
+            popupText.text = popupText1.GetLocalizedString();
         }
         else
         {
-            popupText.text = $"{leaderName} is the team leader";
+            popupText.text = string.Format(popupText2.GetLocalizedString(), leaderName);
         }
 
         popup.SetActive(true);

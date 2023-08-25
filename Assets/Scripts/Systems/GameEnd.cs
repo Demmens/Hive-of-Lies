@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using Mirror;
 using Unity.Services.Analytics;
 
@@ -32,6 +33,16 @@ public class GameEnd : NetworkBehaviour
     bool hasWon;
     #endregion
 
+
+    [Tooltip("The text to display when the bees wins")]
+    [SerializeField] LocalizedString beesWinText;
+
+    [Tooltip("The text to display when the wasps wins")]
+    [SerializeField] LocalizedString waspsWinText;
+
+    [Tooltip("The text to display on a solo win")]
+    [SerializeField] LocalizedString soloWinText;
+
     public override void OnStartServer()
     {
         HoneyStolen.AfterVariableChanged += change =>
@@ -58,7 +69,7 @@ public class GameEnd : NetworkBehaviour
         //If 3 honey is stolen at the same time as 3 wasp facts are learned, the bees don't win
         if (HoneyStolen >= HoneyNeededForWin) return;
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText("BEES WIN");
+        screen.GetComponent<PlayAgainButton>().SetText(beesWinText.GetLocalizedString());
         NetworkServer.Spawn(screen);
 
         Dictionary<string, object> parameters = new()
@@ -79,7 +90,7 @@ public class GameEnd : NetworkBehaviour
         if (hasWon) return;
         hasWon = true;
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText("WASPS WIN");
+        screen.GetComponent<PlayAgainButton>().SetText(waspsWinText.GetLocalizedString());
         NetworkServer.Spawn(screen);
 
         Dictionary<string, object> parameters = new()
@@ -100,7 +111,7 @@ public class GameEnd : NetworkBehaviour
         if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
 
         GameObject screen = Instantiate(gameEndScreen);
-        screen.GetComponent<PlayAgainButton>().SetText($"{ply.DisplayName.ToUpper()} WINS");
+        screen.GetComponent<PlayAgainButton>().SetText(string.Format(soloWinText.GetLocalizedString(), ply.DisplayName));
         NetworkServer.Spawn(screen);
 
         Dictionary<string, object> parameters = new()

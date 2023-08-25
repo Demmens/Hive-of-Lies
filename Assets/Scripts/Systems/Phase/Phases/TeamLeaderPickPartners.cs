@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Steamworks;
+using UnityEngine.Localization;
 
 /// <summary>
 /// Allows the TeamLeader to choose players to join them on the mission.
@@ -54,6 +55,9 @@ public class TeamLeaderPickPartners : GamePhase
 
     [Tooltip("The text displaying how many players have been chosen for the mission")]
     [SerializeField] GameObject chosenText;
+
+    [Tooltip("The localised string displaying how many players have been chosen for the mission")]
+    [SerializeField] LocalizedString chosenTextString;
 
     [Tooltip("The dropdown prefab to add a player to the mission")]
     [SerializeField] GameObject pickPlayerButton;
@@ -269,7 +273,7 @@ public class TeamLeaderPickPartners : GamePhase
     [TargetRpc]
     void SetPlayersChosen(NetworkConnection conn, int currentChosen, int max)
     {
-        chosenText.GetComponent<TMPro.TMP_Text>().text = $"PLAYERS CHOSEN ({currentChosen}/{max})";
+        chosenText.GetComponent<TMPro.TMP_Text>().text = string.Format(chosenTextString.GetLocalizedString(), currentChosen, max);
     }
 
     [TargetRpc]

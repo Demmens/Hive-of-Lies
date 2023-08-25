@@ -369,7 +369,28 @@ MonoBehaviour:
   popup: {fileID: 6902898913206016380}
   isTeamLeader: {fileID: 11400000, guid: 021678f2786a59f4f96c928223f5b518, type: 2}
   isOnMission: {fileID: 11400000, guid: b9f406dffbe4a27409cd0aa785114640, type: 2}
+  popupText1:
+    m_TableReference:
+      m_TableCollectionName: GUID:1311fef112061324cafb5b9412876990
+    m_TableEntryReference:
+      m_KeyId: 424746225664
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  popupText2:
+    m_TableReference:
+      m_TableCollectionName: GUID:1311fef112061324cafb5b9412876990
+    m_TableEntryReference:
+      m_KeyId: 472506765312
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &6902898914844275440
 GameObject:
   m_ObjectHideFlags: 0

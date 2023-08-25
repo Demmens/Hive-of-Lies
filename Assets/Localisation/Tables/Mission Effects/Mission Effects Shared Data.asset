@@ -55,6 +55,10 @@ MonoBehaviour:
     m_Key: specificMissionDifficulty
     m_Metadata:
       m_Items: []
+  - m_Id: 32349951168512
+    m_Key: investigateButtonText
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

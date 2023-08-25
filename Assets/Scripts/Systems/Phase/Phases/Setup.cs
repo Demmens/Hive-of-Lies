@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using Steamworks;
 using Mirror;
 
@@ -52,6 +53,16 @@ public class Setup : GamePhase
     [SerializeField] Transform rightPlayerRow;
     [SerializeField] Transform bottomPlayerRow;
     [SerializeField] Transform leftPlayerRow;
+
+    [Tooltip("The localised text for the bee popup")]
+    [SerializeField] LocalizedString beePopupText;
+    [Tooltip("The localised text for the wasp popup")]
+    [SerializeField] LocalizedString waspPopupText;
+
+    [Tooltip("The localised text for the bee popup if there are multiple wasps")]
+    [SerializeField] LocalizedString beePopupText_pl;
+    [Tooltip("The localised text for the wasp popup if you have multiple (or no) allies")]
+    [SerializeField] LocalizedString waspPopupText_pl;
 
     /// <summary>
     /// Run the game setup. This includes handing out roles and selecting teams.
@@ -209,24 +220,18 @@ public class Setup : GamePhase
 
         if (team == Team.Wasp)
         {
-            string text = "<b>YOU ARE A WASP</b>\n\nStay hidden, sabotage missions, and find your target.";
-            text += $"\nYou have {waspTotal-1} ";
-            text += (waspTotal == 2) ? "ally" : "allies";
+            string text;
+            if (waspTotal == 2) text = string.Format(waspPopupText.GetLocalizedString(), waspTotal - 1);
+            else text = string.Format(waspPopupText_pl.GetLocalizedString(), waspTotal - 1);
 
             teamPopup.GetComponent<Notification>().SetText(text);
         }
         else
         {
-            string text = "<b>YOU ARE A BEE</b>\n\nSucceed missions, find allies, and don't let <b>anyone</b> know your role.";
+            string text;
+            if (waspTotal == 1) text = string.Format(beePopupText.GetLocalizedString(), waspTotal);
+            else text = string.Format(beePopupText_pl.GetLocalizedString(), waspTotal);
 
-            if (waspTotal == 1)
-            {
-                text += "\nThere is 1 Wasp.";
-            }
-            else
-            {
-                text += $"\nThere are {waspTotal} Wasps.";
-            }
             teamPopup.GetComponent<Notification>().SetText(text);
         }
         

@@ -53,9 +53,10 @@ MonoBehaviour:
       m_Items:
       - rid: 2288630729750085638
   - m_Id: 1018869387264
-    m_Localized: Investigate a player
+    m_Localized: '{investigate} a player'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2288630729750085638
   - m_Id: 1101404901376
     m_Localized: Cancel the next {pos_neg} mission effect
     m_Metadata:
@@ -71,10 +72,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 2288630729750085638
+  - m_Id: 32349951168512
+    m_Localized: Investigate
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 2288630729750085638
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0010591902000000001099aa0e00000000109967200000000010591b2c0000000010192857000000001099cf6300000000109953b30000000010d97000010000001099a80a010000001099d318010000
+        m_Entries: 0010591902000000001099aa0e00000000109967200000000010591b2c0000000010192857000000001099cf6300000000109953b30000000010d97000010000001099a80a010000001099d31801000000105939ed000000
