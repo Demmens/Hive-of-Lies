@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Missions Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Missions
+  m_TableCollectionNameGuidString: f7b9ba7403b6e444abe9ef45700935e3
+  m_Entries:
+  - m_Id: 176476983296
+    m_Key: investigateTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 244575703040
+    m_Key: investigateFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 290859847680
+    m_Key: defendHoneyTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 334329614336
+    m_Key: defendHoneyFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 364398579712
+    m_Key: finaleTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 403887951872
+    m_Key: finaleFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442366496768
+    m_Key: resourcesTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493297930240
+    m_Key: resourcesFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 526474874880
+    m_Key: googleTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 594942693376
+    m_Key: googleFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 624969715712
+    m_Key: jailBreakTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 656003371008
+    m_Key: jailBreakFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692254740480
+    m_Key: openBookTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 726136328192
+    m_Key: openBookFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 826015289344
+    m_Key: tidyLibraryTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 861822062592
+    m_Key: tidyLibraryFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892155269120
+    m_Key: fixShelfTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 951705997312
+    m_Key: fixShelfFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 988703952896
+    m_Key: planMissionsTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1027731951616
+    m_Key: planMissionsFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1061785505792
+    m_Key: reclaimHoneyTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1095448989696
+    m_Key: reclaimHoneyFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124486156288
+    m_Key: recruitmentTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1164302684160
+    m_Key: recruitmentFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1193188855808
+    m_Key: honeyTrapTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1220397305856
+    m_Key: honeyTrapFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1257672085504
+    m_Key: propagandaTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1604117401600
+    m_Key: propagandaFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1671834439680
+    m_Key: standardTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1704680034304
+    m_Key: standardFlavour
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2288630729750085677
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630729750085677
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1692960486293

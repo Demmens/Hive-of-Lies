@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using System.Linq;
 
 [CreateAssetMenu(fileName = "Mission", menuName = "Missions/Create mission")]
@@ -10,13 +11,12 @@ public class Mission : ScriptableObject
     /// <summary>
     /// Private counterpart to <see cref="MissionName"/>
     /// </summary>
-    [SerializeField] string missionName;
+    [SerializeField] LocalizedString missionName;
 
     /// <summary>
     /// Private counterpart to <see cref="Description"/>
     /// </summary>
-    [Multiline]
-    [SerializeField] string description;
+    [SerializeField] LocalizedString description;
 
     /// <summary>
     /// Private counterpart to <see cref="FavourCost"/>
@@ -48,7 +48,7 @@ public class Mission : ScriptableObject
     {
         get
         {
-            return missionName;
+            return missionName.GetLocalizedString();
         }
     }
 
@@ -59,7 +59,7 @@ public class Mission : ScriptableObject
     {
         get
         {
-            return description;
+            return description.GetLocalizedString();
         }
     }
     /// <summary>
@@ -139,7 +139,7 @@ public class MissionEffectTier
             return value;
         }
     }
-    public string effectFlavour;
+    public LocalizedString effectFlavour;
     public List<MissionEffect> effects;
     public List<EMissionPlotPoint> plotPoints;
 

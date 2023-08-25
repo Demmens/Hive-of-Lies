@@ -12,18 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
   m_Name: Defend the Honey
   m_EditorClassIdentifier: 
-  missionName: Defend the Honey!
-  description: Send all our forces to defend the honey from an imminent raid!
+  missionName:
+    m_TableReference:
+      m_TableCollectionName: GUID:f7b9ba7403b6e444abe9ef45700935e3
+    m_TableEntryReference:
+      m_KeyId: 290859847680
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:f7b9ba7403b6e444abe9ef45700935e3
+    m_TableEntryReference:
+      m_KeyId: 334329614336
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   favourCost: 4
   effects:
   - value: 0
-    effectFlavour: 
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     effects:
     - {fileID: 11400000, guid: f593551c041116d4692997912b9b5175, type: 2}
     plotPoints: []
   - value: 2
-    effectFlavour: 
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     effects: []
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0
+  references:
+    version: 2
+    RefIds: []

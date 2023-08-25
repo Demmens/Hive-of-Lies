@@ -12,20 +12,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
   m_Name: Finale
   m_EditorClassIdentifier: 
-  missionName: Final Research Push
-  description: Spend the last of your resources searching the final threads in the
-    hive library in a last ditch effort to weed out the wasps.
+  missionName:
+    m_TableReference:
+      m_TableCollectionName: GUID:f7b9ba7403b6e444abe9ef45700935e3
+    m_TableEntryReference:
+      m_KeyId: 364398579712
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:f7b9ba7403b6e444abe9ef45700935e3
+    m_TableEntryReference:
+      m_KeyId: 403887951872
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   favourCost: 12
   effects:
   - value: 0
-    effectFlavour: 
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     effects:
     - {fileID: 11400000, guid: 34235a5eb24d62e4086243ed8787bdc4, type: 2}
     plotPoints: []
   - value: 5
-    effectFlavour: 
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     effects:
     - {fileID: 11400000, guid: c20462baca7fd364b857081d92087c9e, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0
+  references:
+    version: 2
+    RefIds: []

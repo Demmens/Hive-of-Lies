@@ -12,25 +12,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
   m_Name: Gather Resources
   m_EditorClassIdentifier: 
-  missionName: Gather Resources
-  description: Spend time gathering as many helpful resources as posible
+  missionName:
+    m_TableReference:
+      m_TableCollectionName: GUID:f7b9ba7403b6e444abe9ef45700935e3
+    m_TableEntryReference:
+      m_KeyId: 442366496768
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:f7b9ba7403b6e444abe9ef45700935e3
+    m_TableEntryReference:
+      m_KeyId: 493297930240
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   favourCost: 4
   effects:
   - value: 0
-    effectFlavour: 
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     effects:
     - {fileID: 11400000, guid: 1eb83aac85dba1a4aa6ee342952a1218, type: 2}
     plotPoints: []
   - value: 4
-    effectFlavour: 
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     effects:
     - {fileID: 11400000, guid: 8eade5410567fb14693326ca8dc358ed, type: 2}
     plotPoints: []
   - value: 8
-    effectFlavour: 
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     effects:
     - {fileID: 11400000, guid: 8eade5410567fb14693326ca8dc358ed, type: 2}
     - {fileID: 11400000, guid: 8eade5410567fb14693326ca8dc358ed, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0
+  references:
+    version: 2
+    RefIds: []

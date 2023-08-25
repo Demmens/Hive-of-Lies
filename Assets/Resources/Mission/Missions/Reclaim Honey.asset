@@ -12,24 +12,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
   m_Name: Reclaim Honey
   m_EditorClassIdentifier: 
-  missionName: Reclaim Honey
-  description: Send an expedition of our best recruits to reclaim some stolen honey
-    from the wasps
+  missionName:
+    m_TableReference:
+      m_TableCollectionName: GUID:f7b9ba7403b6e444abe9ef45700935e3
+    m_TableEntryReference:
+      m_KeyId: 1061785505792
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:f7b9ba7403b6e444abe9ef45700935e3
+    m_TableEntryReference:
+      m_KeyId: 1095448989696
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   favourCost: 12
   effects:
   - value: 0
-    effectFlavour: 
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     effects:
     - {fileID: 11400000, guid: f593551c041116d4692997912b9b5175, type: 2}
     plotPoints: []
   - value: 4
-    effectFlavour: 
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     effects: []
     plotPoints: []
   - value: 6
-    effectFlavour: 
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
     effects:
     - {fileID: 11400000, guid: d616065035baacc49a9bdf06cc89bc40, type: 2}
     plotPoints: []
   condition: {fileID: 11400000, guid: 710e2d5c7e628da46945271f689f88e5, type: 2}
   DifficultyMod: 0
+  references:
+    version: 2
+    RefIds: []

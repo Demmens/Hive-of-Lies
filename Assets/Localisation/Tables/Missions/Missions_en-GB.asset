@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Missions_en-GB
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-GB
+  m_SharedData: {fileID: 11400000, guid: f7b9ba7403b6e444abe9ef45700935e3, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 176476983296
+    m_Localized: Perform Background Checks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 244575703040
+    m_Localized: Thoroughly look into the history of one board member, looking for
+      any clues that might identify their loyalty.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 290859847680
+    m_Localized: Defend the Honey!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 334329614336
+    m_Localized: Send all our forces to defend the honey from an imminent raid!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 364398579712
+    m_Localized: Final Research Push
+    m_Metadata:
+      m_Items: []
+  - m_Id: 403887951872
+    m_Localized: Spend the last of your resources searching the final threads in
+      the hive library in a last ditch effort to weed out the wasps.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 442366496768
+    m_Localized: Gather Resources
+    m_Metadata:
+      m_Items: []
+  - m_Id: 493297930240
+    m_Localized: Spend time gathering as many helpful resources as posible.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 526474874880
+    m_Localized: Research Wasps
+    m_Metadata:
+      m_Items: []
+  - m_Id: 594942693376
+    m_Localized: Send out a team to look up the definition of the word "Wasp" online.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 624969715712
+    m_Localized: Jail Break
+    m_Metadata:
+      m_Items: []
+  - m_Id: 656003371008
+    m_Localized: Break our comrades out of prison!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 692254740480
+    m_Localized: Open Book
+    m_Metadata:
+      m_Items: []
+  - m_Id: 726136328192
+    m_Localized: Send a team of top bees to open a large book on wasps.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 826015289344
+    m_Localized: Organise the Hive Library
+    m_Metadata:
+      m_Items: []
+  - m_Id: 861822062592
+    m_Localized: Tidy up all the lose papers and put them back on the shelves where
+      they belong.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 892155269120
+    m_Localized: Pickup Shelf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 951705997312
+    m_Localized: While trying to organise the library, we knocked over a shelf. Let's
+      spend some time trying to pick it back up again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 988703952896
+    m_Localized: Plan Missions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1027731951616
+    m_Localized: Create a detailed plan of all future missions.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1061785505792
+    m_Localized: Reclaim Honey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1095448989696
+    m_Localized: Send an expedition of our best recruits to reclaim some stolen honey
+      from the wasps.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1124486156288
+    m_Localized: Recruitment Drive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1164302684160
+    m_Localized: Increase productivity by hiring new employees!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1193188855808
+    m_Localized: Set Honey Trap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1220397305856
+    m_Localized: Forfeit some of our honey as bait to learn about wasp behaviour.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1257672085504
+    m_Localized: Spread Propaganda
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1604117401600
+    m_Localized: Spend time designing promotional posters for the Bee political campaign.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1671834439680
+    m_Localized: Research Wasps
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1704680034304
+    m_Localized: Flavour goes here
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
