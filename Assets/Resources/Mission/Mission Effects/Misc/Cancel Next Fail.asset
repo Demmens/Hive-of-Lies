@@ -12,7 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab7c3b70182c4a4c97ab9d8c4d4e4b3, type: 3}
   m_Name: Cancel Next Fail
   m_EditorClassIdentifier: 
-  description: Cancel the next mission's fail effect
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+    m_TableEntryReference:
+      m_KeyId: 1101404901376
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: pos_neg
+      variable:
+        rid: 2288630729750085669
+  Icon: {fileID: 0}
   type: 0
   boolVar: {fileID: 11400000, guid: ff4a3b04733a0ce4ab097c3eecbb8ac1, type: 2}
   change: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630729750085669
+      type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: negative

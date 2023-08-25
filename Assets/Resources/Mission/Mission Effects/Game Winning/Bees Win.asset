@@ -12,7 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755f06aec000cf3458e580f946604200, type: 3}
   m_Name: Bees Win
   m_EditorClassIdentifier: 
-  description: Bees win the game
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+    m_TableEntryReference:
+      m_KeyId: 374334885888
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: team_pl
+      variable:
+        rid: 2288630729750085660
   Icon: {fileID: 21300000, guid: af6fb6d6e28ca3142843d488a3db924f, type: 3}
   type: 0
   _event: {fileID: 11400000, guid: b2fea23a7715fbc409169f8863b71fc5, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630729750085660
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 37188341760
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []

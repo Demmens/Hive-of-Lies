@@ -39,6 +39,19 @@ MonoBehaviour:
       Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: e68207947c4a54f4aada1a8c2887bc52
+    m_Address: Assets/Localisation/Tables/Mission Effects/Mission Effects Shared
+      Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  - m_GUID: 3464a301feed19246a0897186d3c7536
+    m_Address: Assets/Localisation/Tables/General/Game Terms/Game Terms Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+  - m_GUID: 8db8ba50f66e06a48b758a050e1bf923
+    m_Address: Assets/Localisation/Tables/General/Useful Words/Verbs Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: afe534c31f37b454b9cc4a29fdb17247, type: 2}
   m_SchemaSet:

@@ -12,11 +12,82 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
   m_Name: Steal Honey
   m_EditorClassIdentifier: 
-  description: '+1 Honey Stolen
-
-    <i><alpha=#88><size=25>Wasps win at 3 Honey
-    Stolen'
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+    m_TableEntryReference:
+      m_KeyId: 428684677120
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: plus_minus
+      variable:
+        rid: 2288630729750085663
+    - name: num
+      variable:
+        rid: 2288630729750085664
+    - name: point_name
+      variable:
+        rid: 2288630729750085665
+    - name: team_pl
+      variable:
+        rid: 2288630729750085666
+    - name: point
+      variable:
+        rid: 2288630729750085667
+    - name: point_name_2
+      variable:
+        rid: 2288630729750085668
   Icon: {fileID: 21300000, guid: ad5202c8c205ac14885ad4a5a2f4d1ad, type: 3}
-  type: 1
+  type: 0
   intVar: {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
   incrementAmount: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630729750085663
+      type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: +
+    - rid: 2288630729750085664
+      type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: 1
+    - rid: 2288630729750085665
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 673720111104
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630729750085666
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 116091588608
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630729750085667
+      type: {class: ObjectVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: {fileID: 11400000, guid: 1699329a910b70b49a5d013e5622c77c, type: 2}
+    - rid: 2288630729750085668
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 718624329728
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []

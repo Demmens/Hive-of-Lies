@@ -12,7 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
   m_Name: Cheaper Draws
   m_EditorClassIdentifier: 
-  description: Drawing extra cards cost less favour
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+    m_TableEntryReference:
+      m_KeyId: 62991699968
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: num
+      variable:
+        rid: 2288630729750085649
+    - name: more_fewer
+      variable:
+        rid: 2288630729750085650
+  Icon: {fileID: 0}
   type: 0
   intVar: {fileID: 11400000, guid: 8dde2b8d9eb6dff4a83853849c4de3a4, type: 2}
   incrementAmount: -1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630729750085649
+      type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: 1
+    - rid: 2288630729750085650
+      type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: fewer

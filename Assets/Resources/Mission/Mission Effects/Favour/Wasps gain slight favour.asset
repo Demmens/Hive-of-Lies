@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f0decc40e2fbe4d80bfcc0321205e3, type: 3}
+  m_Name: Wasps gain slight favour
+  m_EditorClassIdentifier: 
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+    m_TableEntryReference:
+      m_KeyId: 189437382656
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: team_pl
+      variable:
+        rid: 2288630729750085655
+    - name: gain_lose
+      variable:
+        rid: 2288630729750085657
+    - name: x
+      variable:
+        rid: 2288630729750085658
+    - name: favour
+      variable:
+        rid: 2288630729750085659
+  Icon: {fileID: 21300000, guid: 2459a76dd0b34464cb3f7a2611ba0a7c, type: 3}
+  type: 0
+  players: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
+  favourGain: 2
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630729750085655
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 116091588608
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630729750085657
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:8db8ba50f66e06a48b758a050e1bf923
+        m_TableEntryReference:
+          m_KeyId: 32536858624
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630729750085658
+      type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: 2
+    - rid: 2288630729750085659
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 177487810560
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []

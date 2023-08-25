@@ -47,6 +47,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en-GB
     - Preload
+  - m_GUID: 50811dc68d82db4469908aaa7effbb9e
+    m_Address: Mission Effects_en-GB
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en-GB
+    - Preload
+  - m_GUID: 2b17309d852600040aaa2adc718fbd00
+    m_Address: Game Terms_en-GB
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en-GB
+    - Preload
+  - m_GUID: ebba515ba9de3fb4b8209d224e1608cc
+    m_Address: Verbs_en-GB
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en-GB
+    - Preload
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: afe534c31f37b454b9cc4a29fdb17247, type: 2}
   m_SchemaSet:

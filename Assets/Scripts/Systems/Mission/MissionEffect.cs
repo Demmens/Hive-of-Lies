@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public abstract class MissionEffect : ScriptableObject
 {
     /// <summary>
     /// Private counterpart to <see cref="Description"/>
     /// </summary>
-    [TextArea]
-    [SerializeField] string description;
+    [SerializeField] LocalizedString description;
 
     public delegate void MissionEffectOver(MissionEffect effect);
     /// <summary>
@@ -23,7 +23,7 @@ public abstract class MissionEffect : ScriptableObject
     {
         get
         {
-            return description;
+            return description.GetLocalizedString();
         }
     }
 

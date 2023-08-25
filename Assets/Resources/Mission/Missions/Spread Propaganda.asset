@@ -19,17 +19,17 @@ MonoBehaviour:
   - value: 0
     effectFlavour: '"Accidentally" promoted fascist imigary'
     effects:
-    - {fileID: 11400000, guid: b6d89fb161e8f5b44a3beee712f688a5, type: 2}
+    - {fileID: 11400000, guid: dd1e96feed9e4cf498a6d9fc5249f375, type: 2}
     plotPoints: []
   - value: 3
     effectFlavour: Created an effective advert
     effects:
-    - {fileID: 11400000, guid: c5038fef9d1ccb146a0d6f1c0a8ed349, type: 2}
+    - {fileID: 11400000, guid: 6ec8fc1a319faf34b8fa12bdb45a4c7f, type: 2}
     plotPoints: []
   - value: 6
     effectFlavour: Created a weirdly hypnotic advert
     effects:
-    - {fileID: 11400000, guid: 4e99fa1b857ea484db964217a354bfa9, type: 2}
+    - {fileID: 11400000, guid: 9e44ce0d1f85ce04cb36682836338104, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0

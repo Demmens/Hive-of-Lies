@@ -10,9 +10,70 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94f0decc40e2fbe4d80bfcc0321205e3, type: 3}
-  m_Name: Bees Lose Slight Favour
+  m_Name: Bees lose slight favour
   m_EditorClassIdentifier: 
-  description: Bees lose 4 favour
-  type: 1
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+    m_TableEntryReference:
+      m_KeyId: 189437382656
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: team_pl
+      variable:
+        rid: 2288630729750085655
+    - name: gain_lose
+      variable:
+        rid: 2288630729750085657
+    - name: x
+      variable:
+        rid: 2288630729750085658
+    - name: favour
+      variable:
+        rid: 2288630729750085659
+  Icon: {fileID: 21300000, guid: 7f5ff8d640e0633409f3467c79dfb091, type: 3}
+  type: 0
   players: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
-  favourGain: -4
+  favourGain: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: 2288630729750085655
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 37188341760
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630729750085657
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:8db8ba50f66e06a48b758a050e1bf923
+        m_TableEntryReference:
+          m_KeyId: 1876742967296
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630729750085658
+      type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: 2
+    - rid: 2288630729750085659
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 177487810560
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
