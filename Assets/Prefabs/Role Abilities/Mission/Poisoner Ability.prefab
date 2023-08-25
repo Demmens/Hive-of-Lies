@@ -67,13 +67,25 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  Cost: 3
+  cost: 5
   maxDraw: -1
   numPoisonedDraws: 1
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
   voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
   button: {fileID: 1107423568599795120, guid: 636febd51049eaf408fc7d1172356028, type: 3}
   favour: {fileID: 11400000, guid: b3c83f0829867c340b1de39bf9b0df87, type: 2}
+  poisonButtonText:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 3375636221952
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &5572742708158016159
 MonoBehaviour:
   m_ObjectHideFlags: 0

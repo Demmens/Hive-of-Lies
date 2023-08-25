@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using Steamworks;
-using System.Linq;
+using UnityEngine.Localization;
 
 public class PoisonerAbility : RoleAbility
 {
@@ -18,6 +15,7 @@ public class PoisonerAbility : RoleAbility
     #region CLIENT
     [SerializeField] GameObject button;
     [SerializeField] IntVariable favour;
+    [SerializeField] LocalizedString poisonButtonText;
     #endregion
 
     public override void OnStartAuthority()
@@ -27,7 +25,7 @@ public class PoisonerAbility : RoleAbility
         GenericButton btn = button.GetComponent<GenericButton>();
         btn.SetCost(cost);
         btn.OnClicked += ClickedButton;
-        btn.SetText("Poison");
+        btn.SetText(poisonButtonText.GetLocalizedString());
         button.transform.SetParent(ScreenCoords.RoleButtonParent);
     }
 
