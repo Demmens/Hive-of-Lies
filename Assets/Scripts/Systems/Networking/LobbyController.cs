@@ -26,6 +26,7 @@ public class LobbyController : NetworkBehaviour
 
     [SerializeField] GameObject playersRequiredText;
     [SerializeField] GameObject startGameButton;
+    [SerializeField] GameObject inviteButton;
     #endregion
 
     [Tooltip("The version of the game we are running. Used to check clients are all using the same version")]
@@ -34,7 +35,11 @@ public class LobbyController : NetworkBehaviour
     private void Start()
     {
         CheckVersion(gameVersion.Value);
-        if (NetworkServer.active) playersRequiredText.SetActive(true);
+        if (NetworkServer.active)
+        {
+            inviteButton.SetActive(true);
+            playersRequiredText.SetActive(true);
+        }
 
 #if UNITY_EDITOR
         playersRequiredText.SetActive(false);
@@ -108,6 +113,7 @@ public class LobbyController : NetworkBehaviour
         itemScript.SetPlayerValues();
 
         item.transform.SetParent(PlayerListViewContent.transform);
+        item.transform.SetSiblingIndex(PlayerListViewContent.transform.childCount-2);
         item.transform.localScale = Vector3.one;
 
         playerListItems.TryAdd(connID, itemScript);
@@ -126,5 +132,10 @@ public class LobbyController : NetworkBehaviour
     {
         hiveNetworkManager manager = NetworkManager.singleton as hiveNetworkManager;
         manager.StartGame();
+    }
+
+    public void Invite()
+    {
+        SteamFriends.ActivateGameOverlayInviteDialog(SteamLobby.LobbyID);
     }
 }
