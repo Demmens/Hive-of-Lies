@@ -60,6 +60,26 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 2288630710118907918
+  - m_Id: 821800671449088
+    m_Key: public
+    m_Metadata:
+      m_Items: []
+  - m_Id: 821841259728896
+    m_Key: private
+    m_Metadata:
+      m_Items: []
+  - m_Id: 821866157117440
+    m_Key: friendsOnly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 821904736325632
+    m_Key: gameSettings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 822010772525056
+    m_Key: comingSoon
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -15,7 +15,6 @@ public class HostButton : MonoBehaviour
     }
     public void Click()
     {
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, networkManager.maxConnections);
-        networkManager.ServerChangeScene(networkManager.LobbyScene);
+        
     }
 }

@@ -73,6 +73,26 @@ MonoBehaviour:
     m_Localized: Joining {0}'s game
     m_Metadata:
       m_Items: []
+  - m_Id: 821800671449088
+    m_Localized: Public
+    m_Metadata:
+      m_Items: []
+  - m_Id: 821841259728896
+    m_Localized: Private
+    m_Metadata:
+      m_Items: []
+  - m_Id: 821866157117440
+    m_Localized: Friends only
+    m_Metadata:
+      m_Items: []
+  - m_Id: 821904736325632
+    m_Localized: Game settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 822010772525056
+    m_Localized: Coming soon
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

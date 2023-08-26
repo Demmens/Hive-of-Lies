@@ -31,6 +31,8 @@ public class SteamLobby : MonoBehaviour
     /// </summary>
     public static int LobbySize => SteamMatchmaking.GetNumLobbyMembers(LobbyID);
 
+    ELobbyType LobbyType = ELobbyType.k_ELobbyTypePublic;
+
     [SerializeField] GameObject joiningBox;
     [SerializeField] TMPro.TMP_Text joiningText;
     [SerializeField] LocalizedString joiningGameString;
@@ -80,5 +82,26 @@ public class SteamLobby : MonoBehaviour
 
         networkManager.networkAddress = hostAddress;
         networkManager.StartClient();
+    }
+
+    public void SetLobbyPublic()
+    {
+        LobbyType = ELobbyType.k_ELobbyTypePublic;
+    }
+
+    public void SetLobbyPrivate()
+    {
+        LobbyType = ELobbyType.k_ELobbyTypePrivate;
+    }
+
+    public void SetLobbyFriendsOnly()
+    {
+        LobbyType = ELobbyType.k_ELobbyTypeFriendsOnly;
+    }
+
+    public void HostLobby()
+    {
+        SteamMatchmaking.CreateLobby(LobbyType, networkManager.maxConnections);
+        networkManager.ServerChangeScene(networkManager.LobbyScene);
     }
 }
