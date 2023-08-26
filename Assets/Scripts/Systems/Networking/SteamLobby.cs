@@ -4,6 +4,7 @@ using UnityEngine;
 using Steamworks;
 using Mirror;
 using UnityEngine.Localization;
+using UnityEngine.UI;
 
 public class SteamLobby : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class SteamLobby : MonoBehaviour
     protected Callback<LobbyCreated_t> lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
     protected Callback<LobbyEnter_t> lobbyEnter;
+    protected Callback<LobbyMatchList_t> lobbiesReceived;
 
     private const string hostAddressKey = "HostAddress";
 
@@ -38,6 +40,11 @@ public class SteamLobby : MonoBehaviour
     [SerializeField] LocalizedString joiningGameString;
     [SerializeField] LocalizedString lobbyNameString;
 
+    [SerializeField] Button joinButton;
+    [SerializeField] GameObject lobbyListItemPrefab;
+    [SerializeField] Transform lobbyList;
+    LobbyListItem lastSelectedLobby;
+
     private void Start()
     {
         if (!SteamManager.Initialized) { return; }
@@ -45,6 +52,7 @@ public class SteamLobby : MonoBehaviour
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         lobbyEnter = Callback<LobbyEnter_t>.Create(LobbyEnter);
+        lobbiesReceived = Callback<LobbyMatchList_t>.Create(OnLobbiesReceived);
     }
 
     void OnLobbyCreated(LobbyCreated_t callback)
@@ -103,5 +111,51 @@ public class SteamLobby : MonoBehaviour
     {
         SteamMatchmaking.CreateLobby(LobbyType, networkManager.maxConnections);
         networkManager.ServerChangeScene(networkManager.LobbyScene);
+    }
+
+    public void RequestLobbies()
+    {
+        SteamMatchmaking.RequestLobbyList();
+    }
+
+    void OnLobbiesReceived(LobbyMatchList_t callback)
+    {
+        for (int i = 0; i < callback.m_nLobbiesMatching && i < 20; i++)
+        {
+            CSteamID lobbyID = SteamMatchmaking.GetLobbyByIndex(i);
+            LobbyListItem item = Instantiate(lobbyListItemPrefab).GetComponent<LobbyListItem>();
+            item.transform.SetParent(lobbyList);
+            item.CurrentPlayers = SteamMatchmaking.GetNumLobbyMembers(lobbyID);
+            item.MaxPlayers = SteamMatchmaking.GetLobbyMemberLimit(lobbyID);
+            item.LobbyName = SteamMatchmaking.GetLobbyData(lobbyID, "name");
+            item.LobbyID = lobbyID;
+
+            item.gameObject.GetComponent<Button>().onClick.AddListener(() => LobbySelected(item));
+        }
+    }
+
+    void LobbySelected(LobbyListItem item)
+    {
+        if (lastSelectedLobby != null) 
+        {
+            lastSelectedLobby.Deselect();
+        }
+        lastSelectedLobby = item;
+        joinButton.interactable = true;
+    }
+
+    public void LobbyListClosed()
+    {
+        joinButton.interactable = false;
+
+        for (int i = 0; i < lobbyList.childCount; i++)
+        {
+            Destroy(lobbyList.GetChild(i).gameObject);
+        }
+    }
+
+    public void JoinLobby()
+    {
+        SteamMatchmaking.JoinLobby(LobbyID);
     }
 }
