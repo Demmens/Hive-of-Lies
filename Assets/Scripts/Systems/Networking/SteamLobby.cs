@@ -44,6 +44,8 @@ public class SteamLobby : MonoBehaviour
     [SerializeField] GameObject lobbyListItemPrefab;
     [SerializeField] Transform lobbyList;
     LobbyListItem lastSelectedLobby;
+    int lobbySize;
+    [SerializeField] TMPro.TMP_Text lobbySizeText;
 
     [SerializeField] StringVariable gameVersion;
     [SerializeField] GameObject mismatchedVersionPopup;
@@ -147,8 +149,15 @@ public class SteamLobby : MonoBehaviour
         LobbyType = ELobbyType.k_ELobbyTypeFriendsOnly;
     }
 
+    public void SetLobbySize(float size)
+    {
+        lobbySize = Mathf.FloorToInt(size);
+        lobbySizeText.text = size.ToString();
+    }
+
     public void HostLobby()
     {
+        networkManager.maxConnections = lobbySize;
         SteamMatchmaking.CreateLobby(LobbyType, networkManager.maxConnections);
         networkManager.ServerChangeScene(networkManager.LobbyScene);
     }
