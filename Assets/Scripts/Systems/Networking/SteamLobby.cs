@@ -48,6 +48,7 @@ public class SteamLobby : MonoBehaviour
     [SerializeField] TMPro.TMP_Text lobbySizeText;
 
     [SerializeField] StringVariable gameVersion;
+    [SerializeField] TMPro.TMP_Text gameVersionText;
     [SerializeField] GameObject mismatchedVersionPopup;
     [SerializeField] TMPro.TMP_Text mismatchedVersionText;
     [SerializeField] LocalizedString clientOutdatedString;
@@ -55,6 +56,7 @@ public class SteamLobby : MonoBehaviour
 
     private void Start()
     {
+        gameVersionText.text = gameVersion.Value;
         if (!SteamManager.Initialized) { return; }
 
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
