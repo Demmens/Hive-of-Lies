@@ -164,6 +164,14 @@ MonoBehaviour:
     m_Localized: Cards aren't lost when played
     m_Metadata:
       m_Items: []
+  - m_Id: 1058041438474240
+    m_Localized: Psychic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1058056017874944
+    m_Localized: You can see the top card of your deck
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

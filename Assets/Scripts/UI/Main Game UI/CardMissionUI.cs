@@ -11,6 +11,7 @@ public class CardMissionUI : NetworkBehaviour
 
     [SerializeField] GameObject UI;
     [SerializeField] Image drawResult;
+    [SerializeField] Image nextCard;
     [SerializeField] TMP_Text drawCost;
     [SerializeField] GameObject drawButton;
     [SerializeField] GameObject submitButton;
@@ -35,6 +36,9 @@ public class CardMissionUI : NetworkBehaviour
 
     [Tooltip("All players in the game")]
     [SerializeField] hivePlayerSet allPlayers;
+
+    [Tooltip("All players by their NetworkConnection")]
+    [SerializeField] hivePlayerDictionary playersByConnection;
 
     #endregion
 
@@ -81,6 +85,7 @@ public class CardMissionUI : NetworkBehaviour
     public void DrawNewCard()
     {
         PlayerDrewCard();
+        nextCard.gameObject.SetActive(false);
     }
 
     [Command(requiresAuthority = false)]
@@ -97,6 +102,21 @@ public class CardMissionUI : NetworkBehaviour
     {
         drawResult.color = new Color(drawResult.color.r, drawResult.color.g, drawResult.color.b, 1);
         drawResult.sprite = sprite;
+    }
+
+    [Server]
+    public void ShowTopCard(NetworkConnection conn)
+    {
+        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
+
+        SeeTopCard(conn, ply.Deck.Value.DrawPile[0].Sprite);
+    }
+
+    [TargetRpc]
+    void SeeTopCard(NetworkConnection conn, Sprite sprite)
+    {
+        nextCard.gameObject.SetActive(true);
+        nextCard.sprite = sprite;
     }
 
     [TargetRpc]
