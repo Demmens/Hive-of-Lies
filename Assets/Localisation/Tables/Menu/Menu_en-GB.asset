@@ -93,6 +93,15 @@ MonoBehaviour:
     m_Localized: Coming soon
     m_Metadata:
       m_Items: []
+  - m_Id: 1129665701416960
+    m_Localized: Your client is out of date. Make sure you have the latest update
+      through steam.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1129685813104640
+    m_Localized: The server you are connecting to uses an older version of the game
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

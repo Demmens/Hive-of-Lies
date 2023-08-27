@@ -45,6 +45,12 @@ public class SteamLobby : MonoBehaviour
     [SerializeField] Transform lobbyList;
     LobbyListItem lastSelectedLobby;
 
+    [SerializeField] StringVariable gameVersion;
+    [SerializeField] GameObject mismatchedVersionPopup;
+    [SerializeField] TMPro.TMP_Text mismatchedVersionText;
+    [SerializeField] LocalizedString clientOutdatedString;
+    [SerializeField] LocalizedString serverOutdatedString;
+
     private void Start()
     {
         if (!SteamManager.Initialized) { return; }
@@ -61,8 +67,11 @@ public class SteamLobby : MonoBehaviour
 
         networkManager.StartHost();
 
-        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), hostAddressKey, SteamUser.GetSteamID().ToString());
-        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "name", string.Format(lobbyNameString.GetLocalizedString(), SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID())));
+        CSteamID lobbyID = new CSteamID(callback.m_ulSteamIDLobby);
+
+        SteamMatchmaking.SetLobbyData(lobbyID, hostAddressKey, SteamUser.GetSteamID().ToString());
+        SteamMatchmaking.SetLobbyData(lobbyID, "name", string.Format(lobbyNameString.GetLocalizedString(), SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID())));
+        SteamMatchmaking.SetLobbyData(lobbyID, "version", gameVersion.Value);
     }
 
     /// <summary>
@@ -88,8 +97,39 @@ public class SteamLobby : MonoBehaviour
 
         string hostAddress = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), hostAddressKey);
 
-        networkManager.networkAddress = hostAddress;
-        networkManager.StartClient();
+        string lobbyVersion = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "version");
+
+        //If we're on the correct version, we can just join
+        if (lobbyVersion == gameVersion.Value)
+        {
+            networkManager.networkAddress = hostAddress;
+            networkManager.StartClient();
+            return;
+        }
+
+        string[] serverVersionTable = lobbyVersion.Split(".");
+        string[] clientVersionTable = gameVersion.Value.Split(".");
+
+        if (serverVersionTable.Length != clientVersionTable.Length) Debug.LogError("Versions have differing numbers of decimal points for some reason");
+
+        Debug.Log(lobbyVersion);
+
+        for (int i = 0; i < serverVersionTable.Length; i++)
+        {
+            int serverInt = int.Parse(serverVersionTable[i]);
+            int clientInt = int.Parse(clientVersionTable[i]);
+
+            if (serverInt == clientInt) continue;
+
+            if (serverInt > clientInt) mismatchedVersionText.text = clientOutdatedString.GetLocalizedString();
+
+            if (clientInt > serverInt) mismatchedVersionText.text = serverOutdatedString.GetLocalizedString();
+
+            joiningBox.SetActive(false);
+            mismatchedVersionPopup.SetActive(true);
+            SteamMatchmaking.LeaveLobby(LobbyID);
+            break;
+        }
     }
 
     public void SetLobbyPublic()

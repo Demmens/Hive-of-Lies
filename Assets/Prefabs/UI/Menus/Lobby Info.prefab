@@ -393,7 +393,7 @@ MonoBehaviour:
     m_SteamID: 0
   nameText: {fileID: 2045423861208219644}
   playersText: {fileID: 2045423862063920893}
-  colour: {fileID: 0}
+  colour: {fileID: 2045423862375268635}
 --- !u!114 &4890073009122160205
 MonoBehaviour:
   m_ObjectHideFlags: 0
