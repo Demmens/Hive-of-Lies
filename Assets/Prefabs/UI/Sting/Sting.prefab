@@ -335,6 +335,7 @@ MonoBehaviour:
   waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
   playersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   playerWins: {fileID: 11400000, guid: 99fa395cf1c847d4595b1fd05bec6690, type: 2}
+  playerStung: {fileID: 11400000, guid: 0d765bd05083f194aa835d07dafbce74, type: 2}
   stingReticleCanvas: {fileID: 0}
   dropdownButton: {fileID: 8102290754876271477, guid: c56f7351edf8087469ca6da272d05755, type: 3}
   isAlive: {fileID: 11400000, guid: 3650ca7e2039a914fbfedaf1fcf718b1, type: 2}
@@ -365,7 +366,6 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  stingCost: 10
   reticle: {fileID: 2124510050736474083, guid: 64b7f3dffa7c6b14ab6a35773ea19f89, type: 3}
   references:
     version: 2

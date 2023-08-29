@@ -28,6 +28,9 @@ public class Sting : NetworkBehaviour
     [Tooltip("The event that is invoked to cause a specific player to win")]
     [SerializeField] NetworkingEvent playerWins;
 
+    [Tooltip("Invoked when a player is stung")]
+    [SerializeField] NetworkingEvent playerStung;
+
     [Tooltip("Which canvas the sting reticle should appear on")]
     [SerializeField] Transform stingReticleCanvas;
 
@@ -248,6 +251,8 @@ public class Sting : NetworkBehaviour
 
         reticle.GetComponent<StingReticle>().SetActiveOnClients(false);
         reticle.netIdentity.RemoveClientAuthority();
+
+        playerStung.Invoke(target.connectionToClient);
 
         if (stinger.Target.Value == target)
         {
