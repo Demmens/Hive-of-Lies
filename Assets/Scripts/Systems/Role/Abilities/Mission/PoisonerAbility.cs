@@ -5,7 +5,7 @@ using UnityEngine.Localization;
 public class PoisonerAbility : RoleAbility
 {
     #region SERVER
-    [SerializeField] int cost = 5;
+    [SerializeField] int cost = 3;
     [SerializeField] int maxDraw = -1;
     [SerializeField] int numPoisonedDraws = 2;
     [SerializeField] hivePlayerVariable teamLeader;
