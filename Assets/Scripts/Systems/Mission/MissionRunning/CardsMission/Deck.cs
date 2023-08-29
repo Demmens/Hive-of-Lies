@@ -218,6 +218,15 @@ public class Deck
     /// </summary>
     public Card GetTopCard()
     {
+        if (DrawPile.Count == 0)
+        {
+            if (DiscardPile.Count == 0)
+            {
+                Debug.LogError("Tried to draw from a deck with no cards");
+            }
+            Shuffle();
+        }
+
         Card card = DrawPile[0];
         BeforeDraw?.Invoke(ref card, simulated:true);
 
