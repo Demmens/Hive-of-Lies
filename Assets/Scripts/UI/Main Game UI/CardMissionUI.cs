@@ -109,7 +109,7 @@ public class CardMissionUI : NetworkBehaviour
     {
         if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
 
-        SeeTopCard(conn, ply.Deck.Value.DrawPile[0].Sprite);
+        SeeTopCard(conn, ply.Deck.Value.GetTopCard().Sprite);
     }
 
     [TargetRpc]

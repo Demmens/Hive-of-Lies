@@ -15,11 +15,11 @@ public class CaptainAbility : RoleAbility
         foreach (hivePlayer ply in allPlayers.Value)
         {
             if (ply == Owner) continue;
-            ply.Deck.Value.BeforeDraw += (ref Card card) => PlayerDrew(ply, ref card);
+            ply.Deck.Value.BeforeDraw += (ref Card card, bool simulated) => PlayerDrew(ply, ref card, simulated);
         };
     }
 
-    void PlayerDrew(hivePlayer ply, ref Card card)
+    void PlayerDrew(hivePlayer ply, ref Card card, bool simulated)
     {
         if (teamLeader.Value != Owner) return;
         Deck deck = ply.Deck;
@@ -35,7 +35,10 @@ public class CaptainAbility : RoleAbility
             //Place the first card at the bottom of the draw pile
             cardToPlaceOnBottom = 0;
         }
-  
+
+        //If we aren't actually drawing a card - just trying to find out what card we would draw, we don't want to actually modify the deck.
+        if (simulated) return;
+
         deck.DrawPile.Add(deck.DrawPile[cardToPlaceOnBottom]);
         deck.DrawPile.RemoveAt(cardToPlaceOnBottom);
 

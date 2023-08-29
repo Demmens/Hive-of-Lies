@@ -169,7 +169,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1058056017874944
-    m_Localized: You can see the top card of your deck
+    m_Localized: During the mission you can see the next card you will draw
     m_Metadata:
       m_Items: []
   references:

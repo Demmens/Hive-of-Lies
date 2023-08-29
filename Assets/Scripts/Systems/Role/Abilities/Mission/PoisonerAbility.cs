@@ -65,7 +65,7 @@ public class PoisonerAbility : RoleAbility
     }
 
     [Server]
-    public void OnLeaderDraw(ref Card card)
+    public void OnLeaderDraw(ref Card card, bool simulated)
     {
         Deck deck = teamLeader.Value.Deck.Value;
 

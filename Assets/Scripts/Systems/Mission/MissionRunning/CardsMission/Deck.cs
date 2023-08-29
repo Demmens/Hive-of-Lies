@@ -54,7 +54,7 @@ public class Deck
     /// Invoked when a card is drawn
     /// </summary>
     public event DrawDelegate BeforeDraw;
-    public delegate void DrawDelegate(ref Card card);
+    public delegate void DrawDelegate(ref Card card, bool simulated = false);
 
     /// <summary>
     /// Invoked when a card is played
@@ -211,6 +211,17 @@ public class Deck
 
             OnDraw?.Invoke(card);
         }
+    }
+
+    /// <summary>
+    /// Returns the top card of the players deck, accounting for role manipulation
+    /// </summary>
+    public Card GetTopCard()
+    {
+        Card card = DrawPile[0];
+        BeforeDraw?.Invoke(ref card, simulated:true);
+
+        return card;
     }
 
     /// <summary>
