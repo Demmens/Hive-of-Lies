@@ -172,6 +172,23 @@ MonoBehaviour:
     m_Localized: During the mission you can see the next card you will draw
     m_Metadata:
       m_Items: []
+  - m_Id: 1752818584719360
+    m_Localized: Two Bees in a Trench Coat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1752840315408384
+    m_Localized: Gain the abilities of two discarded roles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1789789562540032
+    m_Localized: Predator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1789818897502208
+    m_Localized: Your target knows you are a wasp and that they are your target.
+      Your sting costs 0.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

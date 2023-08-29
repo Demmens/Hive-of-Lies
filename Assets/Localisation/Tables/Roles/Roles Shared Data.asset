@@ -159,6 +159,22 @@ MonoBehaviour:
     m_Key: psychicDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 1752818584719360
+    m_Key: twoBeesName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1752840315408384
+    m_Key: twoBeesDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1789789562540032
+    m_Key: predatorName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1789818897502208
+    m_Key: predatorDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
