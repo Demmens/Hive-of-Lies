@@ -200,6 +200,14 @@ MonoBehaviour:
       on'
     m_Metadata:
       m_Items: []
+  - m_Id: 1806934811938816
+    m_Localized: Fraud
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1807070891937792
+    m_Localized: You cannot be a target. If a wasp stings you, you win the game alone.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

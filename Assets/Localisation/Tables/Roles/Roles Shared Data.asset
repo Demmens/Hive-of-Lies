@@ -179,6 +179,14 @@ MonoBehaviour:
     m_Key: predatorPopup
     m_Metadata:
       m_Items: []
+  - m_Id: 1806934811938816
+    m_Key: fraudName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1807070891937792
+    m_Key: fraudDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
