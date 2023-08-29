@@ -9,54 +9,10 @@ using UnityEngine.Localization;
 [CreateAssetMenu(fileName = "RoleData", menuName = "Roles/Create role")]
 public class RoleData : ScriptableObject
 {
-    #region Private Properties
     /// <summary>
     /// Private counterpart to <see cref="RoleName"/>
     /// </summary>
     [SerializeField] LocalizedString roleName;
-
-    /// <summary>
-    /// Private counterpart to <see cref="Description"/>
-    /// </summary>
-    [SerializeField] LocalizedString description;
-
-    /// <summary>
-    /// Private counterpart to <see cref="Sprite"/>
-    /// </summary>
-    [SerializeField] Sprite sprite;
-
-    /// <summary>
-    /// Private counterpart to <see cref="StartingFavour"/>
-    /// </summary>
-    [SerializeField] int startingFavour;
-
-    /// <summary>
-    /// Private counterpart to <see cref="StartingDeck"/>
-    /// </summary>
-    [SerializeField] List<Card> startingDeck;
-
-    /// <summary>
-    /// Private counterpart to <see cref="Team"/>
-    /// </summary>
-    [SerializeField] Team team;
-
-    /// <summary>
-    /// Private counterpart to <see cref="PlayersRequired"/>
-    /// </summary>
-    [SerializeField] int playersRequired;
-
-    /// <summary>
-    /// Prefab containing RoleAbility scripts
-    /// </summary>
-    [SerializeField] List<GameObject> abilities;
-
-    /// <summary>
-    /// Private counterpart of <see cref="Enabled"/>
-    /// </summary>
-    [SerializeField] bool enabled = true;
-    #endregion
-
-    #region Public Properties
 
     /// <summary>
     /// Name of the role
@@ -70,6 +26,11 @@ public class RoleData : ScriptableObject
     }
 
     /// <summary>
+    /// Private counterpart to <see cref="Description"/>
+    /// </summary>
+    [SerializeField] LocalizedString description;
+
+    /// <summary>
     /// Description for the role
     /// </summary>
     public string Description
@@ -81,88 +42,44 @@ public class RoleData : ScriptableObject
     }
 
     /// <summary>
-    /// Sprite used for the role UI
+    /// The team the role belongs to
     /// </summary>
-    public Sprite Sprite
-    {
-        get
-        {
-            return sprite;
-        }
-    }
+    [field: SerializeField]
+    public Team Team { get; private set; }
 
     /// <summary>
     /// Amount of influence the role starts with
     /// </summary>
-    public int StartingFavour
-    {
-        get
-        {
-            return startingFavour;
-        }
-    }
-
-    /// <summary>
-    /// The team the role belongs to
-    /// </summary>
-    public Team Team
-    {
-        get
-        {
-            return team;
-        }
-    }
-
-    /// <summary>
-    /// The minimum number of players required in the lobby for this role to appear
-    /// </summary>
-    public int PlayersRequired
-    {
-        get
-        {
-            return playersRequired;
-        }
-    }
-
-    /// <summary>
-    /// The logic for the roles ability
-    /// </summary>
-    public List<GameObject> Abilities
-    {
-        get
-        {
-            return abilities;
-        }
-    }
-
-    /// <summary>
-    /// Whether the role should appear in games
-    /// </summary>
-    public bool Enabled
-    {
-        get
-        {
-            return enabled;
-        }
-        set
-        {
-            enabled = value;
-        }
-    }
+    [field: SerializeField]
+    public int StartingFavour { get; private set; } = 10;
 
     /// <summary>
     /// The roles starting deck of cards
     /// </summary>
-    public List<Card> StartingDeck
-    {
-        get
-        {
-            return startingDeck;
-        }
-        set
-        {
-            startingDeck = value;
-        }
-    }
-    #endregion
+    [field: SerializeField]
+    public List<Card> StartingDeck { get; private set; }
+
+    /// <summary>
+    /// The logic for the roles ability
+    /// </summary>
+    [field: SerializeField]
+    public List<GameObject> Abilities { get; private set; }
+
+    /// <summary>
+    /// The minimum number of players required in the lobby for this role to appear
+    /// </summary>
+    [field: SerializeField]
+    public int PlayersRequired { get; private set; }
+
+    /// <summary>
+    /// Sprite used for the role UI
+    /// </summary>
+    [field: SerializeField]
+    public Sprite Sprite { get; private set; }
+
+    /// <summary>
+    /// Whether the role should appear in games
+    /// </summary>
+    [field: SerializeField]
+    public bool Enabled { get; private set; } = true;
 }
