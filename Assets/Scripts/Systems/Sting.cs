@@ -61,6 +61,9 @@ public class Sting : NetworkBehaviour
     [Tooltip("The button component of the sting button")]
     [SerializeField] UnityEngine.UI.Button button;
 
+    [Tooltip("The text displaying the favour cost of the sting")]
+    [SerializeField] TMPro.TMP_Text stingCostText;
+
     [Tooltip("All UI that should be disabled when any player stings")]
     [SerializeField] List<GameObject> DisabledUI;
 
@@ -84,9 +87,6 @@ public class Sting : NetworkBehaviour
     bool stingLocked;
     #endregion
     #region SHARED
-    [Tooltip("How much favour the sting costs to click")]
-    [SerializeField] int stingCost = 10;
-
     [Tooltip("The prefab for the sting reticle")]
     [SerializeField] NetworkBehaviour reticle;
     #endregion
@@ -95,6 +95,14 @@ public class Sting : NetworkBehaviour
     public override void OnStartClient()
     {
         favour.AfterVariableChanged += (_) => UpdateButtonInteractable();
+    }
+
+    public override void OnStartServer()
+    {
+        foreach (hivePlayer ply in alivePlayers.Value)
+        {
+            ply.StingCost.AfterVariableChanged += (val) => OnStingCostChanged(ply.connectionToClient, val);
+        }
     }
 
     [Client]
@@ -106,7 +114,13 @@ public class Sting : NetworkBehaviour
             return;
         }
         if (button == null) return;
-        button.interactable = favour >= stingCost && !isStinging;
+        button.interactable = favour >= int.Parse(stingCostText.text) && !isStinging;
+    }
+
+    [TargetRpc]
+    void OnStingCostChanged(NetworkConnection conn, int cost)
+    {
+        stingCostText.text = cost.ToString();
     }
 
     [ClientRpc]
@@ -181,7 +195,7 @@ public class Sting : NetworkBehaviour
     [Client]
     public void ClickSting()
     {
-        if (favour < stingCost) return;
+        if (favour < int.Parse(stingCostText.text)) return;
         isStinging = true;
         stingButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
         PlayerStingClicked();
@@ -192,9 +206,10 @@ public class Sting : NetworkBehaviour
     {
         if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
         if (ply.Team == Team.Bee) return;
+        if (ply.Favour < ply.StingCost) return;
         ToggleStingLocked();
 
-        ply.Favour.Value -= stingCost;
+        ply.Favour.Value -= ply.StingCost;
         StingReticle retScript = reticle.GetComponent<StingReticle>();
         retScript.Owner = ply;
         retScript.SetActiveOnClients(true);

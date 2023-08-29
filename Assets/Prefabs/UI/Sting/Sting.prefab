@@ -344,6 +344,7 @@ MonoBehaviour:
   targetText: {fileID: 8045363945042011534}
   stingButton: {fileID: 8693786616748591385}
   button: {fileID: 8693786616748591383}
+  stingCostText: {fileID: 4400112603782440492}
   DisabledUI: []
   stingActiveText: {fileID: 0}
   stingActiveString:

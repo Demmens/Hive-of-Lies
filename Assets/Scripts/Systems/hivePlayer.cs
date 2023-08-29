@@ -84,6 +84,11 @@ public class hivePlayer : NetworkBehaviour
     public hivePlayerVariable Target;
 
     /// <summary>
+    /// How much favour it costs to sting. Only relevant on wasps.
+    /// </summary>
+    public IntVariable StingCost;
+
+    /// <summary>
     /// List of the choices of roles the player will have at the start of the game
     /// </summary>
     public List<RoleData> RoleChoices = new();
@@ -116,9 +121,12 @@ public class hivePlayer : NetworkBehaviour
         NumDraws = ScriptableObject.CreateInstance<IntVariable>();
         IsAlive = ScriptableObject.CreateInstance<BoolVariable>();
         Target = ScriptableObject.CreateInstance<hivePlayerVariable>();
+        StingCost = ScriptableObject.CreateInstance<IntVariable>();
+        StingCost.Value = 10;
         IsAlive.Value = true;
         Deck.Value = new();
 
+        //Favour cannot be negative
         Favour.OnVariableChanged += (int oldVal, ref int newVal) => newVal = Mathf.Max(0, newVal);
     }
 
