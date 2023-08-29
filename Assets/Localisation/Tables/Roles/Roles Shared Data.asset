@@ -175,6 +175,10 @@ MonoBehaviour:
     m_Key: predatorDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 1800679057854464
+    m_Key: predatorPopup
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
