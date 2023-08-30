@@ -35,7 +35,7 @@ public class GainUnusedRoles : RoleAbility
             GiveRole(rl);
             rejectedRoles.Remove(rl);
             pickedRoles++;
-            roleString += rl.RoleName + "\n";
+            roleString += rl.Description + "\n";
         }
 
         roleString = roleString.TrimEnd('\n');
