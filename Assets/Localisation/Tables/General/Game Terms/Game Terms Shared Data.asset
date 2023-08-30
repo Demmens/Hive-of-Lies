@@ -55,6 +55,10 @@ MonoBehaviour:
     m_Key: bothTeams
     m_Metadata:
       m_Items: []
+  - m_Id: 1818046630531072
+    m_Key: teamLeader
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

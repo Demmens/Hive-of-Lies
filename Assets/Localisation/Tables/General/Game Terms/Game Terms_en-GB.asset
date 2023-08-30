@@ -58,6 +58,10 @@ MonoBehaviour:
     m_Localized: Everyone
     m_Metadata:
       m_Items: []
+  - m_Id: 1818046630531072
+    m_Localized: Team Leader
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
