@@ -75,10 +75,24 @@ MonoBehaviour:
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
-    m_LocalVariables: []
+    m_LocalVariables:
+    - name: wasp_sg
+      variable:
+        rid: 2288630842945175568
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2288630842945175568
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 146198302720
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
 --- !u!114 &2583429750694582609
 MonoBehaviour:
   m_ObjectHideFlags: 0

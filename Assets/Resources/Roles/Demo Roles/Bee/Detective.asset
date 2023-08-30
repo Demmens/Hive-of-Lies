@@ -33,6 +33,9 @@ MonoBehaviour:
     - name: round
       variable:
         rid: 2288630729750085632
+    - name: bee_sg
+      variable:
+        rid: 2288630842945175566
   <Team>k__BackingField: 1
   <StartingFavour>k__BackingField: 6
   <StartingDeck>k__BackingField:
@@ -71,6 +74,17 @@ MonoBehaviour:
           m_TableCollectionName: GUID:e2e5afe656f95c841ab5abe21481d253
         m_TableEntryReference:
           m_KeyId: 67395719168
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 2288630842945175566
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 93312323584
           m_Key: 
         m_FallbackState: 0
         m_WaitForCompletion: 0

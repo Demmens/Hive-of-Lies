@@ -34,9 +34,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 311185444864
-    m_Localized: Know the identity of all wasps. You are always a target.
+    m_Localized: Know the identity of all {wasp_pl}. You are always a target.
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2288630715881357315
   - m_Id: 366290210816
     m_Localized: Poisoner
     m_Metadata:
@@ -152,7 +153,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5000501202944
-    m_Localized: After the {round} round, learn the identity of a random Bee
+    m_Localized: After the {round} round, learn the identity of a random {bee_sg}
     m_Metadata:
       m_Items:
       - rid: 2288630715881357315
@@ -194,29 +195,33 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1789818897502208
-    m_Localized: Your target knows you are a Wasp and that they are your target.
+    m_Localized: Your target knows you are a {wasp_sg} and that they are your target.
       Your sting costs 0.
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2288630715881357315
   - m_Id: 1800679057854464
-    m_Localized: '{0} is a Wasp
+    m_Localized: '\{0\} is a {wasp_sg}
 
 
       You are their target
 
 
-      The hunt is
-      on'
+      The hunt
+      is on'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2288630715881357315
   - m_Id: 1806934811938816
     m_Localized: Fraud
     m_Metadata:
       m_Items: []
   - m_Id: 1807070891937792
-    m_Localized: You cannot be a target. If a Wasp stings you, you win the game alone.
+    m_Localized: You cannot be a target. If a {wasp_sg} stings you, you win the game
+      alone.
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2288630715881357315
   - m_Id: 2034949215031296
     m_Localized: 'Your abilities are:
 
@@ -238,4 +243,4 @@ MonoBehaviour:
     - rid: 2288630715881357315
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 001019755c0000000010d9662804000000105923d3030000001019458c0400000010d9103f0400000010d96ae23a07000010d991a303000000105962160000000010d96c3403000000105948ba0300000010d965a8040000
+        m_Entries: 001019755c0000000010d9662804000000105923d3030000001019458c0400000010d9103f0400000010d96ae23a07000010d991a303000000105962160000000010d96c3403000000105948ba0300000010d965a80400000010197448000000001099afd45b060000109943b56506000010997a856b0600
