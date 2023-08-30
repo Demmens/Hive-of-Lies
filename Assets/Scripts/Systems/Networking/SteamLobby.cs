@@ -44,7 +44,7 @@ public class SteamLobby : MonoBehaviour
     [SerializeField] GameObject lobbyListItemPrefab;
     [SerializeField] Transform lobbyList;
     LobbyListItem lastSelectedLobby;
-    int lobbySize;
+    int lobbySize = 12;
     [SerializeField] TMPro.TMP_Text lobbySizeText;
 
     [SerializeField] StringVariable gameVersion;
