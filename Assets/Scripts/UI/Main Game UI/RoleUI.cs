@@ -166,6 +166,11 @@ public class RoleUI : NetworkBehaviour
         if (allRoles.Value.Count == playerCount) StartCoroutine(Coroutines.Delay(() => allPlayersChosenRoles?.Invoke()));
     }
 
+    public void ChangeRoleDescription(string description)
+    {
+        RoleDescription.text = description;
+    }
+
     Vector3 GetCardPositionOnScreen(int index, int cardsTotal)
     {
         //In case these aren't set properly
