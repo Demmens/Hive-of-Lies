@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 1538004242011768218}
   - component: {fileID: 1614399783026997193}
   - component: {fileID: -2178414748425664089}
+  - component: {fileID: 5795514120345515641}
   m_Layer: 5
   m_Name: Sting
   m_TagString: Untagged
@@ -421,6 +422,35 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Sting, Assembly-CSharp
         m_MethodName: ToggleStingLocked
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5795514120345515641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788812171297553792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073879335f100a84a9c56436446e89dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: b1f4607efd9a7b44985e43d8098f3449, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1538004242011768218}
+        m_TargetAssemblyTypeName: Sting, Assembly-CSharp
+        m_MethodName: UpdateTargetText
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

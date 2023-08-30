@@ -120,6 +120,12 @@ public class Sting : NetworkBehaviour
         button.interactable = favour >= int.Parse(stingCostText.text) && !isStinging;
     }
 
+    [Client]
+    public void UpdateTargetText(string text)
+    {
+        targetText.text = text;
+    }
+
     [TargetRpc]
     void OnStingCostChanged(NetworkConnection conn, int cost)
     {
