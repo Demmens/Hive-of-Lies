@@ -43,9 +43,9 @@ public class GainUnusedRoles : RoleAbility
 
         foreach (hivePlayer ply in waspPlayers.Value)
         {
-            if (ply.Target == Owner) CreateTargetPopup(ply.connectionToClient, roleString);
+            if (ply.Target.Value == Owner) CreateTargetPopup(ply.connectionToClient, roleString);
             //If the player already has a target, then we know we can skip the event subscribing
-            if (ply.Target != null) return;
+            if (ply.Target.Value != null) return;
             ply.Target.AfterVariableChanged += (target) =>
             {
                 if (target == Owner) CreateTargetPopup(ply.connectionToClient, roleString);
