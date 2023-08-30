@@ -59,6 +59,30 @@ MonoBehaviour:
     m_Key: teamLeader
     m_Metadata:
       m_Items: []
+  - m_Id: 1827146215002112
+    m_Key: beeTeam_def_sg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1827431553503232
+    m_Key: beeTeam_def_pl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1827587552251904
+    m_Key: beeTeam_indef
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1827625980465152
+    m_Key: waspTeam_def_sg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1827658624733184
+    m_Key: waspTeam_def_pl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1827694309871616
+    m_Key: waspTeam_indef
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

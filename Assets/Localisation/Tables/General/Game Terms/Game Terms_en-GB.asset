@@ -62,6 +62,30 @@ MonoBehaviour:
     m_Localized: Team Leader
     m_Metadata:
       m_Items: []
+  - m_Id: 1827146215002112
+    m_Localized: the Bee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1827431553503232
+    m_Localized: the Bees
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1827587552251904
+    m_Localized: a Bee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1827625980465152
+    m_Localized: the Wasp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1827658624733184
+    m_Localized: the Wasps
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1827694309871616
+    m_Localized: a Wasp
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
