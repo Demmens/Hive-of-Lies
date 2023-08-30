@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using Mirror;
 
 public class InvestigatePlayer : MissionEffectBehaviour
@@ -16,6 +17,9 @@ public class InvestigatePlayer : MissionEffectBehaviour
     [SerializeField] hivePlayerVariable teamLeader;
 
     private List<PlayerButtonDropdownItem> buttons = new();
+
+    [SerializeField] LocalizedString promptText;
+    [SerializeField] LocalizedString resultText;
 
     [Server]
     public override void OnEffectTriggered()
@@ -43,7 +47,7 @@ public class InvestigatePlayer : MissionEffectBehaviour
     {
         notification = Instantiate(notificationPrefab);
 
-        notification.GetComponent<Notification>().SetText("Choose a player to investigate");
+        notification.GetComponent<Notification>().SetText(promptText.GetLocalizedString());
 
         notification = null;
     }
@@ -72,7 +76,7 @@ public class InvestigatePlayer : MissionEffectBehaviour
     {
         notification = Instantiate(notificationPrefab);
 
-        notification.GetComponent<Notification>().SetText($"{playerName} is a {team}");
+        notification.GetComponent<Notification>().SetText(string.Format(resultText.GetLocalizedString(), playerName, team));
         notification.GetComponent<Notification>().OnNotificationClosed += OnClosedPopup;
 
         notification = null;

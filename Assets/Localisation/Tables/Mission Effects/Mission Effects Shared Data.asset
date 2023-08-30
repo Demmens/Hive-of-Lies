@@ -59,6 +59,14 @@ MonoBehaviour:
     m_Key: investigateButtonText
     m_Metadata:
       m_Items: []
+  - m_Id: 1826672225095680
+    m_Key: investigatePromptText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1826724528066560
+    m_Key: investigateResultText
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

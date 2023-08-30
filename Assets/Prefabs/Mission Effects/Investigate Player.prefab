@@ -65,9 +65,28 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   shouldDestroyOnEnd: 1
-  investigateButton: {fileID: 8102290754876271477, guid: d7c6ccd1631b7df4b84bd6951d5d32a3,
-    type: 3}
-  notificationPrefab: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb,
-    type: 3}
+  investigateButton: {fileID: 8102290754876271477, guid: d7c6ccd1631b7df4b84bd6951d5d32a3, type: 3}
+  notificationPrefab: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
   allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
+  promptText:
+    m_TableReference:
+      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+    m_TableEntryReference:
+      m_KeyId: 1826672225095680
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  resultText:
+    m_TableReference:
+      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+    m_TableEntryReference:
+      m_KeyId: 1826724528066560
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

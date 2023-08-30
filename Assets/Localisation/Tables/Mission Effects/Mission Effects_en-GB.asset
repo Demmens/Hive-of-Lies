@@ -76,6 +76,14 @@ MonoBehaviour:
     m_Localized: Investigate
     m_Metadata:
       m_Items: []
+  - m_Id: 1826672225095680
+    m_Localized: Choose a player to investigate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1826724528066560
+    m_Localized: '{0} is a {1}'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
