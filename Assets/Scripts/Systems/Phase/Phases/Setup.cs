@@ -42,6 +42,9 @@ public class Setup : GamePhase
     [Tooltip("Invoked when all the setup logic is completed")]
     [SerializeField] GameEvent setupFinished;
 
+    [SerializeField] ETeam beeTeam;
+    [SerializeField] ETeam waspTeam;
+
     [SerializeField] GameObject teamPopup;
 
     [SerializeField] GameObject playerButton;
@@ -197,18 +200,18 @@ public class Setup : GamePhase
             {
                 teamCounter--;
                 ply.Team = ScriptableObject.CreateInstance<TeamVariable>();
-                ply.Team.Value = Team.Wasp;
+                ply.Team.Value = waspTeam;
                 waspPlayers.Add(ply);
             }
             else
             {
                 ply.Team = ScriptableObject.CreateInstance<TeamVariable>();
-                ply.Team.Value = Team.Bee;
+                ply.Team.Value = beeTeam;
                 beePlayers.Add(ply);
             }
 
             int waspTotal = Mathf.FloorToInt(playerCount * traitorRatio);
-            DisplayTeamPopup(ply.connectionToClient, ply.Team, waspTotal);
+            DisplayTeamPopup(ply.connectionToClient, ply.Team.Value.Team, waspTotal);
         });
     }
 
@@ -250,11 +253,11 @@ public class Setup : GamePhase
         {
             ply.RoleChoices = new();
             ply.Role.Value = null;
-            RoleChoices.TryGetValue(ply.Team, out int choices);
+            RoleChoices.TryGetValue(ply.Team.Value.Team, out int choices);
             for (int i = 0; i < roles.Value.Count; i++)
             {
                 RoleData role = roles.Value[i];
-                if (role.Team != ply.Team) continue;
+                if (role.Team != ply.Team.Value.Team) continue;
                 if (!role.Enabled) continue;
                 if (role.PlayersRequired > playerCount) continue;
 

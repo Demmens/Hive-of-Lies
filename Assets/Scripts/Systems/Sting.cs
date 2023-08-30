@@ -214,7 +214,7 @@ public class Sting : NetworkBehaviour
     void PlayerStingClicked(NetworkConnectionToClient conn = null)
     {
         if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
-        if (ply.Team == Team.Bee) return;
+        if (ply.Team.Value.Team == Team.Bee) return;
         if (ply.Favour < ply.StingCost) return;
         ToggleStingLocked();
 

@@ -72,7 +72,7 @@ public class InvestigatePlayer : MissionEffectBehaviour
     /// </summary>
     /// <param name="msg"></param>
     [TargetRpc]
-    private void GetResults(string playerName, Team team)
+    private void GetResults(string playerName, ETeam team)
     {
         notification = Instantiate(notificationPrefab);
 

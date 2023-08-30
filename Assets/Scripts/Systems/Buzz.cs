@@ -171,7 +171,7 @@ public class Buzz : NetworkBehaviour
         selectedPlayers.Add(ply);
         WriteBuzzedString();
 
-        if (ply.Team == Team.Bee) beesInBuzz++;
+        if (ply.Team.Value.Team == Team.Bee) beesInBuzz++;
 
         if (selectedPlayers.Count == waspPlayers.Value.Count) SetSubmitActive(currentBuzzer.connectionToClient, true);
     }
@@ -182,7 +182,7 @@ public class Buzz : NetworkBehaviour
         selectedPlayers.Remove(ply);
         WriteBuzzedString();
 
-        if (ply.Team == Team.Bee) beesInBuzz--;
+        if (ply.Team.Value.Team == Team.Bee) beesInBuzz--;
 
         if (selectedPlayers.Count == waspPlayers.Value.Count - 1) SetSubmitActive(currentBuzzer.connectionToClient, false);
     }

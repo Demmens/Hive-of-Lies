@@ -84,7 +84,7 @@ public class RunMission : GamePhase
         int waspsOnMission = 0;
         foreach (hivePlayer ply in playersOnMission.Value)
         {
-            if (ply.Team == Team.Wasp) waspsOnMission++;
+            if (ply.Team.Value.Team == Team.Wasp) waspsOnMission++;
         }
         Dictionary<string, object> parameters = new()
         {

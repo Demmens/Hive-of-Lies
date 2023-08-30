@@ -100,7 +100,7 @@ public class hivePlayer : NetworkBehaviour
     #endregion
 
     public event TeamDelegate OnGetTeam;
-    public delegate void TeamDelegate(ref Team team);
+    public delegate void TeamDelegate(ref ETeam team);
 
     private void Awake()
     {
@@ -134,9 +134,9 @@ public class hivePlayer : NetworkBehaviour
     /// Get the team of this player, accounting for role abilities
     /// </summary>
     /// <returns></returns>
-    public Team GetTeam()
+    public ETeam GetTeam()
     {
-        Team returnVal = Team;
+        ETeam returnVal = Team;
         OnGetTeam?.Invoke(ref returnVal);
         return returnVal;
     }

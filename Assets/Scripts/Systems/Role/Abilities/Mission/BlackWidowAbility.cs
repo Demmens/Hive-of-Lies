@@ -20,7 +20,7 @@ public class BlackWidowAbility : RoleAbility
         foreach (hivePlayer ply in playersOnMission.Value)
         {
             if (ply == Owner) continue;
-            if (ply.Team == Team.Wasp) isSolo = false;
+            if (ply.Team.Value.Team == Team.Wasp) isSolo = false;
         }
     }
 

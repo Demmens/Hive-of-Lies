@@ -116,6 +116,8 @@ MonoBehaviour:
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   playersByNetworkConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   setupFinished: {fileID: 11400000, guid: 78cfefec714f52749a9d7e5f2ac0fb22, type: 2}
+  beeTeam: {fileID: 11400000, guid: 323c23500120d3440be6d62d8543764a, type: 2}
+  waspTeam: {fileID: 11400000, guid: b62c540788482d8498c3e0acc4ce85ee, type: 2}
   teamPopup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
   playerButton: {fileID: 8493164326477725227, guid: 141aa0a19c3b95447a559b9f1b764a14, type: 3}
   popupX: {fileID: 11400000, guid: 9b4d808e12d4e6f4f85cbe25f39fbd9f, type: 2}
