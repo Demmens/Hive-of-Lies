@@ -66,3 +66,4 @@ MonoBehaviour:
   syncInterval: 0.1
   active: 1
   supposedWasps: {fileID: 11400000, guid: a3176300e0a49fd44a5963084bab2af0, type: 2}
+  waspTeam: {fileID: 11400000, guid: b62c540788482d8498c3e0acc4ce85ee, type: 2}
