@@ -211,19 +211,22 @@ MonoBehaviour:
   - m_Id: 2034949215031296
     m_Localized: 'Your abilities are:
 
-      {0}'
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2035068966604800
-    m_Localized: 'The Two Bees in a Trench Coat has the abilities:
 
       {0}'
     m_Metadata:
       m_Items: []
+  - m_Id: 2035068966604800
+    m_Localized: 'The {roleName} has the abilities:
+
+
+      \{0\}'
+    m_Metadata:
+      m_Items:
+      - rid: 2288630715881357316
   references:
     version: 2
     RefIds:
     - rid: 2288630715881357316
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 001019755c0000000010d9662804000000105923d3030000001019458c0400000010d9103f040000
+        m_Entries: 001019755c0000000010d9662804000000105923d3030000001019458c0400000010d9103f0400000010d96ae23a0700

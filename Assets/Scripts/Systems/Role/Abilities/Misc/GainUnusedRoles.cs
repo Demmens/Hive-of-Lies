@@ -21,6 +21,8 @@ public class GainUnusedRoles : RoleAbility
     [SerializeField] GameObject popup;
     [SerializeField] LocalizedString popupText;
     [SerializeField] LocalizedString targetText;
+    [SerializeField] StringEvent changeTargetText;
+    [SerializeField] StringEvent changeRoleText;
     #endregion    
 
     [Server]
@@ -38,7 +40,7 @@ public class GainUnusedRoles : RoleAbility
             GiveRole(rl);
             rejectedRoles.Remove(rl);
             pickedRoles++;
-            roleString += rl.Description + "\n";
+            roleString += rl.Description + "\n\n";
         }
 
         roleString = roleString.TrimEnd('\n');
@@ -46,28 +48,30 @@ public class GainUnusedRoles : RoleAbility
 
         foreach (hivePlayer ply in waspPlayers.Value)
         {
-            if (ply.Target.Value == Owner) CreateTargetPopup(ply.connectionToClient, roleString);
+            if (ply.Target.Value == Owner) CreateTargetPopup(ply.connectionToClient, roleString, Owner.Role.Value.Data.RoleName);
             //If the player already has a target, then we know we can skip the event subscribing
             if (ply.Target.Value != null) return;
             ply.Target.AfterVariableChanged += (target) =>
             {
-                if (target == Owner) CreateTargetPopup(ply.connectionToClient, roleString);
+                if (target == Owner) CreateTargetPopup(ply.connectionToClient, roleString, Owner.Role.Value.Data.RoleName);
             };
         }
     }
 
     [TargetRpc]
-    void CreatePopup(string roles)
+    void CreatePopup(string abilities)
     {
         popup = Instantiate(popup);
-        popup.GetComponent<Notification>().SetText(string.Format(popupText.GetLocalizedString(), roles));
+        popup.GetComponent<Notification>().SetText(string.Format(popupText.GetLocalizedString(), abilities));
+        changeRoleText.Invoke(abilities);
     }
 
     [TargetRpc]
-    void CreateTargetPopup(NetworkConnection conn, string str)
+    void CreateTargetPopup(NetworkConnection conn, string str, string twoBeesName)
     {
         popup = Instantiate(popup);
         popup.GetComponent<Notification>().SetText(string.Format(targetText.GetLocalizedString(), str));
+        changeTargetText.Invoke(twoBeesName.ToUpper() + "\n" + str);
     }
 
     [Server]
