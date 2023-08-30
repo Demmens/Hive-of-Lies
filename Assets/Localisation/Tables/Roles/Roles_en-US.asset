@@ -208,6 +208,18 @@ MonoBehaviour:
     m_Localized: You cannot be a target. If a wasp stings you, you win the game alone.
     m_Metadata:
       m_Items: []
+  - m_Id: 2034949215031296
+    m_Localized: 'Your abilities are:
+
+      {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2035068966604800
+    m_Localized: 'The Two Bees in a Trench Coat has the abilities:
+
+      {0}'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

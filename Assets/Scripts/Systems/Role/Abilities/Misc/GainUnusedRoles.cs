@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using Mirror;
 
 public class GainUnusedRoles : RoleAbility
@@ -18,6 +19,8 @@ public class GainUnusedRoles : RoleAbility
     #endregion
     #region CLIENT
     [SerializeField] GameObject popup;
+    [SerializeField] LocalizedString popupText;
+    [SerializeField] LocalizedString targetText;
     #endregion    
 
     [Server]
@@ -57,14 +60,14 @@ public class GainUnusedRoles : RoleAbility
     void CreatePopup(string roles)
     {
         popup = Instantiate(popup);
-        popup.GetComponent<Notification>().SetText("Your roles are:\n" + roles);
+        popup.GetComponent<Notification>().SetText(string.Format(popupText.GetLocalizedString(), roles));
     }
 
     [TargetRpc]
     void CreateTargetPopup(NetworkConnection conn, string str)
     {
         popup = Instantiate(popup);
-        popup.GetComponent<Notification>().SetText("The Two Bees in a Trench Coat has the roles:\n" + str);
+        popup.GetComponent<Notification>().SetText(string.Format(targetText.GetLocalizedString(), str));
     }
 
     [Server]
