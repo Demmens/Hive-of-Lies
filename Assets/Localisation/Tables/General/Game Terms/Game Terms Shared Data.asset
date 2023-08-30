@@ -83,6 +83,10 @@ MonoBehaviour:
     m_Key: waspTeam_indef
     m_Metadata:
       m_Items: []
+  - m_Id: 1848505351606272
+    m_Key: teamLeader_def
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

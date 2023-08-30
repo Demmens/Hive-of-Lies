@@ -30,7 +30,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables:
-    - name: wasp_sg
+    - name: wasp_indef
       variable:
         rid: 2288630842945175567
   <Team>k__BackingField: 2
@@ -71,7 +71,7 @@ MonoBehaviour:
         m_TableReference:
           m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
         m_TableEntryReference:
-          m_KeyId: 146198302720
+          m_KeyId: 1827694309871616
           m_Key: 
         m_FallbackState: 0
         m_WaitForCompletion: 0

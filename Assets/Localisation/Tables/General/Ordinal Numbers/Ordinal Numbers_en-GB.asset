@@ -19,43 +19,43 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 6150492160
-    m_Localized: first
+    m_Localized: the first
     m_Metadata:
       m_Items: []
   - m_Id: 50140352512
-    m_Localized: second
+    m_Localized: the second
     m_Metadata:
       m_Items: []
   - m_Id: 67395719168
-    m_Localized: third
+    m_Localized: the third
     m_Metadata:
       m_Items: []
   - m_Id: 96877481984
-    m_Localized: fourth
+    m_Localized: the fourth
     m_Metadata:
       m_Items: []
   - m_Id: 115479220224
-    m_Localized: fifth
+    m_Localized: the fifth
     m_Metadata:
       m_Items: []
   - m_Id: 131920891904
-    m_Localized: sixth
+    m_Localized: the sixth
     m_Metadata:
       m_Items: []
   - m_Id: 2386908745728
-    m_Localized: seventh
+    m_Localized: the seventh
     m_Metadata:
       m_Items: []
   - m_Id: 2405770530816
-    m_Localized: eighth
+    m_Localized: the eighth
     m_Metadata:
       m_Items: []
   - m_Id: 2426372952064
-    m_Localized: ninth
+    m_Localized: the ninth
     m_Metadata:
       m_Items: []
   - m_Id: 2590961635328
-    m_Localized: tenth
+    m_Localized: the tenth
     m_Metadata:
       m_Items: []
   references:

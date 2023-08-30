@@ -30,7 +30,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables:
-    - name: teamLeader
+    - name: teamLeader_def
       variable:
         rid: 2288630842945175561
   <Team>k__BackingField: 2
@@ -70,7 +70,7 @@ MonoBehaviour:
         m_TableReference:
           m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
         m_TableEntryReference:
-          m_KeyId: 1818046630531072
+          m_KeyId: 1848505351606272
           m_Key: 
         m_FallbackState: 0
         m_WaitForCompletion: 0

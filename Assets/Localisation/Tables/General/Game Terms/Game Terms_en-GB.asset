@@ -86,6 +86,10 @@ MonoBehaviour:
     m_Localized: a Wasp
     m_Metadata:
       m_Items: []
+  - m_Id: 1848505351606272
+    m_Localized: the Team Leader
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

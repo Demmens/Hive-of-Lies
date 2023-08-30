@@ -24,7 +24,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 96139284480
-    m_Localized: When you are the {teamLeader}, all other players on the mission
+    m_Localized: When you are {teamLeader_def}, all other players on the mission
       draw better
     m_Metadata:
       m_Items:
@@ -43,7 +43,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 397101568000
-    m_Localized: '{cost}f: The next card the {teamLeader} draws will be negative'
+    m_Localized: '{cost}f: The next card {teamLeader_def} draws will be negative'
     m_Metadata:
       m_Items:
       - rid: 2288630715881357315
@@ -108,7 +108,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4098612596736
-    m_Localized: While you are the {teamLeader}, all other players on the mission
+    m_Localized: While you are {teamLeader_def}, all other players on the mission
       perform worse.
     m_Metadata:
       m_Items:
@@ -118,7 +118,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4205366022144
-    m_Localized: Your redraws cannot cost more than {cost} favor.
+    m_Localized: Your redraws cannot cost more than {cost} {favour}.
     m_Metadata:
       m_Items:
       - rid: 2288630715881357315
@@ -153,7 +153,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5000501202944
-    m_Localized: After the {round} round, learn the identity of a random {bee_sg}
+    m_Localized: After {round} round, learn the identity of a random {bee_sg}
     m_Metadata:
       m_Items:
       - rid: 2288630715881357315
@@ -217,8 +217,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1807070891937792
-    m_Localized: You cannot be a target. If a {wasp_sg} stings you, you win the game
-      alone.
+    m_Localized: You cannot be a target. If {wasp_indef} stings you, you win the
+      game alone.
     m_Metadata:
       m_Items:
       - rid: 2288630715881357315
