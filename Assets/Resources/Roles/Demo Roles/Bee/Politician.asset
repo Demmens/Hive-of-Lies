@@ -29,7 +29,10 @@ MonoBehaviour:
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
-    m_LocalVariables: []
+    m_LocalVariables:
+    - name: teamLeader
+      variable:
+        rid: 2288630842945175560
   <Team>k__BackingField: 0
   <StartingFavour>k__BackingField: 10
   <StartingDeck>k__BackingField:
@@ -60,4 +63,15 @@ MonoBehaviour:
   <Enabled>k__BackingField: 1
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2288630842945175560
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 1818046630531072
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []

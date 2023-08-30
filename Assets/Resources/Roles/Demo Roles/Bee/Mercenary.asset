@@ -30,9 +30,12 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables:
-    - name: favour
+    - name: num
       variable:
         rid: 2288630715881357328
+    - name: favour
+      variable:
+        rid: 2288630842945175563
   <Team>k__BackingField: 0
   <StartingFavour>k__BackingField: 8
   <StartingDeck>k__BackingField:
@@ -68,3 +71,14 @@ MonoBehaviour:
       type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 5
+    - rid: 2288630842945175563
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 177487810560
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []

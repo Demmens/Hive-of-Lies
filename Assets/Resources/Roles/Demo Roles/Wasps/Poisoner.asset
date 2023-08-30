@@ -33,6 +33,9 @@ MonoBehaviour:
     - name: cost
       variable:
         rid: 2288630715881357325
+    - name: teamLeader
+      variable:
+        rid: 2288630842945175559
   <Team>k__BackingField: 2
   <StartingFavour>k__BackingField: 12
   <StartingDeck>k__BackingField:
@@ -68,3 +71,14 @@ MonoBehaviour:
       type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 3
+    - rid: 2288630842945175559
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
+        m_TableEntryReference:
+          m_KeyId: 1818046630531072
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
