@@ -581,8 +581,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5312686801996673352}
-  - component: {fileID: 4524124119037346229}
   - component: {fileID: 1283116289378796303}
+  - component: {fileID: 4524124119037346229}
+  - component: {fileID: -1093151636147672519}
   - component: {fileID: 1142462870349915608}
   m_Layer: 0
   m_Name: Role UI
@@ -613,35 +614,6 @@ RectTransform:
   m_AnchoredPosition: {x: 188.03345, y: 178.94879}
   m_SizeDelta: {x: 376.067, y: 357.8975}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4524124119037346229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5097434248664337755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Events:
-  - {fileID: 11400000, guid: 78cfefec714f52749a9d7e5f2ac0fb22, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1283116289378796303}
-        m_TargetAssemblyTypeName: RoleUI, Assembly-CSharp
-        m_MethodName: OnSetupFinished
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1283116289378796303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,6 +644,64 @@ MonoBehaviour:
   rejectedRoles: {fileID: 11400000, guid: f13aa2eee048d254181ebce31d998cc6, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   allPlayersChosenRoles: {fileID: 11400000, guid: 603aff459b2ef6241994e8c09260a582, type: 2}
+--- !u!114 &4524124119037346229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5097434248664337755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 78cfefec714f52749a9d7e5f2ac0fb22, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1283116289378796303}
+        m_TargetAssemblyTypeName: RoleUI, Assembly-CSharp
+        m_MethodName: OnSetupFinished
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-1093151636147672519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5097434248664337755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073879335f100a84a9c56436446e89dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 04ba6c4aa02d2ee4dbd00fa309bb7f5a, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1283116289378796303}
+        m_TargetAssemblyTypeName: RoleUI, Assembly-CSharp
+        m_MethodName: ChangeRoleDescription
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1142462870349915608
 MonoBehaviour:
   m_ObjectHideFlags: 0
