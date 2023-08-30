@@ -92,9 +92,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4001061474304
-    m_Localized: When you are on the mission, ignore negative votes.
+    m_Localized: 'When you are on the mission, ignore negative votes.
+
+
+      The
+      {favour} cost to stand for {teamLeader} is {multiplier}'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2288630715881357316
   - m_Id: 4044191502336
     m_Localized: CEO
     m_Metadata:
@@ -229,4 +234,4 @@ MonoBehaviour:
     - rid: 2288630715881357316
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 001019755c0000000010d9662804000000105923d3030000001019458c0400000010d9103f0400000010d96ae23a0700
+        m_Entries: 001019755c0000000010d9662804000000105923d3030000001019458c0400000010d9103f0400000010d96ae23a07000010d991a3030000
