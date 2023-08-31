@@ -105,9 +105,9 @@ public class CardsMission : MissionType
 
         ply.NextDrawCost.Value = CalculateDrawCost(ply.NumDraws);
 
-        ply.NumDraws++;
-
         deck.Draw();
+
+        ply.NumDraws++;
     }
 
     [Server]
