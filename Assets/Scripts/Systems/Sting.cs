@@ -13,6 +13,9 @@ public class Sting : NetworkBehaviour
     [Tooltip("Event that is invoked before targets are displayed to wasps")]
     [SerializeField] GameEvent beforeTargetsDisplayed;
 
+    [Tooltip("Event that is invoked after targets are displayed to wasps")]
+    [SerializeField] GameEvent afterTargetsDisplayed;
+
     [Tooltip("The set of alive players")]
     [SerializeField] hivePlayerSet alivePlayers;
 
@@ -168,6 +171,8 @@ public class Sting : NetworkBehaviour
             //Do this now so we can do as much shenanigans with targets as we like before any popups appear
             OnTargetChanged(wasp, target);
             //wasp.Target.AfterVariableChanged += (tgt) => OnTargetChanged(wasp, tgt);
+
+            afterTargetsDisplayed.Invoke();
         }
     }
 

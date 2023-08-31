@@ -331,6 +331,7 @@ MonoBehaviour:
   syncInterval: 0.1
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   beforeTargetsDisplayed: {fileID: 11400000, guid: 7591706e133c9db45b7be74ebcc8ebc0, type: 2}
+  afterTargetsDisplayed: {fileID: 11400000, guid: e939a203cf83395449adc797c7b3eeef, type: 2}
   alivePlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   beePlayers: {fileID: 11400000, guid: 84d44d44fdc85d7438b94b1968970763, type: 2}
   waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
