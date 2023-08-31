@@ -47,6 +47,9 @@ MonoBehaviour:
     - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
       Weight: 1
   - Missions:
+    - Mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
+      Weight: 1
+  - Missions:
     - Mission: {fileID: 11400000, guid: 13c123683d2047b418ee7b6a936269f4, type: 2}
       Weight: 1
   - Missions:
