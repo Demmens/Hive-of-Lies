@@ -31,7 +31,7 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   <Team>k__BackingField: 1
-  <StartingFavour>k__BackingField: 8
+  <StartingFavour>k__BackingField: 10
   <StartingDeck>k__BackingField:
   - {fileID: 11400000, guid: ec6424a80d79cab468517dbf1fb77817, type: 2}
   - {fileID: 11400000, guid: ec6424a80d79cab468517dbf1fb77817, type: 2}

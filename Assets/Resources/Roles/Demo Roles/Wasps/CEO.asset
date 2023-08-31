@@ -34,7 +34,7 @@ MonoBehaviour:
       variable:
         rid: 2288630842945175561
   <Team>k__BackingField: 2
-  <StartingFavour>k__BackingField: 6
+  <StartingFavour>k__BackingField: 10
   <StartingDeck>k__BackingField:
   - {fileID: 11400000, guid: ec6424a80d79cab468517dbf1fb77817, type: 2}
   - {fileID: 11400000, guid: 71bbcbdffc6ff2f43a68d8adbdb26557, type: 2}
@@ -60,7 +60,7 @@ MonoBehaviour:
   - {fileID: 7043207111567127333, guid: 8d591527df8b14d4bb21933a8beb216c, type: 3}
   <PlayersRequired>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 21300000, guid: 14cc32ba5f75d5b458655f602ad52046, type: 3}
-  <Enabled>k__BackingField: 1
+  <Enabled>k__BackingField: 0
   references:
     version: 2
     RefIds:
