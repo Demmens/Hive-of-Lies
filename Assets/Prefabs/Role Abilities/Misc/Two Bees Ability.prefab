@@ -92,8 +92,8 @@ MonoBehaviour:
     - name: roleName
       variable:
         rid: 2288630842945175554
-  changeTargetText: {fileID: 0}
-  changeRoleText: {fileID: 0}
+  changeTargetText: {fileID: 11400000, guid: b1f4607efd9a7b44985e43d8098f3449, type: 2}
+  changeRoleText: {fileID: 11400000, guid: 04ba6c4aa02d2ee4dbd00fa309bb7f5a, type: 2}
   references:
     version: 2
     RefIds:
