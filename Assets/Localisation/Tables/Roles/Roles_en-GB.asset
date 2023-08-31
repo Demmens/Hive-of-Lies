@@ -246,6 +246,22 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 2288630715881357316
+  - m_Id: 2488586924003328
+    m_Localized: Blackmailer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2488619299835904
+    m_Localized: "No sting. \n\nYou know the roles and identities of all sting targets."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2494194733617152
+    m_Localized: '{0}: {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2494379559817216
+    m_Localized: There are no targets in this game
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

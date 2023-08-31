@@ -203,6 +203,26 @@ MonoBehaviour:
     m_Key: fixerDescription
     m_Metadata:
       m_Items: []
+  - m_Id: 2488586924003328
+    m_Key: blackmailerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2488619299835904
+    m_Key: blackmailerDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2494126408404992
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2494194733617152
+    m_Key: blackmailerPopupText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2494379559817216
+    m_Key: blackmailerNoTargetsText
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
