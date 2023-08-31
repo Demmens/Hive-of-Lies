@@ -43,6 +43,7 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     effects:
+    - {fileID: 11400000, guid: c27ee6515900f484e8d01bfdfd653a45, type: 2}
     - {fileID: 11400000, guid: dd1e96feed9e4cf498a6d9fc5249f375, type: 2}
     plotPoints: []
   - value: 3
@@ -69,7 +70,8 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     effects:
-    - {fileID: 11400000, guid: 9e44ce0d1f85ce04cb36682836338104, type: 2}
+    - {fileID: 11400000, guid: c27ee6515900f484e8d01bfdfd653a45, type: 2}
+    - {fileID: 11400000, guid: 61e179d0180ae9d46b5e3aac08cdedc0, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0
