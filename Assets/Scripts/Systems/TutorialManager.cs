@@ -34,7 +34,7 @@ public class TutorialManager : NetworkBehaviour
         
         foreach (hivePlayer ply in waspPlayers.Value)
         {
-            if (ply.Target == null) continue;
+            if (ply.Target.Value == null) continue;
             StingTutorial(ply.connectionToClient);
         }
     }
