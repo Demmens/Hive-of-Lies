@@ -137,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setup: {fileID: 7323658707468256372, guid: 919085fba192005429ed3641e721ecfa, type: 3}
   phases: []
-  favourGainPerRound: 2
+  favourGainPerRound: 0
   roundNum: {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
   players: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   roundBegun: {fileID: 11400000, guid: 0467309d9d93ff84a9ef78acba99aca8, type: 2}
