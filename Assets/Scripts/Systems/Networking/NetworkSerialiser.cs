@@ -88,7 +88,7 @@ public static class NetworkSerialiser
             return;
         }
 
-        writer.WriteInt(value.TempValue);
+        writer.WriteInt(value.Value);
         writer.WriteSprite(value.Sprite);
     }
 
@@ -97,7 +97,6 @@ public static class NetworkSerialiser
         Card card = ScriptableObject.CreateInstance<Card>();
         int val = reader.ReadInt();
         card.Value = val;
-        card.TempValue = val;
         card.Sprite = reader.ReadSprite();
         return card;
     }

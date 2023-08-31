@@ -27,10 +27,13 @@ public class CEOAbility : RoleAbility
 
         if (deck.DrawPile.Count < 2) return;
 
+        //If the card has been messed with already, leave it alone
+        if (card != deck.DrawPile[0]) return;
+
         int cardToPlaceOnBottom = 1;
 
         //If the second card is a worse draw than the first card
-        if (deck.DrawPile[1].TempValue < deck.DrawPile[0].TempValue)
+        if (deck.DrawPile[1].Value < deck.DrawPile[0].Value)
         {
             card = deck.DrawPile[1];
             cardToPlaceOnBottom = 0;

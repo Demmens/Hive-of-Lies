@@ -11,23 +11,6 @@ public class Card : ScriptableObject
     /// </summary>
     public int Value;
 
-    [SerializeField] int tempValue;
-    /// <summary>
-    /// The value of the card after all modifiers are applied. Resets back to the default value when discarded.
-    /// </summary>
-    public int TempValue
-    {
-        get
-        {
-            return tempValue;
-        }
-        set
-        {
-            tempValue = value;
-            OnValueChanged?.Invoke(value);
-        }
-    }
-
     public Sprite Sprite;
 
     /// <summary>

@@ -156,7 +156,6 @@ public class Deck
         foreach (Card card in Hand)
         {
             if (card.DestroyOnDraw) continue;
-            card.TempValue = card.Value;
             PublicAddToDeck(card);
         }
         Hand = new();
@@ -164,7 +163,6 @@ public class Deck
         foreach (Card card in Played)
         {
             if (card.DestroyOnDraw || card.DestroyOnPlay) continue;
-            card.TempValue = card.Value;
             PublicAddToDeck(card);
         }
         Played = new();
@@ -244,7 +242,6 @@ public class Deck
         if (!Hand.Contains(card)) return;
 
         card.DiscardEffects.ForEach(effect => effect.TriggerEffect());
-        card.TempValue = card.Value;
         card.OnValueChanged -= (val) => HandCardValueChanged?.Invoke(val);
         PublicAddToDiscard(card);
         Hand.Remove(card);

@@ -67,8 +67,8 @@ public class FixerAbility : RoleAbility
     {
         if (Owner.Favour < cost) return;
         if (Owner.Deck.Value.Hand.Count == 0) return;
-        if (Owner.Deck.Value.Hand[0].TempValue == 20) return;
-        Owner.Deck.Value.Hand[0].TempValue += incrementAmount;
+        if (Owner.Deck.Value.Hand[0].Value == 20) return;
+        Owner.Deck.Value.Hand[0].Value += incrementAmount;
         Owner.Favour.Value -= cost;
     }
 }

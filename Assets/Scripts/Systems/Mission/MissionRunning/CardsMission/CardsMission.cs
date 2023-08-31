@@ -122,7 +122,7 @@ public class CardsMission : MissionType
 
         Card card = deck.Play();
 
-        playedTotal.Value += card.TempValue;
+        playedTotal.Value += card.Value;
 
         playersPlayed.Add(ply);
 
