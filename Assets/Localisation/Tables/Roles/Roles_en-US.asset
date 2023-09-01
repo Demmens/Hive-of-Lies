@@ -171,7 +171,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5248455872512
-    m_Localized: Cards aren't lost when played
+    m_Localized: Positive cards aren't lost when played
     m_Metadata:
       m_Items: []
   - m_Id: 1058041438474240

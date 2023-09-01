@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2937304401571136035}
   - component: {fileID: -8425174791580856008}
   m_Layer: 0
-  m_Name: Keep Played Cards
+  m_Name: Keep Positive Cards
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
