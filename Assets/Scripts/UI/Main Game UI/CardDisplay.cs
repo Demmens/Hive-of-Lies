@@ -7,6 +7,10 @@ public class CardDisplay : MonoBehaviour
 {
     [SerializeField] Image image;
     [SerializeField] TMPro.TMP_Text description;
+    [SerializeField] GameObject cost;
+    [SerializeField] TMPro.TMP_Text costText;
+
+    public event System.Action<Card> OnClick;
 
     Card card;
     int quantity;
@@ -21,11 +25,17 @@ public class CardDisplay : MonoBehaviour
         if (newCard == null) return;
         card = newCard;
         image.sprite = card.Sprite;
+        costText.text = newCard.BuyValue.ToString();
     }
 
     public Card GetCard()
     {
         return card;
+    }
+
+    public void ShowCost(bool active)
+    {
+        cost.gameObject.SetActive(active);
     }
 
     public void Pop()
@@ -36,5 +46,10 @@ public class CardDisplay : MonoBehaviour
     public void UnPop()
     {
         image.transform.localScale = new Vector3(1f,1f,1f);
+    }
+
+    public void Click()
+    {
+        OnClick?.Invoke(card);
     }
 }
