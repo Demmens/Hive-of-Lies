@@ -33,7 +33,7 @@ MonoBehaviour:
     - name: teamLeader
       variable:
         rid: 2288630842945175560
-  <Team>k__BackingField: 0
+  <Team>k__BackingField: 1
   <StartingFavour>k__BackingField: 14
   <StartingDeck>k__BackingField:
   - {fileID: 11400000, guid: ec6424a80d79cab468517dbf1fb77817, type: 2}
