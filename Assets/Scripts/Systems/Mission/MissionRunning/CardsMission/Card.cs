@@ -29,6 +29,11 @@ public class Card : ScriptableObject
     public bool IsSecret;
 
     /// <summary>
+    /// How much favour this card costs to buy in a shop
+    /// </summary>
+    public int BuyValue;
+
+    /// <summary>
     /// Delegates to run when the card is drawn
     /// </summary>
     public List<CardEffect> DrawEffects = new();

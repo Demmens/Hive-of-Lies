@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   Value: 2
-  tempValue: 2
   Sprite: {fileID: 21300000, guid: 9f1f06b654422fb408ae2ce515911baf, type: 3}
   DestroyOnPlay: 1
   DestroyOnDraw: 0
+  IsSecret: 0
+  BuyValue: 4
   DrawEffects: []
   PlayEffects: []
   DiscardEffects: []

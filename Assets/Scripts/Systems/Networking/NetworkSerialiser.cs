@@ -90,6 +90,7 @@ public static class NetworkSerialiser
 
         writer.WriteInt(value.Value);
         writer.WriteSprite(value.Sprite);
+        writer.WriteInt(value.BuyValue);
     }
 
     public static Card ReadCard(this NetworkReader reader)
@@ -98,6 +99,7 @@ public static class NetworkSerialiser
         int val = reader.ReadInt();
         card.Value = val;
         card.Sprite = reader.ReadSprite();
+        card.BuyValue = reader.ReadInt();
         return card;
     }
     #endregion
