@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5644a29fc44d441897235bdbfb143b, type: 3}
+  m_Name: Open Card Shop
+  m_EditorClassIdentifier: 
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+    m_TableEntryReference:
+      m_KeyId: 2641453521637376
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Icon: {fileID: 21300000, guid: a976a49a95c75c046866f3191141a0af, type: 3}
+  type: 0
+  missionEffectBehaviour: {fileID: 5179896989536483375, guid: 524d04d3e483eb741b40fa848bda29f3, type: 3}
+  references:
+    version: 2
+    RefIds: []

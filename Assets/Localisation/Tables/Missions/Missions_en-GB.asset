@@ -143,6 +143,14 @@ MonoBehaviour:
     m_Localized: Flavour goes here
     m_Metadata:
       m_Items: []
+  - m_Id: 2625384299958272
+    m_Localized: Open the card shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2625441355075584
+    m_Localized: ...
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

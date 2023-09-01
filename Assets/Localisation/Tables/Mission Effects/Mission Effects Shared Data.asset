@@ -67,6 +67,10 @@ MonoBehaviour:
     m_Key: investigateResultText
     m_Metadata:
       m_Items: []
+  - m_Id: 2641453521637376
+    m_Key: openCardShop
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
