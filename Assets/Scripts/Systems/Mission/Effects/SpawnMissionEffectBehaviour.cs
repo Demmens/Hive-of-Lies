@@ -10,7 +10,6 @@ public class SpawnMissionEffectBehaviour : MissionEffect
 
     public override void TriggerEffect()
     {
-        Debug.Log("Effect triggered");
         GameObject obj = Instantiate(missionEffectBehaviour);
         obj.GetComponent<MissionEffectBehaviour>().OnEffectEnded += EndEffect;
         NetworkServer.Spawn(obj);
