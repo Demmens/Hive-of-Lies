@@ -77,9 +77,19 @@ public class RoleData : ScriptableObject
     [field: SerializeField]
     public Sprite Sprite { get; private set; }
 
+    [field: SerializeField]
+    public Difficulty Difficulty;
+
     /// <summary>
     /// Whether the role should appear in games
     /// </summary>
     [field: SerializeField]
     public bool Enabled { get; private set; } = true;
+}
+
+public enum Difficulty
+{
+    Easy,
+    Medium,
+    Hard
 }

@@ -57,6 +57,7 @@ MonoBehaviour:
   - {fileID: 5724992533383566400, guid: f691aaf909ffeed42a4eb2204f7584fd, type: 3}
   <PlayersRequired>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 21300000, guid: 9f987bc44b10bfb428db901fc445c554, type: 3}
+  Difficulty: 0
   <Enabled>k__BackingField: 1
   references:
     version: 2
