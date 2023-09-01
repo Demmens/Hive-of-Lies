@@ -45,7 +45,7 @@ MonoBehaviour:
     effects:
     - {fileID: 11400000, guid: f593551c041116d4692997912b9b5175, type: 2}
     plotPoints: []
-  - value: 3
+  - value: 4
     effectFlavour:
       m_TableReference:
         m_TableCollectionName: 

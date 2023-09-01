@@ -46,7 +46,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: c27ee6515900f484e8d01bfdfd653a45, type: 2}
     - {fileID: 11400000, guid: 663e0aae6abe6d040b1487254fb59d37, type: 2}
     plotPoints: []
-  - value: 3
+  - value: 4
     effectFlavour:
       m_TableReference:
         m_TableCollectionName: 
