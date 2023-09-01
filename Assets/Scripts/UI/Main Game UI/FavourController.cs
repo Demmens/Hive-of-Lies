@@ -14,12 +14,12 @@ public class FavourController : NetworkBehaviour
 
     #region SERVER
     [Tooltip("Set of all players in the game")]
-    [SerializeField] hivePlayerSet allPlayers;
+    [SerializeField] HivePlayerSet allPlayers;
     #endregion
 
     public void AfterSetup()
     {
-        foreach (hivePlayer ply in allPlayers.Value)
+        foreach (HivePlayer ply in allPlayers.Value)
         {
             ply.Favour.AfterVariableChanged += (val) => ChangeFavourUI(ply.connectionToClient, val);
         }

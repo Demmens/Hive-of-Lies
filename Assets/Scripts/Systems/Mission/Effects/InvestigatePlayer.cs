@@ -11,10 +11,10 @@ public class InvestigatePlayer : MissionEffectBehaviour
     GameObject notification;
 
     [Tooltip("All players in the game")]
-    [SerializeField] hivePlayerSet allPlayers;
+    [SerializeField] HivePlayerSet allPlayers;
 
     [Tooltip("The current team leader")]
-    [SerializeField] hivePlayerVariable teamLeader;
+    [SerializeField] HivePlayerVariable teamLeader;
 
     private List<PlayerButtonDropdownItem> buttons = new();
 
@@ -34,7 +34,7 @@ public class InvestigatePlayer : MissionEffectBehaviour
         //Team leader has authority over this object
         netIdentity.AssignClientAuthority(teamLeader.Value.connectionToClient);
 
-        foreach (hivePlayer ply in allPlayers.Value)
+        foreach (HivePlayer ply in allPlayers.Value)
         {
             PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(investigateButton, teamLeader);
             buttons.Add(item);
@@ -58,7 +58,7 @@ public class InvestigatePlayer : MissionEffectBehaviour
     /// <param name="conn"></param>
     /// <param name="msg"></param>
     [Server]
-    private void OnInvestigated(hivePlayer ply)
+    private void OnInvestigated(HivePlayer ply)
     {
         foreach (PlayerButtonDropdownItem button in buttons)
         {

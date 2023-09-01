@@ -8,11 +8,11 @@ using UnityEngine.UI;
 
 public class SteamLobby : MonoBehaviour
 {
-    hiveNetworkManager networkManager
+    HiveNetworkManager networkManager
     {
         get
         {
-            return NetworkManager.singleton as hiveNetworkManager;
+            return NetworkManager.singleton as HiveNetworkManager;
         }
     }
 

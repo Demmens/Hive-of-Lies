@@ -11,7 +11,7 @@ public class Chat : NetworkBehaviour
 
     [SerializeField] TMP_Text chat;
 
-    [SerializeField] protected hivePlayerDictionary playersByNetworkConnection;
+    [SerializeField] protected HivePlayerDictionary playersByNetworkConnection;
 
     [SyncVar(hook = nameof(OnTextChanged))] protected string text;
 
@@ -33,7 +33,7 @@ public class Chat : NetworkBehaviour
     [Command(requiresAuthority = false)]
     void ServerGetMessage(string message, NetworkConnectionToClient conn = null)
     {
-        if (!playersByNetworkConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
+        if (!playersByNetworkConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
         if (message == "") return;
 
         ClientGetMessage(ply.DisplayName, message);

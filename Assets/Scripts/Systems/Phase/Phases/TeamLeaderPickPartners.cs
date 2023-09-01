@@ -30,19 +30,19 @@ public class TeamLeaderPickPartners : GamePhase
     [SerializeField] IntVariable missionDifficulty;
 
     [Tooltip("The current team leader")]
-    [SerializeField] hivePlayerVariable teamLeader;
+    [SerializeField] HivePlayerVariable teamLeader;
 
     [Tooltip("List of players the TeamLeader has selected so far")]
-    [SerializeField] hivePlayerSet playersSelected;
+    [SerializeField] HivePlayerSet playersSelected;
 
     [Tooltip("List of all players by their NetworkConnection")]
-    [SerializeField] hivePlayerDictionary playersByConnection;
+    [SerializeField] HivePlayerDictionary playersByConnection;
 
     [Tooltip("List of all players")]
-    [SerializeField] hivePlayerSet players;
+    [SerializeField] HivePlayerSet players;
 
     [Tooltip("List of all players on the mission")]
-    [SerializeField] hivePlayerSet playersOnMission;
+    [SerializeField] HivePlayerSet playersOnMission;
 
     [Tooltip("Invoked at the start of this game phase")]
     [SerializeField] GameEvent teamLeaderCanPick;
@@ -97,7 +97,7 @@ public class TeamLeaderPickPartners : GamePhase
         foreach (PlayerButtonDropdownItem i in addItems) Destroy(i);
         foreach (PlayerButtonDropdownItem i in removeItems) Destroy(i);
 
-        foreach (hivePlayer ply in players.Value)
+        foreach (HivePlayer ply in players.Value)
         {
             //Can't pick yourself except for testing purposes
 #if !UNITY_EDITOR
@@ -121,7 +121,7 @@ public class TeamLeaderPickPartners : GamePhase
         foreach (PlayerButtonDropdownItem i in addItems) Destroy(i);
         foreach (PlayerButtonDropdownItem i in removeItems) Destroy(i);
 
-        foreach (hivePlayer ply in players.Value)
+        foreach (HivePlayer ply in players.Value)
         {
             if (playersSelected.Value.Contains(ply)) CreateRemoveItem(ply);
             else if (playersSelected.Value.Count < numPartners) CreateAddItem(ply);
@@ -131,7 +131,7 @@ public class TeamLeaderPickPartners : GamePhase
     }
 
     [Server]
-    void AddPlayer(hivePlayer ply, PlayerButtonDropdownItem item)
+    void AddPlayer(HivePlayer ply, PlayerButtonDropdownItem item)
     {
         if (playersSelected.Value.Count >= numPartners) return;
         if (playersSelected.Value.Contains(ply)) return;
@@ -164,7 +164,7 @@ public class TeamLeaderPickPartners : GamePhase
     }
 
     [Server]
-    void RemovePlayer(hivePlayer ply, PlayerButtonDropdownItem item)
+    void RemovePlayer(HivePlayer ply, PlayerButtonDropdownItem item)
     {
         if (!playersSelected.Value.Contains(ply)) return;
 
@@ -183,9 +183,9 @@ public class TeamLeaderPickPartners : GamePhase
     }
 
     [Server]
-    void OnNoLongerMaxPlayersAdded(hivePlayer ply)
+    void OnNoLongerMaxPlayersAdded(HivePlayer ply)
     {
-        foreach (hivePlayer pl in players.Value)
+        foreach (HivePlayer pl in players.Value)
         {
             if (playersSelected.Value.Contains(pl)) continue;
             //If it's the person we've just removed, then the add to mission button is created elsewhere
@@ -202,7 +202,7 @@ public class TeamLeaderPickPartners : GamePhase
     public void TeamLeaderSelectedPlayer(NetworkConnection conn)
     {
         if (!Active) return;
-        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
         if (ply == teamLeader) return;
 
         if (!playersSelected.Value.Contains(ply))
@@ -231,7 +231,7 @@ public class TeamLeaderPickPartners : GamePhase
         foreach (PlayerButtonDropdownItem i in addItems) Destroy(i);
         foreach (PlayerButtonDropdownItem i in removeItems) Destroy(i);
 
-        foreach (hivePlayer ply in playersSelected.Value)
+        foreach (HivePlayer ply in playersSelected.Value)
         {
             if (!playersOnMission.Value.Contains(ply)) playersOnMission.Value.Add(ply);
         };
@@ -243,7 +243,7 @@ public class TeamLeaderPickPartners : GamePhase
     }
 
     [Server]
-    void CreateAddItem(hivePlayer ply)
+    void CreateAddItem(HivePlayer ply)
     {
         PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(pickPlayerButton, teamLeader);
         item.OnItemClicked += (ply) => AddPlayer(ply, item);
@@ -251,7 +251,7 @@ public class TeamLeaderPickPartners : GamePhase
     }
 
     [Server]
-    void CreateRemoveItem(hivePlayer ply)
+    void CreateRemoveItem(HivePlayer ply)
     {
         PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(unpickPlayerButton, teamLeader);
         item.OnItemClicked += (ply) => RemovePlayer(ply, item);
@@ -285,7 +285,7 @@ public class TeamLeaderPickPartners : GamePhase
     [Server]
     public void ClearOnMissionIcons()
     {
-        foreach (hivePlayer ply in players.Value)
+        foreach (HivePlayer ply in players.Value)
         {
             ply.Button.ChangeOnMission(false);
         }

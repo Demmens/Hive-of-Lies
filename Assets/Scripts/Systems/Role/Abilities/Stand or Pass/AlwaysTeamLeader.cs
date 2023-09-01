@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class AlwaysTeamLeader : RoleAbility
 {
-    [SerializeField] hivePlayerVariable teamLeader;
-    [SerializeField] hivePlayerSet standingPlayers;
+    [SerializeField] HivePlayerVariable teamLeader;
+    [SerializeField] HivePlayerSet standingPlayers;
     void Start()
     {
         teamLeader.OnVariableChanged += OnTeamLeaderChange;
     }
 
-    void OnTeamLeaderChange(hivePlayer oldVal, ref hivePlayer newVal)
+    void OnTeamLeaderChange(HivePlayer oldVal, ref HivePlayer newVal)
     {
         if (!standingPlayers.Value.Contains(Owner)) return;
         //Only activate if there isn't currently a Team Leader (during the stand or pass)

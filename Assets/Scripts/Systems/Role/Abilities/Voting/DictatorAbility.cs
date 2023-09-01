@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DictatorAbility : RoleAbility
 {
-    [SerializeField] hivePlayerVariable teamLeader;
+    [SerializeField] HivePlayerVariable teamLeader;
     [SerializeField] IntVariable teamLeaderVoteTotal;
 
     public void AfterVoteBegin()

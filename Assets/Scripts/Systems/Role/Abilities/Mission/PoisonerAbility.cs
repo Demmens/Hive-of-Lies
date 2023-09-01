@@ -8,9 +8,9 @@ public class PoisonerAbility : RoleAbility
     [SerializeField] int cost = 3;
     [SerializeField] int maxDraw = -1;
     [SerializeField] int numPoisonedDraws = 2;
-    [SerializeField] hivePlayerVariable teamLeader;
+    [SerializeField] HivePlayerVariable teamLeader;
     [SerializeField] IntVariable voteTotal;
-    hivePlayer poisonedPlayer;
+    HivePlayer poisonedPlayer;
     #endregion
     #region CLIENT
     [SerializeField] GameObject button;

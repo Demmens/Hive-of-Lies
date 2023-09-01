@@ -5,21 +5,21 @@ using Mirror;
 
 public class CEOAbility : RoleAbility
 {
-    [SerializeField] hivePlayerVariable teamLeader;
-    [SerializeField] hivePlayerSet allPlayers;
+    [SerializeField] HivePlayerVariable teamLeader;
+    [SerializeField] HivePlayerSet allPlayers;
 
     [Server]
     protected override void OnRoleGiven()
     {
         //Just apply the debuff to everyone, and make the debuff not do anything if we're not team leader
-        foreach (hivePlayer ply in allPlayers.Value)
+        foreach (HivePlayer ply in allPlayers.Value)
         {
             if (ply == Owner) continue;
             ply.Deck.Value.BeforeDraw += (ref Card card, bool simulated) => PlayerDrew(ply, ref card, simulated);
         };
     }
 
-    void PlayerDrew(hivePlayer ply, ref Card card, bool simulated)
+    void PlayerDrew(HivePlayer ply, ref Card card, bool simulated)
     {
         //If the team leader isn't the CEO, this doesn't do anything.
         if (teamLeader.Value != Owner) return;

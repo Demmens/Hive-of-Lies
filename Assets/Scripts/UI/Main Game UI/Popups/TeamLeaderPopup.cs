@@ -26,7 +26,7 @@ public class TeamLeaderPopup : NetworkBehaviour
     #endregion
     #region SERVER
     [Tooltip("The current team leader")]
-    [SerializeField] hivePlayerVariable teamLeader;
+    [SerializeField] HivePlayerVariable teamLeader;
     #endregion
 
     public override void OnStartServer()

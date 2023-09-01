@@ -6,7 +6,7 @@ using Steamworks;
 public class BlackWidowAbility : RoleAbility
 {
     [SerializeField] int maxCost = 2;
-    [SerializeField] hivePlayerSet playersOnMission;
+    [SerializeField] HivePlayerSet playersOnMission;
     bool isSolo = false;
 
     protected override void OnRoleGiven()
@@ -17,7 +17,7 @@ public class BlackWidowAbility : RoleAbility
     public void MissionStarted()
     {
         isSolo = true;
-        foreach (hivePlayer ply in playersOnMission.Value)
+        foreach (HivePlayer ply in playersOnMission.Value)
         {
             if (ply == Owner) continue;
             if (ply.Team.Value.Team == Team.Wasp) isSolo = false;

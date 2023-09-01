@@ -23,9 +23,9 @@ public class Buzz : NetworkBehaviour
     [SerializeField] GameEvent BeesWin;
     [SerializeField] GameEvent WaspsWin;
 
-    [SerializeField] hivePlayerDictionary playersByConnection;
-    [SerializeField] hivePlayerSet alivePlayers;
-    [SerializeField] hivePlayerSet waspPlayers;
+    [SerializeField] HivePlayerDictionary playersByConnection;
+    [SerializeField] HivePlayerSet alivePlayers;
+    [SerializeField] HivePlayerSet waspPlayers;
 
     [SyncVar(hook = nameof(BuzzedPlayersChanged))] string playersBuzzed;
 
@@ -59,10 +59,10 @@ public class Buzz : NetworkBehaviour
     /// <summary>
     /// The player who buzzed in the current buzz
     /// </summary>
-    hivePlayer currentBuzzer = null;
+    HivePlayer currentBuzzer = null;
 
-    List<hivePlayer> hasBuzzed = new();
-    List<hivePlayer> selectedPlayers = new();
+    List<HivePlayer> hasBuzzed = new();
+    List<HivePlayer> selectedPlayers = new();
     #endregion
 
 
@@ -85,7 +85,7 @@ public class Buzz : NetworkBehaviour
         //If someone is currently buzzing
         if (currentBuzzer != null) return;
         //If the player is dead / not in the game
-        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
         //If they've buzzed before
         if (hasBuzzed.Contains(ply)) return;
         //If they cannot afford it
@@ -149,10 +149,10 @@ public class Buzz : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void PlayerClicked(ulong id, NetworkConnectionToClient conn = null)
     {
-        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
         if (ply != currentBuzzer) return;
 
-        hivePlayer target = null;
+        HivePlayer target = null;
 
         alivePlayers.Value.ForEach(pl =>
         {
@@ -166,7 +166,7 @@ public class Buzz : NetworkBehaviour
     }
 
     [Server]
-    void AddToBuzz(hivePlayer ply)
+    void AddToBuzz(HivePlayer ply)
     {
         selectedPlayers.Add(ply);
         WriteBuzzedString();
@@ -177,7 +177,7 @@ public class Buzz : NetworkBehaviour
     }
 
     [Server]
-    void RemoveFromBuzz(hivePlayer ply)
+    void RemoveFromBuzz(HivePlayer ply)
     {
         selectedPlayers.Remove(ply);
         WriteBuzzedString();
@@ -217,12 +217,12 @@ public class Buzz : NetworkBehaviour
     [Command(requiresAuthority = false)]
     void ServerBuzzSubmitted(NetworkConnectionToClient conn = null)
     {
-        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
         if (ply != currentBuzzer) return;
 
         for (int i = 0; i < alivePlayers.Value.Count; i++)
         {
-            hivePlayer pl = alivePlayers.Value[i];
+            HivePlayer pl = alivePlayers.Value[i];
 
             if (!CanVote(pl)) return;
             maxVotes++;
@@ -237,7 +237,7 @@ public class Buzz : NetworkBehaviour
     /// <param name="ply"></param>
     /// <returns></returns>
     [Server]
-    bool CanVote(hivePlayer ply)
+    bool CanVote(HivePlayer ply)
     {
         //Current buzzer does not get to vote (assumed that they vote yes) to prevent time-wasting buzzes
         if (ply == currentBuzzer) return false;
@@ -264,7 +264,7 @@ public class Buzz : NetworkBehaviour
     [Command(requiresAuthority = false)]
     void OnPlayerVoted(bool yesVote, NetworkConnectionToClient conn = null)
     {
-        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
         //If the player shouldn't be able to vote, don't let them.
         if (!CanVote(ply)) return;
 

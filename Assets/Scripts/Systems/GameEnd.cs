@@ -22,9 +22,9 @@ public class GameEnd : NetworkBehaviour
 
     [SerializeField] IntVariable ResearchProgress;
 
-    [SerializeField] hivePlayerDictionary playersByConnection;
+    [SerializeField] HivePlayerDictionary playersByConnection;
 
-    [SerializeField] hivePlayerSet waspPlayers;
+    [SerializeField] HivePlayerSet waspPlayers;
 
     [SerializeField] GameObject gameEndScreen;
 
@@ -108,7 +108,7 @@ public class GameEnd : NetworkBehaviour
     [Server]
     public void PlayerWins(NetworkConnection conn)
     {
-        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
 
         GameObject screen = Instantiate(gameEndScreen);
         screen.GetComponent<PlayAgainButton>().SetText(string.Format(soloWinText.GetLocalizedString(), ply.DisplayName));

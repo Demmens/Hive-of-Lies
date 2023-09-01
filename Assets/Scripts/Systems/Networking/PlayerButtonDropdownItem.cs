@@ -5,8 +5,8 @@ using Mirror;
 
 public class PlayerButtonDropdownItem : NetworkBehaviour
 {
-    [HideInInspector] public hivePlayer Owner;
-    public event System.Action<hivePlayer> OnItemClicked;
+    [HideInInspector] public HivePlayer Owner;
+    public event System.Action<HivePlayer> OnItemClicked;
     public event System.Action OnDestroyed;
     [SyncVar(hook = nameof(SetText))] public string Text;
 

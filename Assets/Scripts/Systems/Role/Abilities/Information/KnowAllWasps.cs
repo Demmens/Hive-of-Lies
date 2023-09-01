@@ -5,7 +5,7 @@ using Mirror;
 
 public class KnowAllWasps : RoleAbility
 {
-    [SerializeField] hivePlayerSet waspPlayers;
+    [SerializeField] HivePlayerSet waspPlayers;
 
     [SerializeField] GameObject popup;
 
@@ -13,7 +13,7 @@ public class KnowAllWasps : RoleAbility
     {
         string wasps = "";
 
-        foreach (hivePlayer ply in waspPlayers.Value)
+        foreach (HivePlayer ply in waspPlayers.Value)
         {
             if (ply == Owner) continue;
             wasps += ply.DisplayName + "\n";

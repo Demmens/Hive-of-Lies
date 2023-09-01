@@ -16,7 +16,7 @@ public class TutorialManager : NetworkBehaviour
     [SerializeField] BoolVariable hasDoneStingTutorial;
 
     [SerializeField] BoolVariable isOnMission;
-    [SerializeField] hivePlayerSet waspPlayers;
+    [SerializeField] HivePlayerSet waspPlayers;
     [SerializeField] IntVariable roundNum;
 
     [ClientRpc]
@@ -32,7 +32,7 @@ public class TutorialManager : NetworkBehaviour
     {
         if (roundNum.Value != 1) return;
         
-        foreach (hivePlayer ply in waspPlayers.Value)
+        foreach (HivePlayer ply in waspPlayers.Value)
         {
             if (ply.Target.Value == null) continue;
             StingTutorial(ply.connectionToClient);

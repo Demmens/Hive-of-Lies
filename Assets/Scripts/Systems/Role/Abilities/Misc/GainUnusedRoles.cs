@@ -10,7 +10,7 @@ public class GainUnusedRoles : RoleAbility
 
     #region SERVER
     [SerializeField] RoleDataSet rejectedRoles;
-    [SerializeField] hivePlayerSet waspPlayers;
+    [SerializeField] HivePlayerSet waspPlayers;
 
     [HideInInspector]
     public List<Role> Roles;
@@ -46,7 +46,7 @@ public class GainUnusedRoles : RoleAbility
         roleString = roleString.TrimEnd('\n');
         CreatePopup(roleString);
 
-        foreach (hivePlayer ply in waspPlayers.Value)
+        foreach (HivePlayer ply in waspPlayers.Value)
         {
             if (ply.Target.Value == Owner) CreateTargetPopup(ply.connectionToClient, roleString, Owner.Role.Value.Data.RoleName);
             //If the player already has a target, then we know we can skip the event subscribing

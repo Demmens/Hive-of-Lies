@@ -9,15 +9,15 @@ public class OpenCardShop : MissionEffectBehaviour
     [SerializeField] GameObject popup;
     [SerializeField] GameObject cardDisplayPrefab;
 
-    [SerializeField] hivePlayerSet alivePlayers;
-    [SerializeField] hivePlayerDictionary playersByConnection;
+    [SerializeField] HivePlayerSet alivePlayers;
+    [SerializeField] HivePlayerDictionary playersByConnection;
     [SerializeField] IntVariable playerCount;
     [SerializeField] IntVariable favour;
 
     [SerializeField] List<Card> possibleCards;
     [SerializeField] int numCardsInShop;
 
-    Dictionary<hivePlayer, List<Card>> playerShops = new();
+    Dictionary<HivePlayer, List<Card>> playerShops = new();
     List<NetworkConnection> playersClosedShop = new();
 
     [Server]
@@ -33,7 +33,7 @@ public class OpenCardShop : MissionEffectBehaviour
     [Command(requiresAuthority = false)]
     void RequestCards(NetworkConnectionToClient conn = null)
     {
-        foreach (hivePlayer ply in alivePlayers.Value)
+        foreach (HivePlayer ply in alivePlayers.Value)
         {
             List<Card> cardsToSend = PickCards();
             playerShops[ply] = cardsToSend;
@@ -63,7 +63,7 @@ public class OpenCardShop : MissionEffectBehaviour
     [Command(requiresAuthority = false)]
     public void BuyCard(Card card, NetworkConnectionToClient conn = null)
     {
-        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
         if (ply.Favour.Value < card.BuyValue) return;
 
         ply.Favour.Value -= card.BuyValue;

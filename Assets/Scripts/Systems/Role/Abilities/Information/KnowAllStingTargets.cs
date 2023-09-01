@@ -4,7 +4,7 @@ using Mirror;
 
 public class KnowAllStingTargets : RoleAbility
 {
-    [SerializeField] hivePlayerSet waspPlayers;
+    [SerializeField] HivePlayerSet waspPlayers;
     [SerializeField] GameObject popup;
     [SerializeField] LocalizedString popupText;
     [SerializeField] LocalizedString noTargetsText;
@@ -13,7 +13,7 @@ public class KnowAllStingTargets : RoleAbility
     {
         string targetString = "";
 
-        foreach (hivePlayer ply in waspPlayers.Value)
+        foreach (HivePlayer ply in waspPlayers.Value)
         {
             if (ply.Target.Value == null) continue;
 

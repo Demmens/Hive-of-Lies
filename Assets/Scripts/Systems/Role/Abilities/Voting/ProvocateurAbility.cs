@@ -6,7 +6,7 @@ using System.Linq;
 public class ProvocateurAbility : RoleAbility
 {
     [SerializeField] int favourGain = 5;
-    [SerializeField] hivePlayerSet playersOnMission;
+    [SerializeField] HivePlayerSet playersOnMission;
     [SerializeField] VoteSet votes;
     [SerializeField] IntVariable voteTotal;
 

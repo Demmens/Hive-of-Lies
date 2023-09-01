@@ -7,18 +7,18 @@ using Steamworks;
 using System.Reflection;
 using UnityEngine.Events;
 
-public class hiveNetworkManager : NetworkManager
+public class HiveNetworkManager : NetworkManager
 {
-    [SerializeField] private hivePlayer GamePlayerPrefab;
+    [SerializeField] private HivePlayer GamePlayerPrefab;
 
     [Tooltip("Alive players by their network connection")]
-    [SerializeField] hivePlayerDictionary alivePlayersByConnection;
+    [SerializeField] HivePlayerDictionary alivePlayersByConnection;
 
     [Tooltip("All players by their network connection")]
-    [SerializeField] hivePlayerDictionary playersByConnection;
+    [SerializeField] HivePlayerDictionary playersByConnection;
 
     [Tooltip("All players in the game")]
-    [SerializeField] hivePlayerSet allPlayers;
+    [SerializeField] HivePlayerSet allPlayers;
 
     int playersLoaded = 0;
 
@@ -84,10 +84,10 @@ public class hiveNetworkManager : NetworkManager
 
         if (SceneManager.GetActiveScene().path == GameScene)
         {
-            hivePlayer ply = null;
+            HivePlayer ply = null;
             ulong id = (ulong)SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize - 1);
 
-            foreach (hivePlayer i in allPlayers.Value)
+            foreach (HivePlayer i in allPlayers.Value)
             {
                 ply = i;
                 if (ply.PlayerID == id) break;
@@ -128,7 +128,7 @@ public class hiveNetworkManager : NetworkManager
 
     void CreateSpectator(NetworkConnection conn, ulong id)
     {
-        hivePlayer ply = Instantiate(GamePlayerPrefab);
+        HivePlayer ply = Instantiate(GamePlayerPrefab);
         ply.PlayerID = id;
         ply.DisplayName = SteamFriends.GetFriendPersonaName(new CSteamID(id));
         ply.gameObject.name = "Spectator: " + ply.DisplayName;
@@ -140,7 +140,7 @@ public class hiveNetworkManager : NetworkManager
 
     public void CreatePlayer(NetworkConnection conn, ulong id)
     {
-        hivePlayer ply = Instantiate(GamePlayerPrefab);
+        HivePlayer ply = Instantiate(GamePlayerPrefab);
 
         ply.PlayerID = id;
         ply.DisplayName = SteamFriends.GetFriendPersonaName(new CSteamID(ply.PlayerID));
@@ -166,13 +166,13 @@ public class hiveNetworkManager : NetworkManager
     {
         onServerDisconnect?.Invoke(conn);
 
-        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
         playersByConnection.Value.Remove(conn);
-        if (alivePlayersByConnection.Value.TryGetValue(conn, out hivePlayer pl)) alivePlayersByConnection.Value.Remove(conn);
+        if (alivePlayersByConnection.Value.TryGetValue(conn, out HivePlayer pl)) alivePlayersByConnection.Value.Remove(conn);
         allPlayers.Remove(ply);
 
         //Can't prevent the player object being destroyed when a player leaves the game, so we need to make a new object to be destroyed instead
-        hivePlayer newObj = Instantiate(GamePlayerPrefab);
+        HivePlayer newObj = Instantiate(GamePlayerPrefab);
         NetworkServer.ReplacePlayerForConnection(conn, newObj.gameObject);
 
         NetworkServer.DestroyPlayerForConnection(conn);
@@ -232,7 +232,7 @@ public class hiveNetworkManager : NetworkManager
         StartCoroutine(Coroutines.Delay(0.5f, () =>
         {
             alivePlayersByConnection.Value = new();
-            foreach(hivePlayer ply in allPlayers.Value)
+            foreach(HivePlayer ply in allPlayers.Value)
             {
                 alivePlayersByConnection.Value[ply.connectionToClient] = ply;
             }

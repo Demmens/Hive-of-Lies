@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AppearAsWasp : RoleAbility
 {
-    [SerializeField] hivePlayerSet supposedWasps;
+    [SerializeField] HivePlayerSet supposedWasps;
     [SerializeField] ETeam waspTeam;
     protected override void OnRoleGiven()
     {

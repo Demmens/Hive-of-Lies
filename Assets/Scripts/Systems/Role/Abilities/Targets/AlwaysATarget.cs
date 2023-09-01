@@ -6,12 +6,12 @@ using Mirror;
 public class AlwaysATarget : RoleAbility
 {
     [Tooltip("The set of all wasp players")]
-    [SerializeField] hivePlayerSet waspPlayers;
+    [SerializeField] HivePlayerSet waspPlayers;
 
     [Server]
     public void BeforeTargetsDisplayed()
     {
-        foreach (hivePlayer ply in waspPlayers.Value)
+        foreach (HivePlayer ply in waspPlayers.Value)
         {
             //If we're already someone's target, then great! We don't need to do anything else.
             //This also makes sure we don't end up with duplicate targets across the wasps
@@ -23,7 +23,7 @@ public class AlwaysATarget : RoleAbility
         //If there are no wasps, then this ability doesn't do anything ig?
         if (waspPlayers.Value.Count == 0) return;
 
-        foreach (hivePlayer ply in waspPlayers.Value)
+        foreach (HivePlayer ply in waspPlayers.Value)
         {
             //Don't give someone a target when they shouldn't have one
             if (ply.Target.Value == null) continue;

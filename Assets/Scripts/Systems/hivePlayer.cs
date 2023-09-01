@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class hivePlayer : NetworkBehaviour
+public class HivePlayer : NetworkBehaviour
 {
     #region Meta
     /// <summary>
@@ -81,7 +81,7 @@ public class hivePlayer : NetworkBehaviour
     /// <summary>
     /// The target of this player. Always null if the player is a bee.
     /// </summary>
-    public hivePlayerVariable Target;
+    public HivePlayerVariable Target;
 
     /// <summary>
     /// How much favour it costs to sting. Only relevant on wasps.
@@ -120,7 +120,7 @@ public class hivePlayer : NetworkBehaviour
         Deck = ScriptableObject.CreateInstance<DeckVariable>();
         NumDraws = ScriptableObject.CreateInstance<IntVariable>();
         IsAlive = ScriptableObject.CreateInstance<BoolVariable>();
-        Target = ScriptableObject.CreateInstance<hivePlayerVariable>();
+        Target = ScriptableObject.CreateInstance<HivePlayerVariable>();
         StingCost = ScriptableObject.CreateInstance<IntVariable>();
         StingCost.Value = 10;
         IsAlive.Value = true;

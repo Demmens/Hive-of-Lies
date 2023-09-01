@@ -35,10 +35,10 @@ public class CardMissionUI : NetworkBehaviour
     [SerializeField] NetworkingEvent playerPlayed;
 
     [Tooltip("All players in the game")]
-    [SerializeField] hivePlayerSet allPlayers;
+    [SerializeField] HivePlayerSet allPlayers;
 
     [Tooltip("All players by their NetworkConnection")]
-    [SerializeField] hivePlayerDictionary playersByConnection;
+    [SerializeField] HivePlayerDictionary playersByConnection;
 
     #endregion
 
@@ -54,7 +54,7 @@ public class CardMissionUI : NetworkBehaviour
     [Server]
     public void AfterDeckCreated()
     {
-        foreach (hivePlayer ply in allPlayers.Value) 
+        foreach (HivePlayer ply in allPlayers.Value) 
         {
             ply.Deck.Value.OnDraw += card => ReceiveDrawResultFromServer(ply.connectionToClient, card.Sprite);
             ply.NextDrawCost.AfterVariableChanged += val => OnDrawCostChanged(ply.connectionToClient, val);
@@ -107,7 +107,7 @@ public class CardMissionUI : NetworkBehaviour
     [Server]
     public void ShowTopCard(NetworkConnection conn)
     {
-        if (!playersByConnection.Value.TryGetValue(conn, out hivePlayer ply)) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
 
         SeeTopCard(conn, ply.Deck.Value.GetTopCard().Sprite);
     }

@@ -14,7 +14,7 @@ public class NoSting : RoleAbility
         Owner.Target.OnVariableChanged += RemoveTarget;
     }
 
-    void RemoveTarget(hivePlayer _, ref hivePlayer target)
+    void RemoveTarget(HivePlayer _, ref HivePlayer target)
     {
         target = null;
     }
