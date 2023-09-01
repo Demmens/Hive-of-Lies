@@ -6,7 +6,7 @@ public class StandCostMultiplier : RoleAbility
 {
     [SerializeField] float multiplier;
 
-    void Start()
+    protected override void OnRoleGiven()
     {
         Owner.NextStandCost.OnVariableChanged += OnStandCostChanged;
     }
