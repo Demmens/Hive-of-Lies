@@ -223,6 +223,14 @@ MonoBehaviour:
     m_Key: blackmailerNoTargetsText
     m_Metadata:
       m_Items: []
+  - m_Id: 3122984069435392
+    m_Key: droneName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3123218367451136
+    m_Key: droneDescription
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
