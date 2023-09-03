@@ -90,7 +90,14 @@ public class MissionUI : NetworkBehaviour
         //Clear mission bar fill
         missionFill.fillAmount = 0;
 
-        if (mission == null) return;
+        if (mission == null)
+        {
+            missionName.gameObject.SetActive(false);
+            missionFlavour.gameObject.SetActive(false);
+            missionBar.SetActive(false);
+            return;
+        };
+
         missionUI.SetActive(true);
         missionName.text = mission.MissionName;
         missionName.gameObject.SetActive(true);
