@@ -1139,6 +1139,7 @@ GameObject:
   - component: {fileID: 3212548180257665583}
   - component: {fileID: 7266710725624879241}
   - component: {fileID: 668797975872341955}
+  - component: {fileID: 7775006232349122968}
   m_Layer: 0
   m_Name: Vote UI
   m_TagString: Untagged
@@ -1271,6 +1272,35 @@ MonoBehaviour:
   decreasedVote: {fileID: 11400000, guid: b9c3e00cd7bbfe74db489b5ab4a5463b, type: 2}
   lockedIn: {fileID: 11400000, guid: f6faac11e580ea7408c9cbcaacd77876, type: 2}
   allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
+--- !u!114 &7775006232349122968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4426223277951817525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb79325f35809ff47a8c4c3685a9b136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 2ec3dc4cf7be0bf47b655f1e99873f45, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668797975872341955}
+        m_TargetAssemblyTypeName: VoteUI, Assembly-CSharp
+        m_MethodName: TargetEnableUI
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4426223278403595100
 GameObject:
   m_ObjectHideFlags: 0

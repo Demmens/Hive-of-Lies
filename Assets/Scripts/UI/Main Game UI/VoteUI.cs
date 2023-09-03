@@ -67,6 +67,18 @@ public class VoteUI : NetworkBehaviour
         numVotes.Value = 0;
     }
 
+    /// <summary>
+    /// Give a specific player the option to vote
+    /// </summary>
+    /// <param name="conn"></param>
+    [TargetRpc]
+    public void GiveVote(NetworkConnection conn)
+    {
+        if (!alive) return;
+        voteUI.SetActive(true);
+        numVotes.Value = 0;
+    }
+
     [TargetRpc]
     public void TargetEnableUI(NetworkConnection conn)
     {
