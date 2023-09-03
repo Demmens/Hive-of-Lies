@@ -8,7 +8,6 @@ public class PlayerButtonDropdownItem : NetworkBehaviour
     [HideInInspector] public HivePlayer Owner;
     public event System.Action<HivePlayer> OnItemClicked;
     public event System.Action OnDestroyed;
-    [SyncVar(hook = nameof(SetText))] public string Text;
 
     [SerializeField] TMPro.TMP_Text text;
 
