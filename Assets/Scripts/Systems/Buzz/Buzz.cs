@@ -1,0 +1,376 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Localization;
+using Mirror;
+
+public class Buzz : GamePhase
+{
+    #region CLIENT
+    [SerializeField] GameObject lockInButton;
+    [SerializeField] GameObject buzzButton;
+    [SerializeField] TMPro.TMP_Text chosenText;
+    [SerializeField] LocalizedString chosenTextString;
+
+    [SerializeField] IntVariable favour;
+    #endregion
+    #region SERVER
+    [SerializeField] GameEvent beesWin;
+    [SerializeField] GameEvent waspsWin;
+    [SerializeField] IntVariable lives;
+
+    [SerializeField] HivePlayerDictionary playersByConnection;
+    [SerializeField] HivePlayerSet alivePlayers;
+    [SerializeField] HivePlayerSet waspPlayers;
+    [SerializeField] MissionVariable currentMission;
+    [SerializeField] VoteSet playerVotes;
+    [SerializeField] IntVariable voteTotal;
+
+    [SerializeField] GameObject pickPlayerButton;
+    [SerializeField] GameObject removePlayerButton;
+
+    [SerializeField] NetworkingEvent showPlayerVote;
+    [SerializeField] GameEvent buzzStarted;
+
+    /// <summary>
+    /// How many bees are selected. If > 0 the buzz will not be successful
+    /// </summary>
+    int beesInBuzz;
+
+    /// <summary>
+    /// Whether the buzz is a success (all selected players are wasps)
+    /// </summary>
+    bool successful => beesInBuzz == 0;
+
+    /// <summary>
+    /// How long the buzz phase lasts in seconds
+    /// </summary>
+    [SerializeField] IntVariable timerSeconds;
+
+    /// <summary>
+    /// How much time has elapsed in this phase so far
+    /// </summary>
+    int timeElapsed;
+
+    /// <summary>
+    /// The player who buzzed in the current buzz
+    /// </summary>
+    [SerializeField] HivePlayerVariable currentBuzzer;
+
+    List<HivePlayer> playersBuzzed = new();
+    [SerializeField] HivePlayerSet playersSelected;
+
+    [SerializeField] HivePlayerVariable teamLeader;
+    [SerializeField] HivePlayerSet missionPlayersSelected;
+
+    List<PlayerButtonDropdownItem> addButtons = new();
+    #endregion
+
+    public override void Begin()
+    {
+        currentMission.Value = null;
+        waspPlayers.AfterItemRemoved += OnWaspDied;
+        teamLeader.Value = null;
+        for (int i = 0; i < missionPlayersSelected.Value.Count; i = 0) missionPlayersSelected.Remove(missionPlayersSelected.Value[0]);
+
+        currentBuzzer.OnVariableChanged += (HivePlayer oldPly, ref HivePlayer newPly) => { if (oldPly != null) oldPly.Button.ChangeTeamLeader(false); };
+        currentBuzzer.AfterVariableChanged += ply => { if (ply != null) ply.Button.ChangeTeamLeader(true); };
+
+        playersSelected.AfterItemAdded += ply => ply.Button.ChangeOnMission(true);
+        playersSelected.AfterItemRemoved += ply => ply.Button.ChangeOnMission(false);
+        playersSelected.AfterCleared += () =>
+        {
+            foreach (HivePlayer ply in alivePlayers.Value)
+            {
+                ply.Button.ChangeOnMission(false);
+            };
+        };
+
+        StartBuzz();
+        buzzStarted.Invoke();
+    }
+
+    void StartBuzz()
+    {
+        //Once all players have buzzed, anyone can buzz again
+        if (playersBuzzed.Count == alivePlayers.Value.Count) playersBuzzed = new();
+
+        foreach (HivePlayer pl in alivePlayers.Value)
+        {
+            //Only players that haven't buzzed yet get to buzz
+            if (playersBuzzed.Contains(pl)) continue;
+            SetBuzzActive(pl.connectionToClient, true);
+        }
+    }
+
+    IEnumerator RunTimer()
+    {
+        while (timeElapsed < timerSeconds.Value)
+        {
+            timeElapsed++;
+            yield return new WaitForSeconds(1);
+        }
+
+        if (NetworkServer.active) OnTimerEnd();
+    }
+
+    private void OnTimerEnd()
+    {
+        waspsWin.Invoke();
+    }
+
+    /// <summary>
+    /// Called when a player clicks the buzz button
+    /// </summary>
+    [Client]
+    public void BuzzClicked()
+    {
+        OnBuzz();
+    }
+    
+    /// <summary>
+    /// Called on the server when a player clicks the buzz button
+    /// </summary>
+    [Command(requiresAuthority = false)]
+    void OnBuzz(NetworkConnectionToClient conn = null)
+    {
+        //If someone is currently buzzing
+        if (currentBuzzer.Value != null) return;
+        //If the player is dead / not in the game
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
+        //If they've buzzed before
+        if (playersBuzzed.Contains(ply)) return;
+        playersBuzzed.Add(ply);
+        //Set this player as the current buzzer
+        currentBuzzer.Value = ply; 
+
+        beesInBuzz = 0;
+
+        foreach (HivePlayer pl in alivePlayers.Value)
+        {
+            SetBuzzActive(pl.connectionToClient, false);
+            //Can't pick yourself except for testing purposes
+#if !UNITY_EDITOR
+            if (ply == currentBuzzer.Value) continue;
+#endif
+            PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(pickPlayerButton, currentBuzzer.Value);
+            item.OnItemClicked += (ply) => AddPlayer(ply, item);
+            addButtons.Add(item);
+        }
+        SetLockInActive(ply.connectionToClient, true);
+        SetLockInInteractable(ply.connectionToClient, false);
+    }
+
+    [Server]
+    void AddPlayer(HivePlayer ply, PlayerButtonDropdownItem item)
+    {
+        if (playersSelected.Value.Count >= waspPlayers.Value.Count) return;
+        if (playersSelected.Value.Contains(ply)) return;
+#if !UNITY_EDITOR
+        if (ply == currentBuzzer.Value) return;
+#endif
+
+        Destroy(item);
+        addButtons.Remove(item);
+
+        Debug.Log($"{currentBuzzer.Value.DisplayName} has selected {ply.DisplayName}");
+        playersSelected.Add(ply);
+        if (ply.Team.Value.Team == Team.Bee) beesInBuzz++;
+
+        SetPlayersChosen(currentBuzzer.Value.connectionToClient, playersSelected.Value.Count, waspPlayers.Value.Count);
+
+        if (playersSelected.Value.Count < waspPlayers.Value.Count) return;
+        
+        OnMaxPlayersAdded();
+    }
+
+    [Server]
+    void OnMaxPlayersAdded()
+    {
+        SetLockInInteractable(currentBuzzer.Value.connectionToClient, true);
+        foreach (PlayerButtonDropdownItem i in addButtons)
+        {
+            Destroy(i);
+        }
+    }
+
+    [TargetRpc]
+    void SetLockInActive(NetworkConnection conn, bool active)
+    {
+        lockInButton.SetActive(active);
+    }
+
+    [TargetRpc]
+    void SetLockInInteractable(NetworkConnection conn, bool interactable)
+    {
+        lockInButton.GetComponent<UnityEngine.UI.Button>().interactable = interactable;
+    }
+
+    [TargetRpc]
+    void SetBuzzActive(NetworkConnection conn, bool active)
+    {
+        buzzButton.SetActive(active);
+    }
+
+    [TargetRpc]
+    void SetPlayersChosen(NetworkConnection conn, int currentChosen, int max)
+    {
+        chosenText.GetComponent<TMPro.TMP_Text>().text = string.Format(chosenTextString.GetLocalizedString(), currentChosen, max);
+    }
+
+    [Client]
+    public void BuzzSubmitted()
+    {
+        ServerBuzzSubmitted();
+        lockInButton.SetActive(false);
+    }
+
+    [Command(requiresAuthority = false)]
+    void ServerBuzzSubmitted(NetworkConnectionToClient conn = null)
+    {
+        if (!Active) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
+        if (ply != currentBuzzer.Value) return;
+
+        foreach (PlayerButtonDropdownItem i in addButtons) Destroy(i);
+        addButtons = new();
+
+        for (int i = 0; i < alivePlayers.Value.Count; i++)
+        {
+            HivePlayer pl = alivePlayers.Value[i];
+
+            if (!CanVote(pl)) return;
+            showPlayerVote.Invoke(pl.connectionToClient);
+        }
+    }
+
+    /// <summary>
+    /// Returns true if a player is allowed to vote on the buzz
+    /// </summary>
+    /// <param name="ply"></param>
+    /// <returns></returns>
+    [Server]
+    bool CanVote(HivePlayer ply)
+    {
+#if UNITY_EDITOR
+        //Purely for debugging purposes
+        if (alivePlayers.Value.Count == 1) return true;
+#endif
+        //Current buzzer does not get to vote (assumed that they vote yes) to prevent time-wasting buzzes
+        if (ply == currentBuzzer) return false;
+
+        //Players who have been selected do not get to vote (they have no reason to vote yes)
+        if (playersSelected.Value.Contains(ply)) return false;
+
+        return true;
+    }
+
+    [Server]
+    public void PlayerIncreasedVote(NetworkConnection conn)
+    {
+        if (!Active) return;
+
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
+
+        int cost = ply.NextUpvoteCost;
+
+        if (ply.Favour < cost && cost > 0) return;
+
+        ply.NumVotes++;
+
+        ply.Favour.Value -= cost;
+
+        ply.NextDownvoteCost.Value = TeamLeaderVote.CalculateDownvoteCost(ply.NumVotes);
+
+        ply.NextUpvoteCost.Value = TeamLeaderVote.CalculateUpvoteCost(ply.NumVotes);
+    }
+
+    [Server]
+    public void PlayerDecreasedVote(NetworkConnection conn)
+    {
+        if (!Active) return;
+
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
+
+        int cost = ply.NextDownvoteCost;
+
+        if (ply.Favour < cost && cost > 0) return;
+
+        ply.NumVotes--;
+
+        ply.Favour.Value -= cost;
+
+        ply.NextUpvoteCost.Value = TeamLeaderVote.CalculateUpvoteCost(ply.NumVotes);
+
+        ply.NextDownvoteCost.Value = TeamLeaderVote.CalculateDownvoteCost(ply.NumVotes);
+    }
+
+    [Server]
+    public void OnPlayerVoted(NetworkConnection conn)
+    {
+        if (!Active) return;
+        if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
+        //If the player shouldn't be able to vote, don't let them.
+        if (!CanVote(ply)) return;
+        
+        voteTotal.Value += ply.NumVotes;
+        playerVotes.Add(new PlayerVote()
+        {
+            ply = ply,
+            votes = ply.NumVotes
+        });
+
+        ply.NumVotes.Value = 0;
+        ply.NextUpvoteCost.Value = 0;
+        ply.NextDownvoteCost.Value = 0;
+
+        if (playerVotes.Value.Count >= alivePlayers.Value.Count - waspPlayers.Value.Count) OnFinalVote();
+    }
+
+    /// <summary>
+    /// Called when the final player places their vote
+    /// </summary>
+    [Server]
+    void OnFinalVote()
+    {
+        if (voteTotal.Value > 0)
+        {
+            if (successful) beesWin?.Invoke();
+            else OnBuzzIncorrect();
+        }
+
+        voteTotal.Value = 0;
+        playerVotes.Value = new();
+        playersSelected.Value = new();
+        currentBuzzer.Value = null;
+        StartBuzz();
+    }
+
+    [Server]
+    void OnBuzzIncorrect()
+    {
+        lives.Value -= beesInBuzz;
+        if (lives.Value <= 0)
+        {
+            waspsWin?.Invoke();
+            return;
+        }
+
+        StartBuzz();
+    }
+
+    /// <summary>
+    /// Logic to make sure everything works fine when a wasp dies mid buzz phase
+    /// </summary>
+    /// <param name="ply"></param>
+    void OnWaspDied(HivePlayer ply)
+    {
+        //If the wasp was buzzed, everything should just work out fine
+        if (playersSelected.Value.Contains(ply)) return;
+
+        if (playersBuzzed.Contains(ply)) playersBuzzed.Remove(ply);
+        //Otherwise the player casts a yes vote, and dies.
+        ply.NumVotes.Value = 1;
+        OnPlayerVoted(new NetworkConnectionToClient((int) ply.netId));
+    }
+}

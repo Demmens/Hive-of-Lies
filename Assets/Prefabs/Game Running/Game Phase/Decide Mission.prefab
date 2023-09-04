@@ -63,6 +63,7 @@ MonoBehaviour:
   completedMissions: {fileID: 11400000, guid: 33c18e2444b9f1041947a9afb8a706d0, type: 2}
   decidedMissionChoices: {fileID: 11400000, guid: fa8e39d75c2ce634fb05b9ac70d7cb55, type: 2}
   onMissionChoicesDecided: {fileID: 11400000, guid: aba833fc5e4ef8c45badf2a1884ef732, type: 2}
+  startFinalPhase: {fileID: 11400000, guid: e82771867714a85459d95c32db6373f3, type: 2}
   missionCard: {fileID: 3518710814571722700, guid: 28ace0b806b865c4c922868163c8102d, type: 3}
 --- !u!114 &-4100112476582232011
 MonoBehaviour:

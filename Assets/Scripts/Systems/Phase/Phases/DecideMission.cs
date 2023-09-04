@@ -54,6 +54,9 @@ public class DecideMission : GamePhase
     [Tooltip("Event to invoke when the mission choices have been picked")]
     [SerializeField] GameEvent onMissionChoicesDecided;
 
+    [Tooltip("The event invoked to begin the final phase of the game")]
+    [SerializeField] GameEvent startFinalPhase;
+
     int missionListIndex;
     #endregion
 
@@ -103,7 +106,13 @@ public class DecideMission : GamePhase
         TotalVotes = new List<HivePlayer>();
         MissionVotes = new Dictionary<Mission, (List<HivePlayer>, int)>();
 
-        //List of missions and weights. Make sure if we reach the end of the list that we just start looping the final mission indefinitely.
+        if (roundNum == decidedMissionList.Value.List.Count)
+        {
+            startFinalPhase.Invoke();
+            return;
+        }
+
+        //List of missions and weights.
         missionListIndex = Mathf.Min(roundNum, decidedMissionList.Value.List.Count - 1);
         List<MissionListEntryEntry> missionDataChoices = decidedMissionList.Value.List[missionListIndex].Missions;
 

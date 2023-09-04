@@ -128,10 +128,18 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 2288630729750085703
+  - m_Id: 3338935536783360
+    m_Localized: Accuse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3338976116674560
+    m_Localized: Absolve
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 2288630729750085703
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 001059cbb100000000109984b5000000
+        m_Entries: 001059cbb100000000109984b5000000001099ea47ec0b00

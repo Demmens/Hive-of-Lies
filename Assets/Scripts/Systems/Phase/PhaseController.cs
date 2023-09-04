@@ -16,12 +16,22 @@ public class PhaseController : MonoBehaviour
     /// </summary>
     [SerializeField] List<GamePhase> phases;
 
+    /// <summary>
+    /// The final phase of the game
+    /// </summary>
+    [SerializeField] GamePhase finalPhase;
+
     [SerializeField] int favourGainPerRound;
 
     /// <summary>
     /// The index of the current phase of the game.
     /// </summary>
     int currentPhase;
+
+    /// <summary>
+    /// Whether the final phase begins at the end of the current round
+    /// </summary>
+    bool endOfRoundFinalPhase;
 
     [Tooltip("The round number")]
     [SerializeField] IntVariable roundNum;
@@ -91,6 +101,12 @@ public class PhaseController : MonoBehaviour
 
     void StartNextRound()
     {
+        if (endOfRoundFinalPhase)
+        {
+            finalPhase.ChangePhase();
+            return;
+        }
+
         currentPhase = 0;
         roundNum++;
         roundBegun?.Invoke();
@@ -102,6 +118,24 @@ public class PhaseController : MonoBehaviour
         }
 
         phases[0].ChangePhase();
+    }
+
+    /// <summary>
+    /// Begin the final phase of the game
+    /// </summary>
+    public void ForceStartFinalPhase()
+    {
+        phases[currentPhase].End(true);
+
+        finalPhase.ChangePhase();
+    }
+
+    /// <summary>
+    /// At the end of the current round, begin the final game phase
+    /// </summary>
+    public void StartFinalPhaseOnRoundEnd()
+    {
+        endOfRoundFinalPhase = true;
     }
 
     /// <summary>
