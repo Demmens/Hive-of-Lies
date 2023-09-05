@@ -115,10 +115,6 @@ MonoBehaviour:
     m_Key: addToBuzz
     m_Metadata:
       m_Items: []
-  - m_Id: 3338976116674560
-    m_Key: removeFromBuzz
-    m_Metadata:
-      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
