@@ -23,7 +23,7 @@ MonoBehaviour:
     m_LocalVariables: []
   Icon: {fileID: 0}
   type: 0
-  intVar: {fileID: 11400000, guid: 3c74b165a68ad6048aa156e127de6680, type: 2}
+  intVar: {fileID: 11400000, guid: 9be96126e54fef4449790d989dbd463d, type: 2}
   incrementAmount: 20
   references:
     version: 2

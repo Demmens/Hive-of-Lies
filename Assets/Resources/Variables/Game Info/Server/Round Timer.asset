@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ecc4e2c822a06940963903c27726544, type: 3}
-  m_Name: Buzz Timer
+  m_Script: {fileID: 11500000, guid: 6d999dbdde9bed8458229c463c9972c8, type: 3}
+  m_Name: Round Timer
   m_EditorClassIdentifier: 
-  initialValue: 120
-  currentValue: 120
-  Persistent: 0
-  server: 1
+  initialValue: 0
+  currentValue: 0
+  Persistent: 1
+  server: 0
   client: 0
-  tooltip: How long the Buzz phase lasts
-  step: 1
-  tickLengthSeconds: 1
+  tooltip: 
