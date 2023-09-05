@@ -32,8 +32,8 @@ public class HiveNetworkManager : NetworkManager
     [SerializeField] GameEvent allPlayersLoaded;
 
     [Tooltip("The scene we consider to be the game scene")]
-    [Scene]
-    public string GameScene;
+    [field:SerializeField]
+    public GameModeVariable GameMode;
 
     [Tooltip("The scene we consider to be the lobby scene")]
     [Scene]
@@ -82,7 +82,7 @@ public class HiveNetworkManager : NetworkManager
     {
         Debug.Log($"Player {SteamFriends.GetFriendPersonaName(SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize - 1))} connected");
 
-        if (SceneManager.GetActiveScene().path == GameScene)
+        if (SceneManager.GetActiveScene().path == GameMode.Value.GameScene)
         {
             HivePlayer ply = null;
             ulong id = (ulong)SteamMatchmaking.GetLobbyMemberByIndex(SteamLobby.LobbyID, SteamLobby.LobbySize - 1);
@@ -185,7 +185,7 @@ public class HiveNetworkManager : NetworkManager
         onServerConnect.Invoke(conn);
         Debug.Log("Player connected, validating variables");
 
-        if (SceneManager.GetActiveScene().path != GameScene) return;
+        if (SceneManager.GetActiveScene().path != GameMode.Value.GameScene) return;
         //We want to make sure that when a client joins the game, all their information is correct. To do this, we call OnValidate for all variables
         Object[] variables = Resources.LoadAll("Variables");
         for (int i = 0; i < variables.Length; i++)
@@ -211,7 +211,7 @@ public class HiveNetworkManager : NetworkManager
     [Server]
     public void StartGame()
     {
-        ServerChangeScene(GameScene);
+        ServerChangeScene(GameMode.Value.GameScene);
         playerCount.Value = allPlayers.Value.Count;
         Debug.Log($"Started game with {playerCount.Value} players");
     }
@@ -223,7 +223,7 @@ public class HiveNetworkManager : NetworkManager
 
         OnPlayerJoin(conn);
 
-        if (SceneManager.GetActiveScene().path != GameScene) return;
+        if (SceneManager.GetActiveScene().path != GameMode.Value.GameScene) return;
 
         playerLoaded?.Invoke(conn);
 
@@ -246,7 +246,7 @@ public class HiveNetworkManager : NetworkManager
     public override void OnServerChangeScene(string scene)
     {
         playerCount.Value = allPlayers.Value.Count;
-        if (scene != GameScene) return;
+        if (scene != GameMode.Value.GameScene) return;
 
         allPlayers.Value.ForEach(ply => ply.ResetValues());
 

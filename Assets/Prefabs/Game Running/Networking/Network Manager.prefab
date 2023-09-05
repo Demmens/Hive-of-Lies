@@ -93,7 +93,7 @@ MonoBehaviour:
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   playerLoaded: {fileID: 11400000, guid: 9bc7e587cf368614fb629dfe1447a932, type: 2}
   allPlayersLoaded: {fileID: 11400000, guid: 2a01389b5a31e4f43b833a7913dac777, type: 2}
-  GameScene: Assets/Scenes/Game.unity
+  GameMode: {fileID: 11400000, guid: 76eecd8fa661eac479d66936bc49d886, type: 2}
   LobbyScene: Assets/Scenes/Lobby.unity
   onClientConnect: {fileID: 11400000, guid: 8299deba62f08544aa1f5041ac904872, type: 2}
   onClientDisconnect: {fileID: 11400000, guid: cb40c4db93019e645b33f9fc297ade08, type: 2}

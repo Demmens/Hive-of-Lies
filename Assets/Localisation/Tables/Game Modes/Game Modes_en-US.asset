@@ -10,32 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: Lobby_en-GB
+  m_Name: Game Modes_en-US
   m_EditorClassIdentifier: 
   m_LocaleId:
-    m_Code: en-GB
-  m_SharedData: {fileID: 11400000, guid: 92db3fd3ce46a924a8baae6d492cccfd, type: 2}
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: cb823830fb77d624cb4f84502a7f8732, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 31920295936
-    m_Localized: Loading
+  - m_Id: 5131276288
+    m_Localized: The Buzz
     m_Metadata:
       m_Items: []
-  - m_Id: 120155869184
-    m_Localized: Start
+  - m_Id: 40527007744
+    m_Localized: All missions lead to a thrilling finale where you must collectively
+      uncover the identity of every Wasp.
     m_Metadata:
       m_Items: []
-  - m_Id: 140313694208
-    m_Localized: Enter text...
+  - m_Id: 503867576320
+    m_Localized: Default
     m_Metadata:
       m_Items: []
-  - m_Id: 405863469056
-    m_Localized: '{0} players required to start'
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2958546243584
-    m_Localized: '{0}''s lobby'
+  - m_Id: 529704488960
+    m_Localized: Earn points towards victory by completing missions.
     m_Metadata:
       m_Items: []
   references:

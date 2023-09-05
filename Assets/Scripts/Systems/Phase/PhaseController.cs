@@ -159,6 +159,6 @@ public class PhaseController : MonoBehaviour
     public void ResetGame()
     {
         HiveNetworkManager manager = NetworkManager.singleton as HiveNetworkManager;
-        manager.ServerChangeScene(manager.GameScene);
+        manager.ServerChangeScene(manager.GameMode.Value.GameScene);
     }
 }

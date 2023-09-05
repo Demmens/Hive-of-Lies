@@ -23,8 +23,10 @@ public class LobbyController : NetworkBehaviour
     #region SERVER
     [SerializeField] HivePlayerDictionary playersByConnection;
     [SerializeField] HivePlayerSet allPlayers;
+    [SerializeField] GameModeVariable gameMode;
 
-    [SerializeField] GameObject playersRequiredText;
+    [SerializeField] TMP_Text playersRequiredText;
+    [SerializeField] LocalizedString playersRequiredString;
     [SerializeField] GameObject startGameButton;
     [SerializeField] GameObject inviteButton;
     #endregion
@@ -38,11 +40,12 @@ public class LobbyController : NetworkBehaviour
         if (NetworkServer.active)
         {
             inviteButton.SetActive(true);
-            playersRequiredText.SetActive(true);
+            playersRequiredText.gameObject.SetActive(true);
+            playersRequiredText.text = string.Format(playersRequiredString.GetLocalizedString(), gameMode.Value.MinPlayers);
         }
 
 #if UNITY_EDITOR
-        playersRequiredText.SetActive(false);
+        playersRequiredText.gameObject.SetActive(false);
         startGameButton.SetActive(true);
 #endif
     }
@@ -70,9 +73,9 @@ public class LobbyController : NetworkBehaviour
         }
         UpdateLobbyName();
 
-        if (allPlayers.Value.Count >= 4)
+        if (allPlayers.Value.Count >= gameMode.Value.MinPlayers)
         {
-            playersRequiredText.SetActive(false);
+            playersRequiredText.gameObject.SetActive(false);
             startGameButton.SetActive(true);
         }
     }
@@ -82,9 +85,9 @@ public class LobbyController : NetworkBehaviour
     {
         RemovePlayerItem(conn.connectionId);
 
-        if (allPlayers.Value.Count < 4)
+        if (allPlayers.Value.Count < gameMode.Value.MinPlayers)
         {
-            playersRequiredText.SetActive(true);
+            playersRequiredText.gameObject.SetActive(true);
             startGameButton.SetActive(false);
         }
     }

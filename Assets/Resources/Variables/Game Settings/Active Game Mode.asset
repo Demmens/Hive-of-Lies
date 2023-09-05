@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179af9ac5edf0f94fb6ee80931558a31, type: 3}
+  m_Name: Active Game Mode
+  m_EditorClassIdentifier: 
+  initialValue: {fileID: 11400000, guid: ecb282f367eb54444ae63580c360c35c, type: 2}
+  currentValue: {fileID: 11400000, guid: ecb282f367eb54444ae63580c360c35c, type: 2}
+  Persistent: 1
+  server: 0
+  client: 0
+  tooltip: 

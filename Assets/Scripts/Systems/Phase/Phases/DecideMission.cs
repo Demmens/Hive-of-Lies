@@ -12,7 +12,7 @@ public class DecideMission : GamePhase
     /// <summary>
     /// List of all possible mission lists for all possible player counts.
     /// </summary>
-    [SerializeField] List<MissionList> missionLists;
+    [SerializeField] GameModeVariable gameMode;
 
     /// <summary>
     /// Which players have voted
@@ -75,7 +75,7 @@ public class DecideMission : GamePhase
         //Keep track of all the lists we find that are valid for this game
         List<MissionList> possibleLists = new List<MissionList>();
 
-        foreach (MissionList l in missionLists)
+        foreach (MissionList l in gameMode.Value.MissionLists)
         {
             if (l.MinPlayers > playerCount) continue;
             if (l.MaxPlayers < playerCount) continue;

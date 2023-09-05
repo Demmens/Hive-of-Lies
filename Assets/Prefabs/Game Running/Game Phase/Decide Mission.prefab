@@ -48,15 +48,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   phase: {fileID: 11400000, guid: 77e13a3d9db7ce244853ffae43679355, type: 2}
-  missionLists:
-  - {fileID: 11400000, guid: f8dc112327b73f54da42cfa3ab2e4412, type: 2}
-  - {fileID: 11400000, guid: 734afcf4aa711324e9377de8d7bee90b, type: 2}
-  - {fileID: 11400000, guid: 203746c96a9911641899f50051937c25, type: 2}
-  - {fileID: 11400000, guid: 36816f6e1f18deb48a1def0b31927ad2, type: 2}
+  gameMode: {fileID: 11400000, guid: 76eecd8fa661eac479d66936bc49d886, type: 2}
   playerCount: {fileID: 11400000, guid: 674a4a4c4a11bad43b0c5cf79514482d, type: 2}
   roundNum: {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
   numMissionChoices: {fileID: 11400000, guid: 1939b9c64f1f30b4fa771aff5b5e9ec8, type: 2}
   difficutlyMod: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
+  loopLastMission: {fileID: 11400000, guid: 515c81a73e6baba42b2efc98e99d6cf7, type: 2}
   decidedMissionList: {fileID: 11400000, guid: f0007d2ca6098c649a90108114c7c3bf, type: 2}
   players: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}

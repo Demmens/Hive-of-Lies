@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f094596e88afa40be8004adf84d471, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:cb823830fb77d624cb4f84502a7f8732
+    m_TableEntryReference:
+      m_KeyId: 503867576320
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <Description>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: GUID:cb823830fb77d624cb4f84502a7f8732
+    m_TableEntryReference:
+      m_KeyId: 529704488960
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  MinPlayers: 4
+  MaxPlayers: 12
+  GameScene: Assets/Scenes/Game.unity
+  MissionLists:
+  - {fileID: 11400000, guid: 734afcf4aa711324e9377de8d7bee90b, type: 2}
+  - {fileID: 11400000, guid: 203746c96a9911641899f50051937c25, type: 2}
+  - {fileID: 11400000, guid: 36816f6e1f18deb48a1def0b31927ad2, type: 2}
+  - {fileID: 11400000, guid: f8dc112327b73f54da42cfa3ab2e4412, type: 2}
+  gameEffects:
+  - {fileID: 11400000, guid: d2c45aae48ad0c0439b1fe3a7072031a, type: 2}
+  references:
+    version: 2
+    RefIds: []
