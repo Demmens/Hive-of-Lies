@@ -147,9 +147,9 @@ MonoBehaviour:
   roundNum: {fileID: 11400000, guid: 73d0036268d51b046965ada8277e8c59, type: 2}
   beesWinText:
     m_TableReference:
-      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+      m_TableCollectionName: GUID:1311fef112061324cafb5b9412876990
     m_TableEntryReference:
-      m_KeyId: 374334885888
+      m_KeyId: 2379430301696
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -159,9 +159,9 @@ MonoBehaviour:
         rid: 2288630729750085691
   waspsWinText:
     m_TableReference:
-      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+      m_TableCollectionName: GUID:1311fef112061324cafb5b9412876990
     m_TableEntryReference:
-      m_KeyId: 374334885888
+      m_KeyId: 2379430301696
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
