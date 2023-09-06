@@ -240,12 +240,13 @@ MonoBehaviour:
   alivePlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
-  playerVotes: {fileID: 11400000, guid: eb1f966eccc04124bb3f3d50914839f1, type: 2}
-  voteTotal: {fileID: 11400000, guid: 45faf728bd9ba5c4386e093a0db03cb3, type: 2}
+  playerVotes: {fileID: 11400000, guid: 8868811ef70de684c9f1d84675d4950c, type: 2}
+  voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}
   pickPlayerButton: {fileID: 5348883325331210057, guid: 6ebe8e26f75ca8b4a9f99dacdaaa8aa1, type: 3}
   removePlayerButton: {fileID: 8102290754876271477, guid: 412d917af06dc1249a169522fb2af6c1, type: 3}
   showPlayerVote: {fileID: 11400000, guid: 2ec3dc4cf7be0bf47b655f1e99873f45, type: 2}
   buzzStarted: {fileID: 11400000, guid: 285396bd47f7b424c8e511aeb5d0f676, type: 2}
+  allPlayersVoted: {fileID: 11400000, guid: bdd5ba012ab56d84989dad1a6b388642, type: 2}
   buzzTimer: {fileID: 11400000, guid: 9be96126e54fef4449790d989dbd463d, type: 2}
   pickTimer: {fileID: 11400000, guid: d4bf5cc5cebc3ec46b585f9937d59c93, type: 2}
   voteTimer: {fileID: 11400000, guid: cd59d225edf5a464c868890900c97620, type: 2}

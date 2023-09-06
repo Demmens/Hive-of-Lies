@@ -32,6 +32,8 @@ public class Buzz : GamePhase
     [SerializeField] NetworkingEvent showPlayerVote;
     [SerializeField] GameEvent buzzStarted;
 
+    [SerializeField] GameEvent allPlayersVoted;
+
     /// <summary>
     /// How many bees are selected. If > 0 the buzz will not be successful
     /// </summary>
@@ -332,7 +334,7 @@ public class Buzz : GamePhase
         if (!CanVote(ply)) return;
         
         voteTotal.Value += ply.NumVotes;
-        playerVotes.Add(new PlayerVote()
+        playerVotes.Add(new PlayerVote
         {
             ply = ply,
             votes = ply.NumVotes
@@ -351,12 +353,31 @@ public class Buzz : GamePhase
     [Server]
     void OnVoteEnd()
     {
+        //If not everyone voted;
+        if (playerVotes.Value.Count < alivePlayers.Value.Count)
+        {
+            foreach (HivePlayer ply in alivePlayers.Value)
+            {
+                bool isInSet = false;
+                for (int i = 0; i < playerVotes.Value.Count; i++)
+                {
+                    if (playerVotes.Value[i].ply == ply)
+                    {
+                        isInSet = true;
+                        break;
+                    }
+                }
+                if (isInSet) continue;
+
+                playerVotes.Add(new PlayerVote { ply = ply, votes = 1 });
+                voteTotal.Value++;
+            }
+        }
+        allPlayersVoted.Invoke();
+
         //Reset the vote timer
         voteTimer.ResetTimer();
         StopCoroutine(voteCoroutine);
-
-        //Each player who didn't vote automatically upvotes once each.
-        voteTotal.Value += Mathf.Max(0, alivePlayers.Value.Count - waspPlayers.Value.Count - playerVotes.Value.Count);
 
         if (voteTotal.Value > 0)
         {
