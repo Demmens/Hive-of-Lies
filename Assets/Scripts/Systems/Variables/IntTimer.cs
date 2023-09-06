@@ -12,9 +12,13 @@ public class IntTimer : IntVariable
     [SerializeField] float tickLengthSeconds = 1;
 
     public event System.Action OnTimerEnd;
-    public bool IsRunning { get; private set; }
 
     bool stop;
+
+    /// <summary>
+    /// Time elapsed between current step and next step
+    /// </summary>
+    float elapsed;
 
     /// <summary>
     /// Starts the timer. Must be used as a parameter in a StartCoroutine call
@@ -22,23 +26,21 @@ public class IntTimer : IntVariable
     /// <returns></returns>
     public IEnumerator StartTimer()
     {
-        if (IsRunning)
-        {
-            Debug.LogError("Timer is already running");
-            yield break;
-        }
-        IsRunning = true;
-
         while (Value > 0)
         {
             if (stop)
             {
                 stop = false;
-                IsRunning = false;
                 yield break;
             }
+
+            yield return null;
+            elapsed += Time.deltaTime;
+            if (elapsed < tickLengthSeconds) continue;
+
+            elapsed -= tickLengthSeconds;
+            
             Value -= step;
-            yield return new WaitForSeconds(tickLengthSeconds);
         }
 
         OnTimerEnd?.Invoke();
@@ -46,12 +48,13 @@ public class IntTimer : IntVariable
 
     public void StopTimer()
     {
-        if (IsRunning) stop = true;
+        stop = true;
     }
 
     public void ResetTimer()
     {
         StopTimer();
         Value = initialValue;
+        elapsed = 0;
     }
 }
