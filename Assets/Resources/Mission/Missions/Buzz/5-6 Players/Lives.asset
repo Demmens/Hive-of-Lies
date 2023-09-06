@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
+  m_Name: Lives
+  m_EditorClassIdentifier: 
+  missionName:
+    m_TableReference:
+      m_TableCollectionName: GUID:ba4e22b8bad584047a685bad836abae1
+    m_TableEntryReference:
+      m_KeyId: 1095398658048
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:ba4e22b8bad584047a685bad836abae1
+    m_TableEntryReference:
+      m_KeyId: 1171097456640
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  favourCost: 3
+  effects:
+  - value: 0
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    effects:
+    - {fileID: 11400000, guid: 628a73258ee59594bb3e17a989ddf4d9, type: 2}
+    plotPoints: []
+  - value: 5
+    effectFlavour:
+      m_TableReference:
+        m_TableCollectionName: 
+      m_TableEntryReference:
+        m_KeyId: 0
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    effects:
+    - {fileID: 11400000, guid: 54b249df22e46864d9d313e69f8d4ec2, type: 2}
+    plotPoints: []
+  condition: {fileID: 0}
+  DifficultyMod: 0
+  references:
+    version: 2
+    RefIds: []

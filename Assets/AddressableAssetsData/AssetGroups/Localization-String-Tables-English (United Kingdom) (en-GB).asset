@@ -66,7 +66,7 @@ MonoBehaviour:
     - Locale-en-GB
     - Preload
   - m_GUID: 3ec3fcb32d89344448f2a0d5f0e95453
-    m_Address: Missions_en-GB
+    m_Address: Default Missions_en-GB
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en-GB
@@ -85,6 +85,12 @@ MonoBehaviour:
     - Preload
   - m_GUID: 0d3056d5bca90f14785ec1dd615fa87f
     m_Address: Game Modes_en-GB
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en-GB
+    - Preload
+  - m_GUID: a428519d89f12014a90aa3ac2287df5f
+    m_Address: Buzz Missions_en-GB
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en-GB
