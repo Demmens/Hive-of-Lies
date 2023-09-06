@@ -11,7 +11,7 @@ public class AddCardToDeck : MissionEffect
     {
         foreach (HivePlayer ply in playerSet.Value)
         {
-            ply.Deck.Value.PublicAddToDeck(card);
+            ply.Deck.Value.DrawPile.Add(card);
             ply.Deck.Value.Shuffle();
         }
         EndEffect();

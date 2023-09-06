@@ -8,47 +8,22 @@ public class Deck
     /// <summary>
     /// The cards in the draw pile
     /// </summary>
-    public List<Card> DrawPile = new();
+    public CardSet DrawPile = ScriptableObject.CreateInstance<CardSet>();
 
     /// <summary>
     /// The cards in the discard pile
     /// </summary>
-    public List<Card> DiscardPile = new();
+    public CardSet DiscardPile = ScriptableObject.CreateInstance<CardSet>();
 
     /// <summary>
     /// The cards in a players hand
     /// </summary>
-    public List<Card> Hand = new();
+    public CardSet Hand = ScriptableObject.CreateInstance<CardSet>();
 
     /// <summary>
     /// The cards the player has played
     /// </summary>
-    public List<Card> Played = new();
-
-    /// <summary>
-    /// Invoked when a card is drawn
-    /// </summary>
-    public event System.Action<Card> OnDraw;
-
-    /// <summary>
-    /// Invoked when a card is publicly removed from the draw pile of a player
-    /// </summary>
-    public event System.Action<Card> OnCardRemovedFromDrawPile;
-
-    /// <summary>
-    /// Invoked when a card is publicly added to the draw pile of a player
-    /// </summary>
-    public event System.Action<Card> OnCardAddedToDrawPile;
-
-    /// <summary>
-    /// Invoked when a card is publicly removed from the discard pile of a player
-    /// </summary>
-    public event System.Action<Card> OnCardRemovedFromDiscardPile;
-
-    /// <summary>
-    /// Invoked when a card is publicly added to the discard pile of a player
-    /// </summary>
-    public event System.Action<Card> OnCardAddedToDiscardPile;
+    public CardSet Played = ScriptableObject.CreateInstance<CardSet>();
 
     /// <summary>
     /// Invoked when a card is drawn
@@ -62,68 +37,6 @@ public class Deck
     public event System.Action<Card> AfterPlay;
 
     /// <summary>
-    /// Add a card to the deck
-    /// </summary>
-    public void Add(Card card)
-    {
-        DiscardPile.Add(card);
-    }
-
-    /// <summary>
-    /// Removes a card from the draw pile. This will show as missing in that players deck screen.
-    /// </summary>
-    /// <param name="card">The card that was removed</param>
-    public void PublicRemoveFromDraw(Card card)
-    {
-        if (!DrawPile.Contains(card)) return;
-
-        DrawPile.Remove(card);
-        OnCardRemovedFromDrawPile?.Invoke(card);
-    }
-
-    /// <summary>
-    /// Adds a card to the deck. That card will appear in that players deck screen.
-    /// </summary>
-    /// <param name="card">The card that was added</param>
-    public void PublicAddToDraw(Card card)
-    {
-        DrawPile.Add(card);
-        OnCardAddedToDrawPile?.Invoke(card);
-    }
-
-    /// <summary>
-    /// Removes a card from the discard pile. This will show as missing in that players deck screen.
-    /// </summary>
-    /// <param name="card">The card that was removed</param>
-    public void PublicRemoveFromDiscard(Card card)
-    {
-        if (!DiscardPile.Contains(card)) return;
-
-        DiscardPile.Remove(card);
-        OnCardRemovedFromDiscardPile?.Invoke(card);
-    }
-
-    /// <summary>
-    /// Adds a card to the discard pile. That card will appear in that players deck screen.
-    /// </summary>
-    /// <param name="card">The card that was added</param>
-    public void PublicAddToDiscard(Card card)
-    {
-        DiscardPile.Add(card);
-        OnCardAddedToDiscardPile?.Invoke(card);
-    }
-
-    /// <summary>
-    /// Adds a card to the deck. That card will appear in that players deck screen.
-    /// </summary>
-    /// <param name="card">The card that was added</param>
-    public void PublicAddToDeck(Card card)
-    {
-        DrawPile.Add(card);
-        OnCardAddedToDrawPile?.Invoke(card);
-    }
-
-    /// <summary>
     /// Shuffle your discard pile into the deck
     /// </summary>
     public void Shuffle()
@@ -131,16 +44,14 @@ public class Deck
         for (int i = DiscardPile.Count-1; i >= 0; i--)
         {
             Card card = DiscardPile[i];
-            if (card.IsSecret) DiscardPile.Remove(card);
-            else PublicRemoveFromDiscard(card);
+            DiscardPile.Remove(card);
 
             if (card.DestroyOnDraw) continue;
 
-            if (card.IsSecret) DrawPile.Add(card);
-            else PublicAddToDeck(card);
+            DrawPile.Add(card);
         }
 
-        DrawPile.Shuffle();
+        DrawPile.Value.Shuffle();
     }
 
     /// <summary>
@@ -151,16 +62,16 @@ public class Deck
         foreach (Card card in Hand)
         {
             if (card.DestroyOnDraw) continue;
-            PublicAddToDeck(card);
+            DrawPile.Add(card);
         }
-        Hand = new();
+        Hand.Value = new();
 
         foreach (Card card in Played)
         {
             if (card.DestroyOnDraw || card.DestroyOnPlay) continue;
-            PublicAddToDeck(card);
+            DrawPile.Add(card);
         }
-        Played = new();
+        Played.Value = new();
         Shuffle();
     }
 
@@ -189,7 +100,7 @@ public class Deck
 
             Card card = DrawPile[0];
 
-            card.DrawEffects.ForEach(effect => effect.TriggerEffect());
+            foreach (CardEffect effect in card.DrawEffects) effect.TriggerEffect();
 
             BeforeDraw?.Invoke(ref card);
 
@@ -198,9 +109,7 @@ public class Deck
             //It's no longer secret if the player has drawn and seen it.
             card.IsSecret = false;
 
-            if (DrawPile.Contains(card)) PublicRemoveFromDraw(card);
-
-            OnDraw?.Invoke(card);
+            if (DrawPile.Contains(card)) DrawPile.Remove(card);
         }
     }
 
@@ -234,8 +143,8 @@ public class Deck
         if (card == null) card = Hand[0];
         if (!Hand.Contains(card)) return;
 
-        card.DiscardEffects.ForEach(effect => effect.TriggerEffect());
-        PublicAddToDiscard(card);
+        foreach (CardEffect effect in card.DiscardEffects) effect.TriggerEffect();
+        DiscardPile.Add(card);
         Hand.Remove(card);
     }
 
@@ -250,7 +159,7 @@ public class Deck
         if (!Hand.Contains(card)) return null;
 
         Played.Add(card);
-        card.PlayEffects.ForEach(effect => effect.TriggerEffect());
+        foreach (CardEffect effect in card.PlayEffects) effect.TriggerEffect();
         Hand.Remove(card);
         AfterPlay?.Invoke(card);
         return card;

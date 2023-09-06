@@ -67,7 +67,7 @@ public class OpenCardShop : MissionEffectBehaviour
         if (ply.Favour.Value < card.BuyValue) return;
 
         ply.Favour.Value -= card.BuyValue;
-        ply.Deck.Value.PublicAddToDeck(card);
+        ply.Deck.Value.DrawPile.Add(card);
         ply.Deck.Value.DrawPile.Shuffle();
     }
 

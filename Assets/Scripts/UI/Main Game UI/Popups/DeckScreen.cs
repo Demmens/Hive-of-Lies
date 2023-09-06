@@ -22,13 +22,13 @@ public class DeckScreen : NetworkBehaviour
         {
             if (isDrawPile)
             {
-                pair.Value.Deck.Value.OnCardRemovedFromDrawPile += (card) => CardRemoved(pair.Key, card);
-                pair.Value.Deck.Value.OnCardAddedToDrawPile += (card) => CardAdded(pair.Key, card);
+                pair.Value.Deck.Value.DrawPile.AfterItemRemoved += (card) => CardRemoved(pair.Key, card);
+                pair.Value.Deck.Value.DrawPile.AfterItemAdded += (card) => CardAdded(pair.Key, card);
             }
             else
             {
-                pair.Value.Deck.Value.OnCardRemovedFromDiscardPile += (card) => CardRemoved(pair.Key, card);
-                pair.Value.Deck.Value.OnCardAddedToDiscardPile += (card) => CardAdded(pair.Key, card);
+                pair.Value.Deck.Value.DiscardPile.AfterItemRemoved += (card) => CardRemoved(pair.Key, card);
+                pair.Value.Deck.Value.DiscardPile.AfterItemAdded += (card) => CardAdded(pair.Key, card);
             }
         }
     }
@@ -36,6 +36,7 @@ public class DeckScreen : NetworkBehaviour
     [TargetRpc]
     void CardRemoved(NetworkConnection conn, Card card)
     {
+        if (card.IsSecret) return;
         CardDisplay display = null;
 
         foreach (CardDisplay c in drawPile)
@@ -55,6 +56,7 @@ public class DeckScreen : NetworkBehaviour
     [TargetRpc]
     void CardAdded(NetworkConnection conn, Card card)
     {
+        if (card.IsSecret) return;
         CardDisplay display = Instantiate(cardDisplay).GetComponent<CardDisplay>();
         display.SetCard(card);
         display.transform.SetParent(cardPool);
