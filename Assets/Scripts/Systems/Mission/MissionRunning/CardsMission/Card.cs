@@ -47,6 +47,4 @@ public class Card : ScriptableObject
     /// Delegates to run when the card is discarded
     /// </summary>
     public List<CardEffect> DiscardEffects = new();
-
-    public event Action<int> OnValueChanged;
 }

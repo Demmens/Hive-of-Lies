@@ -62,11 +62,6 @@ public class Deck
     public event System.Action<Card> AfterPlay;
 
     /// <summary>
-    /// Invoked when a card in the hand changes its value
-    /// </summary>
-    public event System.Action<int> HandCardValueChanged;
-
-    /// <summary>
     /// Add a card to the deck
     /// </summary>
     public void Add(Card card)
@@ -200,8 +195,6 @@ public class Deck
 
             Hand.Add(card);
 
-            card.OnValueChanged += (val) => HandCardValueChanged?.Invoke(val);
-
             //It's no longer secret if the player has drawn and seen it.
             card.IsSecret = false;
 
@@ -242,7 +235,6 @@ public class Deck
         if (!Hand.Contains(card)) return;
 
         card.DiscardEffects.ForEach(effect => effect.TriggerEffect());
-        card.OnValueChanged -= (val) => HandCardValueChanged?.Invoke(val);
         PublicAddToDiscard(card);
         Hand.Remove(card);
     }
