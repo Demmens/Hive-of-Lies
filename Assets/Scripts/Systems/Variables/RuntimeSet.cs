@@ -66,6 +66,10 @@ public abstract class RuntimeSet<T> : ScriptableObject
         }
     }
 
+    public int Count { get { return Value.Count; } }
+
+    public T this[int key] { get { return Value[key]; } }
+
     public event System.Action<T> AfterItemAdded;
 
     public event System.Action<T> AfterItemRemoved;
@@ -91,6 +95,26 @@ public abstract class RuntimeSet<T> : ScriptableObject
 
         if (extensionOf == null) return;
         extensionOf.Remove(item);
+    }
+
+    public void RemoveAt(int index)
+    {
+        Value.RemoveAt(index);
+    }
+
+    public bool Contains(T val)
+    {
+        return Value.Contains(val);
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+        return Value.GetEnumerator();
+    }
+
+    public void Shuffle()
+    {
+        Value.Shuffle();
     }
 
     public void OnEnable()
