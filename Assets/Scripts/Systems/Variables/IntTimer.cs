@@ -13,13 +13,6 @@ public class IntTimer : IntVariable
 
     public event System.Action OnTimerEnd;
 
-    bool stop;
-
-    /// <summary>
-    /// Time elapsed between current step and next step
-    /// </summary>
-    float elapsed;
-
     /// <summary>
     /// Starts the timer. Must be used as a parameter in a StartCoroutine call
     /// </summary>
@@ -28,33 +21,15 @@ public class IntTimer : IntVariable
     {
         while (Value > 0)
         {
-            if (stop)
-            {
-                stop = false;
-                yield break;
-            }
-
-            yield return null;
-            elapsed += Time.deltaTime;
-            if (elapsed < tickLengthSeconds) continue;
-
-            elapsed -= tickLengthSeconds;
-            
+            yield return new WaitForSeconds(tickLengthSeconds);
             Value -= step;
         }
 
         OnTimerEnd?.Invoke();
     }
 
-    public void StopTimer()
-    {
-        stop = true;
-    }
-
     public void ResetTimer()
     {
-        StopTimer();
         Value = initialValue;
-        elapsed = 0;
     }
 }
