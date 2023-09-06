@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
-  m_Name: Drone
+  m_Name: TwoBee
   m_EditorClassIdentifier: 
   roleName:
     m_TableReference:
