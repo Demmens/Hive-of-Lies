@@ -16,6 +16,10 @@ public class IntTimer : IntVariable
 
     bool stop;
 
+    /// <summary>
+    /// Starts the timer. Must be used as a parameter in a StartCoroutine call
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator StartTimer()
     {
         if (IsRunning)
@@ -42,6 +46,12 @@ public class IntTimer : IntVariable
 
     public void StopTimer()
     {
-        stop = true;
+        if (IsRunning) stop = true;
+    }
+
+    public void ResetTimer()
+    {
+        StopTimer();
+        Value = initialValue;
     }
 }
