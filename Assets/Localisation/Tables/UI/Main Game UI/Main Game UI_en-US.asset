@@ -60,9 +60,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2379430301696
-    m_Localized: '{0} win'
+    m_Localized: '{team_pl} win'
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 2288630729750085703
   - m_Id: 2534967676928
     m_Localized: '{0} wins'
     m_Metadata:
@@ -138,4 +139,4 @@ MonoBehaviour:
     - rid: 2288630729750085703
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 001059cbb100000000109984b5000000001099ea47ec0b00
+        m_Entries: 001059cbb100000000109984b5000000001099ea47ec0b00001019012a020000
