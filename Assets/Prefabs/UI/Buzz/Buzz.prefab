@@ -244,63 +244,18 @@ MonoBehaviour:
   voteTotal: {fileID: 11400000, guid: 45faf728bd9ba5c4386e093a0db03cb3, type: 2}
   pickPlayerButton: {fileID: 5348883325331210057, guid: 6ebe8e26f75ca8b4a9f99dacdaaa8aa1, type: 3}
   removePlayerButton: {fileID: 8102290754876271477, guid: 412d917af06dc1249a169522fb2af6c1, type: 3}
-  waspNumPopup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
-  waspNumPopupText_pl:
-    m_TableReference:
-      m_TableCollectionName: GUID:1311fef112061324cafb5b9412876990
-    m_TableEntryReference:
-      m_KeyId: 3356018366550016
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables:
-    - name: wasp
-      variable:
-        rid: 7719830650710654983
-  waspNumPopupText_sg:
-    m_TableReference:
-      m_TableCollectionName: GUID:1311fef112061324cafb5b9412876990
-    m_TableEntryReference:
-      m_KeyId: 3356018366550016
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables:
-    - name: wasp
-      variable:
-        rid: 7719830650710654984
   showPlayerVote: {fileID: 11400000, guid: 2ec3dc4cf7be0bf47b655f1e99873f45, type: 2}
   buzzStarted: {fileID: 11400000, guid: 285396bd47f7b424c8e511aeb5d0f676, type: 2}
-  timerSeconds: {fileID: 11400000, guid: 3c74b165a68ad6048aa156e127de6680, type: 2}
+  buzzTimer: {fileID: 11400000, guid: 9be96126e54fef4449790d989dbd463d, type: 2}
+  pickTimer: {fileID: 11400000, guid: d4bf5cc5cebc3ec46b585f9937d59c93, type: 2}
+  voteTimer: {fileID: 11400000, guid: cd59d225edf5a464c868890900c97620, type: 2}
   currentBuzzer: {fileID: 11400000, guid: 779d81c026e754b4b8c24c5b8de5de8c, type: 2}
   playersSelected: {fileID: 11400000, guid: 6293b5a731ab9464dac298d1bcbbe532, type: 2}
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
   missionPlayersSelected: {fileID: 11400000, guid: c5185c85b03957546b0a450841d2fd5f, type: 2}
   references:
     version: 2
-    RefIds:
-    - rid: 7719830650710654983
-      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
-      data:
-        m_TableReference:
-          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
-        m_TableEntryReference:
-          m_KeyId: 116091588608
-          m_Key: 
-        m_FallbackState: 0
-        m_WaitForCompletion: 0
-        m_LocalVariables: []
-    - rid: 7719830650710654984
-      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
-      data:
-        m_TableReference:
-          m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
-        m_TableEntryReference:
-          m_KeyId: 146198302720
-          m_Key: 
-        m_FallbackState: 0
-        m_WaitForCompletion: 0
-        m_LocalVariables: []
+    RefIds: []
 --- !u!114 &-2209601612976911105
 MonoBehaviour:
   m_ObjectHideFlags: 0

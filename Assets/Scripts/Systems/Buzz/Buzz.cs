@@ -45,12 +45,19 @@ public class Buzz : GamePhase
     /// <summary>
     /// How long the buzz phase lasts in seconds
     /// </summary>
-    [SerializeField] IntVariable timerSeconds;
+    [SerializeField] IntTimer buzzTimer;
 
     /// <summary>
-    /// How much time has elapsed in this phase so far
+    /// Timer for how long players have to pick 
     /// </summary>
-    int timeElapsed;
+    [SerializeField] IntTimer pickTimer;
+    Coroutine pickCoroutine;
+
+    /// <summary>
+    /// The IntVariable that keeps track of the pickTime
+    /// </summary>
+    [SerializeField] IntTimer voteTimer;
+    Coroutine voteCoroutine;
 
     /// <summary>
     /// The player who buzzed in the current buzz
@@ -86,12 +93,31 @@ public class Buzz : GamePhase
             };
         };
 
-        StartBuzz();
         buzzStarted.Invoke();
+
+        buzzTimer.OnTimerEnd += waspsWin.Invoke;
+        StartCoroutine(buzzTimer.StartTimer());
+
+        pickTimer.OnTimerEnd += StartBuzz;
+        voteTimer.OnTimerEnd += OnVoteEnd;
+
+        StartBuzz();
     }
 
     void StartBuzz()
     {
+        //Stop the pickTimer from continuing
+        if (pickCoroutine != null) StopCoroutine(pickCoroutine);
+        //If time ran out before players were selected for the buzz
+        if (currentBuzzer.Value != null)
+        {
+            SetLockInActive(currentBuzzer.Value.connectionToClient, false);
+            currentBuzzer.Value = null;
+            playersSelected.Value = new();
+            foreach (PlayerButtonDropdownItem i in addButtons) Destroy(i.gameObject);
+            addButtons = new();
+        }
+        
         //Once all players have buzzed, anyone can buzz again
         if (playersBuzzed.Count == alivePlayers.Value.Count) playersBuzzed = new();
 
@@ -101,22 +127,6 @@ public class Buzz : GamePhase
             if (playersBuzzed.Contains(pl)) continue;
             SetBuzzActive(pl.connectionToClient, true);
         }
-    }
-
-    IEnumerator RunTimer()
-    {
-        while (timeElapsed < timerSeconds.Value)
-        {
-            timeElapsed++;
-            yield return new WaitForSeconds(1);
-        }
-
-        if (NetworkServer.active) OnTimerEnd();
-    }
-
-    private void OnTimerEnd()
-    {
-        waspsWin.Invoke();
     }
 
     /// <summary>
@@ -159,6 +169,9 @@ public class Buzz : GamePhase
         }
         SetLockInActive(ply.connectionToClient, true);
         SetLockInInteractable(ply.connectionToClient, false);
+
+        pickTimer.ResetTimer();
+        pickCoroutine = StartCoroutine(pickTimer.StartTimer());
     }
 
     [Server]
@@ -232,7 +245,12 @@ public class Buzz : GamePhase
         if (!playersByConnection.Value.TryGetValue(conn, out HivePlayer ply)) return;
         if (ply != currentBuzzer.Value) return;
 
-        foreach (PlayerButtonDropdownItem i in addButtons) Destroy(i);
+        //Stop the pick timer, start the vote timer
+        StopCoroutine(pickCoroutine);
+ 
+        voteCoroutine = StartCoroutine(voteTimer.StartTimer());
+
+        foreach (PlayerButtonDropdownItem i in addButtons) Destroy(i.gameObject);
         addButtons = new();
 
         for (int i = 0; i < alivePlayers.Value.Count; i++)
@@ -324,15 +342,22 @@ public class Buzz : GamePhase
         ply.NextUpvoteCost.Value = 0;
         ply.NextDownvoteCost.Value = 0;
 
-        if (playerVotes.Value.Count >= alivePlayers.Value.Count - waspPlayers.Value.Count) OnFinalVote();
+        if (playerVotes.Value.Count >= alivePlayers.Value.Count - waspPlayers.Value.Count) OnVoteEnd();
     }
 
     /// <summary>
     /// Called when the final player places their vote
     /// </summary>
     [Server]
-    void OnFinalVote()
+    void OnVoteEnd()
     {
+        //Reset the vote timer
+        voteTimer.ResetTimer();
+        StopCoroutine(voteCoroutine);
+
+        //Each player who didn't vote automatically upvotes once each.
+        voteTotal.Value += Mathf.Max(0, alivePlayers.Value.Count - waspPlayers.Value.Count - playerVotes.Value.Count);
+
         if (voteTotal.Value > 0)
         {
             if (successful) beesWin?.Invoke();
@@ -355,8 +380,6 @@ public class Buzz : GamePhase
             waspsWin?.Invoke();
             return;
         }
-
-        StartBuzz();
     }
 
     /// <summary>
