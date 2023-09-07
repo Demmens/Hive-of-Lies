@@ -44,11 +44,10 @@ public class Deck
         for (int i = DiscardPile.Count-1; i >= 0; i--)
         {
             Card card = DiscardPile[i];
+
+            if (!card.DestroyOnDraw) DrawPile.Add(card);
+
             DiscardPile.Remove(card);
-
-            if (card.DestroyOnDraw) continue;
-
-            DrawPile.Add(card);
         }
 
         DrawPile.Value.Shuffle();
