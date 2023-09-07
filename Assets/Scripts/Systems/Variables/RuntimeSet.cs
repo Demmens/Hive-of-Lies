@@ -70,8 +70,26 @@ public abstract class RuntimeSet<T> : ScriptableObject
 
     public T this[int key] { get { return Value[key]; } }
 
+    public delegate void ItemDelegate(ref T item);
+
+    /// <summary>
+    /// Invoked before the item is added to allow manipulation
+    /// </summary>
+    public event ItemDelegate OnItemAdded;
+
+    /// <summary>
+    /// Invoked after the item is added
+    /// </summary>
     public event System.Action<T> AfterItemAdded;
 
+    /// <summary>
+    /// Invoked before the item is removed to allow manipulation
+    /// </summary>
+    public event ItemDelegate OnItemRemoved;
+
+    /// <summary>
+    /// Invoked after the item is removed
+    /// </summary>
     public event System.Action<T> AfterItemRemoved;
 
     public event System.Action AfterCleared;
@@ -79,6 +97,10 @@ public abstract class RuntimeSet<T> : ScriptableObject
     public void Add(T item) {
         if (Value.Contains(item)) return;
 
+        OnItemAdded?.Invoke(ref item);
+
+        //If the item was manipulated to become null, do not add that item
+        if (item == null) return;
         currentValue.Add(item);
         AfterItemAdded?.Invoke(item);
 
@@ -90,6 +112,10 @@ public abstract class RuntimeSet<T> : ScriptableObject
     {
         if (!Value.Contains(item)) return;
 
+        OnItemRemoved?.Invoke(ref item);
+
+        //If the item was manipulated to be null or something outside the set, do not remove that item
+        if (item == null || !Value.Contains(item)) return;
         currentValue.Remove(item);
         AfterItemRemoved?.Invoke(item);
 
