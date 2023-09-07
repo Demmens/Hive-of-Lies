@@ -263,11 +263,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3122984069435392
-    m_Localized: Two Bee
+    m_Localized: One Two Bee
     m_Metadata:
       m_Items: []
   - m_Id: 3123218367451136
-    m_Localized: Every card in your starting deck is a +{num}
+    m_Localized: Your deck can only ever contain exactly one +{num} card
     m_Metadata:
       m_Items:
       - rid: 2288630715881357316

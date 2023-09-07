@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
-  m_Name: TwoBee
+  m_Name: One Two Bee
   m_EditorClassIdentifier: 
   roleName:
     m_TableReference:
@@ -37,26 +37,8 @@ MonoBehaviour:
   <StartingFavour>k__BackingField: 4
   <StartingDeck>k__BackingField:
   - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
-  <Abilities>k__BackingField: []
+  <Abilities>k__BackingField:
+  - {fileID: 9078889262912674118, guid: 5502bd8ed8628e744976853a6fe249d2, type: 3}
   <PlayersRequired>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 21300000, guid: 9f987bc44b10bfb428db901fc445c554, type: 3}
   Difficulty: 2
