@@ -102,7 +102,8 @@ public class MissionUI : NetworkBehaviour
         missionName.text = mission.MissionName;
         missionName.gameObject.SetActive(true);
         missionFlavour.text = mission.Description;
-        missionFlavour.gameObject.SetActive(true);
+        //Disabled temporarily to make it easier to create new missions
+        //missionFlavour.gameObject.SetActive(true);
         missionBar.SetActive(true);
 
         //Set these two effects manually because they need to be the effects at either side of the bar
