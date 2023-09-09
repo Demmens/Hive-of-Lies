@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
+  m_Name: Major Time Loss
+  m_EditorClassIdentifier: 
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e68207947c4a54f4aada1a8c2887bc52
+    m_TableEntryReference:
+      m_KeyId: 5439975551733760
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: gain_lose
+      variable:
+        rid: 7719830780191178754
+    - name: num
+      variable:
+        rid: 7719830780191178756
+  <Icon>k__BackingField: {fileID: 21300000, guid: cf303cdbfad1b8a45ba8176df0a1bbf6, type: 3}
+  <AffectsBees>k__BackingField: 0
+  <AffectsWasps>k__BackingField: 0
+  <Type>k__BackingField: 1
+  <Colour>k__BackingField: {fileID: 11400000, guid: 2a7264df7ba5a494685eaebba8192b1a, type: 2}
+  <OverlayString>k__BackingField: 
+  intVar: {fileID: 11400000, guid: 9be96126e54fef4449790d989dbd463d, type: 2}
+  incrementAmount: -45
+  references:
+    version: 2
+    RefIds:
+    - rid: 7719830780191178754
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: GUID:8db8ba50f66e06a48b758a050e1bf923
+        m_TableEntryReference:
+          m_KeyId: 1876742967296
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 7719830780191178756
+      type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: 45
