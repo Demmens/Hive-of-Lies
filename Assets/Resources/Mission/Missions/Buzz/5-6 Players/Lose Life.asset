@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d698bfccd504494989962e505dd06a4, type: 3}
-  m_Name: Lives
+  m_Name: Lose Life
   m_EditorClassIdentifier: 
   missionName:
     m_TableReference:
       m_TableCollectionName: GUID:ba4e22b8bad584047a685bad836abae1
     m_TableEntryReference:
-      m_KeyId: 1095398658048
+      m_KeyId: 1495627164356608
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -25,14 +25,14 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:ba4e22b8bad584047a685bad836abae1
     m_TableEntryReference:
-      m_KeyId: 1171097456640
+      m_KeyId: 1495674329305088
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   favourCost: 3
   effects:
-  - value: 0
+  - value: 5
     effectFlavour:
       m_TableReference:
         m_TableCollectionName: 
@@ -45,7 +45,7 @@ MonoBehaviour:
     effects:
     - {fileID: 11400000, guid: 628a73258ee59594bb3e17a989ddf4d9, type: 2}
     plotPoints: []
-  - value: 5
+  - value: 0
     effectFlavour:
       m_TableReference:
         m_TableCollectionName: 
@@ -56,7 +56,7 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     effects:
-    - {fileID: 11400000, guid: 54b249df22e46864d9d313e69f8d4ec2, type: 2}
+    - {fileID: 11400000, guid: 29908a91a1f898c4284a7d7df43b14cd, type: 2}
     plotPoints: []
   condition: {fileID: 0}
   DifficultyMod: 0
