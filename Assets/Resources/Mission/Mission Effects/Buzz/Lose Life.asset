@@ -30,7 +30,7 @@ MonoBehaviour:
     - name: life_lives
       variable:
         rid: 7719830780191178765
-  <Icon>k__BackingField: {fileID: 21300000, guid: c056024b67248f5409f72833112944fa, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 0b2dfa6cb63b77b4096d48ca7d7dd9cc, type: 3}
   <AffectsBees>k__BackingField: 0
   <AffectsWasps>k__BackingField: 0
   <Type>k__BackingField: 0
