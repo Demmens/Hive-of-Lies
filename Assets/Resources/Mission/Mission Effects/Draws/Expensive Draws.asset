@@ -27,8 +27,12 @@ MonoBehaviour:
     - name: more_fewer
       variable:
         rid: 2288630729750085652
-  Icon: {fileID: 0}
-  type: 1
+  <Icon>k__BackingField: {fileID: 0}
+  <AffectsBees>k__BackingField: 0
+  <AffectsWasps>k__BackingField: 0
+  <Type>k__BackingField: 1
+  <Colour>k__BackingField: {fileID: 11400000, guid: 2a7264df7ba5a494685eaebba8192b1a, type: 2}
+  <OverlayString>k__BackingField: 
   intVar: {fileID: 11400000, guid: 8dde2b8d9eb6dff4a83853849c4de3a4, type: 2}
   incrementAmount: 1
   references:

@@ -12,7 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a875de2159dff844a4b8a0bce2a6281, type: 3}
   m_Name: Break Bees out of Prison
   m_EditorClassIdentifier: 
-  description: 
-  type: 0
+  description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <Icon>k__BackingField: {fileID: 0}
+  <AffectsBees>k__BackingField: 0
+  <AffectsWasps>k__BackingField: 0
+  <Type>k__BackingField: 0
+  <Colour>k__BackingField: {fileID: 11400000, guid: a818b109c8d19e6428290b0bc0273311, type: 2}
+  <OverlayString>k__BackingField: 
   plotPoint: {fileID: 11400000, guid: d4582eb078afb3349b8732437cd68f65, type: 2}
   set: {fileID: 11400000, guid: 4a5eb640b4396d84296657e382f2bad8, type: 2}
+  references:
+    version: 2
+    RefIds: []

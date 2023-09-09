@@ -24,8 +24,12 @@ MonoBehaviour:
     - name: team_pl
       variable:
         rid: 2288630729750085661
-  Icon: {fileID: 21300000, guid: 45359d35f2bd8c54fb62f60c57c299a7, type: 3}
-  type: 1
+  <Icon>k__BackingField: {fileID: 21300000, guid: 5f667c3cae6900d46afd06b08ff2af79, type: 3}
+  <AffectsBees>k__BackingField: 0
+  <AffectsWasps>k__BackingField: 0
+  <Type>k__BackingField: 1
+  <Colour>k__BackingField: {fileID: 11400000, guid: 2a7264df7ba5a494685eaebba8192b1a, type: 2}
+  <OverlayString>k__BackingField: 
   _event: {fileID: 11400000, guid: 5e4f5c6b4ef1b36409d1906eeb12971c, type: 2}
   references:
     version: 2

@@ -12,7 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acce80402880ec642b9dc5bddab30bb4, type: 3}
   m_Name: Lose Wasp Research
   m_EditorClassIdentifier: 
-  description: Forget a Wasp Fact
-  type: 1
+  description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <Icon>k__BackingField: {fileID: 21300000, guid: a27bc9be5e0f55b40a0a4b4b59c8b67c, type: 3}
+  <AffectsBees>k__BackingField: 0
+  <AffectsWasps>k__BackingField: 0
+  <Type>k__BackingField: 1
+  <Colour>k__BackingField: {fileID: 11400000, guid: 2a7264df7ba5a494685eaebba8192b1a, type: 2}
+  <OverlayString>k__BackingField: 
   intVar: {fileID: 11400000, guid: dfe9cf79ab308fa4590bcb660471cac3, type: 2}
   incrementAmount: -1
+  references:
+    version: 2
+    RefIds: []

@@ -24,8 +24,12 @@ MonoBehaviour:
     - name: num
       variable:
         rid: 2288630729750085653
-  Icon: {fileID: 0}
-  type: 0
+  <Icon>k__BackingField: {fileID: 0}
+  <AffectsBees>k__BackingField: 0
+  <AffectsWasps>k__BackingField: 0
+  <Type>k__BackingField: 0
+  <Colour>k__BackingField: {fileID: 11400000, guid: a818b109c8d19e6428290b0bc0273311, type: 2}
+  <OverlayString>k__BackingField: 
   intVar: {fileID: 11400000, guid: 6748b01369dc2d94fbf6dd9449def0a6, type: 2}
   incrementAmount: 1
   references:

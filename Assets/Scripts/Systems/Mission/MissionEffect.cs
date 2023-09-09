@@ -5,9 +5,7 @@ using UnityEngine.Localization;
 
 public abstract class MissionEffect : ScriptableObject
 {
-    /// <summary>
-    /// Private counterpart to <see cref="Description"/>
-    /// </summary>
+    [Tooltip("Description of the effect")]
     [SerializeField] LocalizedString description;
 
     public delegate void MissionEffectOver(MissionEffect effect);
@@ -27,21 +25,29 @@ public abstract class MissionEffect : ScriptableObject
         }
     }
 
-    public Sprite Icon;
+    [Tooltip("The icon of this effect")]
+    [field:SerializeField]
+    public Sprite Icon { get; private set; }
+
+    [Tooltip("Whether to show the Bee icon on the effect hex")]
+    [field:SerializeField]
+    public bool AffectsBees { get; private set; }
+
+    [Tooltip("Whether to show the Wasp icon on the effect hex")]
+    [field: SerializeField]
+    public bool AffectsWasps { get; private set; }
 
     [Tooltip("Whether this is considered a positive, negative, or neutral effect for the Bees")]
-    [SerializeField] EffectType type;
+    [field:SerializeField] 
+    public EffectType Type { get; private set; }
 
-    /// <summary>
-    /// Whether this is considered a positive, negative, or neutral effect for the Bees
-    /// </summary>
-    public EffectType Type
-    {
-        get
-        {
-            return type;
-        }
-    }
+    [Tooltip("The colour that the effect hex should be")]
+    [field:SerializeField]
+    public ColourVariable Colour { get; private set; }
+
+    [Tooltip("The text to overlay on the effect icon. Should be no longer than 2 characters.")]
+    [field:SerializeField]
+    public string OverlayString { get; private set; }
 
     /// <summary>
     /// Trigger this mission effect

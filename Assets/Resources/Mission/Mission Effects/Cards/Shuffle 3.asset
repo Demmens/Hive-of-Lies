@@ -27,8 +27,12 @@ MonoBehaviour:
     - name: value
       variable:
         rid: 2288630729750085646
-  Icon: {fileID: 21300000, guid: 61aeea5902ed0be4facc18bb6465c987, type: 3}
-  type: 0
+  <Icon>k__BackingField: {fileID: 21300000, guid: df835abefcf5b774fb4ad01aa43b1de8, type: 3}
+  <AffectsBees>k__BackingField: 0
+  <AffectsWasps>k__BackingField: 0
+  <Type>k__BackingField: 0
+  <Colour>k__BackingField: {fileID: 11400000, guid: a818b109c8d19e6428290b0bc0273311, type: 2}
+  <OverlayString>k__BackingField: 
   playerSet: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   card: {fileID: 11400000, guid: ae5b5cef249fc05479c3395575e81da5, type: 2}
   references:

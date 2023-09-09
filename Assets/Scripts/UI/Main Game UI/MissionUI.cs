@@ -136,12 +136,11 @@ public class MissionUI : NetworkBehaviour
 
             if (eff.Icon == null) continue;
 
-            GameObject icon = Instantiate(iconPrefab);
+            MissionEffectIcon icon = Instantiate(iconPrefab).GetComponent<MissionEffectIcon>();
             icon.transform.SetParent(effectIcons[effectIndex]);
-            MissionEffectIcon iconScript = icon.GetComponentInChildren<MissionEffectIcon>();
-            iconScript.Icon.sprite = eff.Icon;
-            iconScript.Description.text = eff.Description;
-            currentEffectIcons.Add(icon);
+            icon.CreateIcon(eff);
+            
+            currentEffectIcons.Add(icon.gameObject);
         }
 
         if (effectIndex > 0) effectRequirements[effectIndex].text = (tier.Value + difficultyMod + mission.DifficultyMod).ToString();

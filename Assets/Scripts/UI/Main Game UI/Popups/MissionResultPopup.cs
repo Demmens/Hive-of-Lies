@@ -88,8 +88,7 @@ public class MissionResultPopup : NetworkBehaviour
             effectIcon.transform.SetParent(effectParent);
             effectIcon.transform.localScale = new Vector3(2f, 2f, 2f);
 
-            effectIcon.Description.text = effect.Description;
-            effectIcon.Icon.sprite = effect.Icon;
+            effectIcon.CreateIcon(effect);
         }
         
 

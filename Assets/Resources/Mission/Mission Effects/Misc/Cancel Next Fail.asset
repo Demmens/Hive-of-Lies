@@ -24,8 +24,12 @@ MonoBehaviour:
     - name: pos_neg
       variable:
         rid: 2288630729750085669
-  Icon: {fileID: 0}
-  type: 0
+  <Icon>k__BackingField: {fileID: 0}
+  <AffectsBees>k__BackingField: 0
+  <AffectsWasps>k__BackingField: 0
+  <Type>k__BackingField: 0
+  <Colour>k__BackingField: {fileID: 11400000, guid: a818b109c8d19e6428290b0bc0273311, type: 2}
+  <OverlayString>k__BackingField: 
   boolVar: {fileID: 11400000, guid: ff4a3b04733a0ce4ab097c3eecbb8ac1, type: 2}
   change: 1
   references:

@@ -1,9 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class MissionEffectIcon : MonoBehaviour
 {
-    public TMPro.TMP_Text Description;
-    public UnityEngine.UI.Image Icon;
+    public TMP_Text Description;
+    public Image Icon;
+    public Image Background;
+    public GameObject Bee;
+    public GameObject Wasp;
+    public TMP_Text TextOverlay;
+
+    public void CreateIcon(MissionEffect effect)
+    {
+        Icon.sprite = effect.Icon;
+        Description.text = effect.Description;
+        TextOverlay.text = effect.OverlayString;
+        Background.color = effect.Colour;
+        Bee.SetActive(effect.AffectsBees);
+        Wasp.SetActive(effect.AffectsWasps);
+    }
 }

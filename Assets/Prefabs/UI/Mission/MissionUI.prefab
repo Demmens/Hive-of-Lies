@@ -1207,6 +1207,8 @@ MonoBehaviour:
   iconPrefab: {fileID: 7020603218170682557, guid: e953e7a1357618c44b6eee0d5d4e7319, type: 3}
   missionFill: {fileID: 944414072161169316}
   isOnMission: {fileID: 11400000, guid: b9f406dffbe4a27409cd0aa785114640, type: 2}
+  positiveMissionEffectColour: {fileID: 11400000, guid: a818b109c8d19e6428290b0bc0273311, type: 2}
+  negativeMissionEffectColour: {fileID: 11400000, guid: 2a7264df7ba5a494685eaebba8192b1a, type: 2}
   missionDifficulty: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
   currentMission: {fileID: 11400000, guid: 0c4387071991f9044bf86319345daf12, type: 2}
   cardsTotal: {fileID: 11400000, guid: 83624ceb4515efa42b174ca87b24d83f, type: 2}

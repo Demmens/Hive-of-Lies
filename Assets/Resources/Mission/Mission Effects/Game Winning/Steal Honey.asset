@@ -39,8 +39,12 @@ MonoBehaviour:
     - name: point_name_2
       variable:
         rid: 2288630729750085668
-  Icon: {fileID: 21300000, guid: ad5202c8c205ac14885ad4a5a2f4d1ad, type: 3}
-  type: 0
+  <Icon>k__BackingField: {fileID: 21300000, guid: 41787812808d8464b9148b2e16a38c90, type: 3}
+  <AffectsBees>k__BackingField: 0
+  <AffectsWasps>k__BackingField: 0
+  <Type>k__BackingField: 1
+  <Colour>k__BackingField: {fileID: 11400000, guid: 2a7264df7ba5a494685eaebba8192b1a, type: 2}
+  <OverlayString>k__BackingField: 
   intVar: {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
   incrementAmount: 1
   references:

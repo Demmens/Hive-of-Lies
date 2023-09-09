@@ -24,8 +24,12 @@ MonoBehaviour:
     - name: easier_harder
       variable:
         rid: 2288630729750085672
-  Icon: {fileID: 21300000, guid: 2e791bc19ee0e6c4eaf02883b2284359, type: 3}
-  type: 1
+  <Icon>k__BackingField: {fileID: 21300000, guid: 829b2b0f6fdd069429eb279b30fcf98c, type: 3}
+  <AffectsBees>k__BackingField: 0
+  <AffectsWasps>k__BackingField: 0
+  <Type>k__BackingField: 0
+  <Colour>k__BackingField: {fileID: 11400000, guid: 2a7264df7ba5a494685eaebba8192b1a, type: 2}
+  <OverlayString>k__BackingField: 
   intVar: {fileID: 11400000, guid: ec691bcc6c9cf504cb09faadebadf0b6, type: 2}
   incrementAmount: 1
   references:
