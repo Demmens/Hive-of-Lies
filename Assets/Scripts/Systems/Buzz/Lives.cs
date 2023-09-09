@@ -8,8 +8,6 @@ public class Lives : NetworkBehaviour
     [SerializeField] IntVariable numLives;
     [SerializeField] GameObject lifePrefab;
 
-    [SerializeField] Color lostLifeColor;
-
     List<GameObject> lives = new();
 
     public override void OnStartServer()
@@ -31,9 +29,27 @@ public class Lives : NetworkBehaviour
     [ClientRpc]
     void UpdateLives(int value)
     {
-        for (int i = 0; i < lives.Count - value; i++)
+        int diff = value - lives.Count;
+
+        //If our lives have gone up
+        if (diff > 0)
         {
-            lives[i].GetComponent<UnityEngine.UI.Image>().color = lostLifeColor;
+            for (int i = 0; i < diff; i++)
+            {
+                GameObject life = Instantiate(lifePrefab);
+                life.transform.SetParent(transform);
+                lives.Add(life);
+            }
+        }
+        
+        if (diff < 0)
+        {
+            for (int i = lives.Count - 1; i >= 0; i--)
+            {
+                GameObject life = lives[i];
+                lives.Remove(life);
+                Destroy(life);
+            }
         }
     }
 }
