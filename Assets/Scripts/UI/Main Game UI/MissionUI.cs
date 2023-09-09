@@ -134,8 +134,6 @@ public class MissionUI : NetworkBehaviour
         {
             MissionEffect eff = tier.effects[i];
 
-            if (eff.Icon == null) continue;
-
             MissionEffectIcon icon = Instantiate(iconPrefab).GetComponent<MissionEffectIcon>();
             icon.transform.SetParent(effectIcons[effectIndex]);
             icon.CreateIcon(eff);

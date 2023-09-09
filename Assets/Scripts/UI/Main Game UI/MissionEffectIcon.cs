@@ -15,8 +15,9 @@ public class MissionEffectIcon : MonoBehaviour
 
     public void CreateIcon(MissionEffect effect)
     {
-        Icon.sprite = effect.Icon;
-        Description.text = effect.Description;
+        if (effect.Icon == null) Icon.gameObject.SetActive(false);
+        else Icon.sprite = effect.Icon; 
+        Description.text = char.ToUpper(effect.Description[0]) + effect.Description[1..];
         TextOverlay.text = effect.OverlayString;
         Background.color = effect.Colour;
         Bee.SetActive(effect.AffectsBees);
