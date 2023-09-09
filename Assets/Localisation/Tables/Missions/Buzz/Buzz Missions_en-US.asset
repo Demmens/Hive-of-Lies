@@ -34,6 +34,14 @@ MonoBehaviour:
     m_Localized: f l a v o u r . . .
     m_Metadata:
       m_Items: []
+  - m_Id: 1495627164356608
+    m_Localized: Decrease Lives
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495674329305088
+    m_Localized: f l a v o u r . . .
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

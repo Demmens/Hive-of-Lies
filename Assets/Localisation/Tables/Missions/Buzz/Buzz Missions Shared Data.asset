@@ -24,11 +24,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1095398658048
-    m_Key: livesName
+    m_Key: IncreaseLivesName
     m_Metadata:
       m_Items: []
   - m_Id: 1171097456640
-    m_Key: livesFlavour
+    m_Key: increaseLivesFlavour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495627164356608
+    m_Key: decreaseLivesName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1495674329305088
+    m_Key: decreaseLivesFlavour
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -88,10 +88,24 @@ MonoBehaviour:
     m_Localized: Open the card shop
     m_Metadata:
       m_Items: []
+  - m_Id: 5439975551733760
+    m_Localized: '{gain_lose} {num} seconds in the final round'
+    m_Metadata:
+      m_Items:
+      - rid: 2288630729750085638
+  - m_Id: 5440292666281984
+    m_Localized: '{gain_lose} {num} {life_lives}'
+    m_Metadata:
+      m_Items:
+      - rid: 2288630729750085638
+  - m_Id: 5495441401122816
+    m_Localized: No effect
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 2288630729750085638
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0010591902000000001099aa0e00000000109967200000000010591b2c0000000010192857000000001099cf6300000000109953b30000000010d97000010000001099a80a010000001099d31801000000105939ed000000
+        m_Entries: 0010591902000000001099aa0e00000000109967200000000010591b2c0000000010192857000000001099cf6300000000109953b30000000010d97000010000001099a80a010000001099d31801000000105939ed00000000105902a15313000010d9d7ea531300

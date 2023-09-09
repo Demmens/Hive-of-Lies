@@ -87,6 +87,14 @@ MonoBehaviour:
     m_Key: teamLeader_def
     m_Metadata:
       m_Items: []
+  - m_Id: 5438720284626944
+    m_Key: life_sg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5438744695476224
+    m_Key: life_pl
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

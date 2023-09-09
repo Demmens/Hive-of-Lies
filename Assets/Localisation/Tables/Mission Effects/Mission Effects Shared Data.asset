@@ -71,6 +71,18 @@ MonoBehaviour:
     m_Key: openCardShop
     m_Metadata:
       m_Items: []
+  - m_Id: 5439975551733760
+    m_Key: timeLimitChange
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5440292666281984
+    m_Key: changeLives
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5495441401122816
+    m_Key: noEffect
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
