@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38cb838b8c66cdc4dbfc5760c045ee12, type: 3}
+  m_Name: 5-6 Players
+  m_EditorClassIdentifier: 
+  minPlayers: 0
+  maxPlayers: 0
+  IncludedThreads: []
+  List:
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 98b4eab0b0d00de48b6f2ec438964f9b, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: ee6ffc6a8aa13c94f89fb4eb424b2c28, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 98b4eab0b0d00de48b6f2ec438964f9b, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: bc092f58ffba5414ebf40973cf5560e3, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 98b4eab0b0d00de48b6f2ec438964f9b, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 9f619859b2fa97f49bd85f2e69d089f5, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: 98b4eab0b0d00de48b6f2ec438964f9b, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: bc092f58ffba5414ebf40973cf5560e3, type: 2}
+      Weight: 1
+  - Missions:
+    - Mission: {fileID: 11400000, guid: ee6ffc6a8aa13c94f89fb4eb424b2c28, type: 2}
+      Weight: 1
