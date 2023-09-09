@@ -33,9 +33,9 @@ MonoBehaviour:
   MinPlayers: 5
   MaxPlayers: 12
   GameScene: Assets/Scenes/Game.unity
-  MissionLists: []
-  gameEffects:
-  - {fileID: 11400000, guid: 5110f89d185d4344a82450efb3064897, type: 2}
+  MissionLists:
+  - {fileID: 11400000, guid: f8dc112327b73f54da42cfa3ab2e4412, type: 2}
+  - {fileID: 11400000, guid: bb8816f102f8b13478b4bd5865cb5ab3, type: 2}
   references:
     version: 2
     RefIds: []
