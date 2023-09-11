@@ -22,6 +22,8 @@ public class FavourController : NetworkBehaviour
         foreach (HivePlayer ply in allPlayers.Value)
         {
             ply.Favour.AfterVariableChanged += (val) => ChangeFavourUI(ply.connectionToClient, val);
+            //Update the favour now, just in case
+            ChangeFavourUI(ply.connectionToClient, ply.Favour);
         }
     }
 
