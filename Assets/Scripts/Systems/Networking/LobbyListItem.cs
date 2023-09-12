@@ -7,6 +7,7 @@ using TMPro;
 public class LobbyListItem : MonoBehaviour
 {
     string lobbyName;
+    string gameMode;
     int maxPlayers;
     int currentPlayers;
 
@@ -22,6 +23,19 @@ public class LobbyListItem : MonoBehaviour
         {
             lobbyName = value;
             nameText.text = lobbyName;
+        }
+    }
+
+    public string GameMode
+    {
+        get
+        {
+            return gameMode;
+        }
+        set
+        {
+            gameMode = value;
+            gameModeText.text = gameMode;
         }
     }
 
@@ -53,6 +67,7 @@ public class LobbyListItem : MonoBehaviour
 
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text playersText;
+    [SerializeField] TMP_Text gameModeText;
     [SerializeField] UnityEngine.UI.Image colour;
 
     public void Select()

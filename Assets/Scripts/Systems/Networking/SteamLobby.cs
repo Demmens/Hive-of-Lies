@@ -39,6 +39,7 @@ public class SteamLobby : MonoBehaviour
     [SerializeField] TMPro.TMP_Text joiningText;
     [SerializeField] LocalizedString joiningGameString;
     [SerializeField] LocalizedString lobbyNameString;
+    [SerializeField] GameModeVariable currentGameMode;
 
     [SerializeField] Button joinButton;
     [SerializeField] GameObject lobbyListItemPrefab;
@@ -75,6 +76,7 @@ public class SteamLobby : MonoBehaviour
 
         SteamMatchmaking.SetLobbyData(lobbyID, hostAddressKey, SteamUser.GetSteamID().ToString());
         SteamMatchmaking.SetLobbyData(lobbyID, "name", string.Format(lobbyNameString.GetLocalizedString(), SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID())));
+        SteamMatchmaking.SetLobbyData(lobbyID, "gameMode", currentGameMode.Value.Name.GetLocalizedString());
         SteamMatchmaking.SetLobbyData(lobbyID, "version", gameVersion.Value);
     }
 
@@ -179,6 +181,7 @@ public class SteamLobby : MonoBehaviour
             item.CurrentPlayers = SteamMatchmaking.GetNumLobbyMembers(lobbyID);
             item.MaxPlayers = SteamMatchmaking.GetLobbyMemberLimit(lobbyID);
             item.LobbyName = SteamMatchmaking.GetLobbyData(lobbyID, "name");
+            item.GameMode = SteamMatchmaking.GetLobbyData(lobbyID, "gameMode");
             item.LobbyID = lobbyID;
 
             item.gameObject.GetComponent<Button>().onClick.AddListener(() => LobbySelected(item));
