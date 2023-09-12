@@ -11,7 +11,9 @@ public class EventCallOnGameMode : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(currentMode.Value);
-        if (targetModes.Contains(currentMode.Value)) OnGameModeBegin.Invoke();
+        if (!targetModes.Contains(currentMode.Value)) return;
+
+        //Delay by one frame so other Start methods have a chance to trigger (and listen to variable changes or game events)
+        StartCoroutine(Coroutines.Delay(OnGameModeBegin.Invoke));
     }
 }

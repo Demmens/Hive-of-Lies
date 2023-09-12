@@ -133,6 +133,14 @@ MonoBehaviour:
     m_Localized: Accuse
     m_Metadata:
       m_Items: []
+  - m_Id: 6505215085318144
+    m_Localized: '<b>YOU ARE ALL BEES</b>
+
+
+      Work together to succeed missions,
+      and win the game!'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

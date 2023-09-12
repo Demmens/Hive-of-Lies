@@ -19,6 +19,11 @@ public class TutorialManager : NetworkBehaviour
     [SerializeField] HivePlayerSet waspPlayers;
     [SerializeField] IntVariable roundNum;
 
+    private void Start()
+    {
+        roundNum.AfterVariableChanged += (val) => OnRoundTwoStart();
+    }
+
     [ClientRpc]
     public void OnStandOrPassStart()
     {
