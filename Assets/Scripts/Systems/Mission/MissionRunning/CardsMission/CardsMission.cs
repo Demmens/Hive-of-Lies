@@ -5,9 +5,6 @@ using Mirror;
 
 public class CardsMission : MissionType
 {
-    [Tooltip("The difficulty of the mission")]
-    [SerializeField] IntVariable exhaustionPenalty;
-
     [Tooltip("Total value of all played cards")]
     [SerializeField] IntVariable playedTotal;
 
