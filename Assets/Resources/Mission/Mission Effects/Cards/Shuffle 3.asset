@@ -34,7 +34,8 @@ MonoBehaviour:
   <Colour>k__BackingField: {fileID: 11400000, guid: a818b109c8d19e6428290b0bc0273311, type: 2}
   <OverlayString>k__BackingField: 
   playerSet: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
-  card: {fileID: 11400000, guid: ae5b5cef249fc05479c3395575e81da5, type: 2}
+  cards:
+  - {fileID: 11400000, guid: ae5b5cef249fc05479c3395575e81da5, type: 2}
   references:
     version: 2
     RefIds:

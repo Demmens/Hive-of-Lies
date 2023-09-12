@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Add Card", menuName = "Missions/Effects/Specific/Add Card to Deck")]
-public class AddCardToDeck : MissionEffect
+public class AddCardsToDeck : MissionEffect
 {
     [SerializeField] HivePlayerSet playerSet;
-    [SerializeField] Card card;
+    [SerializeField] List<Card> cards;
     public override void TriggerEffect()
     {
         foreach (HivePlayer ply in playerSet.Value)
         {
-            ply.Deck.Value.DrawPile.Add(card);
+            foreach (Card card in cards) ply.Deck.Value.DrawPile.Add(Instantiate(card));
             ply.Deck.Value.Shuffle();
         }
         EndEffect();
