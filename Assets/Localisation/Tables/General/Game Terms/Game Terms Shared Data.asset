@@ -95,6 +95,10 @@ MonoBehaviour:
     m_Key: life_pl
     m_Metadata:
       m_Items: []
+  - m_Id: 7037088073060352
+    m_Key: investigate
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

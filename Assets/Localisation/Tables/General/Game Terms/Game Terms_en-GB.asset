@@ -98,6 +98,10 @@ MonoBehaviour:
     m_Localized: lives
     m_Metadata:
       m_Items: []
+  - m_Id: 7037088073060352
+    m_Localized: investigate
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
