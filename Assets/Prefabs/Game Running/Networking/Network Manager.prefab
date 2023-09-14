@@ -86,6 +86,7 @@ MonoBehaviour:
   - {fileID: 8599965422839913115, guid: 38f2f45fcd03c394aad4410633c95e6b, type: 3}
   - {fileID: 4878392910290201607, guid: f9be08bdb74e34a4eb4c51be919ebe9d, type: 3}
   - {fileID: 5179896989536483375, guid: 524d04d3e483eb741b40fa848bda29f3, type: 3}
+  - {fileID: 4126185250544677077, guid: 8ede8a7b8f45c8d4ead6bd84fb1c74aa, type: 3}
   GamePlayerPrefab: {fileID: -8106975312484968007, guid: d92fac9098a66254c8f625071f5921b3, type: 3}
   alivePlayersByConnection: {fileID: 11400000, guid: 587abc9579a505e44bfa639fd9a50698, type: 2}
   playersByConnection: {fileID: 11400000, guid: 727a441cdc88fb94daccad50d343bbc9, type: 2}
