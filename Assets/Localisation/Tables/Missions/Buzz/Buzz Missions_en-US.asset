@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 681597014016
-    m_Localized: Increase Time Limit
+    m_Localized: Time Limit
     m_Metadata:
       m_Items: []
   - m_Id: 988469071872
