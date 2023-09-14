@@ -179,7 +179,8 @@ public class Buzz : GamePhase
     [Server]
     void AddPlayer(HivePlayer ply, PlayerButtonDropdownItem item)
     {
-        if (playersSelected.Value.Count >= waspPlayers.Value.Count) return;
+        //You should always be able to select at least one player, but the "playersSelected.Value.Count != 0" should only have an impact in the case of testing (with 0 wasps)
+        if (playersSelected.Value.Count >= waspPlayers.Value.Count && playersSelected.Value.Count != 0) return;
         if (playersSelected.Value.Contains(ply)) return;
 #if !UNITY_EDITOR
         if (ply == currentBuzzer.Value) return;
