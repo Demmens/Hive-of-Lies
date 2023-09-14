@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Tutorial_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 42118fc40b6f7cb43a14348a9babd447, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 7719830870169223173
+  m_TableData:
+  - m_Id: 12051877888
+    m_Localized: Do not read the following out loud
+    m_Metadata:
+      m_Items: []
+  - m_Id: 78728728576
+    m_Localized: Never reveal your role to anyone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1710279430144
+    m_Localized: Your role is the
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2265299095552
+    m_Localized: There are \{0\} {wasps}. You might be their target. Never let anyone
+      know your role.
+    m_Metadata:
+      m_Items:
+      - rid: 7719830870169223173
+  - m_Id: 3662157516800
+    m_Localized: You are {team_indef}
+    m_Metadata:
+      m_Items:
+      - rid: 7719830870169223173
+  references:
+    version: 2
+    RefIds:
+    - rid: 7719830870169223173
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 001099a9540300000010596e0f020000

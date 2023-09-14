@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ecc4e2c822a06940963903c27726544, type: 3}
   m_Name: Buzz Timer
   m_EditorClassIdentifier: 
-  initialValue: 120
-  currentValue: 120
+  initialValue: 150
+  currentValue: 150
   Persistent: 0
   server: 1
   client: 0

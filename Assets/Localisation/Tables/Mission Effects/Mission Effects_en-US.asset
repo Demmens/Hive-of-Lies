@@ -81,7 +81,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1826724528066560
-    m_Localized: '{0} is a {1}'
+    m_Localized: '{0} is {1}'
     m_Metadata:
       m_Items: []
   - m_Id: 2641453521637376

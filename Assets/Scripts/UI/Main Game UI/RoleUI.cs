@@ -73,6 +73,12 @@ public class RoleUI : NetworkBehaviour
         if (roleChoices[0].Team == Team.Bee) RoleNameBackground.color = BeeColour;
         if (roleChoices[0].Team == Team.Wasp) RoleNameBackground.color = WaspColour;
 
+        //Don't bother with the role cards if you have no role choices
+        if (roleChoices.Count == 1)
+        {
+            RoleCardClicked(roleChoices[0]);
+            return;
+        }
 
         for (int i = 0; i < roleChoices.Count; i++)
         {

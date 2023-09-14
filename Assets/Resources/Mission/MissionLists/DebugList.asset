@@ -17,8 +17,11 @@ MonoBehaviour:
   IncludedThreads: []
   List:
   - Missions:
-    - Mission: {fileID: 11400000, guid: 540f93d3ca5bd304f82cd2e085840bcd, type: 2}
+    - Mission: {fileID: 11400000, guid: ee6ffc6a8aa13c94f89fb4eb424b2c28, type: 2}
       Weight: 1000
   - Missions:
-    - Mission: {fileID: 11400000, guid: d4f256e670b4e7744a80b580131f55c6, type: 2}
+    - Mission: {fileID: 11400000, guid: 98b4eab0b0d00de48b6f2ec438964f9b, type: 2}
+      Weight: 1000
+  - Missions:
+    - Mission: {fileID: 11400000, guid: bc092f58ffba5414ebf40973cf5560e3, type: 2}
       Weight: 1000

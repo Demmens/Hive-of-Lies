@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ee0c49e3d312a40b4b5ac363ad9b5c, type: 3}
+  m_Name: Buzzed Bee
+  m_EditorClassIdentifier: 
+  roleName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 5195817357312
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:6f8c779fc0e0fa045a32d0626196818f
+    m_TableEntryReference:
+      m_KeyId: 5248455872512
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <Team>k__BackingField: 1
+  <StartingFavour>k__BackingField: 12
+  <StartingDeck>k__BackingField: []
+  <Abilities>k__BackingField:
+  - {fileID: 3963134387682790559, guid: 7a1de41f8bd952e4aabd7e3c3fc8ce8d, type: 3}
+  <PlayersRequired>k__BackingField: 0
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 9f987bc44b10bfb428db901fc445c554, type: 3}
+  Difficulty: 0
+  <Enabled>k__BackingField: 1
+  references:
+    version: 2
+    RefIds: []
