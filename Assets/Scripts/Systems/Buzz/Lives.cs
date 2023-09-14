@@ -10,12 +10,13 @@ public class Lives : NetworkBehaviour
 
     List<GameObject> lives = new();
 
+    [Server]
     public override void OnStartServer()
     {
         numLives.AfterVariableChanged += UpdateLives;
     }
 
-    [ClientRpc]
+    [Client]
     public void CreateLives()
     {
         for (int i = 0; i < numLives.Value; i++)

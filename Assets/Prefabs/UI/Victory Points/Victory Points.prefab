@@ -285,7 +285,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fc9454fb1d1174089fa689b99737d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnGameModeBegin:
+  syncMode: 0
+  syncInterval: 0.1
+  OnGameModeBeginServer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGameModeBeginClient:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5186444521541856648}
@@ -330,6 +335,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ef268678ee9e99740b05a9102b2c7a90, type: 2}
   - {fileID: 11400000, guid: c20e87c0c2e33744ea7a73f8e8c135a1, type: 2}
   - {fileID: 11400000, guid: 7f896eaab0237244aa4b2f2494ba7bd0, type: 2}
+  sendToClients: 1
 --- !u!114 &5186444522314765504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,7 +351,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId: 5dda2cc73c4fc824784fb4cdf7dc8339
   hasSpawned: 0
 --- !u!114 &5186444522314765507
 MonoBehaviour:

@@ -2997,7 +2997,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fc9454fb1d1174089fa689b99737d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnGameModeBegin:
+  syncMode: 0
+  syncInterval: 0.1
+  OnGameModeBeginServer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGameModeBeginClient:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1022327325}
@@ -3015,6 +3020,7 @@ MonoBehaviour:
   currentMode: {fileID: 11400000, guid: 76eecd8fa661eac479d66936bc49d886, type: 2}
   targetModes:
   - {fileID: 11400000, guid: c01409e1ad031a44caec2dd5c12b667f, type: 2}
+  sendToClients: 1
 --- !u!1001 &1082909179
 PrefabInstance:
   m_ObjectHideFlags: 0

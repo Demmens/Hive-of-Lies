@@ -56,7 +56,6 @@ MonoBehaviour:
   syncInterval: 0.1
   numLives: {fileID: 11400000, guid: 287704b124f2ffe4facc9aed8633c388, type: 2}
   lifePrefab: {fileID: 1039069966617048800, guid: 3132458726f4fcd4fbaefb8782287920, type: 3}
-  lostLifeColor: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0.5882353}
 --- !u!114 &6325410480453000077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +111,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fc9454fb1d1174089fa689b99737d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnGameModeBegin:
+  syncMode: 0
+  syncInterval: 0.1
+  OnGameModeBeginServer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGameModeBeginClient:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2504035849381039229}
@@ -130,3 +134,4 @@ MonoBehaviour:
   currentMode: {fileID: 11400000, guid: 76eecd8fa661eac479d66936bc49d886, type: 2}
   targetModes:
   - {fileID: 11400000, guid: c01409e1ad031a44caec2dd5c12b667f, type: 2}
+  sendToClients: 1
