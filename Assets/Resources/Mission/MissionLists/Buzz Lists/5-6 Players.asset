@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38cb838b8c66cdc4dbfc5760c045ee12, type: 3}
   m_Name: 5-6 Players
   m_EditorClassIdentifier: 
-  minPlayers: 0
-  maxPlayers: 0
+  minPlayers: 5
+  maxPlayers: 6
   IncludedThreads: []
   List:
   - Missions:
