@@ -30,7 +30,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  favourCost: 0
+  favourCost: 4
   effects:
   - value: 0
     effectFlavour:
