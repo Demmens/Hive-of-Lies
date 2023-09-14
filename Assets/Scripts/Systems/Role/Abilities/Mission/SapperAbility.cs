@@ -14,18 +14,11 @@ public class SapperAbility : RoleAbility
     [SerializeField] Card bombCard;
     List<PlayerButtonDropdownItem> shuffleButtons = new();
     #endregion
-
-
-    public override void OnStartAuthority()
+    
+    public void OnAllDecksCreated()
     {
-        GameObject pop = Instantiate(popup);
-        pop.GetComponent<Notification>().SetText("Choose a player. Shuffle a bomb into that players deck.");
-        CreateDropdownOption();
-    }
+        CreatePopup();
 
-    [Command]
-    void CreateDropdownOption()
-    {
         foreach (HivePlayer ply in alivePlayers.Value)
         {
             PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(dropdownButton, Owner);
@@ -33,6 +26,13 @@ public class SapperAbility : RoleAbility
             item.OnItemClicked += (ply) => Destroy(item);
             shuffleButtons.Add(item);
         }
+    }
+
+    [TargetRpc]
+    void CreatePopup()
+    {
+        GameObject pop = Instantiate(popup);
+        pop.GetComponent<Notification>().SetText("Choose a player. Shuffle a bomb into that players deck.");
     }
 
     [Server]

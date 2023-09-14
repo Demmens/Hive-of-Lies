@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 226631584199059073}
   - component: {fileID: -559875826137024563}
   - component: {fileID: 4423915965264662964}
+  - component: {fileID: -6742824341017493416}
   m_Layer: 0
   m_Name: Sapper Ability
   m_TagString: Untagged
@@ -69,3 +70,32 @@ MonoBehaviour:
   dropdownButton: {fileID: 8102290754876271477, guid: c41cee091ae6c4341ae0beb9b17ef3d8, type: 3}
   alivePlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
   bombCard: {fileID: 11400000, guid: 7ca495cdc3a7f1f4ca080ce66b50ee13, type: 2}
+--- !u!114 &-6742824341017493416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2570528568398496050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d992aefb126df148a88e425c1199171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 043b4861c64dcae45ab6222f65a8b680, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4423915965264662964}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
