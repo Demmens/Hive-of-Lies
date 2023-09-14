@@ -32,7 +32,7 @@ MonoBehaviour:
     m_LocalVariables: []
   favourCost: 3
   effects:
-  - value: 5
+  - value: 0
     effectFlavour:
       m_TableReference:
         m_TableCollectionName: 
@@ -45,7 +45,7 @@ MonoBehaviour:
     effects:
     - {fileID: 11400000, guid: 628a73258ee59594bb3e17a989ddf4d9, type: 2}
     plotPoints: []
-  - value: 0
+  - value: 5
     effectFlavour:
       m_TableReference:
         m_TableCollectionName: 
