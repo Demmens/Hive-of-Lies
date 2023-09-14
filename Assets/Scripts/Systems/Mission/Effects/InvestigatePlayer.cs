@@ -64,7 +64,7 @@ public class InvestigatePlayer : MissionEffectBehaviour
         {
             Destroy(button);
         }
-        GetResults(ply.DisplayName, ply.Team);
+        GetResults(ply.DisplayName, ply.Team.Value.Name_def_sg.GetLocalizedString());
     }
 
     /// <summary>
@@ -72,7 +72,7 @@ public class InvestigatePlayer : MissionEffectBehaviour
     /// </summary>
     /// <param name="msg"></param>
     [TargetRpc]
-    private void GetResults(string playerName, ETeam team)
+    private void GetResults(string playerName, string team)
     {
         notification = Instantiate(notificationPrefab);
 
