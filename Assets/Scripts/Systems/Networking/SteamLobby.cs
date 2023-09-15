@@ -97,7 +97,6 @@ public class SteamLobby : MonoBehaviour
     /// <param name="callback"></param>
     void LobbyEnter(LobbyEnter_t callback)
     {
-        Debug.Log($"Lobbysize = {SteamMatchmaking.GetNumLobbyMembers(new CSteamID(callback.m_ulSteamIDLobby))}");
         LobbyID = new CSteamID(callback.m_ulSteamIDLobby);
         if (NetworkServer.active) return;
 

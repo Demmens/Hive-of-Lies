@@ -43,7 +43,6 @@ public class PlayerButton : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        Debug.Log("Should be starting the client");
         dropdown = Instantiate(dropdown).transform.GetChild(0).gameObject;
         trafficLights = Instantiate(trafficLights);
         ClientAddDropdownItem(trafficLights);

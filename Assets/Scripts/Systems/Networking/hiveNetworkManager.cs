@@ -183,7 +183,7 @@ public class HiveNetworkManager : NetworkManager
     {
         base.OnServerConnect(conn);
         onServerConnect.Invoke(conn);
-        Debug.Log("Player connected, validating variables");
+        OnPlayerJoin(conn);
 
         if (SceneManager.GetActiveScene().path != GameMode.Value.GameScene) return;
         //We want to make sure that when a client joins the game, all their information is correct. To do this, we call OnValidate for all variables
@@ -220,8 +220,6 @@ public class HiveNetworkManager : NetworkManager
     public override void OnServerReady(NetworkConnection conn)
     {
         base.OnServerReady(conn);
-
-        OnPlayerJoin(conn);
 
         if (SceneManager.GetActiveScene().path != GameMode.Value.GameScene) return;
 
