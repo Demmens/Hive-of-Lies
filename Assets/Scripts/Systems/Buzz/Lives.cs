@@ -45,7 +45,7 @@ public class Lives : NetworkBehaviour
         
         if (diff < 0)
         {
-            for (int i = lives.Count - 1; i >= 0; i--)
+            for (int i = lives.Count - 1; i >= lives.Count + diff; i--)
             {
                 GameObject life = lives[i];
                 lives.Remove(life);
