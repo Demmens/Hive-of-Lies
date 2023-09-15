@@ -10,7 +10,6 @@ public class EventCallOnGameMode : NetworkBehaviour
     [SerializeField] UnityEvent OnGameModeBeginClient;
     [SerializeField] GameModeVariable currentMode;
     [SerializeField] List<GameMode> targetModes;
-    [SerializeField] bool sendToClients = true;
     [SyncVar] bool isGameMode; 
 
     public override void OnStartServer()
