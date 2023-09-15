@@ -255,7 +255,6 @@ public class Buzz : GamePhase
 
         foreach (HivePlayer pl in alivePlayers)
         {
-            Debug.Log($"{pl.DisplayName} checking for votes");
             if (!CanVote(pl)) continue;
             showPlayerVote.Invoke(pl.connectionToClient);
         }
@@ -276,7 +275,6 @@ public class Buzz : GamePhase
 
         //Players who have been selected do not get to vote
         if (playersSelected.Contains(ply)) return false;
-        Debug.Log($"{ply.DisplayName} is not selected");
         return true;
     }
 
@@ -392,7 +390,6 @@ public class Buzz : GamePhase
     [Server]
     void OnBuzzIncorrect()
     {
-        Debug.Log($"Bees in buzz = {beesInBuzz}");
         lives.Value -= beesInBuzz;
         if (lives.Value <= 0)
         {
