@@ -80,7 +80,7 @@ public class Buzz : GamePhase
         currentMission.Value = null;
         waspPlayers.AfterItemRemoved += OnWaspDied;
         teamLeader.Value = null;
-        for (int i = 0; i < missionPlayersSelected.Value.Count; i = 0) missionPlayersSelected.Remove(missionPlayersSelected.Value[0]);
+        for (int i = 0; i < missionPlayersSelected.Count; i = 0) missionPlayersSelected.Remove(missionPlayersSelected.Value[0]);
 
         currentBuzzer.OnVariableChanged += (HivePlayer oldPly, ref HivePlayer newPly) => { if (oldPly != null) oldPly.Button.ChangeTeamLeader(false); };
         currentBuzzer.AfterVariableChanged += ply => { if (ply != null) ply.Button.ChangeTeamLeader(true); };
@@ -115,13 +115,13 @@ public class Buzz : GamePhase
         {
             SetLockInActive(currentBuzzer.Value.connectionToClient, false);
             currentBuzzer.Value = null;
-            playersSelected.Value = new();
             foreach (PlayerButtonDropdownItem i in addButtons) Destroy(i.gameObject);
             addButtons = new();
+            playersSelected.Value = new();
         }
-        
+
         //Once all players have buzzed, anyone can buzz again
-        if (playersBuzzed.Count == alivePlayers.Value.Count) playersBuzzed = new();
+        if (playersBuzzed.Count == alivePlayers.Count) playersBuzzed = new();
 
         foreach (HivePlayer pl in alivePlayers.Value)
         {
@@ -163,9 +163,9 @@ public class Buzz : GamePhase
             SetBuzzActive(pl.connectionToClient, false);
             //Can't pick yourself except for testing purposes
 #if !UNITY_EDITOR
-            if (ply == currentBuzzer.Value) continue;
+            if (pl == currentBuzzer.Value) continue;
 #endif
-            PlayerButtonDropdownItem item = ply.Button.AddDropdownItem(pickPlayerButton, currentBuzzer.Value);
+            PlayerButtonDropdownItem item = pl.Button.AddDropdownItem(pickPlayerButton, currentBuzzer.Value);
             item.OnItemClicked += (ply) => AddPlayer(ply, item);
             addButtons.Add(item);
         }
@@ -180,22 +180,21 @@ public class Buzz : GamePhase
     void AddPlayer(HivePlayer ply, PlayerButtonDropdownItem item)
     {
         //You should always be able to select at least one player, but the "playersSelected.Value.Count != 0" should only have an impact in the case of testing (with 0 wasps)
-        if (playersSelected.Value.Count >= waspPlayers.Value.Count && playersSelected.Value.Count != 0) return;
-        if (playersSelected.Value.Contains(ply)) return;
+        if (playersSelected.Count >= waspPlayers.Count && playersSelected.Count != 0) return;
+        if (playersSelected.Contains(ply)) return;
 #if !UNITY_EDITOR
         if (ply == currentBuzzer.Value) return;
 #endif
-
-        Destroy(item);
         addButtons.Remove(item);
+        Destroy(item.gameObject);
 
         Debug.Log($"{currentBuzzer.Value.DisplayName} has selected {ply.DisplayName}");
         playersSelected.Add(ply);
         if (ply.Team.Value.Team == Team.Bee) beesInBuzz++;
 
-        SetPlayersChosen(currentBuzzer.Value.connectionToClient, playersSelected.Value.Count, waspPlayers.Value.Count);
+        SetPlayersChosen(currentBuzzer.Value.connectionToClient, playersSelected.Count, waspPlayers.Count);
 
-        if (playersSelected.Value.Count < waspPlayers.Value.Count) return;
+        if (playersSelected.Count < waspPlayers.Count) return;
         
         OnMaxPlayersAdded();
     }
@@ -204,10 +203,8 @@ public class Buzz : GamePhase
     void OnMaxPlayersAdded()
     {
         SetLockInInteractable(currentBuzzer.Value.connectionToClient, true);
-        foreach (PlayerButtonDropdownItem i in addButtons)
-        {
-            Destroy(i);
-        }
+        foreach (PlayerButtonDropdownItem i in addButtons) Destroy(i.gameObject);
+        addButtons = new();
     }
 
     [TargetRpc]
@@ -256,11 +253,10 @@ public class Buzz : GamePhase
         foreach (PlayerButtonDropdownItem i in addButtons) Destroy(i.gameObject);
         addButtons = new();
 
-        for (int i = 0; i < alivePlayers.Value.Count; i++)
+        foreach (HivePlayer pl in alivePlayers)
         {
-            HivePlayer pl = alivePlayers.Value[i];
-
-            if (!CanVote(pl)) return;
+            Debug.Log($"{pl.DisplayName} checking for votes");
+            if (!CanVote(pl)) continue;
             showPlayerVote.Invoke(pl.connectionToClient);
         }
     }
@@ -275,14 +271,12 @@ public class Buzz : GamePhase
     {
 #if UNITY_EDITOR
         //Purely for debugging purposes
-        if (alivePlayers.Value.Count == 1) return true;
+        if (alivePlayers.Count == 1) return true;
 #endif
-        //Current buzzer does not get to vote (assumed that they vote yes) to prevent time-wasting buzzes
-        if (ply == currentBuzzer) return false;
 
-        //Players who have been selected do not get to vote (they have no reason to vote yes)
-        if (playersSelected.Value.Contains(ply)) return false;
-
+        //Players who have been selected do not get to vote
+        if (playersSelected.Contains(ply)) return false;
+        Debug.Log($"{ply.DisplayName} is not selected");
         return true;
     }
 
@@ -345,7 +339,7 @@ public class Buzz : GamePhase
         ply.NextUpvoteCost.Value = 0;
         ply.NextDownvoteCost.Value = 0;
 
-        if (playerVotes.Value.Count >= alivePlayers.Value.Count - waspPlayers.Value.Count) OnVoteEnd();
+        if (playerVotes.Count >= alivePlayers.Count - playersSelected.Count) OnVoteEnd();
     }
 
     /// <summary>
@@ -355,12 +349,14 @@ public class Buzz : GamePhase
     void OnVoteEnd()
     {
         //If not everyone voted;
-        if (playerVotes.Value.Count < alivePlayers.Value.Count)
+        if (playerVotes.Value.Count < alivePlayers.Count - playersSelected.Count)
         {
             foreach (HivePlayer ply in alivePlayers.Value)
             {
+                //Skip players that couldn't vote
+                if (!CanVote(ply)) continue;
                 bool isInSet = false;
-                for (int i = 0; i < playerVotes.Value.Count; i++)
+                for (int i = 0; i < playerVotes.Count; i++)
                 {
                     if (playerVotes.Value[i].ply == ply)
                     {
@@ -396,6 +392,7 @@ public class Buzz : GamePhase
     [Server]
     void OnBuzzIncorrect()
     {
+        Debug.Log($"Bees in buzz = {beesInBuzz}");
         lives.Value -= beesInBuzz;
         if (lives.Value <= 0)
         {
@@ -411,7 +408,7 @@ public class Buzz : GamePhase
     void OnWaspDied(HivePlayer ply)
     {
         //If the wasp was buzzed, everything should just work out fine
-        if (playersSelected.Value.Contains(ply)) return;
+        if (playersSelected.Contains(ply)) return;
 
         if (playersBuzzed.Contains(ply)) playersBuzzed.Remove(ply);
         //Otherwise the player casts a yes vote, and dies.
