@@ -43,9 +43,11 @@ public class Lives : NetworkBehaviour
             }
         }
         
+        //If our lives have gone down
         if (diff < 0)
         {
-            for (int i = lives.Count - 1; i >= lives.Count + diff; i--)
+            int curLives = lives.Count;
+            for (int i = curLives - 1; i >= curLives + diff && i >= 0; i--)
             {
                 GameObject life = lives[i];
                 lives.Remove(life);
