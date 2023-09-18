@@ -184,15 +184,6 @@ public class HiveNetworkManager : NetworkManager
         base.OnServerConnect(conn);
         onServerConnect.Invoke(conn);
         OnPlayerJoin(conn);
-
-        if (SceneManager.GetActiveScene().path != GameMode.Value.GameScene) return;
-        //We want to make sure that when a client joins the game, all their information is correct. To do this, we call OnValidate for all variables
-        Object[] variables = Resources.LoadAll("Variables");
-        for (int i = 0; i < variables.Length; i++)
-        {
-            //OnValidate is safe to be a string because the method (which is a unity message) will never have its name changed
-            variables[i].GetType().GetMethod("OnValidate")?.Invoke(variables[i], new object[] { });
-        }
     }
 
     [Client]
