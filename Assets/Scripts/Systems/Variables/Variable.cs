@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEditor;
 
 public abstract class Variable<T> : ScriptableObject
 {
@@ -89,9 +90,15 @@ public abstract class Variable<T> : ScriptableObject
 
     public void OnValidate()
     {
-        #if UNITY_EDITOR
-            if (Application.isPlaying) UnityEditor.EditorApplication.delayCall += () => AfterVariableChanged?.Invoke(currentValue);
-            else currentValue = initialValue;
-        #endif
+        if (Application.isPlaying) UnityEditor.EditorApplication.delayCall += () => AfterVariableChanged?.Invoke(currentValue);
+        else if (!Persistent) currentValue = initialValue;
+    }
+
+    public void ResetVariable(bool forced = false)
+    {
+        if (Persistent && !forced) return;
+
+        currentValue = initialValue;
+        AfterVariableChanged?.Invoke(Value);
     }
 }
