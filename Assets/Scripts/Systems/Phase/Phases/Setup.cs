@@ -7,16 +7,11 @@ using Mirror;
 
 public class Setup : GamePhase
 {
+    [Tooltip("The number of role choices that bees get")]
+    [SerializeField] IntVariable beeChoices;
 
-    /// <summary>
-    /// Number of role choices given to each role. If set too high, some players may not receive any choices.
-    /// </summary>
-    [SerializeField]
-    Dictionary<Team, int> RoleChoices = new()
-    {
-        {Team.Bee, 3},
-        {Team.Wasp, 3}
-    };
+    [Tooltip("The number of role choices that wasps get")]
+    [SerializeField] IntVariable waspChoices;
 
     [Tooltip("The ratio of traitors to innocents")]
     [SerializeField] FloatVariable traitorRatio;
@@ -253,7 +248,7 @@ public class Setup : GamePhase
         {
             ply.RoleChoices = new();
             ply.Role.Value = null;
-            RoleChoices.TryGetValue(ply.Team.Value.Team, out int choices);
+            int choices = ply.Team.Value.Team == Team.Bee ? beeChoices : waspChoices;
             for (int i = 0; i < roles.Value.Count; i++)
             {
                 RoleData role = roles.Value[i];

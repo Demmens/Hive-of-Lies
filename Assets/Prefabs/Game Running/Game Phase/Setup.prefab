@@ -108,6 +108,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   phase: {fileID: 11400000, guid: 0878ed57b9981b443b62dab369adb201, type: 2}
+  beeChoices: {fileID: 11400000, guid: dbe721ec50fa6d54fb8ce9486c66aac6, type: 2}
+  waspChoices: {fileID: 11400000, guid: 3579767e5fb40724e8c757b965a9da96, type: 2}
   traitorRatio: {fileID: 11400000, guid: 345666eca88bcda4ba738d6fa2fb1795, type: 2}
   roles: {fileID: 11400000, guid: fe7581b39c653bc48bc998c190d910bf, type: 2}
   allPlayers: {fileID: 11400000, guid: 0c33edbdca3ad504da00baa02cbb39bd, type: 2}
