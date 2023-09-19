@@ -166,6 +166,8 @@ public abstract class RuntimeSet<T> : ScriptableObject
     /// </summary>
     public void ClearSet()
     {
+        if (Persistent) return;
+
         SetInitialValue();
 
         if (AfterItemAdded != null)

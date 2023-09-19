@@ -244,19 +244,9 @@ public class HiveNetworkManager : NetworkManager
         for (int i = 0; i < variables.Length; i++)
         {
             System.Type variableType = variables[i].GetType();
-            FieldInfo info = null;
 
             bool isVariable = IsAssignableToGenericType(variableType, typeof(Variable<>));
             bool isSet = IsAssignableToGenericType(variableType, typeof(RuntimeSet<>));
-
-            if (isVariable) info = variableType.GetField(nameof(Variable<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
-            if (isSet) info = variableType.GetField(nameof(RuntimeSet<int>.Persistent), BindingFlags.Public | BindingFlags.Instance);
-
-            if (info == null) continue;
-
-            bool isPersistent = (bool) info.GetValue(variables[i]);
-
-            if (isPersistent) continue;
 
             if (isVariable) variableType.GetMethod(nameof(Variable<int>.OnEnable))?.Invoke(variables[i], new object[] { });
             if (isSet) variableType.GetMethod(nameof(RuntimeSet<int>.ClearSet))?.Invoke(variables[i], new object[] { });

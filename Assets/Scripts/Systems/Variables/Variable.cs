@@ -66,11 +66,7 @@ public abstract class Variable<T> : ScriptableObject
     public event System.Action<T> AfterVariableChanged;
 
     public void OnEnable()
-    {
-        if (Persistent) return;
-        //Set currentValue to bypass all the code that runs from setting Value
-        currentValue = initialValue;
-        
+    {      
         if (OnVariableChanged != null)
         {
             foreach (System.Delegate d in OnVariableChanged.GetInvocationList())
@@ -86,6 +82,10 @@ public abstract class Variable<T> : ScriptableObject
                 AfterVariableChanged -= (System.Action<T>)d;
             }
         }
+
+        if (Persistent) return;
+        //Set currentValue to bypass all the code that runs from setting Value
+        currentValue = initialValue;
     }
 
     public void OnValidate()
