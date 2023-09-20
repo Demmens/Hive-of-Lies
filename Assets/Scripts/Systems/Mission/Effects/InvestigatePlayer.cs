@@ -64,7 +64,7 @@ public class InvestigatePlayer : MissionEffectBehaviour
         {
             Destroy(button);
         }
-        GetResults(ply.DisplayName, ply.Team.Value.Name_indef.GetLocalizedString());
+        GetResults(ply.DisplayName, ply.Team.Value.Name_indef);
     }
 
     /// <summary>

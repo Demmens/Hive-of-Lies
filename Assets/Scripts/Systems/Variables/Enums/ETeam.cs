@@ -7,18 +7,73 @@ using UnityEngine.Localization;
 public class ETeam : ScriptableObject
 {
     public Team Team;
+
     [Tooltip("The singular name of this team ('Wasp')")]
-    public LocalizedString Name_sg;
+    [SerializeField] LocalizedString name_sg;
+    
+    /// <summary>
+    /// The singular name of this team ('Wasp')
+    /// </summary>
+    public string Name_sg
+    {
+        get
+        {
+            return name_sg.GetLocalizedString();
+        }
+    }
 
     [Tooltip("The plural name of this team ('Wasps')")]
-    public LocalizedString Name_pl;
+    [SerializeField] LocalizedString name_pl;
+
+    /// <summary>
+    /// The plural name of this team ('Wasps')
+    /// </summary>
+    public string Name_pl
+    {
+        get
+        {
+            return name_pl.GetLocalizedString();
+        }
+    }
 
     [Tooltip("The singular name of this team with indefinte article ('a Wasp')")]
-    public LocalizedString Name_indef;
+    [SerializeField] LocalizedString name_indef;
+    /// <summary>
+    /// The singular name of this team with indefinte article ('a Wasp')
+    /// </summary>
+    public string Name_indef
+    {
+        get
+        {
+            return name_indef.GetLocalizedString();
+        }
+    }
 
     [Tooltip("The singular name of this team with definite article ('the Wasp')")]
-    public LocalizedString Name_def_sg;
+    [SerializeField] LocalizedString name_def_sg;
+
+    /// <summary>
+    /// The singular name of this team with definite article ('the Wasp')
+    /// </summary>
+    public string Name_def_sg
+    {
+        get
+        {
+            return name_def_sg.GetLocalizedString();
+        }
+    }
 
     [Tooltip("The plural name of this team with definite article ('the Wasps')")]
-    public LocalizedString Name_def_pl;
+    [SerializeField] LocalizedString name_def_pl;
+
+    /// <summary>
+    /// The plural name of this team with definite article ('the Wasps')
+    /// </summary>
+    public string Name_def_pl
+    {
+        get
+        {
+            return name_def_pl.GetLocalizedString();
+        }
+    }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bee
   m_EditorClassIdentifier: 
   Team: 1
-  Name_sg:
+  name_sg:
     m_TableReference:
       m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
     m_TableEntryReference:
@@ -22,7 +22,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Name_pl:
+  name_pl:
     m_TableReference:
       m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
     m_TableEntryReference:
@@ -31,7 +31,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Name_indef:
+  name_indef:
     m_TableReference:
       m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
     m_TableEntryReference:
@@ -40,7 +40,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Name_def_sg:
+  name_def_sg:
     m_TableReference:
       m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
     m_TableEntryReference:
@@ -49,7 +49,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Name_def_pl:
+  name_def_pl:
     m_TableReference:
       m_TableCollectionName: GUID:3464a301feed19246a0897186d3c7536
     m_TableEntryReference:

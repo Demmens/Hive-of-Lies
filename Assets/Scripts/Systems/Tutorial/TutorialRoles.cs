@@ -21,8 +21,10 @@ public class TutorialRoles : NetworkBehaviour
     {
         foreach (HivePlayer ply in players)
         {
+            if (ply.Team.Value == null) ply.Team.AfterVariableChanged += (team) => OnTeamChanged(ply.connectionToClient, team.Name_indef);
+            else OnTeamChanged(ply.connectionToClient, ply.Team.Value.Name_indef);
+
             ply.Role.AfterVariableChanged += (role) => { if (role != null) OnRoleChanged(ply.connectionToClient, role.Data); };
-            ply.Team.AfterVariableChanged += (team) => OnTeamChanged(ply.connectionToClient, team.Name_indef.GetLocalizedString());
         }
     }
 
