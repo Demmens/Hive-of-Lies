@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: 2
   currentValue: 2
-  Persistent: 0
+  Persistent: 1
   server: 1
   client: 0
   tooltip: How much favour the first non 0 cost card costs to draw
