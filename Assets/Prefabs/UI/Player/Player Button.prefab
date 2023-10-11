@@ -804,6 +804,7 @@ MonoBehaviour:
   exhaustionObj: {fileID: 8525514177345010789}
   onMissionObj: {fileID: 1519748324308643275}
   teamLeaderObj: {fileID: 6587981737719090259}
+  playerSprite: {fileID: 278932793259841763}
   ID: 0
 --- !u!114 &2003501444754772094
 MonoBehaviour:
