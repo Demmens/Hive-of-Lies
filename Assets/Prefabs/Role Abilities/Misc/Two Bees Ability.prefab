@@ -69,6 +69,9 @@ MonoBehaviour:
   rolesToGain: 2
   rejectedRoles: {fileID: 11400000, guid: f13aa2eee048d254181ebce31d998cc6, type: 2}
   waspPlayers: {fileID: 11400000, guid: 059709481d8b4074d883dc2146998f3c, type: 2}
+  blacklist:
+  - {fileID: 11400000, guid: 6374607078b84f94cb3fc7518128d3f9, type: 2}
+  - {fileID: 11400000, guid: d9fa5d66848035343859e7570f9cb3f1, type: 2}
   Roles: []
   popup: {fileID: 5179896989536483375, guid: 05af7eba58291f146adc94b847210fbb, type: 3}
   popupText:

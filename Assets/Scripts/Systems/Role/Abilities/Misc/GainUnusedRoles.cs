@@ -12,6 +12,11 @@ public class GainUnusedRoles : RoleAbility
     [SerializeField] RoleDataSet rejectedRoles;
     [SerializeField] HivePlayerSet waspPlayers;
 
+    /// <summary>
+    /// The list of roles that we cannot take the ability of
+    /// </summary>
+    [SerializeField] List<RoleData> blacklist;
+
     [HideInInspector]
     public List<Role> Roles;
 
@@ -34,6 +39,8 @@ public class GainUnusedRoles : RoleAbility
         for (int i = rejectedRoles.Value.Count - 1; pickedRoles < rolesToGain && i >= 0; i--)
         {
             RoleData rl = rejectedRoles.Value[i];
+            //Don't allow blacklisted roles
+            if (blacklist.Contains(rl)) continue;
             //Make sure they're not given a role that has no ability
             if (rl.Abilities.Count == 0) continue;
             if (rl.Team == Team.Wasp) continue;
