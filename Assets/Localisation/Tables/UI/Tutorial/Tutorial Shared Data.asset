@@ -35,6 +35,10 @@ MonoBehaviour:
     m_Key: teamAnnouncement
     m_Metadata:
       m_Items: []
+  - m_Id: 4104695389425664
+    m_Key: waspExplanation
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
