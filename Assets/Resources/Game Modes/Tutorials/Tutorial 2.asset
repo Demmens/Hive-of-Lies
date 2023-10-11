@@ -32,8 +32,9 @@ MonoBehaviour:
     m_LocalVariables: []
   MinPlayers: 1
   MaxPlayers: 6
-  GameScene: 
-  MissionLists: []
+  GameScene: Assets/Scenes/Tutorial 2.unity
+  MissionLists:
+  - {fileID: 11400000, guid: b4f9dd9b8773ca04db21a24c9a1e0ae6, type: 2}
   references:
     version: 2
     RefIds: []
