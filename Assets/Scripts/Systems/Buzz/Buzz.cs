@@ -146,6 +146,8 @@ public class Buzz : GamePhase
     [Command(requiresAuthority = false)]
     void OnBuzz(NetworkConnectionToClient conn = null)
     {
+        playerVotes.Value = new();
+        playersSelected.Value = new();
         //If someone is currently buzzing
         if (currentBuzzer.Value != null) return;
         //If the player is dead / not in the game
