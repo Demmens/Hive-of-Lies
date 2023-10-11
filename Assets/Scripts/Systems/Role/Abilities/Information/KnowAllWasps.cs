@@ -9,12 +9,15 @@ public class KnowAllWasps : RoleAbility
 
     [SerializeField] GameObject popup;
 
+    [SerializeField] Sprite waspSprite;
+
     public void AfterAllRolesGiven()
     {
         string wasps = "";
 
         foreach (HivePlayer ply in waspPlayers.Value)
         {
+            ply.Button.ChangeSprite(Owner.connectionToClient, waspSprite);
             if (ply == Owner) continue;
             wasps += ply.DisplayName + "\n";
         }
