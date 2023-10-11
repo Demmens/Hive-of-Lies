@@ -34,6 +34,7 @@ public class PlayerButton : NetworkBehaviour
     [SerializeField] GameObject exhaustionObj;
     [SerializeField] GameObject onMissionObj;
     [SerializeField] GameObject teamLeaderObj;
+    [SerializeField] Image playerSprite;
     /// <summary>
     /// The ID of the player associated with this button
     /// </summary>
@@ -64,7 +65,7 @@ public class PlayerButton : NetworkBehaviour
 
     [Client]
     void ChangeButtonColour(Color colour, Color textColour)
-    {        
+    {
         Image img = button.GetComponent<Image>();
 
         //If the same colour was clicked twice, reset it.
@@ -136,5 +137,11 @@ public class PlayerButton : NetworkBehaviour
     public void ChangeTeamLeader(bool isTeamLeader)
     {
         teamLeaderObj.SetActive(isTeamLeader);
+    }
+
+    [TargetRpc]
+    public void ChangeSprite(NetworkConnection conn, Sprite sprite)
+    {
+        playerSprite.sprite = sprite;
     }
 }
