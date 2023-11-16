@@ -14,6 +14,8 @@ public class MissionUI : NetworkBehaviour
     [SerializeField] TMP_Text missionName;
     [SerializeField] TMP_Text missionFlavour;
 
+    [SerializeField] VictoryPointBar victoryPointBar;
+
     [SerializeField] List<GameObject> effects;
     [SerializeField] List<TMP_Text> effectRequirements;
     [SerializeField] List<Transform> effectIcons;

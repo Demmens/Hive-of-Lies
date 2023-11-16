@@ -1043,8 +1043,6 @@ GameObject:
   - component: {fileID: 5173101562105988439}
   - component: {fileID: 4091960679387166467}
   - component: {fileID: 3375515600982180424}
-  - component: {fileID: 3978303887994230707}
-  - component: {fileID: 5690600941166460579}
   - component: {fileID: 1673844679163517823}
   m_Layer: 0
   m_Name: MissionUI
@@ -1110,6 +1108,7 @@ MonoBehaviour:
   missionBar: {fileID: 1481740340318671629}
   missionName: {fileID: 5510138297573475288}
   missionFlavour: {fileID: 121027410585115185}
+  victoryPointBar: {fileID: 0}
   effects:
   - {fileID: 7786718775263466123}
   - {fileID: 8792960736089749036}
@@ -1134,46 +1133,8 @@ MonoBehaviour:
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
   playersSelected: {fileID: 11400000, guid: c5185c85b03957546b0a450841d2fd5f, type: 2}
   afterMissionResultShown: {fileID: 11400000, guid: 6e64cb0c71b5cc74f856d6d531cbc9e9, type: 2}
---- !u!114 &3978303887994230707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3586085674499400816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cf349ab0e6771045bd82f2e4d409147, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  var: {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
-  useVariableForMax: 1
-  varMax: {fileID: 11400000, guid: 06d80601b7e94364b92473ed6e4aa185, type: 2}
-  intMax: 0
-  secondsToFill: 1
-  image: {fileID: 0}
---- !u!114 &5690600941166460579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3586085674499400816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cf349ab0e6771045bd82f2e4d409147, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  var: {fileID: 11400000, guid: dfe9cf79ab308fa4590bcb660471cac3, type: 2}
-  useVariableForMax: 1
-  varMax: {fileID: 11400000, guid: 1699329a910b70b49a5d013e5622c77c, type: 2}
-  intMax: 0
-  secondsToFill: 1
-  image: {fileID: 0}
+  waspFactsNeeded: {fileID: 0}
+  honeyStolenNeeded: {fileID: 0}
 --- !u!114 &1673844679163517823
 MonoBehaviour:
   m_ObjectHideFlags: 0
