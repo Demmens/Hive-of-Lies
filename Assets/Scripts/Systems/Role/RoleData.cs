@@ -85,6 +85,19 @@ public class RoleData : ScriptableObject
     /// </summary>
     [field: SerializeField]
     public bool Enabled { get; private set; } = true;
+
+    [SerializeField] LocalizedString targetHint;
+
+    /// <summary>
+    /// What you should look for if this role is your target
+    /// </summary>
+    public string TargetHint
+    {
+        get
+        {
+            return targetHint.GetLocalizedString();
+        }
+    }
 }
 
 public enum Difficulty

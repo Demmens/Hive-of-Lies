@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Target Hints_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 37fb485e800c74042bca6c57a5ad8759, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 33421856768
+    m_Localized: 'Plays lots of high value cards, especially later on
+
+      Doesn''t
+      mind wasting good cards'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715331801088
+    m_Localized: 'Draws a lot of cards
+
+      Can often afford to stand for Team
+      Leader
+
+      Often becomes Team Leader when they stand, especially earlier
+      on'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1068186013696
+    m_Localized: 'Doesn''t want to be picked for many missions
+
+      Doesn''t spend
+      much favour on redraws
+
+      Tries to be Team Leader often, but doesn''t always
+      get it
+
+      Missions go well when they are Team Leader'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1427553980416
+    m_Localized: 'Advocating for a player for seemingly no reason
+
+      Very confident
+      in their ally'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1737513046016
+    m_Localized: 'Claims a very high card on a very important mission
+
+      Conveniently
+      draws a clutch high card once or more per game
+
+      After doing so, has little
+      Favor left'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2200966860800
+    m_Localized: Voted yes on a successful vote that didn't have a majority yes vote
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2628479684608
+    m_Localized: 'Often wants to avoid being Team Leader
+
+      Always wants to be
+      picked for a mission
+
+      Always has enough favor for a few redraws'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2908738883584
+    m_Localized: 'Never plays a very high card
+
+      Never plays a very low card
+
+      Often
+      claims a card that is close to a +2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3265477021696
+    m_Localized: 'Becomes Team Leader more often than most
+
+      Always has enough
+      favour to stand for Team Leader
+
+      Always becomes Team Leader when they
+      stand'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3487804493824
+    m_Localized: 'Rarely draws negative cards
+
+      Often draws at least one card
+      that is +2 or better'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3712774377472
+    m_Localized: 'Gambles on redraws often, and it pays off
+
+      Gets very convenient
+      cards for the situation
+
+      Doesn''t get notably more high cards than others'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4232528334848
+    m_Localized: 'Doesn''t trust you fully
+
+      Advocates for other players without
+      good reason
+
+      Doesn''t stand for Team Leader often'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4943345422336
+    m_Localized: 'Redraws a lot
+
+      Often gets good cards, especially when they
+      claim to have a lot of Favour
+
+'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
