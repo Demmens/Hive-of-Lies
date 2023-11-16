@@ -598,8 +598,8 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 239475972880881275}
-  m_TextViewport: {fileID: 239475972880881272}
+  m_TargetGraphic: {fileID: 0}
+  m_TextViewport: {fileID: 0}
   m_TextComponent: {fileID: 239475972880881275}
   m_Placeholder: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
@@ -644,7 +644,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 2
+  m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -719,7 +719,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.000029087}
+  m_AnchoredPosition: {x: 0, y: -0.000030517578}
   m_SizeDelta: {x: 30.9399, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &239475972427533609
