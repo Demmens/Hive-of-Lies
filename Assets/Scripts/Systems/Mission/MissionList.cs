@@ -39,6 +39,8 @@ public class MissionList : ScriptableObject
         }
     }
 
+    [field:SerializeField] public bool LoopFinalMission { get; private set; }
+
     //Include the included threads missions in this mission list
     public void AddThreads(MissionList origin = null, bool ignoreOriginSize = false)
     {

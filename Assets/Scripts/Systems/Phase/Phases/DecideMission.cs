@@ -106,7 +106,7 @@ public class DecideMission : GamePhase
         TotalVotes = new List<HivePlayer>();
         MissionVotes = new Dictionary<Mission, (List<HivePlayer>, int)>();
 
-        if (roundNum == decidedMissionList.Value.List.Count)
+        if (roundNum == decidedMissionList.Value.List.Count && !decidedMissionList.Value.LoopFinalMission)
         {
             startFinalPhase.Invoke();
             return;
