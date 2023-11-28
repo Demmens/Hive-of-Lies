@@ -19,27 +19,4 @@ MonoBehaviour:
   - Missions:
     - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
       Weight: 1
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
-      Weight: 1
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
-      Weight: 1
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
-      Weight: 1
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
-      Weight: 1
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
-      Weight: 1
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
-      Weight: 1
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
-      Weight: 1
-  - Missions:
-    - Mission: {fileID: 11400000, guid: 9227465c16e1fcc48bcbf456d0552c33, type: 2}
-      Weight: 1
+  <LoopFinalMission>k__BackingField: 1
