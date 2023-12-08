@@ -15,7 +15,11 @@ public class MissionEffectIcon : MonoBehaviour
 
     public void CreateIcon(MissionEffect effect)
     {
-        if (effect.Icon == null) Icon.gameObject.SetActive(false);
+        if (effect == null || effect.Icon == null)
+        {
+            Icon.gameObject.SetActive(false);
+            return;
+        }
         else Icon.sprite = effect.Icon; 
         Description.text = char.ToUpper(effect.Description[0]) + effect.Description[1..];
         TextOverlay.text = effect.OverlayString;
