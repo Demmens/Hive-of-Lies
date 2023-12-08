@@ -20,7 +20,8 @@ public class MissionEffectIcon : MonoBehaviour
             Icon.gameObject.SetActive(false);
             return;
         }
-        else Icon.sprite = effect.Icon; 
+        
+        Icon.sprite = effect.Icon; 
         Description.text = char.ToUpper(effect.Description[0]) + effect.Description[1..];
         TextOverlay.text = effect.OverlayString;
         Background.color = effect.Colour;
