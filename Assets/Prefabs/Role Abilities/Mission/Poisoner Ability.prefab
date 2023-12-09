@@ -68,7 +68,7 @@ MonoBehaviour:
   syncInterval: 0.1
   active: 1
   cost: 3
-  maxDraw: -1
+  maxDraw: 0
   numPoisonedDraws: 1
   teamLeader: {fileID: 11400000, guid: 2215ad08a76b7b24d82f0909837baa5c, type: 2}
   voteTotal: {fileID: 11400000, guid: 3def961c06389544493e81c8c0bb674e, type: 2}

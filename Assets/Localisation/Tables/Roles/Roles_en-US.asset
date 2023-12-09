@@ -43,7 +43,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 397101568000
-    m_Localized: '{cost}f: The next card {teamLeader_def} draws will be negative'
+    m_Localized: '{cost}f: The next card {teamLeader_def} draws will be a 0 or worse'
     m_Metadata:
       m_Items:
       - rid: 2288630715881357315
