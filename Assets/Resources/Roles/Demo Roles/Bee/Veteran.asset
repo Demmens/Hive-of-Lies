@@ -72,7 +72,7 @@ MonoBehaviour:
     - rid: 2288630715881357327
       type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
-        m_Value: 2
+        m_Value: 3
     - rid: 2288630842945175576
       type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
       data:

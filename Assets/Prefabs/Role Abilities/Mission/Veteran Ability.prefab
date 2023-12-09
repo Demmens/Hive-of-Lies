@@ -65,4 +65,4 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  maxCost: 2
+  maxCost: 3
