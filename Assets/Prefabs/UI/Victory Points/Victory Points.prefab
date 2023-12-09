@@ -971,16 +971,8 @@ MonoBehaviour:
   honeyStolenSegmentColour: {r: 0.54509807, g: 0.27058825, b: 0.27058825, a: 1}
   waspFactsNeeded: {fileID: 11400000, guid: 1699329a910b70b49a5d013e5622c77c, type: 2}
   honeyStolenNeeded: {fileID: 11400000, guid: 06d80601b7e94364b92473ed6e4aa185, type: 2}
-  beePointEffects:
-  - {fileID: 11400000, guid: 0eb0458e3ea61794bbf437ab526ae557, type: 2}
-  - {fileID: 11400000, guid: 0eb0458e3ea61794bbf437ab526ae557, type: 2}
-  - {fileID: 11400000, guid: 0eb0458e3ea61794bbf437ab526ae557, type: 2}
-  - {fileID: 11400000, guid: 0eb0458e3ea61794bbf437ab526ae557, type: 2}
-  waspPointEffects:
-  - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}
-  - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}
-  - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}
-  - {fileID: 11400000, guid: daee1f6559d847c47801c2750ec2a736, type: 2}
+  beePointEffects: []
+  waspPointEffects: []
   waspPoints: {fileID: 11400000, guid: c42ac6aeb7e92f1458f9767c8ffb6999, type: 2}
   beePoints: {fileID: 11400000, guid: dfe9cf79ab308fa4590bcb660471cac3, type: 2}
 --- !u!1 &5186444522351656777
