@@ -22,11 +22,19 @@ public class VictoryPointBar : NetworkBehaviour
     [SyncVar] int wfNeeded;
     [SyncVar] int hsNeeded;
 
+    [SerializeField] List<MissionEffect> beePointEffects;
+    [SerializeField] List<MissionEffect> waspPointEffects;
+    [SerializeField] IntVariable waspPoints;
+    [SerializeField] IntVariable beePoints;
+
     public override void OnStartServer()
     {
         //Set these now so the client can grab them immediately
         wfNeeded = waspFactsNeeded;
         hsNeeded = honeyStolenNeeded;
+
+        waspPoints.AfterVariableChanged += (val) => AfterPointGained(waspPointEffects, val);
+        beePoints.AfterVariableChanged += (val) => AfterPointGained(beePointEffects, val);
     }
 
     [ClientRpc]
@@ -36,6 +44,7 @@ public class VictoryPointBar : NetworkBehaviour
         CreateSegments(hsNeeded, honeyStolenBar, honeyStolenSegmentColour);
     }
 
+    [Client]
     void CreateSegments(int num, Transform parent, Color colour)
     {
         //loop until i < num - 1 because we already have one segment placed by default
@@ -49,5 +58,17 @@ public class VictoryPointBar : NetworkBehaviour
 
             segment.transform.SetParent(parent);
         }
+    }
+
+    [Server]
+    void AfterPointGained(List<MissionEffect> effectList, int num)
+    {
+        if (effectList.Count < num) return;
+
+        MissionEffect eff = effectList[num - 1];
+
+        if (eff == null) return;
+
+        eff.TriggerEffect();
     }
 }
