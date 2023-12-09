@@ -48,7 +48,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   active: 1
-  drawNum: 4
+  drawNum: 3
   card: {fileID: 11400000, guid: 47a04d85a772c764abb7e17aff7f664b, type: 2}
 --- !u!114 &8959802963629079002
 MonoBehaviour:

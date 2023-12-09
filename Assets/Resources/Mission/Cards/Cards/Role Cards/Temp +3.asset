@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c30a369a96548b43b71408538facde1, type: 3}
-  m_Name: Temp +5
+  m_Name: Temp +3
   m_EditorClassIdentifier: 
-  Value: 5
-  tempValue: 0
-  Sprite: {fileID: 21300000, guid: 0af84d44b17303f4e9a3081258bd3e13, type: 3}
+  Value: 3
+  Sprite: {fileID: 21300000, guid: 0d0e56ec65cdcda4a9cb3cc18ccd5cf2, type: 3}
   DestroyOnPlay: 1
   DestroyOnDraw: 1
   IsSecret: 0
+  BuyValue: 0
   DrawEffects: []
   PlayEffects: []
   DiscardEffects: []
