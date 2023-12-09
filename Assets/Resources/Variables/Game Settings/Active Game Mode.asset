@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179af9ac5edf0f94fb6ee80931558a31, type: 3}
   m_Name: Active Game Mode
   m_EditorClassIdentifier: 
-  initialValue: {fileID: 11400000, guid: c01409e1ad031a44caec2dd5c12b667f, type: 2}
-  currentValue: {fileID: 11400000, guid: c01409e1ad031a44caec2dd5c12b667f, type: 2}
+  initialValue: {fileID: 11400000, guid: ecb282f367eb54444ae63580c360c35c, type: 2}
+  currentValue: {fileID: 11400000, guid: ecb282f367eb54444ae63580c360c35c, type: 2}
   Persistent: 1
   server: 0
   client: 0
