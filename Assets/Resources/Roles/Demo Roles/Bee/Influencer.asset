@@ -36,32 +36,33 @@ MonoBehaviour:
   <Team>k__BackingField: 1
   <StartingFavour>k__BackingField: 18
   <StartingDeck>k__BackingField:
-  - {fileID: 11400000, guid: ec6424a80d79cab468517dbf1fb77817, type: 2}
-  - {fileID: 11400000, guid: 71bbcbdffc6ff2f43a68d8adbdb26557, type: 2}
-  - {fileID: 11400000, guid: 71bbcbdffc6ff2f43a68d8adbdb26557, type: 2}
-  - {fileID: 11400000, guid: ae5b5cef249fc05479c3395575e81da5, type: 2}
   - {fileID: 11400000, guid: ae5b5cef249fc05479c3395575e81da5, type: 2}
   - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
   - {fileID: 11400000, guid: 7b05d064ae503af4ca5c6e6d184537b4, type: 2}
   - {fileID: 11400000, guid: ecff655d9d8db1449807bd4625f3c20a, type: 2}
   - {fileID: 11400000, guid: ecff655d9d8db1449807bd4625f3c20a, type: 2}
+  - {fileID: 11400000, guid: ecff655d9d8db1449807bd4625f3c20a, type: 2}
   - {fileID: 11400000, guid: 6f1c944c4f7991949a7854b4a3cdc0f5, type: 2}
   - {fileID: 11400000, guid: 6f1c944c4f7991949a7854b4a3cdc0f5, type: 2}
-  - {fileID: 11400000, guid: 786492d736f9eb04c86ff40fca24df94, type: 2}
-  - {fileID: 11400000, guid: 786492d736f9eb04c86ff40fca24df94, type: 2}
-  - {fileID: 11400000, guid: 1c0476c61a8ef5440b962c0ccc176afa, type: 2}
-  - {fileID: 11400000, guid: 1c0476c61a8ef5440b962c0ccc176afa, type: 2}
-  - {fileID: 11400000, guid: 9a497a10e20a3ec4ea4f744a8590bbd5, type: 2}
-  - {fileID: 11400000, guid: 9a497a10e20a3ec4ea4f744a8590bbd5, type: 2}
-  - {fileID: 11400000, guid: aa6e7a7b6cf6b144b8dee76195382cb1, type: 2}
-  - {fileID: 11400000, guid: aa6e7a7b6cf6b144b8dee76195382cb1, type: 2}
-  - {fileID: 11400000, guid: 12b574cc5a91eb34ca55cb7496788d0b, type: 2}
+  - {fileID: 11400000, guid: 6f1c944c4f7991949a7854b4a3cdc0f5, type: 2}
+  - {fileID: 11400000, guid: 6f1c944c4f7991949a7854b4a3cdc0f5, type: 2}
+  - {fileID: 11400000, guid: 6f1c944c4f7991949a7854b4a3cdc0f5, type: 2}
+  - {fileID: 11400000, guid: 9affd4852afc70e4fa32681c94ee21a7, type: 2}
   <Abilities>k__BackingField:
   - {fileID: 7578572990359515094, guid: 3671620abcf17fa4db236c0c4c80fa91, type: 3}
   <PlayersRequired>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 21300000, guid: 9f987bc44b10bfb428db901fc445c554, type: 3}
   Difficulty: 0
   <Enabled>k__BackingField: 1
+  targetHint:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   references:
     version: 2
     RefIds:
