@@ -54,6 +54,11 @@ public class HivePlayer : NetworkBehaviour
     public IntVariable NextDownvoteCost;
 
     /// <summary>
+    /// How much favour this player has spent on votes this round
+    /// </summary>
+    public int FavourSpentVoting;
+
+    /// <summary>
     /// How much favour it costs to stand for Team Leader
     /// </summary>
     public IntVariable NextStandCost;

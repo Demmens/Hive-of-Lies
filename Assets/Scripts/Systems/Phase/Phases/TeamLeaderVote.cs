@@ -76,6 +76,7 @@ public class TeamLeaderVote : GamePhase
         ply.NumVotes++;
 
         ply.Favour.Value -= cost;
+        ply.FavourSpentVoting += cost;
 
         ply.NextDownvoteCost.Value = CalculateDownvoteCost(ply.NumVotes);
 
@@ -96,6 +97,7 @@ public class TeamLeaderVote : GamePhase
         ply.NumVotes--;
 
         ply.Favour.Value -= cost;
+        ply.FavourSpentVoting += cost;
 
         ply.NextUpvoteCost.Value = CalculateUpvoteCost(ply.NumVotes);
 
@@ -132,6 +134,7 @@ public class TeamLeaderVote : GamePhase
         if (allVotes.Value.Count == playerCount) AllVotesReceived();
     }
 
+    [Server]
     void AllVotesReceived()
     {
         //Invoke the all players voted event
@@ -140,13 +143,31 @@ public class TeamLeaderVote : GamePhase
         //If the vote was successful
         if (voteTotal > 0)
         {
+            foreach (PlayerVote vote in allVotes)
+            {
+                //If the player spent favour voting no, refund their downvotes
+                RefundVotes(vote.ply, vote.votes < 0);
+            }
+
             End();
         }
         else
         {
+            foreach (PlayerVote vote in allVotes)
+            {
+                //If the player spent favour voting yes, refund their downvotes
+                RefundVotes(vote.ply, vote.votes > 0);
+            }
+
             //Back to standing for TeamLeader
             voteFailed?.Invoke();
         }
+    }
+
+    void RefundVotes(HivePlayer ply, bool shouldRefund)
+    {
+        if (shouldRefund) ply.Favour.Value += ply.FavourSpentVoting;
+        ply.FavourSpentVoting = 0;
     }
 
     /// <summary>
