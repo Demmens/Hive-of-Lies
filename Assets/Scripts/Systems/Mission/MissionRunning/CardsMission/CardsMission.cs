@@ -49,15 +49,19 @@ public class CardsMission : MissionType
     [Server]
     public void AfterRolesChosen()
     {
-        foreach (HivePlayer ply in allPlayers.Value)
+        //Delay by a frame so the Two Bees roles have a chance to listen to this event
+        StartCoroutine(Coroutines.Delay(0.01f, () =>
         {
-            Role role = ply.Role.Value;
-            foreach (Card card in role.Data.StartingDeck) ply.Deck.Value.DrawPile.Add(Instantiate(card));
+            foreach (HivePlayer ply in allPlayers.Value)
+            {
+                Role role = ply.Role.Value;
+                foreach (Card card in role.Data.StartingDeck) ply.Deck.Value.DrawPile.Add(Instantiate(card));
 
-            ply.Deck.Value.Shuffle();
-        }
+                ply.Deck.Value.Shuffle();
+            }
 
-        afterDeckCreated?.Invoke();
+            afterDeckCreated?.Invoke();
+        }));
     }
 
 
