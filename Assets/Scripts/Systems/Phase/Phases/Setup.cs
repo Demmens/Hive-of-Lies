@@ -136,7 +136,7 @@ public class Setup : GamePhase
 
             if (seatNum < seatingCounts.Item1 / 2)
             {
-                Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
+                Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.Image>().transform;
                 imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
             }
             button.transform.SetParent(topPlayerRow);
@@ -157,7 +157,7 @@ public class Setup : GamePhase
 
             if (seatNum < seatingCounts.Item3/2)
             {
-                Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
+                Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.Image>().transform;
                 imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
             }
             button.transform.SetParent(bottomPlayerRow);
@@ -169,7 +169,7 @@ public class Setup : GamePhase
         {
             button.transform.SetParent(leftPlayerRow);
 
-            Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.RawImage>().transform;
+            Transform imageTransform = button.GetComponentInChildren<UnityEngine.UI.Image>().transform;
             imageTransform.localScale = new Vector3(-imageTransform.localScale.x, imageTransform.localScale.y, imageTransform.localScale.z);
             return;
         }
